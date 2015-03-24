@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+	<persistence-unit name="default" transaction-type="JTA">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<jta-data-source>jdbc/greco</jta-data-source>
+		<class>com.greco.entities.Community</class>
+		<class>com.greco.entities.Country</class>
+		<class>com.greco.entities.Exception</class>
+		<class>com.greco.entities.Profile</class>
+		<class>com.greco.entities.Reservation</class>
+		<class>com.greco.entities.Resource</class>
+		<class>com.greco.entities.Resourcetype</class>
+		<class>com.greco.entities.Timeunit</class>
+		<class>com.greco.entities.User</class>
+		<class>com.greco.entities.UsersCommunity</class>
+		
+
+	</persistence-unit>
+</persistence>
