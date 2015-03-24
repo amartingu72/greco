@@ -1,0 +1,32 @@
+#container
+{
+	margin: 0 auto;
+	width: 600px;
+	background:#fff;
+}
+
+
+
+
+#content
+{
+	font-family: 'Lato', sans-serif;
+	color: #797979;
+	font-size: 12px;
+	padding: 0px;
+	clear:left;
+	
+}
+
+	
+/*Wizard para suscripción de usuario*/
+.ui-wizard-step-title,  .ui-wizard-nav-back, .ui-wizard-nav-next, .ui-button-text, .ui-fieldset, .ui-fieldset-legend, .ui-menu, .label, .value {
+	font-family: 'Lato', sans-serif;
+	color: #797979;
+	font-size: 12px !important
+    
+}
+
+
+
+

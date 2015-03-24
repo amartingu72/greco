@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+ <head>
+   	<title>IGNORED</title>
+</head>
+
+<body> 
+<ui:composition template="/templates/login_layout.xhtml">
+	<ui:define name="content">
+		<h:form>
+			
+		
+				<p:wizard  flowListener="#{subscribeMeCBean.onFlowProcess}" nextLabel="#{msgs['subscribeme.next']}" backLabel="#{msgs['subscribeme.back']}">
+			
+				<p:tab id="email" title="#{msgs['subscribeme.email']}" titleStyleClass="subs_tabs">
+					<p:panel>
+						<p:messages />
+						<p:commandButton rendered="#{subscribeMeBBean.showLoginBtn}" value="#{msgs['subscribeme.login']}" action="#{subscribeMeCBean.navigateLogin}"/>
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<h:outputText value="#{msgs['subscribeme.email']}*:" />
+							<p:inputText value="#{subscribeMeBBean.email}" required="true"
+								label="#{msgs['editaccount.email_label']}"
+								requiredMessage="#{msgs['editaccount.required_msg']}" 
+								size="64">
+								<f:validator validatorId="com.greco.validators.EmailValidator" />
+							</p:inputText>
+               			</h:panelGrid>
+               			#{msgs['subscribeme.email_note']}
+					</p:panel>
+				</p:tab>
+				<p:tab id="info" title="#{msgs['subscribeme.user_info_tab']}" >
+					<p:panel>
+						<h:panelGrid columns="3" columnClasses="label, value">	
+							<h:outputText for="nickname" value="#{msgs['subscribeme.nickname']}*" />
+							<p:inputText id="nickname" value="#{subscribeMeBBean.nickname}" validator="#{subscribeMeCBean.validateName}"/>							
+							<p:message for="nickname" id="nickError" />
+							
+							<h:outputLabel for="pwd" value="#{msgs['subscribeme.pwd']}*" />
+							<p:password id="pwd" value="#{subscribeMeBBean.password}"
+								match="passwordConfirm" maxlength="16" required="true" redisplay="true"	
+								label="#{msgs['subscribeme.pwd']}"
+								requiredMessage="#{msgs['subscribeme.pwd_required_msg']}"
+								validatorMessage="#{msgs['subscribeme.pwd_validator_msg']}"/>
+							<p:message for="pwd" id="pwdError" />
+							<h:outputLabel for="passwordConfirm" value="#{msgs['subscribeme.pwd_confirm']}*" />
+							<p:password id="passwordConfirm" value="#{subscribeMeBBean.password}" redisplay="true"/>
+							<p:message for="passwordConfirm" id="passwordConfirmError" />						
+						</h:panelGrid>
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<h:outputText for="myData" value="#{msgs['subscribeme.mydata']}" />
+							<p:inputTextarea id="myData" value="#{subscribeMeBBean.mydata}" rows="5" cols="58" maxlength="256" 
+								counter="display"
+								counterTemplate="#{msgs['editaccount.remaining_chars']}"/>
+							<p:outputLabel id="display" />
+						</h:panelGrid>
+					</p:panel>
+				</p:tab >
+					<p:tab id="confirm" title="#{msgs['subscribeme.confirmation_tab']}" titleStyleClass="subs_tabs">
+					<p:panel>
+						<h:panelGrid columns="2" columnClasses="label, value">
+							<h:outputText value="#{msgs['subscribeme.community_request']}" />
+							<h:outputText value="#{subscribeMeCBean.communityName}" />
+							<h:outputText value="#{msgs['subscribeme.email']}:" />
+							<h:outputText value="#{subscribeMeBBean.email}"/>
+							<h:outputText value="#{msgs['subscribeme.nickname']}" />
+							<h:outputText value="#{subscribeMeBBean.nickname}"  /> 
+						</h:panelGrid>
+						<p:fieldset legend="#{msgs['subscribeme.mydata']}" style="margin-bottom:20px">
+        						<h:panelGrid columns="2" cellpadding="5">
+           							 <p:graphicImage value="../../resources/img/generic-user.png" width="50px" height="50px"/>
+           							 <p:outputLabel value="#{subscribeMeBBean.mydata}"/>
+           						</h:panelGrid>
+						</p:fieldset>
+						<p:commandButton value="#{msgs['subscribeme.save_btn']}"
+							icon="ui-icon-disk"
+							action="#{subscribeMeCBean.submit}"	/>													
+					</p:panel>
+				</p:tab>
+			</p:wizard>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</body>
+</html>

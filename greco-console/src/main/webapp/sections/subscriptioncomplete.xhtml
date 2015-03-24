@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+ <head>
+   	<title>IGNORED</title>
+</head>
+
+<body> 
+<ui:composition template="/templates/login_layout.xhtml">
+	<ui:define name="content">
+		<h:form>		
+			<h:inputHidden value="#{subscriptionCompletedBBean.communityId}" />
+			<p:graphicImage value="../../resources/img/subscription_sent.jpg" width="100px" height="70.5px"/>
+			<br/>
+			<h2>#{msgs['subscriptioncomplete.text']}</h2>
+			<br/>
+			<p:commandButton value="#{msgs['subscriptioncomplete.ok_btn']}"
+				icon="ui-icon-check"
+				action="#{subscriptionCompletedCBean.submit}" />
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			Image courtesy of Iamnee at FreeDigitalPhotos.net
+		</h:form>
+	</ui:define>
+</ui:composition>
+</body>
+</html>

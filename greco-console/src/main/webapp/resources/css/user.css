@@ -1,0 +1,143 @@
+#container
+{
+	margin: 0 auto;
+	width: 600px;
+	background:#fff;
+}
+
+#header
+{
+	font-family: 'Lato', sans-serif;
+	font-size: 12px;
+	padding: 0px;
+	color:#797979;
+	border-bottom: 1px solid  #797979;
+}
+
+.community{
+	font-family: 'Lato', sans-serif;
+	color: #797979;
+	font-size: 12px;
+	float:right;
+}
+
+
+
+#footer
+{
+	
+	border-top: 1px solid  #797979;
+	font-family: 'Lato', sans-serif;
+	font-size: 12px;
+	text-align: center;
+	padding-bottom: 5px;
+}
+
+
+
+
+
+#content
+{
+	font-family: 'Lato', sans-serif;
+	color: #797979;
+	font-size: 12px;
+	padding-bottom: 10px;
+	padding-top: 5px;
+	clear:left;
+	
+}
+
+#navigation {
+	margin: 0;
+	padding: 0 0 20px 10px;
+	border-bottom: 1px solid #797979;
+	font-family: 'Lato', sans-serif;
+	}
+
+#navigation li {
+	margin: 0; 
+	padding: 0;
+	display: inline;
+	list-style-type: none;
+	}
+	
+#navigation a:link, #navigation a:visited {
+	float: left;
+	font-family: 'Lato', sans-serif;
+	font-size: 12px;
+	line-height: 14px;
+	font-weight: bold;
+	margin: 0 10px 4px 10px;
+	padding-bottom: 2px;
+	text-decoration: none;
+	color: #797979;
+	}
+	
+#navigation a.tabSelected:link, #navigation a.tabSelected:visited, #navigation a:hover { 
+	border-bottom: 4px solid #797979;
+	padding-bottom: 2px;
+	background: #fff;
+	color: #252525;
+	}
+
+
+/*Tabla de perfil*/
+.resources {
+	font-family: 'Lato', sans-serif;;
+	font-size: 12px;
+	background: #fff;
+	margin: 10px;
+	height: 25px;
+	width: 480px;
+	border-collapse: collapse;
+	text-align: center;
+	float: center;
+}
+/*Solo en caso de primefaces*/
+.resources_pf {
+	font-size: 12px;
+	margin: 10px;
+	height: 25px;
+	width: 480px;
+}
+.resourcesHeader {
+	font-size: 12px;
+	font-weight: bold;
+	color: #797979;
+	padding: 10px 8px;
+	border-bottom: 1px solid #252525;
+}
+
+/*Calendario*/
+.ui-datepicker{
+	font-size:10px!important;
+	}
+	
+/*Wizard para suscripción de usuario*/
+.ui-wizard-step-title,  .ui-wizard-nav-back, .ui-wizard-nav-next, .ui-button-text, .ui-fieldset, .ui-fieldset-legend, .ui-menu {
+    
+	font-family: 'Lato', sans-serif;
+	color: #797979;
+	font-size: 12px !important
+    
+}
+
+
+.ui-clock
+.label,
+.value {
+	font-family: 'Lato', sans-serif; 
+	color: #797979; 
+	font-size: 12px;
+}
+
+.ui-datalist {
+	width: 300px;
+	font-family: 'Lato', sans-serif; 
+	color: #797979; !important
+	font-size: 12px;
+}
+
+
+

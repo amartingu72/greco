@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+   <head><title>IGNORED</title></head>
+   <body>
+      <ui:composition template="../templates/master_layout.xhtml"> 
+         <ui:define name="content">
+            <h:form id="editresourcesForm">
+            	<p:growl showSummary="true" showDetail="true"/>
+            	<h:panelGrid columns="2">
+            		<p:outputLabel for="resource" value="#{msgs['editresource.name']}"/>
+					<p:inputText id="resource" value="#{newResourceBBean.name}" required="true">
+						<f:validator binding="#{duplicatedResourceValidator}" />
+					</p:inputText>
+					<p:outputLabel for="type" value="#{msgs['editresource.type']}"/>
+					<h:selectOneMenu id="type" value="#{newResourceBBean.type}" required="true">
+						<f:selectItems value="#{resourceTypesSBean.resourceTypes}"/>
+					</h:selectOneMenu>
+						
+            	
+            		<p:outputLabel for="availableFromTime" value="#{msgs['editresource.available_from']}"/>
+					<p:inputMask id="availableFromTime" value="#{newResourceBBean.availableFromTime}" mask="99:99">
+						<f:validator validatorId="com.greco.validators.TimeValidator" />
+					</p:inputMask>
+            		<p:outputLabel for="availableToTime" value="#{msgs['editresource.available_to']}"/>
+					<p:inputMask id="availableToTime" value="#{newResourceBBean.availableToTime}" mask="99:99">
+						<f:validator validatorId="com.greco.validators.TimeValidator" />
+						<f:validator validatorId="com.greco.validators.AvailabilityValidator" />
+					</p:inputMask>
+            	</h:panelGrid>
+            	<p:outputLabel value="#{msgs['editresource.time_constraints']}"/>
+            	<h:panelGrid columns="6">
+            		<p:outputLabel for="mintime" value="#{msgs['editresource.min_time']}"/>
+					<p:inputText id="mintime"  value="#{newResourceBBean.mintime}" size="5" maxlength="3" readonly="false">
+						<f:convertNumber integerOnly="true"/>
+					</p:inputText> 	
+					<p:outputLabel for="maxtime" value="#{msgs['editresource.max_time']}"/>
+					<h:inputText id="maxtime" value="#{newResourceBBean.maxtime}" size="5" maxlength="3" readonly="false">
+						<f:convertNumber integerOnly="true"/>
+						<f:validator validatorId="com.greco.validators.MaxtimeValidator"/>
+					</h:inputText>
+					<p:outputLabel value="#{msgs['editresource.time_unit']}"/>
+					<h:selectOneMenu id="timeunit" value="#{newResourceBBean.timeunit}"  >
+						<f:selectItems value="#{timeUnitsSBean.timeUnits}"/>
+					</h:selectOneMenu>
+            	</h:panelGrid>
+            	<h:panelGrid columns="3">   
+            		<p:outputLabel for="beforehand" value="#{msgs['editresource.beforehand']}"/>
+            		<h:inputText id="beforehand" value="#{newResourceBBean.beforehand}" size="5" maxlength="3" readonly="false">
+						<f:convertNumber integerOnly="true"/>
+					</h:inputText>
+            		<h:selectOneMenu value="#{newResourceBBean.beforehandTU}"  >
+						<f:selectItems value="#{timeUnitsSBean.timeUnits}"/>
+					</h:selectOneMenu>
+            	</h:panelGrid>     	
+            	<p:outputLabel for="notes" value="#{msgs.resource_description}"/><br/>
+				<h:inputTextarea id="notes" value="#{newResourceBBean.description}" rows="5" cols="58" maxlength="256"/> 
+				<br/>
+				
+				<h:commandLink value="#{msgs['editresource.save']}" action="#{newResourceCBean.add}"/>
+				-
+				<h:commandLink value="#{msgs['editresource.cancel']}" immediate="true" action="#{newResourceCBean.cancel}"/>
+							
+				
+            </h:form>	
+         </ui:define>
+      </ui:composition>
+   </body>
+</html>

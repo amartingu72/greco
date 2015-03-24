@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+  
+<ui:composition template="/templates/login_layout.xhtml">
+	<ui:define name="content">
+	    <h:form>
+	    	<h:messages showSummary="true" showDetail="false"/>
+			<h3>#{msgs['nomember.message']}</h3>
+						
+			<ul>				
+				<ui:repeat value="#{noMemberBBean.communityItems}" var="comm">
+					<li>
+						#{comm.name} (#{comm.zipcode})
+					</li>
+				</ui:repeat>			
+			</ul>
+			
+			<h3>#{msgs['nomember.subscribe_question']}</h3>
+			
+			<p:commandButton value="#{msgs['nomember.yes_btn']}" action="#{noMemberCBean.subscribe}" ajax="false">
+				<f:param name="communityid" value="#{noMemberBBean.userSBean.communityId}"/>
+			</p:commandButton>	
+			<p:commandButton value="#{msgs['nomember.no_btn']}" action="#{noMemberCBean.cancel}" ajax="false"/>
+					
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

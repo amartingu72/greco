@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+      
+   
+<h:head>
+      <title>#{msgs.title}</title>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+   	  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <h:outputStylesheet library="css" name="admin.css"/>
+      <h:outputScript library="javascript" name="menu.js"/>
+      
+</h:head>
+   
+<h:body>   
+   <div id="container"> 
+      <div id="header">
+         <ui:insert name="header">
+            <ui:include src="/sections/admin/header.xhtml"/>
+         </ui:insert>
+      </div>
+      <h:form id="menuForm">   
+      <div id="cssmenu">
+         <ui:insert name="sidebarLeft">
+            <ui:include src="/sections/admin/sidebarleft.xhtml"/>
+         </ui:insert>
+      </div>
+      </h:form>
+      <div id="content">
+         <ui:insert name="content"/>
+      </div>
+      <div id="adds">
+         <ui:insert name="adds">
+            <ui:include src="/sections/admin/adds.xhtml"/>
+         </ui:insert>
+      </div>
+      <div id="footer">
+		<ui:include src="/sections/footer.xhtml"/>
+	  </div>
+   </div>   
+   </h:body>
+</html>
