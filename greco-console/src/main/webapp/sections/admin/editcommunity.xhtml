@@ -26,8 +26,7 @@
 								onIcon="ui-icon-check" offIcon="ui-icon-close"
 				 				style="width:100px;height:25px;font-family: 'Lato', sans-serif; font-size: 13px;"/>
 				</h:panelGrid>	
-				<p:tabView id="tabView"
-					style="height:370px;font-family: 'Lato', sans-serif; font-size: 13px;"
+				<p:accordionPanel id="tabView"
 					cache="false"
 					>
 					<p:ajax event="tabChange" process=":editCommForm:tabView" listener="#{editCommunityCBean.onTabChange}" update=":editCommForm:membership_messages :editCommForm :editCommForm:savebtn"/>
@@ -42,10 +41,10 @@
 								required="true" />
 							<p:outputLabel for="country"
 								value="#{msgs['editcommunity.country']}" />
-							<h:selectOneMenu id="country"
+							<p:selectOneMenu id="country"
 								value="#{editCommunityBBean.country}" required="true">
-								<f:selectItems value="#{countriesSBean.countries}" />
-							</h:selectOneMenu>
+								<f:selectItems value="#{countriesSBean.countries}" /> 
+							</p:selectOneMenu>
 						</h:panelGrid>
 						<p:separator />
 						<p:outputLabel value="#{msgs['editcommunity.notes']}" />:
@@ -65,20 +64,20 @@
 						 	rows="8"
                          	paginator="true"
                          	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"							>
-							<p:column style="width:100px;" headerText="#{msgs['editcommunity.resources']}"  sortBy="#{rsrc.name}">
+							<p:column styleClass="rscrColumn1" headerText="#{msgs['editcommunity.resources']}"  sortBy="#{rsrc.name}">
 								<p:commandButton style="height:15px;width:20px;" actionListener="#{editCommunityCBean.editResourcePF}" icon="ui-icon-search" title="#{msgs['editresource.title']}">
                 					<f:setPropertyActionListener value="#{rsrc}" target="#{resourcesSBean.selectedResource}" />
                 					 <p:ajax event="dialogReturn" update=":editCommForm :editCommForm:tabView:resourcesTable :editCommForm:messages" listener="#{editCommunityCBean.onResourceUpdatedPF}"/>
             					</p:commandButton>
 								#{rsrc.name}
 							</p:column>
-							<p:column style="text-align:center;width:50px;" headerText="#{msgs['editcommunity.resource_type']}" sortBy="#{rsrc.type}"> 
+							<p:column styleClass="rscrColumn2" headerText="#{msgs['editcommunity.resource_type']}" sortBy="#{rsrc.type}"> 
 								#{rsrc.type}
 							</p:column>
-							<p:column headerText="#{msgs['editcommunity.status']}">		
+							<p:column styleClass="rscrColumn3" headerText="#{msgs['editcommunity.status']}">		
 								#{rsrc.mintime}-#{rsrc.maxtime} #{rsrc.timeunit} #{msgs['editresource.beforehand']}: #{rsrc.beforehand} #{rsrc.beforehandTU}
         					</p:column>
-        					<p:column id="status" style="width:8px;" sortBy="#{rsrc.status}">
+        					<p:column id="status" styleClass="rscrColumn4" sortBy="#{rsrc.status}">
         						<h:outputText styleClass="ui-icon ui-icon-newwin" title="#{msgs['editcommunity.new']}" rendered="#{rsrc.added}"/>
         						<h:outputText styleClass="ui-icon ui-icon-circle-check" title="#{msgs['editcommunity.updated']}" rendered="#{rsrc.updated}"/>
 							</p:column>
@@ -147,7 +146,7 @@
 							</p:column>
 						</p:dataTable>
 					</p:tab>	
-				</p:tabView>
+				</p:accordionPanel>
 				<p:tooltip style="font-family: 'Lato', sans-serif; font-size: 13px;" for=":editCommForm:tabView:resourcesTable:status">
 					<h:panelGrid columns="4">			
 						<h:outputLabel for="icon_new" value="#{msgs['editcommunity.status_tooltip1']}" /> 
@@ -159,8 +158,8 @@
 				<p:separator /> 
 				<p:dialog
 					header="#{msgs['editcommunity.unsubscribe_confirm_header']}"
-					styleClass="text-left" widgetVar="summaryConfirmDialog">
-					<p:outputPanel id="confirm_remove" styleClass="confirm-dialog-text-container">
+					widgetVar="summaryConfirmDialog">
+					<p:outputPanel id="confirm_remove">
 						<p:outputPanel styleClass="ui-icon ui-confirm-dialog-severity ui-icon-alert display-inline-block">
 						</p:outputPanel>
       					#{msgs['editcommunity.unsubscribe_confirm_msg']} #{editCommunityBBean.selectedMember.nickname} 

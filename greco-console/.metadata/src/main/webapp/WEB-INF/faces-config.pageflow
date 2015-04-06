@@ -1,2 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14271136091620" configfile="/greco-console/src/main/webapp/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14271136091620" configfile="/greco-console/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="583" id="pf14289161984610" referenceLink="//@navigationRule.34/@fromViewId|" outlinks="pf14289161984611 pf14289161984612 pf14289161984613 pf14289161984614 pf14289161984615 pf14289161984616 pf14289161984617" inlinks="pf14289161984618 pf14289161984612 pf14289161984619" path="/sections/login/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/newaccount.xhtml" x="338" y="178" id="pf142891619846110" referenceLink="//@navigationRule.27/@fromViewId|" outlinks="pf14289161984618 pf142891619846111" inlinks="pf14289161984611" path="/sections/admin/newaccount.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/communities.xhtml" x="554" y="2695" id="pf142891619846112" referenceLink="//@navigationRule.10/@navigationCase.0/@toViewId|" outlinks="pf142891619846113 pf142891619846114 pf142891619846115" inlinks="pf142891619846116 pf142891619846117 pf142891619846115" path="/sections/communities.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/newcommunity.xhtml" x="338" y="2887" id="pf142891619846118" referenceLink="//@navigationRule.24/@navigationCase.0/@toViewId|" outlinks="pf142891619846117 pf142891619846119 pf142891619846120" inlinks="pf142891619846113 pf142891619846121 pf142891619846122 pf142891619846123 pf142891619846124" path="/sections/newcommunity.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/editcommunity.xhtml" x="338" y="2503" id="pf142891619846125" referenceLink="//@navigationRule.36/@navigationCase.0/@toViewId|" outlinks="pf142891619846116 pf142891619846126 pf142891619846127 pf142891619846128" inlinks="pf142891619846114 pf142891619846129 pf142891619846130 pf142891619846128 pf142891619846131 pf142891619846132" path="/sections/editcommunity.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/newresource.xhtml" x="122" y="2503" id="pf142891619846133" referenceLink="//@navigationRule.24/@fromViewId|" outlinks="pf142891619846129 pf142891619846132 pf142891619846123 pf142891619846124" inlinks="pf142891619846126 pf142891619846120" path="/sections/newresource.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/editresource.xhtml" x="122" y="2887" id="pf142891619846134" referenceLink="//@navigationRule.21/@navigationCase.0/@toViewId|" outlinks="pf142891619846130 pf142891619846131 pf142891619846121 pf142891619846122" inlinks="pf142891619846127 pf142891619846119" path="/sections/editresource.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/reservations.xhtml" x="338" y="1735" id="pf142891619846135" referenceLink="//@navigationRule.31/@navigationCase.0/@toViewId|" outlinks="pf142891619846136 pf142891619846137" inlinks="pf14289161984615" path="/sections/reservations.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/newreservation.xhtml" x="554" y="2119" id="pf142891619846138" referenceLink="//@navigationRule.15/@navigationCase.0/@toViewId|" outlinks="pf142891619846139 pf142891619846140" inlinks="pf142891619846136 pf142891619846139 pf142891619846141" path="/sections/newreservation.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/confirm_reservation.xhtml" x="338" y="2119" id="pf142891619846142" referenceLink="//@navigationRule.15/@fromViewId|" outlinks="pf142891619846141" inlinks="pf142891619846140" path="/sections/confirm_reservation.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/admin/welcome.xhtml" x="554" y="380" id="pf142891619846143" referenceLink="//@navigationRule.27/@navigationCase.0/@toViewId|" inlinks="pf14289161984613 pf142891619846111" path="/sections/admin/welcome.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/subscribeme.xhtml" x="338" y="583" id="pf142891619846144" referenceLink="//@navigationRule.33/@fromViewId|" outlinks="pf142891619846145 pf14289161984619" inlinks="pf14289161984616" path="/sections/subscribeme.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/subscriptioncomplete.xhtml" x="554" y="775" id="pf142891619846146" referenceLink="//@navigationRule.35/@navigationCase.0/@toViewId|" inlinks="pf142891619846145 pf142891619846147" path="/sections/subscriptioncomplete.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/login/pwdforgotten.xhtml" x="338" y="1351" id="pf142891619846148" referenceLink="//@navigationRule.29/@fromViewId|" outlinks="pf142891619846149" inlinks="pf14289161984614" path="/sections/login/pwdforgotten.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/login/pwdsent.xhtml" x="554" y="1351" id="pf142891619846150" referenceLink="//@navigationRule.29/@navigationCase.0/@toViewId|" inlinks="pf142891619846149" path="/sections/login/pwdsent.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/editaccount.xhtml" x="554" y="1735" id="pf142891619846151" referenceLink="//@navigationRule.30/@navigationCase.0/@toViewId|" inlinks="pf142891619846137" path="/sections/editaccount.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/login/nomember.xhtml" x="338" y="967" id="pf142891619846152" referenceLink="//@navigationRule.35/@fromViewId|" outlinks="pf142891619846147" inlinks="pf14289161984617" path="/sections/login/nomember.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/admin/selectcom.xhtml" x="24" y="2256" id="pf14290087771591" referenceLink="//@navigationRule.36/@fromViewId|" outlinks="pf14290087771590" path="/sections/admin/selectcom.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/admin/editcommunity.xhtml" x="282" y="2256" id="pf14296925047010" inlinks="pf14290087771590" path="/sections/admin/editcommunity.xhtml"/>
+  <links id="pf14289161984611" target="pf142891619846110" source="pf14289161984610" outcome="register" redirect="true"/>
+  <links id="pf14289161984618" target="pf14289161984610" source="pf142891619846110" outcome="cancel" redirect="true"/>
+  <links id="pf142891619846113" target="pf142891619846118" source="pf142891619846112" outcome="new" redirect="true"/>
+  <links id="pf142891619846114" target="pf142891619846125" source="pf142891619846112" outcome="edit"/>
+  <links id="pf142891619846116" target="pf142891619846112" source="pf142891619846125" outcome="cancel"/>
+  <links id="pf142891619846117" target="pf142891619846112" source="pf142891619846118" outcome="cancel"/>
+  <links id="pf142891619846126" target="pf142891619846133" source="pf142891619846125" outcome="addResource"/>
+  <links id="pf142891619846129" target="pf142891619846125" source="pf142891619846133" outcome="cancel_u"/>
+  <links id="pf142891619846127" target="pf142891619846134" source="pf142891619846125" outcome="editResource"/>
+  <links id="pf142891619846130" target="pf142891619846125" source="pf142891619846134" outcome="cancel_u"/>
+  <links id="pf142891619846136" target="pf142891619846138" source="pf142891619846135" outcome="reserve"/>
+  <links id="pf142891619846140" target="pf142891619846142" source="pf142891619846138" outcome="confirm"/>
+  <links id="pf142891619846141" target="pf142891619846138" source="pf142891619846142" outcome="cancel"/>
+  <links id="pf142891619846131" target="pf142891619846125" source="pf142891619846134" outcome="save_u"/>
+  <links id="pf142891619846132" target="pf142891619846125" source="pf142891619846133" outcome="save_u"/>
+  <links id="pf142891619846121" target="pf142891619846118" source="pf142891619846134" outcome="cancel_a"/>
+  <links id="pf142891619846122" target="pf142891619846118" source="pf142891619846134" outcome="save_a"/>
+  <links id="pf142891619846119" target="pf142891619846134" source="pf142891619846118" outcome="editResource"/>
+  <links id="pf142891619846120" target="pf142891619846133" source="pf142891619846118" outcome="addResource"/>
+  <links id="pf142891619846123" target="pf142891619846118" source="pf142891619846133" outcome="cancel_a"/>
+  <links id="pf142891619846124" target="pf142891619846118" source="pf142891619846133" outcome="save_a"/>
+  <links id="pf14289161984613" target="pf142891619846143" source="pf14289161984610" outcome="admin" redirect="true"/>
+  <links id="pf142891619846145" target="pf142891619846146" source="pf142891619846144" outcome="completed"/>
+  <links id="pf142891619846111" target="pf142891619846143" source="pf142891619846110" outcome="success" redirect="true"/>
+  <links id="pf14289161984614" target="pf142891619846148" source="pf14289161984610" outcome="pwd_forgotten"/>
+  <links id="pf142891619846149" target="pf142891619846150" source="pf142891619846148" outcome="sent"/>
+  <links id="pf142891619846137" target="pf142891619846151" source="pf142891619846135" outcome="editAccount"/>
+  <links id="pf14289161984615" target="pf142891619846135" source="pf14289161984610" outcome="community"/>
+  <links id="pf14289161984616" target="pf142891619846144" source="pf14289161984610" outcome="subscribeme"/>
+  <links id="pf14289161984619" target="pf14289161984610" source="pf142891619846144" outcome="cancel"/>
+  <links id="pf14289161984617" target="pf142891619846152" source="pf14289161984610" outcome="nomember"/>
+  <links id="pf142891619846147" target="pf142891619846146" source="pf142891619846152" outcome="completed"/>
+  <links id="pf142891619846115" target="pf142891619846112" source="pf142891619846112" outcome="delete">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf14289161984612" target="pf14289161984610" source="pf14289161984610" outcome="failure">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf142891619846139" target="pf142891619846138" source="pf142891619846138" outcome="search">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf142891619846128" target="pf142891619846125" source="pf142891619846125" outcome="save">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
+  <links id="pf14290087771590" target="pf14296925047010" source="pf14290087771591" outcome="edit"/>
+</pageflow:Pageflow>

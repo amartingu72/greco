@@ -10,9 +10,10 @@ public class CommunitiesListCBean implements Serializable{
 
 	private CommunitiesSBean communitiesSBean; //Inyectado
 	private ResourcesSBean resourcesSBean; //Inyectado.
+	private CommunitiesListBBean communitiesListBBean; //Inyectado
 
 	/**
-	 * Edita la comunidad seleccionada.
+	 * Edita la comunidad indicada.
 	 * @param communityItem
 	 * @return
 	 */
@@ -20,6 +21,17 @@ public class CommunitiesListCBean implements Serializable{
 		communitiesSBean.setSelectedItem(communityItem);
 		//Actualizamos la lista de recursos correspondientes
 		resourcesSBean.setCommunityItem(communityItem);
+		
+		return "edit";
+	}
+	/**
+	 * Edita la comunidad seleccionada.
+	 * @return 
+	 */
+	public String editSelectedCommunity(){
+		communitiesSBean.setSelectedItem(communitiesListBBean.getSelectedItem());
+		//Actualizamos la lista de recursos correspondientes
+		resourcesSBean.setCommunityItem(communitiesListBBean.getSelectedItem());
 		
 		return "edit";
 	}
@@ -52,5 +64,12 @@ public class CommunitiesListCBean implements Serializable{
 	public void setResourcesSBean(ResourcesSBean resourcesSBean) {
 		this.resourcesSBean = resourcesSBean;
 	}
+	public CommunitiesListBBean getCommunitiesListBBean() {
+		return communitiesListBBean;
+	}
+	public void setCommunitiesListBBean(CommunitiesListBBean communitiesListBBean) {
+		this.communitiesListBBean = communitiesListBBean;
+	}
+	
 		
 }

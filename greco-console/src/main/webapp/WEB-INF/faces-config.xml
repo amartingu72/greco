@@ -112,6 +112,11 @@
 			<property-class>com.greco.beans.ResourcesSBean</property-class>
 			<value>#{resourcesSBean}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>communitiesListBBean</property-name>
+			<property-class>com.greco.beans.CommunitiesListBBean</property-class>
+			<value>#{communitiesListBBean}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<description>MBean de soporte. Mantiene en memoria, la lista de países.</description>
@@ -629,7 +634,7 @@
 		</managed-property>
 	</managed-bean>
 	<navigation-rule>
-		<display-name>login.xhtml</display-name>
+		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>register</from-outcome>
@@ -720,7 +725,7 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>login.xhtml</display-name>
+		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>failure</from-outcome>
@@ -832,7 +837,7 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>login.xhtml</display-name>
+		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>admin</from-outcome>
@@ -858,7 +863,7 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>login.xhtml</display-name>
+		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>pwd_forgotten</from-outcome>
@@ -882,7 +887,7 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>login.xhtml</display-name>
+		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>community</from-outcome>
@@ -890,7 +895,7 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>login.xhtml</display-name>
+		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>subscribeme</from-outcome>
@@ -906,7 +911,7 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>login.xhtml</display-name>
+		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>nomember</from-outcome>
@@ -919,6 +924,14 @@
 		<navigation-case>
 			<from-outcome>completed</from-outcome>
 			<to-view-id>/sections/subscriptioncomplete.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/selectcom.xhtml</display-name>
+		<from-view-id>/sections/admin/selectcom.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/sections/admin/editcommunity.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<validator>

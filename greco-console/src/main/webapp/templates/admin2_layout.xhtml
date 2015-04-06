@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Greco - Reserva de espacios comunitarios.</title>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"	name="viewport" />
+	
+	<h:outputStylesheet library="css" name="font-awesome.min.css" media="screen"/>
+	<h:outputStylesheet library="css" name="overwrite.css" media="screen"/>
+	<h:outputStylesheet library="css" name="dlmenu.css" media="screen"/>
+	<h:outputStylesheet library="css" name="animate.css" media="screen"/>
+		
+	<h:outputStylesheet library="css" name="bootstrap.min.css" media="screen"/>
+	<h:outputStylesheet library="css" name="style.css" media="screen"/>
+	<h:outputStylesheet library="color" name="default.css" media="screen"/>
+    <h:outputScript library="javascript" name="modernizr.custom.js"/> 
+    
+   
+</h:head>
+<h:body>
+	<!-- Menú  -->
+	<h:form>
+	<ui:insert name="sidebarLeft">
+    	<ui:include src="/sections/admin/sidebarleft.xhtml"/>
+    </ui:insert>
+    
+	<!-- Zona de aplicación -->
+	<div id="intro">
+
+		<div class="intro-text">
+			<div class="container">
+				
+					 <ui:insert name="content"/>				
+				
+			</div>
+		</div>
+	</div>
+	</h:form>
+				
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<ui:include src="/sections/footer.xhtml"/>
+			</div>
+		</div>
+	</footer>
+	
+	<h:outputScript library="javascript" name="jquery.js"/>
+	<h:outputScript library="javascript" name="bootstrap.min.js"/>
+	<h:outputScript library="javascript" name="jquery.smooth-scroll.min.js"/>
+	<h:outputScript library="javascript" name="jquery.dlmenu.js"/>
+	<h:outputScript library="javascript" name="wow.min.js"/>
+	<h:outputScript library="javascript" name="custom.js"/>
+	
+</h:body>
+	
+	
+</html>

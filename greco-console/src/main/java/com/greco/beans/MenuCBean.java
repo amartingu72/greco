@@ -107,6 +107,14 @@ public class MenuCBean {
 		return "/sections/login/logout?faces-redirect=true";
 	}
 	
+	/**
+	 * Navega a la ventana de selección de comunidad.
+	 * @return
+	 */
+	public String selectCommunity(){
+		return "/sections/admin/selectcom?faces-redirect=true";
+	}
+	
 	
 	//GETTERs y SETTERs
 

@@ -5,9 +5,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+
 
 
 import com.greco.services.helpers.CommunityItem;
@@ -25,7 +27,7 @@ public class CommunitiesListBBean implements Serializable{
 	private List<CommunityItem> myCommunities; 
 	//Comunidad seleccionada
 	private CommunityItem selectedItem=null;
-	
+		
 	
 	public CommunityItem getSelectedItem() {
 		return selectedItem;
@@ -55,12 +57,38 @@ public class CommunitiesListBBean implements Serializable{
 	}
 	
 
-	public List<CommunityItem> getMyCommunities() { return myCommunitiesArrayList; }
+	public List<CommunityItem> getMyCommunities() { 
+		return myCommunitiesArrayList; 
+	}
 
 	public void setMyCommunities(List<CommunityItem> myCommunities) {
 		this.myCommunities = myCommunities;
 	}
-	
+	/**
+	 * Asigna el id de la comunidad seleccionada y, por el id, carga el item de comunidad seleccionada.
+	 * @param id
+	 */
+	public void setSelectedCommunityId(int id){
+		Iterator<CommunityItem> it= myCommunities.iterator();
+		boolean bfound=false;
+		CommunityItem communityItem=null;
+		while (!bfound && it.hasNext() ){
+			communityItem=it.next();
+			bfound=communityItem.getId()==id;
+		}
+		if (!bfound) communityItem=null;
+		else this.selectedItem=communityItem;
+	}
+	/**
+	 * Devuelve el id de item de comunidad seleccionado o 0 si no se ha seleccionado ninguno.
+	 * @return Id de la comunidad seleccionada.
+	 */
+	public int getSelectedCommunityId(){
+		int ret=1;
+		if (this.selectedItem!=null)
+			ret=selectedItem.getId();
+		return ret;
+	}
 	
 
 	

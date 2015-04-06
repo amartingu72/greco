@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head><title>IGNORED</title></h:head>
+   <h:body>
+      <ui:composition template="../../templates/admin2_layout.xhtml">
+         <ui:define name="windowTitle">
+            Mi título
+         </ui:define> 
+         <ui:define name="content">
+          <h:form>
+         	<div class="row">
+         		<div class="col-md-12 col-xs-12">
+					<p>	<span>#{msgs['selectcom.select_banner']}</span></p>     			
+       			</div>
+			</div>	
+			<div class="row">
+				<div class="col-md-offset-5 col-md-12 col-xs-offset-2 col-xs-12 col-sm-offset-3 col-sm-12">
+				  <div class="radio">
+					<p:selectOneRadio id="console" value="#{communitiesListBBean.selectedCommunityId}" 
+						layout="grid"
+						columns="1"
+						plain="true">
+            			<f:selectItems value="#{communitiesListBBean.myCommunities}" 
+            					var="comm" 
+            					itemLabel="#{comm.name}"
+            					itemValue="#{comm.id}" />
+       				</p:selectOneRadio>
+       			  </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-offset-3 col-md-6">						
+					<div class="form-group">
+						<div class="col-md-offset-3 col-md-6">
+							<h:commandButton class="btn btn-theme btn-lg btn-block" value="#{msgs['selectcom.select']}" action="#{communitiesListCBean.editSelectedCommunity}"/>
+						</div>
+					</div>	
+				</div>
+			</div>
+		
+		  </h:form>     	            
+         </ui:define>
+      </ui:composition>
+   </h:body>
+</html>

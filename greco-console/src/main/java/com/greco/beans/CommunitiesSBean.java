@@ -3,6 +3,7 @@ package com.greco.beans;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -43,6 +44,24 @@ public class CommunitiesSBean implements Serializable{
 		return myCommunities.contains(communityItem);
 		
 		
+	}
+	
+	/**
+	 * Devuelve el item de comunidad correspondiente al id pasado como parámetro, dentro de la lista
+	 * de comunidades que el usuario que ha iniciado la sesión administra.	  
+	 * @param itemId
+	 * @return
+	 */
+	public CommunityItem getCommunityItem(int itemId){
+		Iterator<CommunityItem> it= myCommunities.iterator();
+		boolean bfound=false;
+		CommunityItem communityItem=null;
+		while (!bfound && it.hasNext() ){
+			communityItem=it.next();
+			bfound=communityItem.getId()==itemId;
+		}
+		if (!bfound) communityItem=null;
+		return communityItem;
 	}
 		
 	//GETTERs y SETTERs.
