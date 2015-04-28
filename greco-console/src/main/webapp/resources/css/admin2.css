@@ -1,0 +1,119 @@
+@import url(http://fonts.googleapis.com/css?family=Lato);
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,300,700,800);
+@charset "UTF-8";
+
+#ui-dialog-content
+{
+	font-family: 'Lato', sans-serif;
+	color: #797979;
+	font-size: 12px;	
+}
+
+#adds
+{
+	padding: 0px;
+	float:right;		
+}
+
+/*Menús desplegables de la página de miembros*/
+.menu .ui-selectonemenu-label { 
+   	font-family: 'Lato', sans-serif;
+	color: #797979;
+	font-size: 12px;
+	width: 100%;
+	
+
+}
+.panel .ui-selectonemenu-list { 
+    font-family: 'Lato', sans-serif;
+	color: #797979;
+	font-size: 12px;
+		
+}
+
+
+/*Calendario*/
+.ui-datepicker{
+	font-size:10px!important;
+	}
+/*Elimina barras de scroll de los diálogos*/
+.disable-scroll .ui-dialog-content {
+  overflow: hidden !important;
+}
+
+/*Tabs*/
+.ui-tabs-top > .ui-tabs-nav {
+   
+    font-family: 'Lato', sans-serif;
+	font-size: 12px; 
+}
+
+.ui-accordion-header {
+   
+    font-family: 'Lato', sans-serif !important;
+	font-size: 12px !important; 
+}
+
+/*Growl*/
+.ui-growl-item {
+    font-family: 'Lato', sans-serif;
+	font-size: 12px; 
+}
+	
+/*InputText*/
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield{
+    box-shadow: none !important;
+    font-family: 'Lato', sans-serif !important;
+	font-size: 12px !important; 
+}
+/*Botones*/
+.ui-button{
+	font-family: 'Lato', sans-serif !important;
+	font-size: 12px !important;
+}
+
+/*Etiquetas*/
+.ui-outputlabel{
+	font-family: 'Open Sans', sans-serif !important;
+	font-size: 14px !important;
+	/*color: #797979;*/
+}
+/*Mensajes*/
+.ui-messages-info .ui-messages-error .ui-messages-warn{
+	font-family: 'Lato', sans-serif !important;
+	font-size: 12px !important;
+} 
+
+.ui-selectonemenu-items{
+	font-family: 'Lato', sans-serif !important;
+	font-size: 12px !important;
+}
+
+/*Tablas*/
+.ui-datatable-data{
+	font-family: 'Lato', sans-serif !important;
+	font-size: 12px !important;
+}
+/*Columnas de la pestaña de recursos*/
+.rscrColumn1{
+	width:100px;
+	font-family: 'Lato', sans-serif;
+	font-size: 12px;
+}
+.rscrColumn2{
+	text-align:center;
+	width:50px;
+	font-family: 'Lato', sans-serif;
+	font-size: 12px;
+}
+.rscrColumn3{
+	width:250px;
+	font-family: 'Lato', sans-serif;
+	font-size: 12px;
+}
+.rscrColumn4{
+	width:8px;
+	font-family: 'Lato', sans-serif; 
+	font-size: 12px;
+}
+/*Columnas de la pestaña de miembros*/

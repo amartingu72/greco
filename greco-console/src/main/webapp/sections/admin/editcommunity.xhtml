@@ -9,177 +9,106 @@
 
 <h:head>IGNORED</h:head>
 <h:body>
-	<ui:composition template="../../templates/admin_layout.xhtml">
+	<ui:composition template="../../templates/admin2_layout.xhtml">
 		<ui:define name="content">
 			<h:form id="editCommForm">
-				<p:growl id="messages" showSummary="true" showDetail="true"/>
-				<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
-				<h:panelGrid columns="5">
-					<p:outputLabel for="name" value="#{msgs['editcommunity.name']}" />
-					<p:inputText id="name" value="#{editCommunityBBean.name}"  maxlength="32" required="true">
-						<f:validator binding="#{duplicatedCommunityValidator}" />
-					</p:inputText>
-					<p:spacer width="200" height="5" />
-					<p:selectBooleanButton value="#{editCommunityBBean.available}"  
-								onLabel="#{msgs['editcommunity.available']}" 
-								offLabel="#{msgs['editcommunity.unavailable']}"  
-								onIcon="ui-icon-check" offIcon="ui-icon-close"
-				 				style="width:100px;height:25px;font-family: 'Lato', sans-serif; font-size: 13px;"/>
-				</h:panelGrid>	
-				<p:accordionPanel id="tabView"
-					cache="false"
-					>
-					<p:ajax event="tabChange" process=":editCommForm:tabView" listener="#{editCommunityCBean.onTabChange}" update=":editCommForm:membership_messages :editCommForm :editCommForm:savebtn"/>
-					<p:tab id="general_tab" title="#{msgs['editcommunity.general_tab']}">
-						<h:panelGrid columns="2">
-							<p:outputLabel value="#{msgs['editcommunity.subscription']}"/>
-							<p:outputLabel value="#{editCommunityBBean.joiningDate}"/>
-							<p:outputLabel for="zipcode"
-								value="#{msgs['editcommunity.zipcode']}" />
-							<p:inputMask id="zipcode" value="#{editCommunityBBean.zipcode}"
-								mask="99999"
-								required="true" />
-							<p:outputLabel for="country"
-								value="#{msgs['editcommunity.country']}" />
-							<p:selectOneMenu id="country"
-								value="#{editCommunityBBean.country}" required="true">
-								<f:selectItems value="#{countriesSBean.countries}" /> 
-							</p:selectOneMenu>
-						</h:panelGrid>
-						<p:separator />
-						<p:outputLabel value="#{msgs['editcommunity.notes']}" />:
-						<br />
-						<p:inputTextarea id="notes" value="#{editCommunityBBean.mydata}"
-							rows="5" cols="58" maxlength="256" counter="display"
-							counterTemplate="#{msgs['editaccount.remaining_chars']}" />
-						<br />
-						<p:outputLabel id="display" />
-						<br />
-						<br />
-					</p:tab> 
-					<p:tab id="resources_tab" title="#{msgs['editcommunity.resources_tab']}">
-						<p:dataTable id="resourcesTable" value="#{editCommunityBBean.myResources}" 	var="rsrc"
-							resizableColumns="true"
-							paginatorPosition="bottom"
-						 	rows="8"
-                         	paginator="true"
-                         	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"							>
-							<p:column styleClass="rscrColumn1" headerText="#{msgs['editcommunity.resources']}"  sortBy="#{rsrc.name}">
-								<p:commandButton style="height:15px;width:20px;" actionListener="#{editCommunityCBean.editResourcePF}" icon="ui-icon-search" title="#{msgs['editresource.title']}">
-                					<f:setPropertyActionListener value="#{rsrc}" target="#{resourcesSBean.selectedResource}" />
-                					 <p:ajax event="dialogReturn" update=":editCommForm :editCommForm:tabView:resourcesTable :editCommForm:messages" listener="#{editCommunityCBean.onResourceUpdatedPF}"/>
+			<div class="row">
+			<div class="col-md-offset-1 col-md-4">
+				<div class="row">		
+					<div class=" col-md-12">
+				  		
+						<p:growl id="messages" showSummary="true" showDetail="true"/>
+						<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
+						<div class="form-group">
+							<label for="name">#{msgs['editcommunity.name']}</label>
+							<h:inputText class="form-control" id="name" value="#{editCommunityBBean.name}"  maxlength="32" required="true">
+								<f:validator binding="#{duplicatedCommunityValidator}" />
+							</h:inputText>
+						</div>
+					</div>					
+				 </div>
+				 <div class="row">
+				 	<div class="col-md-12">
+				 		<p>#{msgs['editcommunity.subscription']}:
+						#{editCommunityBBean.joiningDate}</p>
+						
+				</div>
+				 </div>
+				 <div class="row">
+					<div class="col-md-12">	
+						<div class="form-group">
+							<div class="checkbox">
+								<h:selectBooleanCheckbox id="enabled" value="#{editCommunityBBean.available}" />
+    							<label for="enabled">#{msgs['editcommunity.available']}</label>
+    						</div>
+					 	</div>
+				 	</div>
+				 </div>
+				 <div class="row">
+					<div class="form-group col-md-6">
+						<label for="zipcode"> 
+							#{msgs['editcommunity.zipcode']}</label>:  
+						<h:inputText class="form-control" id="zipcode" value="#{editCommunityBBean.zipcode}"
+							size="6"
+							maxlength="5"
+							required="true" />			
+					</div>
+					<div class="form-group col-md-6">
+						<label for="country"> 
+							#{msgs['editcommunity.country']}</label>:  
+						<h:selectOneMenu id="country" class="form-control" 
+							value="#{editCommunityBBean.country}" required="true">
+							<f:selectItems value="#{countriesSBean.countries}" /> 
+						</h:selectOneMenu>
+					</div>	
+						
+					
+				 </div>
+				 <div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="notes">#{msgs['editcommunity.notes']} </label>
+							<p:inputTextarea class="form-control" id="notes" value="#{editCommunityBBean.mydata}"
+								rows="5" cols="58" maxlength="256" counter="display"
+								counterTemplate="#{msgs['editaccount.remaining_chars']}" />
+							<p:outputLabel id="display" />
+				 	 	</div>
+				 	 </div>
+				</div>
+				</div>
+				<div class="col-md-offset-1 col-md-5"> 
+				<div class="row">
+					<div class="form-group col-md-12">
+						<label for="resourcesTable">#{msgs['editcommunity.resources']}</label>
+						<h:dataTable class="table table-condensed table-hover" id="resourcesTable" value="#{editCommunityBBean.myResources}" 	var="rsrc"
+							
+						 	rows="8">
+                       
+                         	
+							<h:column headerText="#{msgs['editcommunity.resources']}">
+								<p:commandButton style="height:15px;width:20px;" 
+									action="#{editCommunityCBean.editResource(rsrc)}" 
+									ajax="false"
+									icon="ui-icon-pencil" 
+									title="#{msgs['editresource.title']}">
             					</p:commandButton>
 								#{rsrc.name}
-							</p:column>
-							<p:column styleClass="rscrColumn2" headerText="#{msgs['editcommunity.resource_type']}" sortBy="#{rsrc.type}"> 
+							</h:column>
+							<h:column headerText="#{msgs['editcommunity.resource_type']}">   
 								#{rsrc.type}
-							</p:column>
-							<p:column styleClass="rscrColumn3" headerText="#{msgs['editcommunity.status']}">		
-								#{rsrc.mintime}-#{rsrc.maxtime} #{rsrc.timeunit} #{msgs['editresource.beforehand']}: #{rsrc.beforehand} #{rsrc.beforehandTU}
-        					</p:column>
-        					<p:column id="status" styleClass="rscrColumn4" sortBy="#{rsrc.status}">
+							</h:column>
+							
+        					<h:column id="status" styleClass="rscrColumn4">
         						<h:outputText styleClass="ui-icon ui-icon-newwin" title="#{msgs['editcommunity.new']}" rendered="#{rsrc.added}"/>
         						<h:outputText styleClass="ui-icon ui-icon-circle-check" title="#{msgs['editcommunity.updated']}" rendered="#{rsrc.updated}"/>
-							</p:column>
-						</p:dataTable>
-						<p:commandButton id="newbtn" 
-								icon="ui-icon-plus" 
-								actionListener="#{editCommunityCBean.addResourcePF}"  
-								title="#{msgs['editresource.add_title']}"
-								value="#{msgs['editcommunity.add_resource']}">
-								<p:ajax event="dialogReturn" update=":editCommForm :editCommForm:tabView:resourcesTable :editCommForm:messages" listener="#{editCommunityCBean.onResourceAddedPF}"/>
-						</p:commandButton>
-					</p:tab>
-					<p:tab id="members_tab" title="#{msgs['editcommunity.members_tab']}">
-						<p:dataTable id="membersTable" var="member" value="#{editCommunityBBean.members}" 						
-							paginator="true" 
-							rows="8"
-							widgetVar="membersTable"
-							resizableColumns="true"
-							paginatorPosition="bottom"
-                 			paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                 			 lazy="true"> 
-        					<p:column id="alias_column" headerText="#{msgs['editcommunity.member_alias']}" sortBy="#{member.nickname}" filterBy="#{member.nickname}" width="115">
-            					<h:outputText id="alias" value="#{member.nickname}" title="#{member.mydata}"/>
-        					</p:column>
-        					<p:column id="profile_column" headerText="#{msgs['editcommunity.member_profile']}" filterBy="#{member.memberProfile.description}" filterMatchMode="exact" width="125">
-        						<f:facet name="filter">
-                					<p:selectOneMenu styleClass="menu" panelStyleClass="panel" onchange="PF('membersTable').filter()" >
-                    					<f:selectItem itemLabel="#{msgs['editcommunity.select_one']}" itemValue="#{null}" noSelectionOption="true" />
-                    					<f:selectItems value="#{profilesSBean.profiles}" var="profile" itemLabel="#{profile.description}" itemValue="#{profile.id}"/>
-                					</p:selectOneMenu>
-            					</f:facet>
-            					<p:selectBooleanButton value="#{member.admin}"  
-									onLabel="#{msgs['editcommunity.admin_profile']}" 
-									offLabel="#{msgs['editcommunity.user_profile']}"  
-									onIcon="ui-icon-star" offIcon="ui-icon-check"
-				 					style="width:120px;height:23px;font-family: 'Lato', sans-serif; font-size: 13px;">
-				 					<p:ajax update=":editCommForm:messages :editCommForm:tabView:membersTable" listener="#{editMembershipCBean.saveMemberProfile(member)}" />
-				 				</p:selectBooleanButton>	
-	        				</p:column>
-    	    				<p:column id="status_column" headerText="#{msgs['editcommunity.member_status']}" filterBy="#{member.status}" filterMatchMode="exact" width="100">
-            					<f:facet name="filter">
-                					<p:selectOneMenu styleClass="menu" panelStyleClass="panel" onchange="PF('membersTable').filter()">
-                    					<f:selectItem itemLabel="#{msgs['editcommunity.select_one']}" itemValue="#{null}" noSelectionOption="true" />
-                    					<f:selectItem itemLabel="#{msgs['editcommunity.is_member']}" itemValue="0"/>
-                    					<f:selectItem itemLabel="#{msgs['editcommunity.pending_aproval']}" itemValue="1"/>
-                					</p:selectOneMenu>
-            					</f:facet>
-            					<p:selectBooleanButton value="#{member.pendingMembership}"  
-									onLabel="#{msgs['editcommunity.pending_aproval']}" 
-									offLabel="#{msgs['editcommunity.is_member']}"  
-									onIcon="ui-icon-notice" offIcon="ui-icon-check"
-				 					style="width:95px;height:23px;font-family: 'Lato', sans-serif; font-size: 13px;" >
-				 					 <p:ajax update=":editCommForm:messages" listener="#{editMembershipCBean.saveMembershipStatus(member)}" />
-				 				</p:selectBooleanButton>
-        					</p:column>
-    	    				<p:column headerText="#{msgs['editcommunity.member_subscription']}" sortBy="#{member.joinningDate}" width="90" style="text-align:center;">
-        	    				<h:outputText value="#{member.joinningDate}" />
-        					</p:column>
-        					<p:column style="width:20px;">
-								<p:commandButton 
-									update=":editCommForm:confirm_remove" 
-									style="height:15px;width:20px;" oncomplete="PF('summaryConfirmDialog').show();" 
-									icon="ui-icon-trash" title="#{msgs['editcommunity.unsubscribe']}">
-                					 <f:setPropertyActionListener value="#{member}" target="#{editCommunityBBean.selectedMember}" />
-            					</p:commandButton>
-							</p:column>
-						</p:dataTable>
-					</p:tab>	
-				</p:accordionPanel>
-				<p:tooltip style="font-family: 'Lato', sans-serif; font-size: 13px;" for=":editCommForm:tabView:resourcesTable:status">
-					<h:panelGrid columns="4">			
-						<h:outputLabel for="icon_new" value="#{msgs['editcommunity.status_tooltip1']}" /> 
-						<h:outputText id="icon_new" styleClass="ui-icon ui-icon-newwin"/>
-						<h:outputLabel for="icon_updated" value="#{msgs['editcommunity.status_tooltip2']}" />  
-						<h:outputText id="icon_updated" styleClass="ui-icon ui-icon-circle-check"/>
-					</h:panelGrid>
-				</p:tooltip>
-				<p:separator /> 
-				<p:dialog
-					header="#{msgs['editcommunity.unsubscribe_confirm_header']}"
-					widgetVar="summaryConfirmDialog">
-					<p:outputPanel id="confirm_remove">
-						<p:outputPanel styleClass="ui-icon ui-confirm-dialog-severity ui-icon-alert display-inline-block">
-						</p:outputPanel>
-      					#{msgs['editcommunity.unsubscribe_confirm_msg']} #{editCommunityBBean.selectedMember.nickname} 
-   					</p:outputPanel>
-					<p:commandButton value="#{msgs['editcommunity.unsubscribe_yes']}"
-						update=":editCommForm:tabView:membersTable" 
-						onstart="setUpOnStart();"
-						oncomplete="setUpOnComplete();"
-						actionListener="#{editMembershipCBean.unsubscribe}"
-						icon="ui-icon-check" />
-					<p:commandButton value="#{msgs['editcommunity.unsubscribe_no']}"
-						onclick="PF('summaryConfirmDialog').hide();" type="button"
-						icon="ui-icon-close" />
-				</p:dialog>
-				<p:commandButton id="savebtn" icon="ui-icon-disk"
-					rendered= "#{editCommunityBBean.saveBtnVisible}"
-					value="#{msgs['editcommunity.save']}"
-					actionListener="#{editCommunityCBean.savePF}" 
-					update=":editCommForm:messages"/>
-				<p:messages id="membership_messages"/>
+							</h:column>
+						</h:dataTable>
+					</div>
+					
+				</div>
+				</div>
+				</div>
+				
 			</h:form>
 		</ui:define>
 	</ui:composition>

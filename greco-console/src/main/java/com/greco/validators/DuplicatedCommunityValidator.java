@@ -23,8 +23,8 @@ public class DuplicatedCommunityValidator implements Validator{
             UIComponent uIComponent, Object object) throws ValidatorException {
         
 		UIInput idInput = (UIInput) facesContext.getViewRoot().findComponent(":editCommForm:id");
-		UIInput zipcodeInput = (UIInput) facesContext.getViewRoot().findComponent(":editCommForm:tabView:zipcode");
-		UIInput countryInput = (UIInput) facesContext.getViewRoot().findComponent(":editCommForm:tabView:country");
+		UIInput zipcodeInput = (UIInput) facesContext.getViewRoot().findComponent(":editCommForm:zipcode");
+		UIInput countryInput = (UIInput) facesContext.getViewRoot().findComponent(":editCommForm:country");
 		
 		String name=(String)object;
 		int id= (Integer) idInput.getValue();

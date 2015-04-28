@@ -934,6 +934,22 @@
 			<to-view-id>/sections/admin/editcommunity.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/editcommunity.xhtml</display-name>
+		<from-view-id>/sections/admin/editcommunity.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>editResource</from-outcome>
+			<to-view-id>/sections/admin/editresource.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/editresource.xhtml</display-name>
+		<from-view-id>/sections/admin/editresource.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>back</from-outcome>
+			<to-view-id>/sections/admin/editcommunity.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	<validator>
 		<description>Valida el formato de email</description>
 		<validator-id>com.greco.validators.EmailValidator</validator-id>

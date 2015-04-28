@@ -13,7 +13,7 @@ General
 body{
 	margin:0;
 	padding:0;
-	text-align: center;
+	/*text-align: center;*/
 	font-family: 'Open Sans', sans-serif;
 	font-size: 14px;
 	line-height: 1.6em;
@@ -58,7 +58,7 @@ button {
 	padding: 6px 12px;
 	border: 1px solid transparent;
 	vertical-align: middle;
-	text-align: center;
+	/*text-align: center;*/
 	white-space: nowrap;
 	font-weight: normal;
 	font-size: 14px;
@@ -181,7 +181,7 @@ Intro
 ================================= */
 
 #intro{
-    height:635px;
+    /* height: 635px; */
     width:100%;
     /*background-color: #529abb;
     background-image: url(../img/bg-mac.png);
@@ -189,7 +189,7 @@ Intro
     background-repeat:no-repeat;*/
 	background: none;
     overflow-y:hidden;
-    text-align:center;
+    
     position:relative;
 }
 
