@@ -19,7 +19,8 @@
 							#{msgs['sidebarleft.sel_community']}
 						</h:commandLink>
 					</li>
-					<li><a href="#intro">Miembros</a></li>
+					<li style="display:none;"><a href="#intro">Miembros</a></li>
+					<li style="display: #{condition ? 'list-item' : 'none'};" />
 					<li><a href="#about">Nueva comunidad</a></li>
 					<li><a href="#services">Mi cuenta</a></li>
 					<li><a href="#works">Salir</a></li>

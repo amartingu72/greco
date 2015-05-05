@@ -54,9 +54,7 @@ public class LoginCBean implements Serializable{
 
 			Authentication result = authenticationManager.authenticate(request);
 			SecurityContextHolder.getContext().setAuthentication(result);
-			//Comentamos esta línea para ir por la nueva apariencia.
-			//setTab(AuthenticationProvider.ROLE_ADMIN);
-
+			
 		} catch (AuthenticationException e) {
 
 			FacesMessage fm = new FacesMessage(Warnings.getString("Login.login_failed")); 

@@ -14,68 +14,104 @@
             <h:form id="editresourcesForm">
             	<div class="col-md-offset-1 col-md-11">
             		<div class="row">
-            			<p:growl id="growl" showSummary="true" showDetail="true"/>
-            			<h:inputHidden id="id" value="#{editResourceBBean.id}"/>
-            			<div class="form-group">
-            				<label for="resource">#{msgs['editresource.name']}</label>
-							<h:inputText class="form-control" id="resource" value="#{editResourceBBean.name}"  maxlength="32" required="true">
-								<f:validator binding="#{duplicatedResourceValidator}" />
-							</h:inputText>
+            			<h5>#{communitiesSBean.selectedItem.name}</h5>
+            		</div>
+            		<div class="row">
+            			<div class="col-md-6">
+            				<p:growl id="growl" showSummary="true" showDetail="true"/>
+            				<h:inputHidden id="id" value="#{editResourceBBean.id}"/>
+            				<div class="form-group">
+            					<label for="resource">#{msgs['editresource.name']}</label>
+								<h:inputText class="form-control" id="resource" value="#{editResourceBBean.name}"  maxlength="32" required="true">
+									<f:validator binding="#{duplicatedResourceValidator}" />
+								</h:inputText>
+							</div>
 						</div>
-						<div class="form-group">
-							<label for="type">#{msgs['editresource.type']}</label>
-							<h:selectOneMenu id="type" value="#{editResourceBBean.type}" required="true">
-								<f:selectItems value="#{resourceTypesSBean.resourceTypes}"/>
-							</h:selectOneMenu>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="type">#{msgs['editresource.type']} </label>
+								<h:selectOneMenu id="type" class="form-control" value="#{editResourceBBean.type}" required="true">
+									<f:selectItems value="#{resourceTypesSBean.resourceTypes}"/>
+								</h:selectOneMenu>
+							</div>
 						</div>
-						<div class="form-group">
-		            		<label for="availableFromTime">#{msgs['editresource.available_from']}</label>
-							<p:inputMask id="availableFromTime" value="#{editResourceBBean.availableFromTime}" mask="99:99"/>
+					</div>
+					
+            		<div class="row">
+						<div class="col-md-6 form-inline">	
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									#{msgs['editresource.time_constraints']}
+								</div>
+  								<div class="panel-body">
+            						<div class="form-group">
+            							<label for="mintime">#{msgs['editresource.min_time']}</label>
+							 			<h:inputText id="mintime" class="form-control" value="#{editResourceBBean.mintime}" size="5" maxlength="3" readonly="false">
+											<f:convertNumber integerOnly="true"/>
+										</h:inputText>
+									</div> 	
+									<div class="form-group">
+										<label for="maxtime">#{msgs['editresource.max_time']}</label>
+										<h:inputText id="maxtime" class="form-control" value="#{editResourceBBean.maxtime}" size="5" maxlength="3" readonly="false">
+											<f:convertNumber integerOnly="true"/>
+											<f:validator validatorId="com.greco.validators.MaxtimeValidator"/>
+										</h:inputText>
+									</div>
+									<div class="form-group">
+										<label for="timeunit">#{msgs['editresource.time_unit']}</label>
+										<h:selectOneMenu id="timeunit" class="form-control" value="#{editResourceBBean.timeunit}"  >
+											<f:selectItems value="#{timeUnitsSBean.timeUnits}"/>
+										</h:selectOneMenu>
+            						</div>
+            					</div>
+            				</div>
 						</div>
-						<div class="form-group">
-            				<label for="availableToTime">#{msgs['editresource.available_to']}"</label>
-							<p:inputMask id="availableToTime" value="#{editResourceBBean.availableToTime}" mask="99:99">
-								<f:validator validatorId="com.greco.validators.AvailabilityValidator" />
-							</p:inputMask>
+						<div class="col-md-6">	
+						
+							<div class="form-inline mar-top10">
+  								<div class="form-group">
+  									<label for="beforehand">#{msgs['editresource.beforehand']}:</label>
+									<h:inputText id="beforehand" class="form-control" value="#{editResourceBBean.beforehand}" size="5" maxlength="3" readonly="false">
+										<f:convertNumber integerOnly="true"/> 
+									</h:inputText>
+  								</div>
+  								<h:selectOneMenu class="form-control" value="#{editResourceBBean.beforehandTU}"  > 
+									<f:selectItems value="#{timeUnitsSBean.timeUnits}"/>
+								</h:selectOneMenu> 
+  							</div>	
+		            			
+		            			<div class="form-inline mar-top20">
+		            				<div class="form-group">
+		            					<label for="availableFromTime">#{msgs['editresource.available_from']}</label>
+										<p:inputMask id="availableFromTime" class="form-control" value="#{editResourceBBean.availableFromTime}" mask="99:99"
+											size="5"
+											maxlength="5"/>
+									</div>
+									<div class="form-group">
+    	        						<label for="availableToTime"> #{msgs['editresource.available_to']}</label>
+										<p:inputMask id="availableToTime" class="form-control" value="#{editResourceBBean.availableToTime}" mask="99:99"
+											size="5"
+											maxlength="5">
+											<f:validator validatorId="com.greco.validators.AvailabilityValidator" />
+										</p:inputMask>
+									</div>
+								</div>
+  						</div>
+					</div>
+					
+					
+				
+					<div class="row">
+						<div class="col-md-12" >
+            					<p class="bg-primary">#{msgs.resource_description}</p>
+								<h:inputTextarea id="notes" class="form-control" value="#{editResourceBBean.description}" rows="5" cols="58" maxlength="256"/> 
 						</div>
-            	
-            			<label>#{msgs['editresource.time_constraints']}</label>
-            			<div class="form-group">
-            				<label for="mintime">#{msgs['editresource.min_time']}</label>
-							<p:inputText id="mintime"  value="#{editResourceBBean.mintime}" size="5" maxlength="3" readonly="false">
-								<f:convertNumber integerOnly="true"/>
-							</p:inputText>
-						</div> 	
-						<div class="form-group">
-							<label for="maxtime">#{msgs['editresource.max_time']}</label>
-							<h:inputText id="maxtime" value="#{editResourceBBean.maxtime}" size="5" maxlength="3" readonly="false">
-								<f:convertNumber integerOnly="true"/>
-								<f:validator validatorId="com.greco.validators.MaxtimeValidator"/>
-							</h:inputText>
-						</div>
-						<div class="form-group">
-							<label for="timeunit">#{msgs['editresource.time_unit']}</label>
-							<h:selectOneMenu id="timeunit" value="#{editResourceBBean.timeunit}"  >
-								<f:selectItems value="#{timeUnitsSBean.timeUnits}"/>
-							</h:selectOneMenu>
-            			</div>
-            			<div class="form-group">
-            				<label for="beforehand">#{msgs['editresource.beforehand']}</label>
-            				<h:inputText id="beforehand" value="#{editResourceBBean.beforehand}" size="5" maxlength="3" readonly="false">
-								<f:convertNumber integerOnly="true"/> 
-							</h:inputText>
-            				<h:selectOneMenu value="#{editResourceBBean.beforehandTU}"  >
-								<f:selectItems value="#{timeUnitsSBean.timeUnits}"/>
-							</h:selectOneMenu>
-						</div>
-            	     	<div class="form-group">
-            				<label for="notes">#{msgs.resource_description}</label>
-							<h:inputTextarea id="notes" value="#{editResourceBBean.description}" rows="5" cols="58" maxlength="256"/> 
-						</div>
-						<h:panelGrid columns="2">
-							<p:commandButton update="growl" icon="ui-icon-disk" value="#{msgs['editresource.save']}" actionListener="#{editResourceCBean.savePF}"/>
-							<p:commandButton icon="ui-icon-close" value="#{msgs['editresource.cancel']}" immediate="true" action="#{editResourceCBean.cancelPF}"/>
-						</h:panelGrid>
+					</div>
+					<div class="row">
+						<div class="col-md-12 mar-top10" >
+							<p:commandButton update="growl" class="btn btn-default" value="#{msgs['editresource.save']}" actionListener="#{editResourceCBean.savePF}"/>
+						</div>	
+		 			
             		</div>
             	</div> 	
             </h:form>	

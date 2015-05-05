@@ -48,8 +48,8 @@
 					<div class="form-group col-md-6">
 						<label for="zipcode"> 
 							#{msgs['editcommunity.zipcode']}</label>:  
-						<h:inputText class="form-control" id="zipcode" value="#{editCommunityBBean.zipcode}"
-							size="6"
+						<p:inputMask class="form-control" id="zipcode" value="#{editCommunityBBean.zipcode}" mask="99999"
+							size="5"
 							maxlength="5"
 							required="true" />			
 					</div>

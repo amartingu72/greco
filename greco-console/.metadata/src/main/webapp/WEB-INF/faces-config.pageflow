@@ -18,8 +18,8 @@
   <nodes xsi:type="pageflow:PFPage" name="sections/editaccount.xhtml" x="554" y="1735" id="pf142891619846151" referenceLink="//@navigationRule.30/@navigationCase.0/@toViewId|" inlinks="pf142891619846137" path="/sections/editaccount.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/login/nomember.xhtml" x="338" y="967" id="pf142891619846152" referenceLink="//@navigationRule.35/@fromViewId|" outlinks="pf142891619846147" inlinks="pf14289161984617" path="/sections/login/nomember.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/admin/selectcom.xhtml" x="24" y="2256" id="pf14290087771591" referenceLink="//@navigationRule.36/@fromViewId|" outlinks="pf14290087771590" path="/sections/admin/selectcom.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="sections/admin/editcommunity.xhtml" x="282" y="2256" id="pf14296925047010" referenceLink="//@navigationRule.36/@navigationCase.0/@toViewId|" outlinks="pf14303806948810" inlinks="pf14290087771590 pf14303806948811" path="/sections/admin/editcommunity.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="sections/admin/editresource.xhtml" x="704" y="2244" id="pf14303806948812" outlinks="pf14303806948811" inlinks="pf14303806948810" path="/sections/admin/editresource.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/admin/editcommunity.xhtml" x="282" y="2256" id="pf14296925047010" referenceLink="//@navigationRule.38/@navigationCase.0/@toViewId|" outlinks="pf14303806948810" inlinks="pf14290087771590 pf14303806948811" path="/sections/admin/editcommunity.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/admin/editresource.xhtml" x="704" y="2244" id="pf14303806948812" referenceLink="//@navigationRule.38/@fromViewId|" outlinks="pf14303806948811" inlinks="pf14303806948810" path="/sections/admin/editresource.xhtml"/>
   <links id="pf14289161984611" target="pf142891619846110" source="pf14289161984610" outcome="register" redirect="true"/>
   <links id="pf14289161984618" target="pf14289161984610" source="pf142891619846110" outcome="cancel" redirect="true"/>
   <links id="pf142891619846113" target="pf142891619846118" source="pf142891619846112" outcome="new" redirect="true"/>
@@ -74,5 +74,5 @@
   </links>
   <links id="pf14290087771590" target="pf14296925047010" source="pf14290087771591" outcome="edit"/>
   <links id="pf14303806948810" target="pf14303806948812" source="pf14296925047010" outcome="editResource"/>
-  <links id="pf14303806948811" target="pf14296925047010" source="pf14303806948812" outcome="back"/>
+  <links id="pf14303806948811" target="pf14296925047010" source="pf14303806948812" outcome="cancel"/>
 </pageflow:Pageflow>

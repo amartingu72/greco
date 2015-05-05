@@ -15,9 +15,9 @@ public class EditResourceCBean {
 	
 	
 	public String cancel() {
-		String ret;
-		if ( this.communitiesSBean.getSelectedItem().isNew() ) ret="cancel_a";
-		else ret="cancel_u";
+		String ret="cancel";
+		/*if ( this.communitiesSBean.getSelectedItem().isNew() ) ret="cancel_a";
+		else ret="cancel_u";*/
 		return ret;
 	}
 	

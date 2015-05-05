@@ -946,7 +946,7 @@
 		<display-name>sections/admin/editresource.xhtml</display-name>
 		<from-view-id>/sections/admin/editresource.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>back</from-outcome>
+			<from-outcome>cancel</from-outcome>
 			<to-view-id>/sections/admin/editcommunity.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>

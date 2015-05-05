@@ -17,7 +17,7 @@ public class CommunitiesListCBean implements Serializable{
 	 * @param communityItem
 	 * @return
 	 */
-	public String edit(CommunityItem communityItem){
+	public String edit(CommunityItem communityItem){		
 		communitiesSBean.setSelectedItem(communityItem);
 		//Actualizamos la lista de recursos correspondientes
 		resourcesSBean.setCommunityItem(communityItem);
