@@ -1,10 +1,9 @@
 package com.greco.beans;
 
 import java.io.Serializable;
-import java.util.List;
+
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
-import com.greco.services.helpers.CommunityItem;
+
 import com.greco.services.helpers.ResourceItem;
 
 public class NewCommunityBBean implements Serializable{
@@ -18,7 +17,7 @@ public class NewCommunityBBean implements Serializable{
 	private boolean available;
 	
 	
-	private List <ResourceItem> myResources; //inyectado
+	
 	
 	//Recurso seleccionado cuando se pulsa editar.
 	private ResourceItem selectedItem;
@@ -28,14 +27,14 @@ public class NewCommunityBBean implements Serializable{
 	public void initialize() {
 		
 		
-		//Obtengo la comunidad seleccionada de Communities
+		/*//Obtengo la comunidad seleccionada de Communities
 		CommunitiesSBean comms = (CommunitiesSBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("communitiesSBean");
 		CommunityItem item=comms.getSelectedItem();
 		this.name=item.getName();
 		this.country=item.getCountry();
 		this.zipcode=item.getZipcode();
 		this.mydata=item.getMyData();
-		this.available=item.isAvailable();
+		this.available=item.isAvailable();*/
 	}
 	
 	//GETTERs y SETTERs	
@@ -76,13 +75,7 @@ public class NewCommunityBBean implements Serializable{
 		return zipcode;
 	}
 	
-	public List<ResourceItem> getMyResources() { 
-		return myResources; 
-	}
-		
-	public void setMyResources(List<ResourceItem> myResources) {
-		this.myResources = myResources;
-	}
+	
 
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;

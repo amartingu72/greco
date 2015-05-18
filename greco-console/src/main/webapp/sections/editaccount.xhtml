@@ -9,7 +9,16 @@
    	<title>Editar usuario</title>
    </head>
    <body>
-    <ui:composition template="../templates/user_layout.xhtml">
+    <ui:composition template="../templates/admin2opt_layout.xhtml">
+    	<ui:define name="sidebarleft">		
+			<h:commandLink action="#{pwdForgottenCBean.cancel}" immediate="true">
+				<span class="fa-stack fa-2x">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>
+					<f:param name="communityid" value="#{pwdForgottenBBean.communityId}"/>
+				</span>
+			</h:commandLink>
+		</ui:define>
          <ui:define name="content">
          	<h:form>
             	<p:growl id="messages" showDetail="false" autoUpdate="true" />

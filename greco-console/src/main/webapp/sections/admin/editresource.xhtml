@@ -10,11 +10,23 @@
 <h:head>IGNORED</h:head>
 <h:body>
 	<ui:composition template="../../templates/admin2opt_layout.xhtml">
+		<ui:define name="sidebarleft">		
+			<h:commandLink action="#{editResourceCBean.cancel}">
+				<span class="fa-stack fa-2x">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>
+				</span>
+			</h:commandLink>
+		</ui:define>
 		<ui:define name="content">
+			
             <h:form id="editresourcesForm">
+            	
             	<div class="col-md-offset-1 col-md-11">
             		<div class="row">
-            			<h5>#{communitiesSBean.selectedItem.name}</h5>
+            			<div class="col-md-6">
+            				<h5>#{communitiesSBean.selectedItem.name}</h5>
+            			</div>
             		</div>
             		<div class="row">
             			<div class="col-md-6">
@@ -27,7 +39,7 @@
 								</h:inputText>
 							</div>
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-5">
 							<div class="form-group">
 								<label for="type">#{msgs['editresource.type']} </label>
 								<h:selectOneMenu id="type" class="form-control" value="#{editResourceBBean.type}" required="true">
@@ -66,7 +78,7 @@
             					</div>
             				</div>
 						</div>
-						<div class="col-md-6">	
+						<div class="col-md-5">	
 						
 							<div class="form-inline mar-top10">
   								<div class="form-group">
@@ -102,14 +114,23 @@
 					
 				
 					<div class="row">
-						<div class="col-md-12" >
+						<div class="col-md-11" >
             					<p class="bg-primary">#{msgs.resource_description}</p>
 								<h:inputTextarea id="notes" class="form-control" value="#{editResourceBBean.description}" rows="5" cols="58" maxlength="256"/> 
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-12 mar-top10" >
-							<p:commandButton update="growl" class="btn btn-default" value="#{msgs['editresource.save']}" actionListener="#{editResourceCBean.savePF}"/>
+						<div class="col-md-offset-10 col-md-2 mar-top10" >
+							<ul class="social-network">
+								<li>
+									<h:commandLink action="#{editResourceCBean.save}">
+										<span class="fa-stack fa-2x">
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-save fa-stack-1x fa-inverse"></i>
+										</span>
+									</h:commandLink>
+								</li>
+							</ul>
 						</div>	
 		 			
             		</div>

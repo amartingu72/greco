@@ -14,16 +14,39 @@
 			<button class="dl-trigger">Open Menu</button>
 			
 				<ul class="dl-menu">
-					<li>
-						<h:commandLink action="#{menuCBean.selectCommunity}">
+					<li style="display: #{menuBBean.showMembers ? 'list-item' : 'none'};">
+						<h:commandLink action="#{menuCBean.navigateCommunity}">
+							#{msgs['sidebarleft.home']}
+						</h:commandLink>
+					</li>
+					
+					<li style="display: #{menuBBean.showMembers ? 'list-item' : 'none'};">
+						<h:commandLink action="#{menuCBean.navigateMembers}">
+							#{msgs['sidebarleft.members']}
+						</h:commandLink>
+						
+					</li>
+					<li style="display: #{menuBBean.showSelectCommunity ? 'list-item' : 'none'};">
+						<h:commandLink action="#{menuCBean.navigateSelectCommunity}">
 							#{msgs['sidebarleft.sel_community']}
 						</h:commandLink>
 					</li>
-					<li style="display:none;"><a href="#intro">Miembros</a></li>
-					<li style="display: #{condition ? 'list-item' : 'none'};" />
-					<li><a href="#about">Nueva comunidad</a></li>
-					<li><a href="#services">Mi cuenta</a></li>
-					<li><a href="#works">Salir</a></li>
+					<li>
+						<h:commandLink action="#{menuCBean.navigateNewCommunity}">
+							#{msgs['sidebarleft.new']}
+						</h:commandLink>
+					</li>
+					
+					<li>
+						<h:commandLink action="#{menuCBean.navigateEditAccount}">
+							#{msgs['sidebarleft.editaccount']}
+						</h:commandLink>
+					</li>
+					<li>
+						<h:commandLink action="#{menuCBean.navigateLogout}">
+							#{msgs['sidebarleft.logout']}
+						</h:commandLink>
+					</li>
 				</ul>
 			
 		</div>

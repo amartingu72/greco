@@ -105,11 +105,15 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 			if ( resourceItem.isUpdated() ) {
 				//Modificamos el recurso
 				resource.setId(resourceItem.getId());
-				resourceDAO.saveResource(resource);;
+				resourceDAO.saveResource(resource);
+				//Quitamos la marca de pendiente de actualizar.
+				resourceItem.clearStatus();
 			}
 			else if ( resourceItem.isAdded()) {
 				//Añadimos recurso.
 				resourceDAO.addResource(resource);
+				//Quitamos la marca de pendiente de actualizar.
+				resourceItem.clearStatus();
 			}
 			
 			
@@ -132,15 +136,7 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 		community.setZipcode(communityItem.getZipcode());
 		community.setAvailable((byte)(communityItem.isAvailable()?1:0));
 		community.setNotes(communityItem.getMyData());
-		
-//		Set<UsersCommunity> userCommunitiesSet=new HashSet<UsersCommunity>(1);
-//		UsersCommunity usersCommunity=new UsersCommunity();
-//		usersCommunity.setProfile(profileDAO.loadSelected(ProfileDAO.ROLE_ADMIN_ID));;
-//		usersCommunity.setUser(userDAO.loadSelectedUser(userItem.getId()));
-//		userCommunitiesSet.add(usersCommunity);
-//		community.setUsersCommunities(userCommunitiesSet);
-		
-			
+
 		communityDAO.addCommunity(community);
 		
 		
@@ -152,41 +148,42 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 			
 
 		//Guardarmos los recursos
-		Iterator<ResourceItem> it=resourceItemList.iterator();
-		ResourceItem resourceItem;
-		com.greco.entities.Resource resource=null;
-		while ( it.hasNext() ) {
-			resourceItem=it.next();
+		if (resourceItemList!=null)
+		{
+			Iterator<ResourceItem> it=resourceItemList.iterator();
+			ResourceItem resourceItem;
+			com.greco.entities.Resource resource=null;
+			while ( it.hasNext() ) {
+				resourceItem=it.next();
+	
+				if ( resourceItem.isAdded() || resourceItem.isUpdated() ){
+	
+					//Añadimos un nuevo recurso
+					resource=new com.greco.entities.Resource();
+					resource.setAvailableFromTime(resourceItem.getAvailableFromTime());
+					resource.setAvailableToTime(resourceItem.getAvailableToTime());
+					resource.setBeforehand(resourceItem.getBeforehand());
+					resource.setCommunity(comAdded);
+					resource.setDescription(resourceItem.getDescription());
+					resource.setMaxTime(resourceItem.getMaxtime());
+					resource.setMinTime(resourceItem.getMintime());
+					resource.setName(resourceItem.getName());
+					resource.setResourcetype(resourceTypeDAO.loadSelected(resourceItem.getType()));
+					resource.setTimeunit1(timeUnitDAO.loadSelected(resourceItem.getTimeunit()));
+					resource.setTimeunit2(timeUnitDAO.loadSelected(resourceItem.getBeforehandTU()));
+				} 
+				if ( resourceItem.isUpdated() ) {
+					//Modificamos el recurso
+					resource.setId(resourceItem.getId());
+					resourceDAO.saveResource(resource);;
+				}
+				else if ( resourceItem.isAdded()) {
+					//Añadimos recurso.
+					resourceDAO.addResource(resource);
+				}
 
-			if ( resourceItem.isAdded() || resourceItem.isUpdated() ){
-
-				//Añadimos un nuevo recurso
-				resource=new com.greco.entities.Resource();
-				resource.setAvailableFromTime(resourceItem.getAvailableFromTime());
-				resource.setAvailableToTime(resourceItem.getAvailableToTime());
-				resource.setBeforehand(resourceItem.getBeforehand());
-				resource.setCommunity(comAdded);
-				resource.setDescription(resourceItem.getDescription());
-				resource.setMaxTime(resourceItem.getMaxtime());
-				resource.setMinTime(resourceItem.getMintime());
-				resource.setName(resourceItem.getName());
-				resource.setResourcetype(resourceTypeDAO.loadSelected(resourceItem.getType()));
-				resource.setTimeunit1(timeUnitDAO.loadSelected(resourceItem.getTimeunit()));
-				resource.setTimeunit2(timeUnitDAO.loadSelected(resourceItem.getBeforehandTU()));
-			} 
-			if ( resourceItem.isUpdated() ) {
-				//Modificamos el recurso
-				resource.setId(resourceItem.getId());
-				resourceDAO.saveResource(resource);;
 			}
-			else if ( resourceItem.isAdded()) {
-				//Añadimos recurso.
-				resourceDAO.addResource(resource);
-			}
-
-
 		}
-		
 		return comAdded.getId();
 	}
 

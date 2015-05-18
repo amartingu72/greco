@@ -15,9 +15,8 @@ public class EditResourceCBean {
 	
 	
 	public String cancel() {
-		String ret="cancel";
-		/*if ( this.communitiesSBean.getSelectedItem().isNew() ) ret="cancel_a";
-		else ret="cancel_u";*/
+		String ret="back";
+		
 		return ret;
 	}
 	
@@ -63,11 +62,9 @@ public class EditResourceCBean {
 		logger.log("003000",msg);//INFO|Recurso pre-actualizado:
 		
 		//Controlamos a qué página devolver el control: edición o nueva comunidad.
-		String ret;
-		if ( this.communitiesSBean.getSelectedItem().isNew() ) ret="save_a";
-		else ret="save_u";
 		
-		return ret;
+		
+		return "back";
 		
 	}
 	

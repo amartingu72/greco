@@ -33,7 +33,7 @@ public class ResourceTypesSBean {
 		ResourceTypeItem resourceTypeItem;
 		while ( it.hasNext() ) {
 			resourceTypeItem=it.next();
-			resourceTypes.add(new SelectItem(resourceTypeItem,resourceTypeItem.getName() ));
+			resourceTypes.add(new SelectItem(resourceTypeItem,resourceTypeItem.getDescription() ));
 		}
 	}
 	

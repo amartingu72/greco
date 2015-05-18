@@ -2,20 +2,24 @@ package com.greco.beans;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.greco.services.AuthenticationProvider;
 import com.greco.services.UserDataProvider;
 import com.greco.services.except.user.NoMemberException;
 import com.greco.services.except.user.PendingException;
 import com.greco.services.except.user.UnavailableCommunity;
 import com.greco.services.except.user.UnknownCommunityException;
+import com.greco.services.helpers.CommunityItem;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
 
@@ -39,6 +43,8 @@ public class LoginCBean implements Serializable{
 		
 	}
 	
+		
+	
 	/**
 	 * Login desde página de administración 
 	 * @return
@@ -61,16 +67,33 @@ public class LoginCBean implements Serializable{
 			FacesContext.getCurrentInstance().addMessage(null, fm);
 			log.log("001005");//INFO|Intento de login fallido. Usuario o contraseña incorrectos.
 
-			return null;
+			return "failure";
 		}
 		
 		//Obtenemos resto de datos para cargar el bean de sesión UserBean.
 		UserSBean userBean=new UserSBean();
 		userBean=this.userDataProvider.loadAdminCredentials(loginBBean.getEmail());
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userLogged", userBean);
-		log.log("001000");//INFO|Intento exitoso de login como administrador.				
-        return "admin";
+		log.log("001000");//INFO|Intento exitoso de login como administrador.
+		String ret;
+		//Instancio el bean como si se hubiera llamado desde una página JSF.
+		FacesContext context = FacesContext.getCurrentInstance();
+		CommunitiesSBean communitiesSBean = (CommunitiesSBean) context.getApplication().evaluateExpressionGet(context, "#{communitiesSBean}", CommunitiesSBean.class);
 		
+		//Si tengo solo una, edito esa directamente.
+		List<CommunityItem> communities=communitiesSBean.getMyCommunities();
+		if (communities.size()==1){
+			communitiesSBean.setSelectedItem(communities.get(0));
+			//Actualizamos la lista de recursos correspondientes
+			ResourcesSBean resourcesSBean = (ResourcesSBean) context.getApplication().evaluateExpressionGet(context, "#{resourcesSBean}", ResourcesSBean.class);
+			resourcesSBean.setCommunityItem(communities.get(0));
+			ret="edit";
+		}
+		//Si tengo más de una comunidad, pido al usuario que seleccione la que quiera administrar.
+		else ret="select";
+		//Pongo el bean en la sesión.
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("communitiesSBean", communitiesSBean);
+        return ret;	
 	}
 	
 	

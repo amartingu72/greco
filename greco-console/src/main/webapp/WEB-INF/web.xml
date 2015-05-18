@@ -30,12 +30,7 @@
      <param-value>true</param-value>
   </context-param>
   
-<!-- Tema para Primefaces -->
-	<context-param>
-		<param-name>primefaces.THEME</param-name>
-		<param-value>casablanca</param-value>
-	</context-param>
-<!-- Tema para Primefaces -->
+
 
   <context-param>
     <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>

@@ -9,107 +9,107 @@
 
 <h:head>IGNORED</h:head>
 <h:body>
-	<ui:composition template="../../templates/admin_layout.xhtml">
+	<ui:composition template="../../templates/admin2_layout.xhtml">
 		<ui:define name="content">
 			<h:form id="editCommForm">
-				<p:growl id="messages" showSummary="true" showDetail="true"/>
-				<h:inputHidden id="id" value="#{newCommunityBBean.id}"/>
-				<h:panelGrid id="data" columns="5">
-					
-					<p:outputLabel for="name" value="#{msgs['editcommunity.name']}" />
-					<p:inputText id="name" value="#{newCommunityBBean.name}" maxlength="32" required="true">
-						<f:validator binding="#{duplicatedCommunityValidator}" />
-					</p:inputText>
-					<p:spacer width="200" height="5" />
-					<p:selectBooleanButton value="#{newCommunityBBean.available}"  
-								onLabel="#{msgs['editcommunity.available']}" 
-								offLabel="#{msgs['editcommunity.unavailable']}"  
-								onIcon="ui-icon-check" offIcon="ui-icon-close"
-				 				style="width:100px;height:25px;font-family: 'Lato', sans-serif; font-size: 13px;"/>
-					<p:focus context="data"/>
-				</h:panelGrid>
 				
-				<p:tabView id="tabView"
-					style="height:370px;font-family: 'Lato', sans-serif; font-size: 13px;"
-					cache="false"
-					>
-					<p:ajax event="tabChange" process=":editCommForm:tabView"/>
-					<p:tab id="general_tab" title="#{msgs['editcommunity.general_tab']}">
-						<h:panelGrid columns="2">
-							<p:outputLabel for="zipcode"
-								value="#{msgs['editcommunity.zipcode']}" />
-							<p:inputMask id="zipcode" value="#{newCommunityBBean.zipcode}"
-								mask="99999"
-								required="true" />
-							<p:outputLabel for="country"
-								value="#{msgs['editcommunity.country']}" />
-							<h:selectOneMenu id="country"
-								value="#{newCommunityBBean.country}" required="true">
-								<f:selectItems value="#{countriesSBean.countries}" />
-							</h:selectOneMenu>
-
-						</h:panelGrid>
-						<p:separator />
-						<p:outputLabel value="#{msgs['editcommunity.notes']}" />:
-						<br />
-						<p:inputTextarea id="notes" value="#{newCommunityBBean.mydata}"
-							rows="5" cols="58" maxlength="256" counter="display"
-							counterTemplate="#{msgs['editaccount.remaining_chars']}" />
-						<br />
-						<p:outputLabel id="display" />
-						<br />
-						<br />
-					</p:tab> 
-					<p:tab id="resources_tab" title="#{msgs['editcommunity.resources_tab']}">
-						<p:dataTable id="resourcesTable" value="#{newCommunityBBean.myResources}" 	var="rsrc"
-							resizableColumns="true"
-							emptyMessage="#{msgs['editcommunity.empty_msg']}"
-							paginatorPosition="bottom"
-						 	rows="8" 
-                         	paginator="true"
-                         	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"							>
-							<p:column style="width:100px;" headerText="#{msgs['editcommunity.resources']}"  sortBy="#{rsrc.name}">
-								<p:commandButton style="height:15px;width:20px;" actionListener="#{newCommunityCBean.editResourcePF}" icon="ui-icon-search" title="#{msgs['editresource.title']}">
-                					<f:setPropertyActionListener value="#{rsrc}" target="#{resourcesSBean.selectedResource}" />
-                					 <p:ajax event="dialogReturn" update=":editCommForm :editCommForm:tabView:resourcesTable :editCommForm:messages" listener="#{newCommunityCBean.onResourceUpdatedPF}"/>
-            					</p:commandButton>
-								#{rsrc.name}
-							</p:column>
-							<p:column style="text-align:center;width:50px;" headerText="#{msgs['editcommunity.resource_type']}" sortBy="#{rsrc.type}"> 
-								#{rsrc.type}
-							</p:column>
-							<p:column headerText="#{msgs['editcommunity.status']}">		
-								#{rsrc.mintime}-#{rsrc.maxtime} #{rsrc.timeunit} #{msgs['editresource.beforehand']}: #{rsrc.beforehand} #{rsrc.beforehandTU}
-        					</p:column>
-        					<p:column id="status" style="width:8px;" sortBy="#{rsrc.status}">
-        						<h:outputText styleClass="ui-icon ui-icon-newwin" title="#{msgs['editcommunity.new']}" rendered="#{rsrc.added}"/>
-        						<h:outputText styleClass="ui-icon ui-icon-circle-check" title="#{msgs['editcommunity.updated']}" rendered="#{rsrc.updated}"/>
-							</p:column>
-						</p:dataTable>
-						<p:commandButton id="newbtn" 
-								icon="ui-icon-plus" 
-								actionListener="#{newCommunityCBean.addResourcePF}"  
-								title="#{msgs['editresource.add_title']}"
-								value="#{msgs['editcommunity.add_resource']}">
-								<p:ajax event="dialogReturn" update=":editCommForm :editCommForm:tabView:resourcesTable :editCommForm:messages" listener="#{newCommunityCBean.onResourceAddedPF}"/>
-						</p:commandButton>
-					</p:tab>
+				<h:inputHidden id="id" value="#{newCommunityBBean.id}"/>
+				<div class="row">
+					<div class="col-md-offset-1 col-md-4">
+						<div class="form-group">
+							<label for="name">#{msgs['editcommunity.name']}</label>
+							<p:inputText id="name" class="form-control" value="#{newCommunityBBean.name}" 
+								maxlength="32" 
+								required="true"
+								requiredMessage="#{msgs['newcommunity.required_msg']}"
+								aria-describedby="nameHelpBlock">
+								<f:validator binding="#{duplicatedCommunityValidator}" />
+							</p:inputText>
+							<p:message for="name" showDetail="true"/>
+						</div>
+					</div>
+					<div class="col-md-6"> 
+            			<span id="nameHelpBlock" class="help-block text-justify">#{msgs['newcommunity.name_note']}</span>
+            		</div>	
+            	</div>
+				
 					
-				</p:tabView>
-				<p:tooltip style="font-family: 'Lato', sans-serif; font-size: 13px;" for=":editCommForm:tabView:resourcesTable:status">
-					<h:panelGrid columns="4">			
-						<h:outputLabel for="icon_new" value="#{msgs['editcommunity.status_tooltip1']}" /> 
-						<h:outputText id="icon_new" styleClass="ui-icon ui-icon-newwin"/>
-						<h:outputLabel for="icon_updated" value="#{msgs['editcommunity.status_tooltip2']}" />  
-						<h:outputText id="icon_updated" styleClass="ui-icon ui-icon-circle-check"/>
-					</h:panelGrid>
-				</p:tooltip>
-				<p:separator />
+				<div class="row">
+					<div class="col-md-offset-1 col-md-4">	
+						<div class="form-group">
+							<div class="checkbox">
+								<h:selectBooleanCheckbox id="enabled" value="#{newCommunityBBean.available}"
+									aria-describedby="activeHelpBlock" />
+    							<label for="enabled">#{msgs['editcommunity.available']}</label>
+    						</div>
+					 	</div>
+				 	</div>
+				 	<div class="col-md-6"> 
+            			<span id="activeHelpBlock" class="help-block text-justify">#{msgs['newcommunity.active_note']}</span>
+            		</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-offset-1 col-md-4">		
+						<div class="row">
+							<div class="col-md-6">	
+								<div class="form-group">
+									<label for="zipcode">#{msgs['editcommunity.zipcode']}</label>
+									<p:inputMask id="zipcode" class="form-control" value="#{newCommunityBBean.zipcode}"
+										mask="99999"
+										required="true"
+										requiredMessage="#{msgs['newcommunity.required_msg']}" />
+									
+								</div>
+							</div>
+							<div class="col-md-6">	
+								<div class="form-group">
+									<label for="country">#{msgs['editcommunity.country']}</label>
+									<h:selectOneMenu id="country" class="form-control"
+										value="#{newCommunityBBean.country}" required="true"
+										aria-describedby="locationHelpBlock">
+										<f:selectItems value="#{countriesSBean.countries}" />
+									</h:selectOneMenu>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<p:message for="zipcode" />
+						</div>
+					</div>
+					<div class="col-md-6"> 
+            			<span id="locationHelpBlock" class="help-block text-justify">#{msgs['newcommunity.location_note']}</span>
+            		</div>
+            	</div>
+            	
+            	
+            	
+				<div class="row">
+					<div class="col-md-offset-1 col-md-4">	
+						<div class="form-group">
+							<label for="notes">#{msgs['editcommunity.notes']}</label>:
+							<p:inputTextarea id="notes" class="form-control" 
+								value="#{newCommunityBBean.mydata}"
+								rows="5" cols="58" maxlength="256" counter="display"
+								aria-describedby="notesHelpBlock"
+								counterTemplate="#{msgs['editaccount.remaining_chars']}" />
+							<p:outputLabel id="display" />
+						</div>
+					</div>
+					<div class="col-md-6"> 
+            			<span id="notesHelpBlock" class="help-block text-justify">#{msgs['newcommunity.notes_note']}</span>
+            			<div class="text-right mar-top40">
+							<h:commandButton class="btn btn-primary" value="#{msgs['newcommunity.next']}" 
+								action="#{newCommunityCBean.next}"	/>
+						</div>
+            			
+            		</div>
+            	</div>
 					
-				<p:commandButton id="savebtn" icon="ui-icon-disk"
-					value="#{msgs['editcommunity.save']}"
-					actionListener="#{newCommunityCBean.addPF}" 
-					update=":editCommForm:messages"/>
+					
+			
+				
+			
 				
 				
 			</h:form>

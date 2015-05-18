@@ -327,11 +327,6 @@
 		<managed-bean-name>newCommunityBBean</managed-bean-name>
 		<managed-bean-class>com.greco.beans.NewCommunityBBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
-		<managed-property>
-			<property-name>myResources</property-name>
-			<property-class>java.util.List</property-class>
-			<value>#{resourcesSBean.myResources}</value>
-		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<description>Bean controlador para la creación de una nueva comunidad.</description>
@@ -385,7 +380,12 @@
 		<description>Backing bean para soportar el menú.</description>
 		<managed-bean-name>menuBBean</managed-bean-name>
 		<managed-bean-class>com.greco.beans.MenuBBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>communitiesSBean</property-name>
+			<property-class>com.greco.beans.CommunitiesSBean</property-class>
+			<value>#{communitiesSBean}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<description>Bean controlador para la gestión del menú.</description>
@@ -396,16 +396,6 @@
 			<property-name>menuBBean</property-name>
 			<property-class>com.greco.beans.MenuBBean</property-class>
 			<value>#{menuBBean}</value>
-		</managed-property>
-		<managed-property>
-			<property-name>communitiesSBean</property-name>
-			<property-class>com.greco.beans.CommunitiesSBean</property-class>
-			<value>#{communitiesSBean}</value>
-		</managed-property>
-		<managed-property>
-			<property-name>resourcesSBean</property-name>
-			<property-class>com.greco.beans.ResourcesSBean</property-class>
-			<value>#{resourcesSBean}</value>
 		</managed-property>
 	</managed-bean>
 	<managed-bean>
@@ -633,6 +623,12 @@
 			<value>#{reservationsBBean}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+		<description>Gestiona la ventana de welcome que aparece tras crear un usaurio adminstrador.</description>
+		<managed-bean-name>welcomeCBean</managed-bean-name>
+		<managed-bean-class>com.greco.beans.WelcomeCBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 	<navigation-rule>
 		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>
@@ -722,14 +718,6 @@
 		<navigation-case>
 			<from-outcome>delete</from-outcome>
 			<to-view-id>/sections/communities.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>index.xhtml</display-name>
-		<from-view-id>/sections/login/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>failure</from-outcome>
-			<to-view-id>/sections/login/login.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -837,15 +825,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>index.xhtml</display-name>
-		<from-view-id>/sections/login/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>admin</from-outcome>
-			<to-view-id>/sections/admin/welcome.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
 		<display-name>sections/subscribeme.xhtml</display-name>
 		<from-view-id>/sections/subscribeme.xhtml</from-view-id>
 		<navigation-case>
@@ -946,7 +925,72 @@
 		<display-name>sections/admin/editresource.xhtml</display-name>
 		<from-view-id>/sections/admin/editresource.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>cancel</from-outcome>
+			<from-outcome>back</from-outcome>
+			<to-view-id>/sections/admin/editcommunity.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>index.xhtml</display-name>
+		<from-view-id>/sections/login/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>select</from-outcome>
+			<to-view-id>/sections/admin/selectcom.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>index.xhtml</display-name>
+		<from-view-id>/sections/login/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/sections/admin/editcommunity.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/welcome.xhtml</display-name>
+		<from-view-id>/sections/admin/welcome.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>new</from-outcome>
+			<to-view-id>/sections/admin/newcommunity.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/selectcom.xhtml</display-name>
+		<from-view-id>/sections/admin/selectcom.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>new</from-outcome>
+			<to-view-id>/sections/admin/newcommunity.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/newcommunity.xhtml</display-name>
+		<from-view-id>/sections/admin/newcommunity.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>next</from-outcome>
+			<to-view-id>/sections/admin/newcommunity_step2.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/newcommunity_step2.xhtml</display-name>
+		<from-view-id>/sections/admin/newcommunity_step2.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>done</from-outcome>
+			<to-view-id>/sections/admin/editcommunity.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/editcommunity.xhtml</display-name>
+		<from-view-id>/sections/admin/editcommunity.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>add</from-outcome>
+			<to-view-id>/sections/admin/newresource.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/newresource.xhtml</display-name>
+		<from-view-id>/sections/admin/newresource.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>back</from-outcome>
 			<to-view-id>/sections/admin/editcommunity.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>

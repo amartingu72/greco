@@ -17,10 +17,8 @@ public class NewResourceCBean {
 	
 	public String cancel() {
 		//Controlamos a qué página devolver el control: edición o nueva comunidad.
-		String ret;
-		if ( this.communitiesSBean.getSelectedItem().isNew() ) ret="cancel_a";
-		else ret="cancel_u";
-		return ret;
+		
+		return "back";
 	}
 	/**
 	 * Cancelación desde diálogo PF.
@@ -63,11 +61,8 @@ public class NewResourceCBean {
 		// Grabamos en el log.	
 		logger.log("004000",msg);//INFO|Recurso pre-creado:
 	
-		//Controlamos a qué página devolver el control: edición o nueva comunidad.
-		String ret;
-		if ( this.communitiesSBean.getSelectedItem().isNew() ) ret="save_a";
-		else ret="save_u";
-		return ret;
+		
+		return "back";
 		
 	}
 	/**

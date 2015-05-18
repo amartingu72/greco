@@ -19,7 +19,7 @@ public class CommunitiesListBBean implements Serializable{
 	
 	private static final long serialVersionUID = -2492929364241535103L;
 	
-	
+
 	
 	//Atributo utilizado únicamente para ordenar la lista de comunidades.
 	private List<CommunityItem> myCommunitiesArrayList;
@@ -89,6 +89,15 @@ public class CommunitiesListBBean implements Serializable{
 			ret=selectedItem.getId();
 		return ret;
 	}
+
+	public boolean isClear() {
+		
+			return this.myCommunities.isEmpty();
+		
+	}
+
+	
+	
 	
 
 	

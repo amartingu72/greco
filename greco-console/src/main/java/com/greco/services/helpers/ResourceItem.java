@@ -55,7 +55,12 @@ public class ResourceItem implements Serializable {
 					type.equals(resourceItem.getType()) ) ;
 		return bReturn;
 	}
-	
+	/**
+	 * Deja el estado a NONE, es decir sin acciones de persistencia en base de datos pendientes.
+	 */
+	public void clearStatus(){
+		status=Status.NONE;
+	}
 	
 	//GETTER's y SETTER's
 	public int getId() {

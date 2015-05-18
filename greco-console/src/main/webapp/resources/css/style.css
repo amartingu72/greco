@@ -10,6 +10,8 @@ Imports
 /* ================================
 General
 ================================= */
+
+
 body{
 	margin:0;
 	padding:0;
@@ -21,7 +23,7 @@ body{
 }
 
 h1 {
-	font-size: 36px;
+	font-size: 48px;
 }
 h2 {
 	font-size: 32px;
@@ -169,10 +171,10 @@ Spacer
 ============================= */
 
 #spacer1{	
-	background-image: url(../img/spacer/1.jpg);
+	background-image: url(../../resources/img/spacer/1.jpg);
 }
 #spacer2{	
-	background-image: url(../img/spacer/2.jpg);
+	background-image: url(../../resources/img/spacer/2.jpg); 
 }
 
 
@@ -198,7 +200,7 @@ Intro
 .intro-text {
 	position:relative;
 	width:100%;
-	margin-top:80px;
+	margin-top:40px;
 	z-index:1000;
 }
 #intro .brand {
@@ -215,6 +217,13 @@ Intro
 }
 .intro-text h1 a:hover {
 	text-decoration: none;
+}
+/*Cambio de los colores del indicador del carrusel*/
+.carousel-indicators li {
+  background-color: #669966;
+}
+.carousel-indicators .active {
+  background-color: #FF7600;
 }
 
 .line-spacer {
@@ -543,6 +552,11 @@ footer {
 	padding: 50px 0 30px;
 }
 
+/*Zona de botones*/
+.options-area {
+	position: fixed;
+	z-index: 9999;
+}
 
 /* ================================
 more media queries

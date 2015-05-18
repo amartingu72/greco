@@ -91,29 +91,40 @@
 */
 /*Tablas*/
 .ui-datatable-data{
-	font-family: 'Lato', sans-serif !important;
-	font-size: 12px !important;
+	font-family: 'Open Sans', sans-serif !important;
+	font-size: 14px !important;
+	
 }
-/*Columnas de la pestaña de recursos*/
-.rscrColumn1{
-	width:100px;
-	font-family: 'Lato', sans-serif;
-	font-size: 12px;
-}
-.rscrColumn2{
-	text-align:center;
-	width:50px;
-	font-family: 'Lato', sans-serif;
-	font-size: 12px;
-}
-.rscrColumn3{
-	width:250px;
-	font-family: 'Lato', sans-serif;
-	font-size: 12px;
-}
-.rscrColumn4{
-	width:8px;
-	font-family: 'Lato', sans-serif; 
-	font-size: 12px;
+
+.ui-datatable.borderless thead th,
+.ui-datatable.borderless tbody,
+.ui-datatable.borderless tbody tr,
+.ui-datatable.borderless tbody td {
+    border-style: none;
 }
 /*Columnas de la pestaña de miembros*/
+.rsrcColumn1{
+	width:150px;
+	
+}
+.rsrcColumn2{
+	
+	width:100px;
+	text-align:center;
+	
+}
+.rsrcColumn3{
+	width:100px;
+	text-align:center;
+	
+}
+.rsrcColumn4{
+	width:150px;
+	text-align:center;
+	
+	
+}
+.rsrcColumn5{
+	width:80px;
+	text-align:center;	
+}

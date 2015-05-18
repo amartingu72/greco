@@ -30,6 +30,16 @@ public class EditCommunityCBean {
 	private ResourcesSBean resourcesSBean;//Inyectado
 	
 	/**
+	 * Borrado de un recurso.
+	 * @param rsrcItem
+	 * @return
+	 */
+	public String removeResource(ResourceItem rsrcItem){
+		return "remove";
+	}
+	
+	
+	/**
 	 * Guardar comunidad gestionado desde páginas Prime Faces (PF).
 	 * @return
 	 */
@@ -75,18 +85,21 @@ public class EditCommunityCBean {
 		CommunityItem communityItem=new CommunityItem(
 				communitiesSBean.getSelectedItem().getId(),
 				editCommunityBBean.isAvailable() , 
-				editCommunityBBean.getMydata());
+				editCommunityBBean.getName(),
+				editCommunityBBean.getZipcode(),
+				editCommunityBBean.getMydata(),
+				editCommunityBBean.getCountry());
 		
 		communityDataProvider.save(communityItem,resourcesSBean.getMyResources());
 	
 		//Montamos el mensaje indicando valores actuales y anteriores.
 		msg="ID(" + communitiesSBean.getSelectedItem().getId() + "), ";
+		msg+="NAME(" + communitiesSBean.getSelectedItem().getName() + " > " + communityItem.getName() + "), ";
 		msg+="AVAILABLE(" + communitiesSBean.getSelectedItem().isAvailable() + " > " + communityItem.isAvailable() + "), ";
 		msg+="MYDATA(" + communitiesSBean.getSelectedItem().getMyData()  + " > " + communityItem.getMyData() + ")"; 
 		
 		//Actualizamos la el contenido de la comunidad seleccionada (communitiesSBean), con los cambios
-		communitiesSBean.getSelectedItem().setAvailable(editCommunityBBean.isAvailable());
-		communitiesSBean.getSelectedItem().setMyData(communitiesSBean.getSelectedItem().getMyData());
+		communitiesSBean.setSelectedItem(communityItem);
 		
 		//Actualizamos la lista de comunidades. Es necesario porque el backing bean de comunidades 
 		//(CommunitiesSBean), es de sesión. 
@@ -112,7 +125,7 @@ public class EditCommunityCBean {
 	 */
 	public String addResource() 
 	{
-		String result="addResource";		
+		String result="add";		
 		return result;
 	}
 	

@@ -15,69 +15,195 @@
   
    </h:head>
    <h:body>
-   	  <div id="dialog">
+   	<ui:composition template="../../templates/admin2opt_layout.xhtml">
+		<ui:define name="sidebarleft">		
+			<h:commandLink action="#{newResourceCBean.cancel}">
+				<span class="fa-stack fa-2x">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>
+				</span>
+			</h:commandLink>
+		</ui:define>
+		<ui:define name="content">
+			
             <h:form id="editresourcesForm">
-            	<p:growl showSummary="true" showDetail="true"/>
-            	<h:inputHidden id="id" value="#{newResourceBBean.id}"/>
-            	<h:panelGrid id="data" columns="2">
-            		
-            		<p:outputLabel for="resource" value="#{msgs['editresource.name']}"/>
-					<p:inputText id="resource" value="#{newResourceBBean.name}"  maxlength="32" required="true">
-						<f:validator binding="#{duplicatedResourceValidator}" />
-					</p:inputText>
-					<p:outputLabel for="type" value="#{msgs['editresource.type']}"/>
-					<h:selectOneMenu id="type" value="#{newResourceBBean.type}" required="true">
-						<f:selectItems value="#{resourceTypesSBean.resourceTypes}"/>
-					</h:selectOneMenu>
-						
             	
-            		<p:outputLabel for="availableFromTime" value="#{msgs['editresource.available_from']}"/>
-					<p:inputMask id="availableFromTime" value="#{newResourceBBean.availableFromTime}" mask="99:99">
-						<f:validator validatorId="com.greco.validators.TimeValidator" />
-					</p:inputMask>
-            		<p:outputLabel for="availableToTime" value="#{msgs['editresource.available_to']}"/>
-					<p:inputMask id="availableToTime" value="#{newResourceBBean.availableToTime}" mask="99:99">
-						<f:validator validatorId="com.greco.validators.TimeValidator" />
-						<f:validator validatorId="com.greco.validators.AvailabilityValidator" />
-					</p:inputMask>
-					<p:focus context="data"/>
-            	</h:panelGrid>
-            	<p:outputLabel value="#{msgs['editresource.time_constraints']}"/>
-            	<h:panelGrid columns="6">
-            		<p:outputLabel for="mintime" value="#{msgs['editresource.min_time']}"/>
-					<p:inputText id="mintime"  value="#{newResourceBBean.mintime}" size="5" maxlength="3" readonly="false">
-						<f:convertNumber integerOnly="true"/>
-					</p:inputText> 	
-					<p:outputLabel for="maxtime" value="#{msgs['editresource.max_time']}"/>
-					<h:inputText id="maxtime" value="#{newResourceBBean.maxtime}" size="5" maxlength="3" readonly="false">
-						<f:convertNumber integerOnly="true"/>
-						<f:validator validatorId="com.greco.validators.MaxtimeValidator"/>
-					</h:inputText>
-					<p:outputLabel value="#{msgs['editresource.time_unit']}"/>
-					<h:selectOneMenu id="timeunit" value="#{newResourceBBean.timeunit}"  >
-						<f:selectItems value="#{timeUnitsSBean.timeUnits}"/>
-					</h:selectOneMenu>
-            	</h:panelGrid>
-            	<h:panelGrid columns="3">   
-            		<p:outputLabel for="beforehand" value="#{msgs['editresource.beforehand']}"/>
-            		<h:inputText id="beforehand" value="#{newResourceBBean.beforehand}" size="5" maxlength="3" readonly="false">
-						<f:convertNumber integerOnly="true"/>
-					</h:inputText>
-            		<h:selectOneMenu value="#{newResourceBBean.beforehandTU}"  >
-						<f:selectItems value="#{timeUnitsSBean.timeUnits}"/>
-					</h:selectOneMenu>
-            	</h:panelGrid>     	
-            	<p:outputLabel for="notes" value="#{msgs.resource_description}"/><br/>
-				<h:inputTextarea id="notes" value="#{newResourceBBean.description}" rows="5" cols="58" maxlength="256"/> 
-				<br/>
-				<p:separator/>
-				<h:panelGrid columns="2">
-					<p:commandButton value="#{msgs['editresource.save']}" action="#{newResourceCBean.addPF}"/>
-					<p:commandButton value="#{msgs['editresource.cancel']}" immediate="true" action="#{newResourceCBean.cancelPF}"/>
-				</h:panelGrid>
-							
-				
-       </h:form>	
-         </div>
+            	<h:inputHidden id="id" value="#{newResourceBBean.id}"/>
+            	
+            	
+            	<div class="row">
+            		<div class="col-md-offset-1 col-md-11">
+            			<h5>#{communitiesSBean.selectedItem.name}(#{msgs['newresource.new_resource']})</h5>
+            		</div>
+            	</div>
+            	<div class="row">
+            		<div class="col-md-offset-1 col-md-5">
+		            	<div class="row">
+		            		<div class="col-md-12">
+								<div class="form-group">          			
+		            				<label for="resource">#{msgs['editresource.name']}</label>
+									<p:inputText id="resource" 
+										class="form-control" 
+										title="#{msgs['newresource.name_note']}"
+										value="#{newResourceBBean.name}"  maxlength="32" required="true"
+										requiredMessage="#{msgs['newresource.name_required']}">
+										
+										<f:validator binding="#{duplicatedResourceValidator}" />
+										
+									</p:inputText>
+									<p:message for="resource" showDetail="true"/>
+								</div>						
+		            		</div>            		
+						</div>
+						<div class="row">
+		            		<div class="col-md-12">
+								<div class="form-group"> 
+									<label for="type">#{msgs['editresource.type']}</label>
+									<h:selectOneMenu id="type" class="form-control" value="#{newResourceBBean.type}"
+										required="true"
+										title="#{msgs['newresource.type_note']}">
+										<f:selectItems value="#{resourceTypesSBean.resourceTypes}" />
+									</h:selectOneMenu>
+									
+								</div>
+							</div>
+						</div>
+						<div class="row">
+		            		<div class="col-md-12">
+		            			<div class="form-group">           	
+		            				<label for="notes">#{msgs.resource_description}</label>
+									<p:inputTextarea id="notes" value="#{newResourceBBean.description}" class="form-control" 
+									rows="5" cols="58" maxlength="256"
+									counter="display"
+									title="#{msgs['newresource.notes_note']}"
+									counterTemplate="#{msgs['editaccount.remaining_chars']}"/>
+									<p:outputLabel id="display" />
+								</div> 
+							</div>
+            			</div>
+					</div>
+								
+            		<div class="col-md-5">
+		            	<div class="row">
+		            		<div class="col-md-12">
+								<div class="form-group">
+		            				<p><span>#{msgs['editresource.time_constraints']}</span></p>
+		            			</div>
+		            		</div>
+		            	</div>
+		            	<div class="row">
+		            		<div class="col-md-6">
+								<div class="form-group"> 	
+		            	    		<label for="availableFromTime">#{msgs['editresource.available_from']}</label>
+									<p:inputMask id="availableFromTime" class="form-control" value="#{newResourceBBean.availableFromTime}" 
+										mask="99:99" title="#{msgs['newresource.avaliability_note']}"
+										required="true"
+										requiredMessage="#{msgs['newresource.availableFromTime_required']}">
+										<f:validator validatorId="com.greco.validators.TimeValidator" />
+									</p:inputMask>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+		            				<label for="availableToTime">#{msgs['editresource.available_to']}</label>
+									<p:inputMask id="availableToTime" class="form-control" value="#{newResourceBBean.availableToTime}" 
+										mask="99:99" title="#{msgs['newresource.avaliability_note']}"
+										required="true"
+										requiredMessage="#{msgs['newresource.availableToTime_required']}">
+										<f:validator validatorId="com.greco.validators.TimeValidator" />
+										<f:validator validatorId="com.greco.validators.AvailabilityValidator" />
+									</p:inputMask>
+									
+								</div>
+							</div>
+		            	</div>
+		            	<div class="row">
+		            		<div class="col-md-12">
+		            			<p:message for="availableFromTime" showDetail="true"/>
+		            			<p:message for="availableToTime" showDetail="true"/>
+		            		</div>
+		            	</div>
+		            
+		            	<div class="row">
+		            		<div class="col-md-3">
+								<div class="form-group">
+		            				<label for="mintime">#{msgs['editresource.min_time']}</label>
+									<p:inputText id="mintime" class="form-control" value="#{newResourceBBean.mintime}" size="5" maxlength="3" 
+										readonly="false" title="#{msgs['newresource.time_unit_note']}"
+										required="true"
+										requiredMessage="#{msgs['newresource.mintime_required']}"
+										converterMessage="#{msgs['newresource.mintime_not_integer']}">
+										<f:convertNumber integerOnly="true"/>
+									</p:inputText>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+							 		<label for="maxtime">#{msgs['editresource.max_time']}</label>
+									<h:inputText id="maxtime" class="form-control" value="#{newResourceBBean.maxtime}" size="5" maxlength="3" 
+										readonly="false" title="#{msgs['newresource.time_unit_note']}"
+										required="true"
+										requiredMessage="#{msgs['newresource.maxtime_required']}"
+										converterMessage="#{msgs['newresource.maxtime_not_integer']}">
+										<f:convertNumber integerOnly="true"/>
+										<f:validator validatorId="com.greco.validators.MaxtimeValidator"/>
+									</h:inputText>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="timeunit">#{msgs['editresource.time_unit']}</label>
+									<h:selectOneMenu id="timeunit" class="form-control" value="#{newResourceBBean.timeunit}" title="#{msgs['newresource.time_unit_note']}" >
+										<f:selectItems value="#{timeUnitsSBean.timeUnits}"/>
+									</h:selectOneMenu>
+									
+								</div>
+							</div>
+		            	</div>
+		            	<div class="row">
+		            		<div class="col-md-12">
+		            			<p:message for="mintime" showDetail="true"/>
+		            			<p:message for="maxtime" showDetail="true"/>
+		            		</div>
+		            	</div>
+		            	<div class="row">
+		            		<div class="col-md-3">
+		                       		<label>#{msgs['editresource.beforehand']}</label>
+		                    </div>
+		            		<div class="col-md-3">
+		            				<h:inputText id="beforehand" class="form-control" value="#{newResourceBBean.beforehand}" size="5" maxlength="3" 
+		            					readonly="false" title="#{msgs['newresource.beforehand_note']}"
+		            					required="true"
+		            					requiredMessage="#{msgs['newresource.beforehand_required']}"
+		            					converterMessage="#{msgs['newresource.beforehand_not_integer']}">
+										<f:convertNumber integerOnly="true"/>
+									</h:inputText>
+								
+							</div>
+							<div class="col-md-6">						
+		            			<h:selectOneMenu  value="#{newResourceBBean.beforehandTU}" class="form-control" 
+		            				title="#{msgs['newresource.beforehand_note']}">
+									<f:selectItems value="#{timeUnitsSBean.timeUnits}"/>
+								</h:selectOneMenu>
+								
+							</div>
+						</div>
+						<div class="row">
+		            		<div class="col-md-12">
+		            			<p:message for="beforehand" showDetail="true"/>
+		            		</div>
+		            	</div>
+						<div class="row">
+							<div class="col-md-12 text-right mar-top30">
+								<h:commandButton class="btn btn-primary" value="#{msgs['editresource.save']}" action="#{newResourceCBean.add}"/>
+							</div>
+						</div>
+            			
+					</div>
+					
+				</div>
+       		</h:form>	
+       	</ui:define>
+      </ui:composition>  
    </h:body>
 </html>

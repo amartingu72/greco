@@ -27,6 +27,7 @@ public class NewAccountCBean {
 	
 	
 	/**
+	 * A ELIMINAR. YA NO EXISTE TAP. LO DEJO COMO EJEMPLO DE GESTIÓN DE USUARIOS QUE YA CONOCEMOS PORQUE SE REGISTRARON ANTES.
 	 * Este método es invocado cada vez que hay un cambio de paso.
 	 * Si es el cambio desde email comprobamos que no está dado de alta. Si lo está se le solicitará nuevo login
 	 * @param event

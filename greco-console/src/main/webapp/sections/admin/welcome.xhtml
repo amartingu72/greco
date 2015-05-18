@@ -14,20 +14,25 @@
          </ui:define> 
          <ui:define name="content">
             <h:form>
-            	
-            	<div class="col-md-12">
-
-						<div class="brand">
-							<h1>
-								<a href="index.html">Greco</a>
-							</h1>
-							<div class="line-spacer"></div>
+            	<div class="row">
+            		<div class="col-md-offset-1 col-md-12">
+						<div class="brand">		
 							<p>
-								<span>Bienvenido..</span>
+								<span>#{msgs['welcome.msgs1']}</span>
+							</p>
+							<p>
+								<span>#{msgs['welcome.msgs2']}</span>
 							</p>
 							<div class="line-spacer"></div>
 						</div>
 					</div>
+				</div>
+				<div class="line-spacer"></div>
+				<div class="row">
+            		<div class="col-md-offset-8 col-md-4">
+            			<h:commandButton class="btn btn-theme" value="#{msgs['welcome.new_community']}" action="#{welcomeCBean.submit}" />
+            		</div>
+				</div>
             </h:form>	            
          </ui:define>
       </ui:composition>

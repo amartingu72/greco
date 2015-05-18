@@ -17,7 +17,7 @@ public class PwdForgottenBBean {
 
 	@PostConstruct
 	public void initialize(){
-		String sCom=FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("community_id");
+		String sCom=FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("communityid");
 		if ( sCom != null ) //Login realizado como comlogin.
 			communityId=Integer.parseInt(sCom);
 		else communityId=0; //No hay comunidad debido a que se hizo login como adm

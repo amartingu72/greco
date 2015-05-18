@@ -14,8 +14,11 @@
          </ui:define> 
          <ui:define name="content">
           <h:form>
-         	<div class="row">	
-					<p class="text-center"><span>#{msgs['selectcom.select_banner']}</span></p>     				
+         	<div class="row text-center">	
+					<p><span>#{msgs['selectcom.select_banner']}</span></p>
+					<h:outputLabel class="mar-top20 "
+						rendered="#{communitiesListBBean.clear}"  
+						value="#{msgs['selectcom.no_comm']}"/>
 			</div>	
 			<div class="row">
 				<div class="col-md-offset-4 col-md-4">
@@ -27,7 +30,7 @@
 							</h:commandLink>
 						</li>
 					</ui:repeat>
-					<li class="active">
+					<li class="active  mar-top20">
 						<h:commandLink action="#">
 						<p class="text-center">¿Creamos una nueva comunidad?</p>
 						</h:commandLink>

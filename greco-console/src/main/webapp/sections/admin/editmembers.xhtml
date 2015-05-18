@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"> 
+
+
+<h:head>IGNORED</h:head>
+<h:body>
+	<ui:composition template="../../templates/admin2_layout.xhtml">
+		<ui:define name="content">
+			<h:form id="editMembersForm">
+				
+				<p:growl id="messages" showSummary="true" showDetail="true"/>
+				<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
+				
+				<div class="row">
+					<div class="col-md-offset-1 col-md-11">
+						<h5>#{communitiesSBean.selectedItem.name}</h5>
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="hidden-xs hidden-sm col-md-offset-1 col-md-10">
+							
+						<p:dataTable id="membersTable" var="member" value="#{editCommunityBBean.members}"
+							tableStyleClass="ui-table-columntoggle" 					
+							paginator="true" 
+							rows="8"
+							widgetVar="membersTable"
+							resizableColumns="true"
+							paginatorPosition="bottom"
+		                	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+		                	lazy="true"> 
+		        		
+		        		<p:column width="50">
+            				<p:rowToggler />
+        				</p:column>	 
+		        		<p:column id="alias_column" class="rsrcColumn1" headerText="#{msgs['editcommunity.member_alias']}" sortBy="#{member.nickname}" filterBy="#{member.nickname}" >
+		            		#{member.nickname}
+		        		</p:column>
+		        		<p:column id="profile_column" class="rsrcColumn2"  priority="4" headerText="#{msgs['editcommunity.member_profile']}" sortBy="#{member.memberProfile.description}">
+						 	<p:selectBooleanCheckbox value="#{member.admin}">
+            					<p:ajax update=":editMembersForm:messages :editMembersForm:membersTable" listener="#{editMembershipCBean.saveMemberProfile(member)}" />
+        					</p:selectBooleanCheckbox>	
+			        	</p:column>
+		    	    	<p:column id="status_column" class="rsrcColumn3" priority="2" headerText="#{msgs['editcommunity.member_status']}" sortBy="#{member.status}">
+		            		<p:selectBooleanCheckbox value="#{member.pendingMembership}">
+            					<p:ajax update=":editMembersForm:messages" listener="#{editMembershipCBean.saveMembershipStatus(member)}" />
+        					</p:selectBooleanCheckbox>	
+		        		</p:column>
+		    	    	<p:column class="rsrcColumn4" priority="3" headerText="#{msgs['editcommunity.member_subscription']}" sortBy="#{member.joinningDate}">
+		        	    	<h:outputText value="#{member.joinningDate}" />
+		        		</p:column>
+		        		<p:column class="rsrcColumn5">
+			        		<ul class="social-network">
+								<li>
+									<h:commandLink update=":editMembersForm:confirm_remove" 
+											oncomplete="PF('summaryConfirmDialog').show();" 
+											title="#{msgs['editcommunity.unsubscribe']}">
+										<span class="fa-stack fa-1x">
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>
+										</span>
+										<f:setPropertyActionListener value="#{member}" target="#{editCommunityBBean.selectedMember}" />
+									</h:commandLink>
+								</li>
+							</ul>
+		        		</p:column>
+		        		<p:rowExpansion>
+		        			<div style="white-space: pre-wrap">
+		        				<h:outputText value="#{member.mydata}" styleClass="white-space:pre-wrap;"/>
+		        			</div>
+		        		</p:rowExpansion>
+					</p:dataTable>
+				</div>
+				<!-- Tabla para móviles (menos de 780px)  -->
+				<div class="hidden-md hidden-lg col-md-offset-1 col-md-10">			
+					<p:dataTable id="membersTable2" var="member" value="#{editCommunityBBean.members}"
+						tableStyleClass="ui-table-columntoggle" 					
+						paginator="true" 
+						rows="8"
+						widgetVar="membersTable"
+						resizableColumns="true"
+						paginatorPosition="bottom"
+		               	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+		               	lazy="true"> 
+	   					<p:column width="50">
+            				<p:rowToggler />
+        				</p:column>	 
+		        		<p:column id="alias_column2" headerText="#{msgs['editcommunity.member_alias']}" sortBy="#{member.nickname}" >
+		            			<h:outputText id="alias" value="#{member.nickname}" title="#{member.mydata}"/>
+		        		</p:column>
+		        		<p:column id="status_column2" class="rsrcColumn3" headerText="#{msgs['editcommunity.member_status']}" sortBy="#{member.status}">
+		    	    		<p:selectBooleanCheckbox value="#{member.pendingMembership}">
+            					<p:ajax update=":editMembersForm:messages" listener="#{editMembershipCBean.saveMembershipStatus(member)}" />
+        					</p:selectBooleanCheckbox>
+						</p:column>
+						<p:rowExpansion>
+		        			<div style="white-space: pre-wrap">
+		        				<h:outputText value="#{member.mydata}" styleClass="white-space:pre-wrap;"/>
+		        			</div>
+		        		</p:rowExpansion>
+					</p:dataTable>
+				</div>
+			</div> 
+				
+			<p:dialog
+				header="#{msgs['editcommunity.unsubscribe_confirm_header']}"
+				widgetVar="summaryConfirmDialog">
+				<p:outputPanel id="confirm_remove">
+					<p:outputPanel styleClass="ui-icon ui-confirm-dialog-severity ui-icon-alert display-inline-block">
+					</p:outputPanel>
+      				#{msgs['editcommunity.unsubscribe_confirm_msg']} #{editCommunityBBean.selectedMember.nickname} 
+   				</p:outputPanel>
+				<p:commandButton value="#{msgs['editcommunity.unsubscribe_yes']}"
+					update=":editMembersForm:membersTable" 
+					onstart="setUpOnStart();"
+					oncomplete="setUpOnComplete();"
+					actionListener="#{editMembershipCBean.unsubscribe}"
+					icon="ui-icon-check" />
+				<p:commandButton value="#{msgs['editcommunity.unsubscribe_no']}"
+					onclick="PF('summaryConfirmDialog').hide();" type="button"
+					icon="ui-icon-close" />
+			</p:dialog>
+				
+				<p:messages id="membership_messages"/>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

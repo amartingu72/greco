@@ -8,73 +8,107 @@
 </head>
 
 <body> 
-<ui:composition template="/templates/login_layout.xhtml">
+<ui:composition template="/templates/admin2opt_layout.xhtml">
+	<ui:define name="sidebarleft">		
+		<h:commandLink action="#{pwdForgottenCBean.cancel}" immediate="true">
+			<span class="fa-stack fa-2x">
+				<i class="fa fa-circle fa-stack-2x"></i>
+				<i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>
+				<f:param name="communityid" value="#{pwdForgottenBBean.communityId}"/>
+			</span>
+		</h:commandLink>
+	</ui:define>
 	<ui:define name="content">
 		<h:form>
-			<p:wizard  flowListener="#{newAccountCBean.onFlowProcess}" nextLabel="#{msgs['newaccount.next']}" backLabel="#{msgs['newaccount.back']}">
-			<p:tab id="email" title="#{msgs['newaccount.email']}" titleStyleClass="subs_tabs">
-				<p:panel>
-					<p:messages />
-					<p:commandButton rendered="#{newAccountBBean.showLoginBtn}" value="#{msgs['newaccount.login']}" action="#{newAccountCBean.navigateLogin}"/>
-					<h:panelGrid columns="2" columnClasses="label, value">
-						<h:outputText value="#{msgs['newaccount.email']}*:" />
-						<p:inputText value="#{newAccountBBean.email}" required="true"
-							label="#{msgs['editaccount.email_label']}"
+			<div class="row">
+            	<div class="col-md-offset-1 col-md-8"> 
+					<h5>#{msgs['newaccount.intro']}</h5>
+				</div> 
+			</div>
+			<div class="row">
+            	<div class="col-md-offset-1 col-md-4"> 
+					
+					<div class="form-group">
+						<label for="email">#{msgs['newaccount.email']}</label>
+						<p:inputText id="email" class="form-control" value="#{newAccountBBean.email}" 
+							required="true"
+							label="#{msgs['editaccount.email']}"
 							requiredMessage="#{msgs['editaccount.required_msg']}" 
+							aria-describedby="emailHelpBlock"
 							size="64">
 							<f:validator validatorId="com.greco.validators.EmailValidator" />
 						</p:inputText>
-              			</h:panelGrid>
-            			#{msgs['newaccount.email_note']}
-				</p:panel>
-			</p:tab>
-			<p:tab id="info" title="#{msgs['newaccount.user_info_tab']}" >
-				<p:panel>
-					<h:panelGrid columns="3" columnClasses="label, value">	
-						<h:outputText for="nickname" value="#{msgs['newaccount.nickname']}*" />
-						<p:inputText id="nickname" value="#{newAccountBBean.nickname}" validator="#{newAccountCBean.validateName}"/>							
+						<p:message for="email" />
+					</div>
+				</div>
+            	<div class="col-md-6"> 
+            			<span id="emailHelpBlock" class="help-block text-justify">#{msgs['newaccount.email_note']}</span>
+            			
+            	</div>
+            </div>
+            <div class="row">
+            	<div class="col-md-offset-1 col-md-4"> 
+           
+					<div class="form-group">
+						<label for="nickname">#{msgs['newaccount.nickname']}</label>
+						<p:inputText id="nickname" class="form-control" value="#{newAccountBBean.nickname}"
+							required="true"
+							requiredMessage="#{msgs['newaccount.nick_required_msg']}" 
+							validator="#{newAccountCBean.validateName}" 
+							aria-describedby="nickHelpBlock"/>							
 						<p:message for="nickname" id="nickError" />
 						
-						<h:outputLabel for="pwd" value="#{msgs['newaccount.pwd']}*" />
+					</div>
+				</div>
+				<div class="col-md-6"> 
+					<span id="nickHelpBlock" class="help-block text-justify">#{msgs['newaccount.nick_note']}</span>
+				</div>
+			</div>
+			<div class="row">
+            	<div class="col-md-offset-1 col-md-4">
+		
+	           		<div class="form-group">	
+						<label for="myData">#{msgs['newaccount.mydata']}</label>
+						<p:inputTextarea id="myData" class="form-control" value="#{newAccountBBean.mydata}" rows="3" cols="58" maxlength="256" 
+								counter="display"
+								counterTemplate="#{msgs['editaccount.remaining_chars']}"
+								aria-describedby="noteHelpBlock"/>
+						<p:outputLabel id="display" />
+							
+					</div>
+				</div>	
+				<div class="col-md-6">
+					<span id="noteHelpBlock" class="help-block text-justify">#{msgs['newaccount.data_note']}</span>	 
+				</div>			
+			</div>	
+			<div class="row">
+            	<div class="col-md-offset-1 col-md-4">
+					<div class="form-group">			
+						<label for="pwd">#{msgs['newaccount.pwd']}</label>
 						<p:password id="pwd" value="#{newAccountBBean.password}"
+							class="form-control"
 							match="passwordConfirm" maxlength="16" required="true" redisplay="true"	
 							label="#{msgs['newaccount.pwd']}"
 							requiredMessage="#{msgs['newaccount.pwd_required_msg']}"
 							validatorMessage="#{msgs['newaccount.pwd_validator_msg']}"/>
 						<p:message for="pwd" id="pwdError" />
-						<h:outputLabel for="passwordConfirm" value="#{msgs['newaccount.pwd_confirm']}*" />
-						<p:password id="passwordConfirm" value="#{newAccountBBean.password}" redisplay="true"/>
-						<p:message for="passwordConfirm" id="passwordConfirmError" />						
-					</h:panelGrid>
-					<h:panelGrid columns="1" columnClasses="label, value">
-						<h:outputText for="myData" value="#{msgs['newaccount.mydata']}" />
-						<p:inputTextarea id="myData" value="#{newAccountBBean.mydata}" rows="5" cols="58" maxlength="256" 
-						counter="display"
-							counterTemplate="#{msgs['editaccount.remaining_chars']}"/>
-						<p:outputLabel id="display" />
-					</h:panelGrid>
-				</p:panel>
-			</p:tab >
-				<p:tab id="confirm" title="#{msgs['newaccount.confirmation_tab']}" titleStyleClass="subs_tabs">
-				<p:panel>
-					<h:panelGrid columns="2" columnClasses="label, value">
-						<h:outputText value="#{msgs['newaccount.email']}:" />
-						<h:outputText value="#{newAccountBBean.email}"/>
-						<h:outputText value="#{msgs['newaccount.nickname']}" />
-						<h:outputText value="#{newAccountBBean.nickname}"  /> 
-					</h:panelGrid>
-					<p:fieldset legend="#{msgs['newaccount.mydata']}" style="margin-bottom:20px">
-        					<h:panelGrid columns="2" cellpadding="5">
-           						 <p:graphicImage value="../../resources/img/generic-user.png" width="50px" height="50px"/>
-           						 <p:outputLabel value="#{newAccountBBean.mydata}"/>
-           					</h:panelGrid>
-					</p:fieldset>
-					<p:commandButton value="#{msgs['newaccount.save_btn']}"
-						icon="ui-icon-disk"
-						action="#{newAccountCBean.submit}"	/>							
-				</p:panel>
-			</p:tab>
-			</p:wizard>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="passwordConfirm">#{msgs['newaccount.pwd_confirm']}</label>
+						<p:password id="passwordConfirm" class="form-control" value="#{newAccountBBean.password}" redisplay="true"/>
+						<p:message for="passwordConfirm" id="passwordConfirmError" />
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="text-right">
+							<h:commandButton class="btn btn-primary" value="#{msgs['newaccount.save_btn']}"
+								action="#{newAccountCBean.submit}"	/>
+					</div>
+				</div>
+			</div>
+			
 		</h:form>
 	</ui:define>
 </ui:composition>

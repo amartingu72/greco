@@ -8,38 +8,59 @@
 </head>
 
 <body> 
-<ui:composition template="/templates/login_layout.xhtml">
+<ui:composition template="/templates/admin2opt_layout.xhtml">
+	<ui:define name="sidebarleft">		
+			<h:commandLink action="#{pwdForgottenCBean.cancel}" immediate="true">
+				<span class="fa-stack fa-2x">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>
+					<f:param name="communityid" value="#{pwdForgottenBBean.communityId}"/>
+				</span>
+			</h:commandLink>
+		</ui:define>
 	<ui:define name="content">
-		<h:form>	
+		<h:form style="height:400px;">
+			<div class="row">
+				<div class="col-md-offset-2 col-md-6" >
+					<h:inputHidden value="#{pwdForgottenBBean.communityId}" />	
+					<p:messages showDetail="true"/>	
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-offset-2 col-md-6" >
+					
+							
+					<div class="form-group">
+						<div class="input-group">
+			  				<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+			  				<p:inputText value="#{pwdForgottenBBean.email}" required="true"  class="form-control"
+			  					 placeholder="#{msgs['pwdforgotten.email']}"
+								label="#{msgs['editaccount.email_label']}"
+								requiredMessage="#{msgs['editaccount.required_msg']}" 
+								size="64">
+									<f:validator validatorId="com.greco.validators.EmailValidator" />
+							</p:inputText>	
+						</div>				
+						#{msgs['pwdforgotten.email_note']}									
+					</div>
+					
+				</div>
 			
-			<h:inputHidden value="#{pwdForgottenBBean.communityId}" />	
-			
-			<p:messages showDetail="true"/>
-			<h:panelGrid columns="2" columnClasses="label, value">
-				<h:outputText value="#{msgs['pwdforgotten.email']}*:" />
-				<p:inputText value="#{pwdForgottenBBean.email}" required="true"
-					label="#{msgs['editaccount.email_label']}"
-					requiredMessage="#{msgs['editaccount.required_msg']}" 
-					size="64">
-					<f:validator validatorId="com.greco.validators.EmailValidator" />
-				</p:inputText>
-            </h:panelGrid>
-            #{msgs['pwdforgotten.email_note']}
-			<br/>
-			<p:commandButton value="#{msgs['pwdforgotten.submit']}"
-				icon="ui-icon-check"
-				ajax="false"
-				action="#{pwdForgottenCBean.submit}" >
-				<f:param name="communityid" value="#{pwdForgottenBBean.communityId}"/>
-			</p:commandButton>
-			<p:commandButton value="#{msgs['pwdforgotten.cancel']}"
-				icon="ui-icon-close"
-				ajax="false"
-				immediate="true"
-				action="#{pwdForgottenCBean.cancel}" >
-				<f:param name="communityid" value="#{pwdForgottenBBean.communityId}"/>
-			</p:commandButton>
-			
+				<div class="col-md-4">
+
+					<ul class="social-network">
+						<li>
+							<h:commandLink action="#{pwdForgottenCBean.submit}" title="${msgs['pwdforgotten.submit']}">
+								<span class="fa-stack fa-2x">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-send fa-stack-1x fa-inverse"></i>
+								</span>
+								<f:param name="communityid" value="#{pwdForgottenBBean.communityId}"/>
+							</h:commandLink>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</h:form>
 	</ui:define>
 </ui:composition>
