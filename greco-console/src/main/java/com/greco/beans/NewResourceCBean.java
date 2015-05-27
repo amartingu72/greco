@@ -18,7 +18,7 @@ public class NewResourceCBean {
 	public String cancel() {
 		//Controlamos a qué página devolver el control: edición o nueva comunidad.
 		
-		return "back";
+		return "back"; 
 	}
 	/**
 	 * Cancelación desde diálogo PF.
