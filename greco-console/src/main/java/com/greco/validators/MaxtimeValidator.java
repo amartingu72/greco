@@ -20,6 +20,7 @@ public class MaxtimeValidator implements Validator{
   		UIInput mintimeInput = (UIInput) facesContext.getViewRoot().findComponent(":editresourcesForm:mintime");
 		
 		//UIInput#getSubmittedValue() (when it occurs after the currently validated component in the component tree) or UIInput#getValue() (when it occurs before the current component and thus is already validated).
+  		try{
 		long mintime= (Long) mintimeInput.getValue();  
 		long maxtime= (Long)object;
 		
@@ -39,7 +40,9 @@ public class MaxtimeValidator implements Validator{
         		message.setSeverity(FacesMessage.SEVERITY_ERROR);
         		throw new ValidatorException(message);
         	}
-		
+  		}catch (ClassCastException e){
+  			//No hacemos nada. Se produce cuando el maxtime no es un entero y ya habrá sido controlado por otro validador.
+  		}
         	
     }
 
