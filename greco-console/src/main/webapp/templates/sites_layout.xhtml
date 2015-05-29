@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Greco - Reserva de espacios comunitarios.</title>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"	name="viewport" />
+	
+	<h:outputStylesheet library="webjars" name="font-awesome/4.3.0/css/font-awesome-jsf.css" media="screen"/>
+	<h:outputStylesheet library="css" name="overwrite.css" media="screen"/>
+	<h:outputStylesheet library="css" name="dlmenu.css" media="screen"/>
+	<h:outputStylesheet library="css" name="animate.css" media="screen"/>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" media="screen"/>
+	<h:outputStylesheet library="css" name="style.css" media="screen"/>
+	<h:outputStylesheet library="color" name="default.css" media="screen"/>
+	<h:outputStylesheet library="css" name="admin2.css" media="screen"/>
+    <h:outputScript library="javascript" name="modernizr.custom.js"/> 
+   
+   
+</h:head>
+<h:body>
+	<!-- Menú  -->
+	
+	<!-- <ui:insert name="sidebarLeft">
+    	<ui:include src="/sections/admin/sidebarleft.xhtml"/>
+    </ui:insert> -->
+    
+    <div class="row">					
+		<div class="col-md-offset-10 col-md-2">
+			
+			<p class="text-right">
+				Powered by <span class="text-right text-primary">Greco</span>
+			</p>
+		</div>
+	</div>
+	
+	<!-- Zona de aplicación -->
+	<div class="row">
+		<div class="col-md-10"> 
+			<div class="container">				
+				<ui:insert name="content"/>				
+			</div>	
+		</div>
+		<div class="col-md-2"> 	
+         	<ui:insert name="adds">
+         	   <ui:include src="/sections/admin/adds.xhtml"/>
+         	</ui:insert>
+	    </div>
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<ui:include src="/sections/footer.xhtml"/>
+			</div>
+		</div>
+	</footer>
+	
+	<h:outputScript library="javascript" name="jquery.js"/>
+	<h:outputScript library="javascript" name="bootstrap.min.js"/>
+	<h:outputScript library="javascript" name="jquery.smooth-scroll.min.js"/>
+	<h:outputScript library="javascript" name="jquery.dlmenu.js"/>
+	<h:outputScript library="javascript" name="wow.min.js"/>
+	<h:outputScript library="javascript" name="custom.js"/>
+	
+</h:body>
+	
+	
+</html>
