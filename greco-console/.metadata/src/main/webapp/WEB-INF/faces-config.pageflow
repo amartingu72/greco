@@ -23,6 +23,8 @@
   <nodes xsi:type="pageflow:PFPage" name="sections/admin/newcommunity.xhtml" x="648" y="12" id="pf14323041523442" referenceLink="//@navigationRule.41/@fromViewId|" outlinks="pf14325479018291" inlinks="pf14323041523440 pf14323041523441" path="/sections/admin/newcommunity.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/admin/newcommunity_step2.xhtml" x="876" y="96" id="pf14325479018292" referenceLink="//@navigationRule.42/@fromViewId|" outlinks="pf14325479018290" inlinks="pf14325479018291" path="/sections/admin/newcommunity_step2.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/admin/newresource.xhtml" x="888" y="336" id="pf14326282733612" referenceLink="//@navigationRule.44/@fromViewId|" outlinks="pf14326282733611" inlinks="pf14326282733610" path="/sections/admin/newresource.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sites/welcome.xhtml" x="24" y="492" id="pf14331508263320" outlinks="pf14331508263331" path="/sites/welcome.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sites/comnotfound.xhtml" x="11" y="648" id="pf14331508263332" inlinks="pf14331508263331" path="/sites/comnotfound.xhtml"/>
   <links id="pf14289161984611" target="pf142891619846110" source="pf14289161984610" outcome="register" redirect="true"/>
   <links id="pf14289161984618" target="pf14289161984610" source="pf142891619846110" outcome="cancel" redirect="true"/>
   <links id="pf142891619846113" target="pf142891619846118" source="pf142891619846112" outcome="new" redirect="true"/>
@@ -80,4 +82,5 @@
   <links id="pf14325479018290" target="pf14296925047010" source="pf14325479018292" outcome="done"/>
   <links id="pf14326282733610" target="pf14326282733612" source="pf14296925047010" outcome="add"/>
   <links id="pf14326282733611" target="pf14296925047010" source="pf14326282733612" outcome="back"/>
+  <links id="pf14331508263331" target="pf14331508263332" source="pf14331508263320" outcome="notfound"/>
 </pageflow:Pageflow>

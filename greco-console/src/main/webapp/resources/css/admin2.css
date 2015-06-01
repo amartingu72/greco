@@ -60,12 +60,12 @@
 	font-size: 12px; 
 }
 	
-/*InputText
-.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield{
+/*InputText*/
+/* .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield{
     box-shadow: none !important;
     font-family: 'Lato', sans-serif !important;
 	font-size: 12px !important; 
-}*/
+} */
 /*Botones
 .ui-button{
 	font-family: 'Lato', sans-serif !important;

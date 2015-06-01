@@ -24,6 +24,11 @@
 		<managed-bean-name>loginBBean</managed-bean-name>
 		<managed-bean-class>com.greco.beans.LoginBBean</managed-bean-class>
 		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>communityDataProvider</property-name>
+			<property-class>com.greco.services.CommunityDataProvider</property-class>
+			<value>#{communityDataProvider}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>tabs</managed-bean-name>
@@ -992,6 +997,14 @@
 		<navigation-case>
 			<from-outcome>back</from-outcome>
 			<to-view-id>/sections/admin/editcommunity.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sites/welcome.xhtml</display-name>
+		<from-view-id>/sites/welcome.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>notfound</from-outcome>
+			<to-view-id>/sites/comnotfound.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<validator>

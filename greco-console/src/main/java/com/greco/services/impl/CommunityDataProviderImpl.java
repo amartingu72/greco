@@ -54,10 +54,12 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 	 * @see com.greco.services.CommunityDataProvider#getCommunityById(int)
 	 */
 	public CommunityItem getCommunityById(int id){
+		CommunityItem communityItem=null;
 		Community community=communityDAO.loadSelectedCommunity(id);
-		
-		return new CommunityItem(community.getId(),(community.getAvailable()!=0), community.getName(),
+		if (community!=null)
+			communityItem=new CommunityItem(community.getId(),(community.getAvailable()!=0), community.getName(),
 				community.getZipcode(),null,null,community.getNotes(), community.getCountry().getName());
+		return communityItem;
 	}
 	
 	
