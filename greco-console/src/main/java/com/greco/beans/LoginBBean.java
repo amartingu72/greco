@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 
 import com.greco.services.CommunityDataProvider;
 import com.greco.services.helpers.CommunityItem;
+import com.greco.services.helpers.ResourceTypeItem;
 
 
 
@@ -19,7 +20,10 @@ public class LoginBBean implements Serializable{
 	private String password;
 	private int communityId; 
 	private CommunityItem communityItem;
-	private CommunityDataProvider communityDataProvider;
+	private ResourceTypeItem[] resourceTypeList;
+	
+	private CommunityDataProvider communityDataProvider; //Inyectado
+
 
 	/**
 	 * Valida que el parámetro communityid (GET request), tiene una comunidad reconocida.
@@ -31,7 +35,13 @@ public class LoginBBean implements Serializable{
 		//Si el ID de comunidad pasasdo como parámetro (GET), tiene un valor válido, le buscamos.
 		if (communityId != -1)
 			communityItem=communityDataProvider.getCommunityById(communityId);
-		if (communityItem == null) ret="notfound"; 
+		if (communityItem == null) ret="notfound";
+		else{
+			//Cargamos los tipos de recurso que la comunidad tiene configurados. 
+			//De esto dependerá las imágenes que se mostrarán en la página de 
+			resourceTypeList=communityDataProvider.getResourceTypes(communityItem);
+		}
+		
 		return ret;
 	}
 	
@@ -107,6 +117,14 @@ public class LoginBBean implements Serializable{
 
 	public void setCommunityDataProvider(CommunityDataProvider communityDataProvider) {
 		this.communityDataProvider = communityDataProvider;
+	}
+
+	public ResourceTypeItem[] getResourceTypeList() {
+		return resourceTypeList;
+	}
+
+	public void setResourceTypeList(ResourceTypeItem[] resourceTypeList) {
+		this.resourceTypeList = resourceTypeList;
 	}
 	
 	

@@ -9,7 +9,7 @@
    </head>
    <body>
    	  
-      <ui:composition template="../templates/user_layout.xhtml">
+      <ui:composition template="../templates/sites_layout.xhtml">
          <ui:define name="content">
          <h:form id="reservationsForm">
          	<p:messages id="messages" showSummary="true" showDetail="true"/>
@@ -18,8 +18,8 @@
 			</h:panelGrid>	
     		#{msgs['reservations.new']}
     		<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
-        		<p:calendar id="inline" locale="es" value="#{reservationsBBean.newReservationDate}" mode="inline" />
-        		<p:selectOneRadio id="types" value="#{reservationsBBean.rsrcTypeSelectedId}"  layout="grid" columns="2">
+        		<p:calendar id="inline" locale="es" value="#{reservationsBBean.newReservationDate}" />
+        		<p:selectOneRadio class="radio" id="types" value="#{reservationsBBean.rsrcTypeSelectedId}"  layout="grid" columns="2">
             		<f:selectItems value="#{reservationsBBean.rsrcTypesList}" 
             			var="rsrcType" 
             			itemLabel="#{rsrcType.description}" 

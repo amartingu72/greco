@@ -104,7 +104,7 @@ public class LoginCBean implements Serializable{
 	 */
 	private String commLogin(){
 		
-		String ret="failure";
+		String ret=null;
 		
 		UserSBean user=null;
 		try {
@@ -133,7 +133,7 @@ public class LoginCBean implements Serializable{
 				//Pongo el bean en la sesión.
 				
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userLogged", user);
-				ret="community";
+				ret="login";
 				log.log("001001"); //INFO|Intento exitoso de login como usuario.
 			}
 			else {

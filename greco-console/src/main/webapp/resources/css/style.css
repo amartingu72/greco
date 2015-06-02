@@ -107,6 +107,13 @@ margin, padding
 	margin-top: 40px;
 }
 
+/* ================================
+Carrusel
+================================= */
+.carousel-inner > .item > img {
+    margin: 0 auto;
+}
+
 
 
 /* ================================
@@ -240,7 +247,6 @@ Intro
 	text-align:center;
 	font-weight: 300;
 }
-
 
 
 /* ================================

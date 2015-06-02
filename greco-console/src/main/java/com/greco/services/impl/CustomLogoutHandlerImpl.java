@@ -28,7 +28,7 @@ public class CustomLogoutHandlerImpl extends SimpleUrlLogoutSuccessHandler {
 	        //Redirigimos en función del origen.  
 		 	String comm= request.getParameter("communityid");
 		 	if ( comm != null && comm!= (new Integer(UserSBean.UNDEFINED_COMMUNITY)).toString() )
-		 		setDefaultTargetUrl("/faces/sections/login/login.xhtml?communityid=" + comm); //Procede de un login de usuario.
+		 		setDefaultTargetUrl("/sites?communityid=" + comm); //Procede de un login de usuario.
 		 	else
 		 		setDefaultTargetUrl("/"); //Procede de un login de adminitrador.
 		 	

@@ -26,45 +26,31 @@
 				</div>
 			</div>
 			<div class="row">       	
-				<div class="col-md-offset-4 col-md-6" >
+				<div class="col-md-offset-2 col-md-5" >
             		
-						<!-- Carrusel -->	
-						<div id="carousel-example-generic" class="carousel slide mar-top30" data-ride="carousel">
-							<!-- Indicators -->
-							<ol class="carousel-indicators">
-								<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-							    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-							    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-							    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-							    <li data-target="#carousel-example-generic" data-slide-to="4"></li>
-							</ol>
-							
-							<!-- Wrapper for slides -->
-							<div class="carousel-inner" role="listbox">
-							 	<div class="item active">
-							 		<h:graphicImage library="img" name="meeting_room_site.jpg" />		 										
-							    </div>
-							    <div class="item">
-							      	<h:graphicImage library="img" name="appointment_site.jpg" />		
-							    </div>
-							    <div class="item">
-							     	<h:graphicImage library="img" name="parking_site.jpg"/>		
-							    </div>
-							    <div class="item">
-							     	<h:graphicImage library="img" name="pingpong_site.jpg"/>
-							    </div>
-							    <div class="item">
-							     	<h:graphicImage library="img" name="tennis_site.jpg"/>
-							    </div>
-							 </div>
-						</div>
+					<!-- Carrusel -->	
+					<div id="carousel-example-generic" class="carousel slide mar-top30" data-ride="carousel">
+						<!-- Indicators -->
+						<ol class="carousel-indicators">
+							<ui:repeat value="#{loginBBean.resourceTypeList}" var="resourceType" varStatus="myVarStatus">
+								<li data-target="#carousel-example-generic" data-slide-to="#{myVarStatus.index}" class="#{myVarStatus.index==0?'active':'none'}"></li>
+							</ui:repeat>
+						    
+						</ol>
+						
+						<!-- Wrapper for slides -->
+						<div class="carousel-inner" role="listbox">
+							<ui:repeat value="#{loginBBean.resourceTypeList}" var="resourceType" varStatus="myVarStatus">
+						 		<div class="item #{myVarStatus.index==0?'active':'none'}">
+						 			<h:graphicImage library="img" name="rtype_#{resourceType.id}.jpg" />		 										
+						    	</div>
+						    </ui:repeat>
+						 </div>
 					</div>
-					<!-- Fin carrusel -->
-			
-			</div>	
-         	<div class="row">
-         		<h:form class="form-horizontal2" role="form">					
-					<div class="col-md-offset-3 col-md-3" >					
+				</div>
+				<div class="col-md-3" >	
+					<h:form class="form-horizontal2" role="form">		
+         								
 	      				<div class="form-group">
 							<p:messages id="message" showSummary="true" showDetail="false"/>
 	    					<h:inputHidden value="#{loginBBean.communityId}" />
@@ -87,23 +73,21 @@
 							</h:commandLink>
 							
 						</div>
-														
-         			</div>
-         			<div class="col-md-3" >
+						<div class="col-md-12" >
 							<div class="text-center">
 								<h:commandButton class="btn btn-theme btn-lg mar-top40" render="message" value="Suscríbete" action="#" />
 							</div>
 						</div>	
-         		</h:form>
-         	</div> 
-         	<div class="row">
+					</h:form>									
+         		</div>
+			</div>
+			<div class="row">
          		<div class="col-md-offset-2 col-md-8" >
          			<div class="well mar-top10">
          				<p class="text-justify">#{loginBBean.communityItem.myData}</p>
          			</div>
          		</div>
-         	</div>		
-         	
+         	</div>	
          </div>	
          </ui:define>
       </ui:composition>
