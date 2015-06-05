@@ -5,118 +5,122 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-   <head><title>IGNORED</title>
-   </head>
-   <body>
+   <h:head><title>IGNORED</title>
+   </h:head>
+   <h:body>
    	  
       <ui:composition template="../templates/sites_layout.xhtml">
          <ui:define name="content">
          <h:form id="reservationsForm">
-         	<p:messages id="messages" showSummary="true" showDetail="true"/>
-         	<h:panelGrid style="float:right;" columns="1">
-				<p:clock pattern="HH:mm:ss" mode="server" />
-			</h:panelGrid>	
-    		#{msgs['reservations.new']}
-    		<h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
-        		<p:calendar id="inline" locale="es" value="#{reservationsBBean.newReservationDate}" />
-        		<p:selectOneRadio class="radio" id="types" value="#{reservationsBBean.rsrcTypeSelectedId}"  layout="grid" columns="2">
-            		<f:selectItems value="#{reservationsBBean.rsrcTypesList}" 
-            			var="rsrcType" 
-            			itemLabel="#{rsrcType.description}" 
-            			itemValue="#{rsrcType.id}" />
-        		</p:selectOneRadio>
-        		<p:commandButton  
-					icon="ui-icon-search" update=":reservationsForm:timetable :reservationsForm:timetable_date" value="#{msgs['reservations.search']}" action="#{timeTableBBean.load}">
-    			</p:commandButton>
-    		</h:panelGrid>
-    	
-    		<!-- Calendario de nueva reserva -->
-    		<h:panelGrid id="timetable_date" style="float:right;" columns="2">
-    		#{reservationsBBean.reservationDateString}
-    		#{reservationsBBean.rsrcTypeSelected.description}.
-    		</h:panelGrid>
-    	 	<br/> 
-    	 	<h:panelGroup id="timetable"> 	 
-    		<ui:repeat  style="clear:right;" value="#{timeTableBBean.timeTable}" var="rsrc">
-    			#{rsrc.name}
-    			<h:panelGrid columns="7">
-    			<ui:repeat value="#{rsrc.dailySchedule}" var="scheduleUnit">
-    				<p:commandButton
-    					icon="#{scheduleUnit.icon}" 	
-    					value="#{scheduleUnit.output}"	
-    					update="@this :reservationsForm:activeReservationsTable"
-    					actionListener="#{timeTableCBean.reserve(rsrc,scheduleUnit)}"
-						/> 	 
-    			</ui:repeat>
-    			</h:panelGrid>
-			</ui:repeat>
-    		</h:panelGroup>
-    	<p:dialog
-			header="#{msgs['reservations.cancel_confirm_header']}"
-			styleClass="text-left" widgetVar="summaryConfirmDialog">
-			<p:outputPanel id="confirm_remove" styleClass="confirm-dialog-text-container">
-				<p:outputPanel styleClass="ui-icon ui-confirm-dialog-severity ui-icon-alert display-inline-block">
-				</p:outputPanel>
-      			#{msgs['reservations.cancel_confirm_msg']} 
-   			</p:outputPanel>
-			<p:commandButton value="#{msgs['reservations.yes']}"
-				update=":reservationsForm:activeReservationsTable :reservationsForm" 
-				onstart="setUpOnStart();"
-				oncomplete="setUpOnComplete();"
-				actionListener="#{reservationsCBean.cancelReservation}"
-				icon="ui-icon-check" />
-			<p:commandButton value="#{msgs['reservations.no']}"
-				onclick="PF('summaryConfirmDialog').hide();" type="button"
-				icon="ui-icon-close" />
-		</p:dialog>
-		
-    	<p:separator style="clear:right;" />
-    	
-		<h:outputText value="#{msgs['reservations.selected']}"/>
-       	
-		<p:dataTable id="activeReservationsTable" var="reservation"
-			value="#{reservationsBBean.activeReservations}">
+         	
+         	<div class="row">       
+         		<div class="col-md-offset-10 col-md-1" >	
+					<p:messages id="messages" showSummary="true" showDetail="true"/>
+					<p:commandLink id="miBtn" class="btn btn-primary mar-top40" type="button">
+	         				
+	         				<span class="fa fa-shopping-cart" aria-hidden="true"><span class="badge">4</span></span>
+	  						
+						</p:commandLink>
+					
+					<p:sticky target="miBtn" />
+	         			
+					
+					
+				</div>
+				
+			</div>        	
+         	<div class="row">       	
+				<div class="col-md-offset-1 col-md-2" >
+					
+     				
+					 <div class="input-group date mar-top20">
+            			<h:inputText type="text" class="form-control" value="#{reservationsBBean.newReservationDate}">
+            				<f:convertDateTime pattern="dd/MM/yyyy" />
+            			</h:inputText>
+            			<span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+        			</div>
+					<script>
+					    $('.input-group.date').datepicker({
+					    language: "es",
+					    format: "dd/mm/yyyy",
+					    todayBtn: "linked",
+					    autoclose: true,
+					    todayHighlight: true
+					    });
+				    </script>
+				    
+		        	
+		        	
+				</div>  
+				<div class="col-md-3" >
+					<p:selectOneRadio  class="mar-top10" id="types" value="#{reservationsBBean.rsrcTypeSelectedId}" layout="pageDirection">
+		            		<f:selectItems class="radio" value="#{reservationsBBean.rsrcTypesList}" 
+		            			var="rsrcType" 
+		            			itemLabel="#{rsrcType.description}" 
+		            			itemValue="#{rsrcType.id}" />
+		        	</p:selectOneRadio>
+				</div>
+				<div class="col-md-2" >
+		        		
+    				<div class="text-left">
+							<ul class="social-network">
+								<li>
+									<h:commandLink 
+        								update=":timetable :timetabledesc"	
+        								title="#{msgs['reservations.search']}" 
+										action="#{timeTableBBean.load}">
+										<span class="fa-stack fa-2x">
+											<i class="fa fa-circle fa-stack-2x"></i>
+											<i class="fa fa-search fa-stack-1x fa-inverse"></i>
+										</span>
+    								</h:commandLink> 
+								</li>
+							</ul>
+					</div>
+				</div>
+				
+				
+				 
+				   
+			</div>
 			
-			<p:column style="font-size:12px;text-align:center;"
-				headerText=" #{msgs['reservations.rsrc_type']}"
-				sortBy="#{reservation.type}">
-				<h:outputText styleClass="value" value="#{reservation.type}" />
-			</p:column>
-			<p:column style="font-size:12px;text-align:center;"
-				headerText=" #{msgs['reservations.rscr_name']}"
-				sortBy="#{reservation.name}">
-				<h:outputText styleClass="value" value="#{reservation.name}" />
-			</p:column>
-			<p:column headerText=" #{msgs['reservations.date']}"
-				sortBy="#{reservation.date}"
-				style="font-size:12px;width:80px;text-align:center;">
-					<h:outputText styleClass="value" value="#{reservation.date}" />
-			</p:column>
-			<p:column headerText=" #{msgs['reservations.from']}"
-					style="font-size:12px;width:50px;text-align:center;">
-					<h:outputText styleClass="value" value="#{reservation.fromTime}" />
-			</p:column>
-				<p:column headerText="#{msgs['reservations.to']}"
-				style="font-size:12px;width:50px;text-align:center;">
-				<h:outputText styleClass="value" value="#{reservation.toTime}" />
-			</p:column>
-				<p:column style="font-size:12px;width:25px;text-align:center;">
-				<p:commandButton update=":reservationsForm:activeReservationsTable :reservationsForm:messages :reservationsForm:timetable"
-					style="height:15px;width:20px;"
-					oncomplete="PF('summaryConfirmDialog').show();"
-					icon="ui-icon-close" title="#{msgs['reservations.cancel']}">
-					<f:setPropertyActionListener value="#{reservation}"
-						target="#{reservationsBBean.selectedReservation}" />
-				</p:commandButton>
-			</p:column>
-		</p:dataTable>
-		<p:commandButton
-			style="margin-top:6px;margin-bottom:6px"
-			icon="ui-icon-circle-check"
-			value="#{msgs['reservations.confirm']}">
-		</p:commandButton>
+			<div class="row">    
+				<h:panelGroup id="timetabledesc">   	
+					<div class="col-md-offset-1 col-md-3" >
+					 	#{reservationsBBean.reservationDateString}
+					 </div>
+					<div class="col-md-offset-3 col-md-4 text-right" > 
+	    				#{reservationsBBean.rsrcTypeSelected.description}.
+	    			</div>
+    			</h:panelGroup>
+    		</div>
+    	  	
+	    	<ui:repeat  value="#{timeTableBBean.timeTable}" var="rsrc">
+		    	<div class="row">       	
+					<div class="col-md-offset-1 col-md-10" >
+						<p class="bg-info text-center mar-top10"><strong>#{rsrc.name}</strong></p>
+		    		</div>
+		    	</div>
+		    	<div class="row">       	
+					<div class="col-md-offset-1 col-md-10" >	
+						<h:panelGroup id="timetable">	
+			    			<ui:repeat value="#{rsrc.dailySchedule}" var="scheduleUnit">
+			    	
+			    				
+								<h:commandLink class="btn #{scheduleUnit.icon} btn-xs" 
+			    					actionListener="#{timeTableCBean.reserve(rsrc,scheduleUnit)}"
+	  								value="#{scheduleUnit.output}" />
+		    				</ui:repeat>
+		    			</h:panelGroup>
+	    			</div>
+	    		</div>	
+			</ui:repeat>
+			
+    		
+				
+				
         </h:form>
         </ui:define>
       </ui:composition>
-   </body>
+   </h:body>
 </html>

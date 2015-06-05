@@ -14,23 +14,32 @@
 	<h:outputStylesheet library="css" name="overwrite.css" media="screen"/>
 	<h:outputStylesheet library="css" name="dlmenu.css" media="screen"/>
 	<h:outputStylesheet library="css" name="animate.css" media="screen"/>
+	
+	
 	<h:outputStylesheet library="css" name="bootstrap.min.css" media="screen"/>
+	
+	<h:outputStylesheet library="css" name="bootstrap-datepicker.standalone.css" media="screen"/>
 	<h:outputStylesheet library="css" name="style.css" media="screen"/>
 	<h:outputStylesheet library="color" name="default.css" media="screen"/>
 	<h:outputStylesheet library="css" name="admin2.css" media="screen"/>
     <h:outputScript library="javascript" name="modernizr.custom.js"/> 
-    
-    <h:outputScript library="javascript" name="calendar_es.js"/>
-     <h:outputStylesheet library="css" name="user.css"/>
    
+  
+   	<h:outputScript library="javascript" name="jquery.js"/>
+	<h:outputScript library="javascript" name="bootstrap.min.js"/>
+	<h:outputScript library="javascript" name="bootstrap-datepicker.min.js"/>
+	<h:outputScript library="locales" name="bootstrap-datepicker.es.min.js"/>
+	
+	
    
 </h:head>
 <h:body>
 	<!-- Menú  -->
-	
-	<!-- <ui:insert name="sidebarLeft">
-    	<ui:include src="/sections/admin/sidebarleft.xhtml"/>
-    </ui:insert> -->
+	<div style="#{displayMenu}">
+		<ui:insert name="sidebarLeft">
+    		<ui:include src="/sites/sidebarleft.xhtml"/>
+    	</ui:insert>
+    </div>
     
     <div class="row">					
 		<div class="col-md-offset-10 col-md-2">
@@ -64,12 +73,16 @@
 		</div>
 	</footer>
 	
-	<h:outputScript library="javascript" name="jquery.js"/>
-	<h:outputScript library="javascript" name="bootstrap.min.js"/>
 	<h:outputScript library="javascript" name="jquery.smooth-scroll.min.js"/>
 	<h:outputScript library="javascript" name="jquery.dlmenu.js"/>
 	<h:outputScript library="javascript" name="wow.min.js"/>
 	<h:outputScript library="javascript" name="custom.js"/>
+	
+
+	
+
+
+
 	
 </h:body>
 	

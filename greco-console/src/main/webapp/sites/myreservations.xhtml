@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+   <h:head><title>IGNORED</title>
+   </h:head>
+   <h:body>
+   	  
+      <ui:composition template="../templates/sites_layout.xhtml">
+         <ui:define name="content">
+         <h:form id="reservationsForm">
+         	<p:messages id="messages" showSummary="true" showDetail="true"/>
+         	        	
+         	<div class="col-md-offset-3  col-md-4" >	
+        			<div class="well mar-top20">
+						<h:dataTable class="table table-condensed table-hover" id="activeReservationsTable" var="reservation"
+							value="#{reservationsBBean.activeReservations}">
+							
+							<h:column>
+								<h:outputText title="#{msgs['reservations.rsrc_type']}" value="#{reservation.name}" />				
+							</h:column>
+							<h:column>
+								#{reservation.date}
+							</h:column>
+							<h:column> 
+								#{reservation.fromTime}
+							</h:column>
+							<h:column>
+								#{reservation.toTime}
+							</h:column>
+							<h:column>
+								<p:commandButton 
+									style="height:15px;width:20px;"
+									oncomplete="PF('summaryConfirmDialog').show();"
+									icon="ui-icon-close" title="#{msgs['reservations.cancel']}">
+									<f:setPropertyActionListener value="#{reservation}"
+										target="#{reservationsBBean.selectedReservation}" />
+								</p:commandButton>
+							</h:column>
+						</h:dataTable>
+						
+						<p:commandButton
+							style="margin-top:6px;margin-bottom:6px"
+							icon="ui-icon-circle-check"
+							value="#{msgs['reservations.confirm']}">
+						</p:commandButton>	
+					</div>
+        				
+				</div>   
+			
+    		
+				
+				
+        </h:form>
+        </ui:define>
+      </ui:composition>
+   </h:body>
+</html>

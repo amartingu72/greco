@@ -37,7 +37,8 @@ public class ReservationsBBean implements Serializable{
 	private ResourceTypeDataProvider resourceTypeDataProvider;  //Inyectado.
 	
 	
-		
+	
+	
 	// Init --------------------------------------------------------------------------------------
 
     public ResourceTypeDataProvider getResourceTypeDataProvider() {
@@ -212,6 +213,8 @@ public class ReservationsBBean implements Serializable{
 	public void setRsrcTypeSelectedId(int rsrcTypeSelectedId) {
 		this.rsrcTypeSelectedId = rsrcTypeSelectedId;
 	}
+
+	
 
 	    
     
