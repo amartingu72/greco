@@ -61,6 +61,13 @@ public class ScheduleUnit extends ReservationUnit implements IReservationStatus 
 	public boolean isBlocked(){
 		return this.status==BLOCKED;
 	}
+	/**
+	 * Indica si la reserva es editable desde el horario (timetable), por el usuario que inició la sesión
+	 * @return Si/NO
+	 */
+	public boolean isEditable(){
+		return isFree() || isLocked();
+	}
 	
 	/**
 	 * PAsa a estado disponible.

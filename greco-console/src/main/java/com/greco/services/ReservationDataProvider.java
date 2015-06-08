@@ -47,4 +47,11 @@ public interface ReservationDataProvider {
 	 * @param reservationItem Reserva a cancelar.
 	 */
 	public abstract void cancelReservation(ReservationItem reservationItem);
+	/**
+	 * Cancelación de reserva.
+	 * @param userItem Item de usuario que realiza la cancelación.
+	 * @param rsrcItem Item de recurso sobre el que se realiza la cancelación de reserva.
+	 * @param scheduleUnit Reserva a cancelar
+	 */
+	public abstract void cancelReservation(UserItem userItem, ResourceItem rsrcItem, ScheduleUnit scheduleUnit);
 }

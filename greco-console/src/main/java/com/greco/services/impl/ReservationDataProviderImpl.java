@@ -46,6 +46,16 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 	public void add(Reservation reservation) {
 		reservationRepository.addReservation(reservation);
 	}
+	
+	@Override
+	@Transactional
+	public void cancelReservation(UserItem userItem, ResourceItem rsrcItem, ScheduleUnit scheduleUnit){
+		//Comprobar que la reserva o reservas a cancelar pertenecen al ausuario que nos llama.
+		//Eliminar la reserva
+		//Escribir en el log la reserva eliminada y el usuario que la eliminó. 
+		
+	}
+	
 	@Override
 	@Transactional
 	public void add(UserItem userItem, ResourceItem rsrcItem, ScheduleUnit scheduleUnit, int status) throws AlreadyLockedException {

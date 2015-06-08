@@ -12,24 +12,21 @@
       <ui:composition template="../templates/sites_layout.xhtml">
          <ui:define name="content">
          <h:form id="reservationsForm">
-         	
-         	<div class="row">       
-         		<div class="col-md-offset-10 col-md-1" >	
-					<p:messages id="messages" showSummary="true" showDetail="true"/>
-					<p:commandLink id="miBtn" class="btn btn-primary mar-top40" type="button">
-	         				
-	         				<span class="fa fa-shopping-cart" aria-hidden="true"><span class="badge">4</span></span>
-	  						
-						</p:commandLink>
+         	<div class="row">
+         		<div class="col-md-offset-1 col-md-10" >
+         			<p:messages id="messages" showSummary="true" showDetail="false"/>     
+         		</div>
+         	</div>   	
+         	<div class="row">
+         		<div class="col-md-offset-1 col-md-1" >
+         							
+					<div class="text-right">
+						<button id="miBtn" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+ 							 <span class="fa fa-shopping-cart" aria-hidden="true"><span class="badge">#{reservationsBBean.activeReservationsNumber}</span></span>
+						</button>
+					</div>
 					
-					<p:sticky target="miBtn" />
-	         			
-					
-					
-				</div>
-				
-			</div>        	
-         	<div class="row">       	
+         		</div>       	
 				<div class="col-md-offset-1 col-md-2" >
 					
      				
@@ -62,21 +59,14 @@
 				</div>
 				<div class="col-md-2" >
 		        		
-    				<div class="text-left">
-							<ul class="social-network">
-								<li>
-									<h:commandLink 
+    				
+									<h:commandLink class="btn btn-primary btn-block" 
         								update=":timetable :timetabledesc"	
         								title="#{msgs['reservations.search']}" 
 										action="#{timeTableBBean.load}">
-										<span class="fa-stack fa-2x">
-											<i class="fa fa-circle fa-stack-2x"></i>
-											<i class="fa fa-search fa-stack-1x fa-inverse"></i>
-										</span>
+										<span class="fa fa-search">Buscar</span>
     								</h:commandLink> 
-								</li>
-							</ul>
-					</div>
+								
 				</div>
 				
 				
@@ -105,9 +95,7 @@
 					<div class="col-md-offset-1 col-md-10" >	
 						<h:panelGroup id="timetable">	
 			    			<ui:repeat value="#{rsrc.dailySchedule}" var="scheduleUnit">
-			    	
-			    				
-								<h:commandLink class="btn #{scheduleUnit.icon} btn-xs" 
+								<h:commandLink class="btn #{scheduleUnit.icon} btn-xs #{scheduleUnit.editable?'none':'disabled'}" 
 			    					actionListener="#{timeTableCBean.reserve(rsrc,scheduleUnit)}"
 	  								value="#{scheduleUnit.output}" />
 		    				</ui:repeat>
@@ -120,6 +108,55 @@
 				
 				
         </h:form>
+        <!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="myModalLabel">Pre-reservas</h4>
+			      </div>
+			      <div class="modal-body">
+			       
+						<h:dataTable class="table table-condensed table-hover" id="activeReservationsTable" var="reservation"
+							value="#{reservationsBBean.activeReservations}">
+							
+							<h:column>
+								<h:outputText title="#{msgs['reservations.rsrc_type']}" value="#{reservation.name}" />				
+							</h:column>
+							<h:column>
+								#{reservation.date}
+							</h:column>
+							<h:column> 
+								#{reservation.fromTime}
+							</h:column>
+							<h:column>
+								#{reservation.toTime}
+							</h:column>
+							<h:column>
+								<p:commandButton 
+									style="height:15px;width:20px;"
+									oncomplete="PF('summaryConfirmDialog').show();"
+									icon="ui-icon-close" title="#{msgs['reservations.cancel']}">
+									<f:setPropertyActionListener value="#{reservation}"
+										target="#{reservationsBBean.selectedReservation}" />
+								</p:commandButton>
+							</h:column>
+						</h:dataTable>
+						
+						<p:commandButton
+							style="margin-top:6px;margin-bottom:6px"
+							icon="ui-icon-circle-check"
+							value="#{msgs['reservations.confirm']}">
+						</p:commandButton>	
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>	
         </ui:define>
       </ui:composition>
    </h:body>

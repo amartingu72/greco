@@ -27,8 +27,12 @@ public class TimeTableCBean {
 	 */
 	public String reserve(DailySchedule dailySchedule, ScheduleUnit scheduleUnit){
 		
-		if (scheduleUnit.isLocked())
+		if (scheduleUnit.isLocked()) {
 			scheduleUnit.setFree();
+			//Eliminamos de la lista de reservas activas y de la base de datos
+			
+			
+		}
 		else {
 			scheduleUnit.setLocked();
 			//Actualizamos estado en base de datos.

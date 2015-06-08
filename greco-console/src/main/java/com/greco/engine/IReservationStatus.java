@@ -23,7 +23,7 @@ public interface IReservationStatus {
 	 * El adminsitrador de la comunidad ha bloqueado el recurso en ese periodo para que no se pueda reservar.
 	 */
 	public static final int BLOCKED=2;
-	public static final String BLOCKED_ICON="btn-warning";
+	public static final String BLOCKED_ICON="btn-danger";
 	 
 	/**
 	 * El estado free indica la ausencia de registro en base de datos. Si no está en la tabla reservations, 
@@ -36,7 +36,7 @@ public interface IReservationStatus {
 	 * Otro usuario ha realizado la reserva pero aún no la ha hecho efectiva
 	 */
 	public static final int LOCKED_BY_OTHER=4;
-	public static final String LOCKED_BY_OTHER_ICON="btn-primary";
+	public static final String LOCKED_BY_OTHER_ICON="btn-warning";
 	
 
 }

@@ -91,7 +91,14 @@ public class ReservationsBBean implements Serializable{
     	
     	activeReservations.remove(reservationItem);
     }
-    
+    /**
+     * Devuelve el número de preservas (sin confirmar), realizadas hasta el momento.
+     * Sirve para actulizar el "badge" del carrito.
+     * @return
+     */
+    public int getActiveReservationsNumber(){
+    	return activeReservations.size();
+    }
 
     /**
      * Devuelve un string con la fecha de reserva seleccionada en formato día de la semana, día del mes, mes y año 
