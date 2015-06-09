@@ -39,6 +39,16 @@ public interface ReservationDAO {
 	public List<Reservation> loadReservations(int userId);
 	
 	/**
+	 * Devuelve la lista de reservas realizadas por un usuario, sobre un recurso concreto, en un intervalo de tiempo.
+	 * @param userId Identificador de usuario.
+	 * @param resourceId Identificador de recurso.
+	 * @param fromDate Instante inicial.
+	 * @param toDate Instante final.
+	 * @return Lista de reservas del periodo.
+	 */
+	public List<Reservation> loadReservations(int userId, int resourceId, Date fromDate, Date toDate);
+	
+	/**
 	 * Elimina la reserva indicada en el parámetro.
 	 * @param reservationID
 	 */

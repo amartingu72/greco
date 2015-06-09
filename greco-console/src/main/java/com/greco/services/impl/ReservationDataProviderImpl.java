@@ -6,12 +6,16 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.TemporalType;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+
+
 
 
 import com.greco.engine.ReservationUnit;
@@ -23,6 +27,7 @@ import com.greco.repositories.ResourceDAO;
 import com.greco.repositories.UserDAO;
 import com.greco.services.ReservationDataProvider;
 import com.greco.services.except.reservation.AlreadyLockedException;
+import com.greco.services.except.reservation.NotOwnerException;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.ResourceItem;
 import com.greco.services.helpers.UserItem;
@@ -49,10 +54,25 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 	
 	@Override
 	@Transactional
-	public void cancelReservation(UserItem userItem, ResourceItem rsrcItem, ScheduleUnit scheduleUnit){
-		//Comprobar que la reserva o reservas a cancelar pertenecen al ausuario que nos llama.
-		//Eliminar la reserva
-		//Escribir en el log la reserva eliminada y el usuario que la eliminó. 
+	public void cancelReservation(UserItem userItem, ResourceItem rsrcItem, ScheduleUnit scheduleUnit) throws NotOwnerException {
+		Date fromDate=new Date(scheduleUnit.getFromDate().getTime());
+		Date toDate=new Date(scheduleUnit.getToDate().getTime());
+		//Recuperamos las reservas realizadas  sobre ese recurso es el periodo.
+		List<Reservation> reservations=this.reservationRepository.loadReservations(rsrcItem.getId(), fromDate, toDate);
+		//Comprobamos que las reservas a cancelar pertenecen al usuario.
+		Iterator<Reservation> it=reservations.iterator();
+		while ( it.hasNext()) {
+			if (it.next().getUser().getId() != userItem.getId()){
+				//Si alguna no pertenece, lanzamos excepción un finaliza el proceso.
+				throw new NotOwnerException();
+			}
+		}
+		//Si hemos llegado hasta aquí es que todas las reservas las ha hecho el usuario indicado. Procedemos a eliminarlas.
+		it=reservations.iterator();
+		while ( it.hasNext()) {
+			this.reservationRepository.remove(it.next().getId());
+		}
+		
 		
 	}
 	

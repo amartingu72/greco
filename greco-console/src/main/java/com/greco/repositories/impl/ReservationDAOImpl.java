@@ -77,6 +77,22 @@ public class ReservationDAOImpl implements ReservationDAO {
 		Reservation r=em.merge(reservation);
 		em.remove(r);
 	}
+
+	@Override
+	public List<Reservation> loadReservations(int userId, int resourceId,
+			Date fromDate, Date toDate) {
+		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and and r.resource.id=:rsrcId and r.fromDate>=:fromDate r.toDate>=:toDate", Reservation.class );
+		
+		query.setParameter("userId", userId);
+		query.setParameter("rsrcId", resourceId);
+		query.setParameter("fromDate",fromDate,TemporalType.DATE);
+		query.setParameter("toDate",toDate,TemporalType.DATE);
+			
+		@SuppressWarnings("unchecked")	
+		List<Reservation> result= query.getResultList();
+		return result;
+		
+	}
 	
 
 }

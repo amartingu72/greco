@@ -6,8 +6,8 @@ import java.util.List;
 import com.greco.engine.ReservationUnit;
 import com.greco.engine.ScheduleUnit;
 import com.greco.entities.Reservation;
-
 import com.greco.services.except.reservation.AlreadyLockedException;
+import com.greco.services.except.reservation.NotOwnerException;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.ResourceItem;
 import com.greco.services.helpers.UserItem;
@@ -53,5 +53,5 @@ public interface ReservationDataProvider {
 	 * @param rsrcItem Item de recurso sobre el que se realiza la cancelación de reserva.
 	 * @param scheduleUnit Reserva a cancelar
 	 */
-	public abstract void cancelReservation(UserItem userItem, ResourceItem rsrcItem, ScheduleUnit scheduleUnit);
+	public abstract void cancelReservation(UserItem userItem, ResourceItem rsrcItem, ScheduleUnit scheduleUnit) throws NotOwnerException;
 }

@@ -52,15 +52,17 @@ public class ReservationsCBean implements Serializable{
     	//Eliminamos de base de datos.
     	reservationDataProvider.cancelReservation(reservationItem);
     	//Eliminamos la reserva de la tabla de reservas de BBean.
-    	reservationsBBean.removeReservation(reservationItem);
+    	//reservationsBBean.removeReservation(reservationItem);
+    	
+    	//Recargamos la tabla de reservas pendientes.
+    	reservationsBBean.loadMyReservationsTable();
+    	
     	//Recargamos la lista de reservas.
     	this.timeTableBBean.load();
     	//Grabamos el log.
     	String msg;
     	msg=reservationItem.getName() + "(" + reservationItem.getType() +") "
     			+ reservationItem.getDate() + " " +reservationItem.getFromTime()+ "-" +reservationItem.getToTime();
-    	FacesMessage fm = new FacesMessage(Warnings.getString("reservations.canceled"),msg); 
-		FacesContext.getCurrentInstance().addMessage("messages", fm);
     	logger.log("012000", msg);
     }
     

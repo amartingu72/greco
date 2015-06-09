@@ -11,6 +11,55 @@
    	  
       <ui:composition template="../templates/sites_layout.xhtml">
          <ui:define name="content">
+         <!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		   <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Pre-reservas</h4>
+		      </div>
+		      <div class="modal-body">
+		       
+					<h:dataTable class="table table-condensed table-hover" id="activeReservationsTable" var="reservation"
+						value="#{reservationsBBean.activeReservations}">
+						<h:column>
+							<h:outputText title="#{msgs['reservations.rsrc_type']}" value="#{reservation.name}" />				
+						</h:column>
+						<h:column>
+							#{reservation.date}
+						</h:column>
+						<h:column> 
+							#{reservation.fromTime}
+						</h:column>
+						<h:column>
+							#{reservation.toTime}
+						</h:column>
+						<h:column>
+							<p:commandButton 
+								style="height:15px;width:20px;"
+								action="#{reservationsCBean.cancelReservation}"
+								update=":reservationsForm :activeReservationsTable"
+								icon="ui-icon-close" title="#{msgs['reservations.cancel']}">
+								<f:setPropertyActionListener value="#{reservation}"
+									target="#{reservationsBBean.selectedReservation}" />
+							</p:commandButton>
+						</h:column>
+					</h:dataTable>
+					
+					<p:commandButton
+						style="margin-top:6px;margin-bottom:6px"
+						icon="ui-icon-circle-check"
+						value="#{msgs['reservations.confirm']}">
+					</p:commandButton>	
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		 </div>
          <h:form id="reservationsForm">
          	<div class="row">
          		<div class="col-md-offset-1 col-md-10" >
@@ -108,55 +157,7 @@
 				
 				
         </h:form>
-        <!-- Modal -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="myModalLabel">Pre-reservas</h4>
-			      </div>
-			      <div class="modal-body">
-			       
-						<h:dataTable class="table table-condensed table-hover" id="activeReservationsTable" var="reservation"
-							value="#{reservationsBBean.activeReservations}">
-							
-							<h:column>
-								<h:outputText title="#{msgs['reservations.rsrc_type']}" value="#{reservation.name}" />				
-							</h:column>
-							<h:column>
-								#{reservation.date}
-							</h:column>
-							<h:column> 
-								#{reservation.fromTime}
-							</h:column>
-							<h:column>
-								#{reservation.toTime}
-							</h:column>
-							<h:column>
-								<p:commandButton 
-									style="height:15px;width:20px;"
-									oncomplete="PF('summaryConfirmDialog').show();"
-									icon="ui-icon-close" title="#{msgs['reservations.cancel']}">
-									<f:setPropertyActionListener value="#{reservation}"
-										target="#{reservationsBBean.selectedReservation}" />
-								</p:commandButton>
-							</h:column>
-						</h:dataTable>
-						
-						<p:commandButton
-							style="margin-top:6px;margin-bottom:6px"
-							icon="ui-icon-circle-check"
-							value="#{msgs['reservations.confirm']}">
-						</p:commandButton>	
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary">Save changes</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>	
+        	
         </ui:define>
       </ui:composition>
    </h:body>

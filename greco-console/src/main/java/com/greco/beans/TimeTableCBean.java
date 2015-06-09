@@ -8,6 +8,7 @@ import com.greco.engine.IReservationStatus;
 import com.greco.engine.ScheduleUnit;
 import com.greco.services.ReservationDataProvider;
 import com.greco.services.except.reservation.AlreadyLockedException;
+import com.greco.services.except.reservation.NotOwnerException;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
 
@@ -22,6 +23,8 @@ public class TimeTableCBean {
 	
 	/**
 	 * Realiza una prereserva (bloquea el recurso en la hora indicado hasta que se confirme la reserva).
+	 * O la cancela. 
+	 * Nota: desde este método solo se pueden cancelar preservas.
 	 * @param dailySchedule Calendario del recurso para un día.
 	 * @param scheduleUnit Hora a reservar.
 	 */
@@ -30,13 +33,24 @@ public class TimeTableCBean {
 		if (scheduleUnit.isLocked()) {
 			scheduleUnit.setFree();
 			//Eliminamos de la lista de reservas activas y de la base de datos
-			
+			try {
+				reservationDataProvider.cancelReservation(userSBean.getItem(), dailySchedule.getResourceItem(), scheduleUnit);
+				//Actualizamos la tabla de "Mis reservas en curso"
+				this.reservationsBBean.loadMyReservationsTable();
+			} catch (NotOwnerException e) {
+				//Mostramos mensaje
+				FacesContext.getCurrentInstance().addMessage("Sorry!", new FacesMessage(Warnings.getString("reservations.notowner")));
+				//Grabamos log.
+				String msg="RSRC_ID (" + dailySchedule.getResourceItem().getId() + ")-" 
+							+ timeTableBBean.getReservationsBBean().getReservationDateString() 
+							+ " " +scheduleUnit.getOutput();
+				log.log("012002", msg );//INFO|Este usuario ha intentado cancelar una reserva que no ha hecho.
+			}
 			
 		}
 		else {
 			scheduleUnit.setLocked();
 			//Actualizamos estado en base de datos.
-			
 			try {
 				reservationDataProvider.add(userSBean.getItem(),dailySchedule.getResourceItem(), scheduleUnit,IReservationStatus.LOCKED);
 				//Actualizamos la tabla de "Mis reservas en curso"
@@ -52,7 +66,7 @@ public class TimeTableCBean {
 				//Ponemos el botón en el estado de bloqueado por otro usuario.
 				scheduleUnit.setLockedByOther();
 			}
-			//Actualizamos estado en base tabla.
+			
 		}
 		
 		return null;
