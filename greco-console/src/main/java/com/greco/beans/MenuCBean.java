@@ -5,6 +5,7 @@ package com.greco.beans;
 public class MenuCBean {
 	
 	private MenuBBean menuBBean; //Inyectado
+	private UserSBean userSBean; //Inyectado
 	
 	
 	/**
@@ -65,12 +66,22 @@ public class MenuCBean {
 	}
 	
 	/**
-	 * Vuelve al login.
+	 * Vuelve al login de la página de administración
 	 * @return URL de login.
 	 */
 	public String navigateLogout(){		
 		return "/sections/login/logout?faces-redirect=true";
 	}
+	
+	/**
+	 * Vuelve al login de la página de site de la comunidad que corresponda
+	 * @return URL de login.
+	 */
+	public String navigateSiteLogout(){
+		
+		return "/sections/login/logout?communityid="+ userSBean.getId() +"&faces-redirect=true";
+	}
+	
 	
 	/**
 	 * Navega a la ventana de selección de comunidad.
@@ -92,7 +103,12 @@ public class MenuCBean {
 		this.menuBBean = menuBBean;
 	}
 
-	
+	public UserSBean getUserSBean() {
+		return userSBean;
+	}
+	public void setUserSBean(UserSBean userSBean) {
+		this.userSBean = userSBean;
+	}
 	
 	
 }

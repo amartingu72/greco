@@ -45,4 +45,12 @@ public interface ResourceDAO {
 	 * @return 
 	 */
 	public List<Resource> loadResources(int communityId);
+	
+	/**
+	 * Recupera los recursos de un tipo concreto de una comunidad.
+	 * @param communityId Identificador de comunidad.
+	 * @param resourceTypeId Identificador de tipo de recurso.
+	 * @return 
+	 */
+	public List<Resource> loadResources(int communityId, int resourceTypeId);
 }

@@ -170,4 +170,45 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 	public void cancelReservation(ReservationItem reservationItem){
 		this.reservationRepository.remove(reservationItem.getId());
 	}
+
+	@Override
+	public List<ReservationItem> getLockedReservations(int userId) {
+		List<Reservation> reservations=this.reservationRepository.loadLockedReservations(userId);
+		ArrayList<ReservationItem> reservationItems=new ArrayList<ReservationItem>(reservations.size());
+		
+		Iterator<Reservation> it=reservations.iterator();
+		
+		ReservationItem reservationItem;
+		Reservation reservation;
+		while ( it.hasNext() ) {
+			reservation=it.next();
+			reservationItem=new ReservationItem();
+			reservationItem.setId(reservation.getId());
+			reservationItem.setType(reservation.getResource().getResourcetype().getName());
+			reservationItem.setName(reservation.getResource().getName());
+			
+			DateTime dateTime=new DateTime(reservation.getFromDate());
+			DateTimeFormatter fmt=DateTimeFormat.forPattern("d MMM. Y");
+			String date=fmt.print(dateTime);
+			reservationItem.setDate(date);
+			String time=dateTime.getHourOfDay() + ":" + String.format("%02d",dateTime.getMinuteOfHour());
+			reservationItem.setFromTime(time);
+			//Será cancelable si el inicio es anterior a ahora mismo.
+			reservationItem.setCancelable(dateTime.isAfterNow());
+			
+			dateTime=new DateTime(reservation.getToDate());
+			date=fmt.print(dateTime);
+			reservationItem.setDate(date);
+			time=dateTime.getHourOfDay() + ":" + String.format("%02d",dateTime.getMinuteOfHour());
+			reservationItem.setToTime(time);
+			
+			
+			
+			
+			reservationItems.add(reservationItem);
+			
+		}
+		
+		return reservationItems;
+	}
 }

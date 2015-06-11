@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ResourceItem;
+import com.greco.services.helpers.ResourceItemGroup;
 import com.greco.services.helpers.ResourceTypeItem;
 import com.greco.services.helpers.UserItem;
 
@@ -39,4 +40,11 @@ public interface CommunityDataProvider {
 	 * @return Array de tipos de recurso.
 	 */
 	public abstract ResourceTypeItem[] getResourceTypes(CommunityItem communityItem);
+	
+	/**
+	 * Devuelve una lista con los recursos de comunidad agrupados por tipo.
+	 * @param communityItem Item de la comunidad de la que se desea recuperar los recursos.
+	 * @return Lista de recursos ordenada por tipos.
+	 */
+	public abstract ResourceItemGroup[] getResources(CommunityItem communityItem);
 }

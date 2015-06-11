@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+   <h:head><title>IGNORED</title>
+   </h:head>
+   <h:body>
+   	  
+      <ui:composition template="../templates/sites_layout.xhtml">
+         <ui:define name="content">
+         
+		 
+		 
+		 
+         <h:form id="reservationsForm">
+         	<div class="row">
+         		<div class="col-md-offset-1 col-md-10" >
+         			<p:messages id="messages" showSummary="true" showDetail="false"/>     
+         		</div>
+         	</div>   	
+         	<div class="row">
+         		<div class="col-md-offset-1 col-md-3" >					
+						<div class="dropdown">
+							
+	  							<button id="miBtn" type="button" class="btn btn-primary btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    							<span class="fa fa-shopping-cart" aria-hidden="true"><span class="badge">#{reservationsBBean.activeReservationsNumber}</span></span>
+	    							<span class="caret"></span>
+	  							</button>
+  							
+  							<ul class="dropdown-menu list-group" role="menu" aria-labelledby="dLabel">
+    							<ui:repeat var="reservation" value="#{reservationsBBean.activeReservations}">
+    								<li class="list-group-item"><span class="label label-info">#{reservation.name}</span> #{reservation.date} #{reservation.fromTime} #{reservation.toTime}</li>
+     							</ui:repeat>
+     							<a  href="#" class="list-group-item active text-center"><p>Ver cesta</p></a>
+  							</ul>
+						</div>
+					
+					
+         		</div>       	
+				<div class="col-md-2" >
+					
+     				
+					 <div class="input-group date mar-top20">
+            			<h:inputText type="text" class="form-control" value="#{reservationsBBean.newReservationDate}">
+            				<f:convertDateTime pattern="dd/MM/yyyy" />
+            			</h:inputText>
+            			<span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+        			</div>
+					<script>
+					    $('.input-group.date').datepicker({
+					    language: "es",
+					    format: "dd/mm/yyyy",
+					    todayBtn: "linked",
+					    autoclose: true,
+					    todayHighlight: true
+					    });					  
+				    </script>
+				    
+		        	
+		        	
+				</div>  
+				<div class="col-md-3" >
+					<p:selectOneRadio  class="mar-top10" id="types" value="#{reservationsBBean.rsrcTypeSelectedId}" layout="pageDirection">
+		            		<f:selectItems class="radio" value="#{reservationsBBean.rsrcTypesList}" 
+		            			var="rsrcType" 
+		            			itemLabel="#{rsrcType.description}" 
+		            			itemValue="#{rsrcType.id}" />
+		        	</p:selectOneRadio>
+				</div>
+				<div class="col-md-2" >
+		        		
+    				
+									<h:commandLink class="btn btn-primary btn-block" 
+        								update=":timetable :timetabledesc"	
+        								title="#{msgs['reservations.search']}" 
+										action="#{timeTableBBean.load}">
+										<span class="fa fa-search">Buscar</span>
+    								</h:commandLink> 
+								
+				</div>
+				
+				
+				 
+				   
+			</div>
+			
+			<div class="row">    
+				<h:panelGroup id="timetabledesc">   	
+					<div class="col-md-offset-1 col-md-3" >
+					 	#{reservationsBBean.reservationDateString}
+					 </div>
+					<div class="col-md-offset-3 col-md-4 text-right" > 
+	    				#{reservationsBBean.rsrcTypeSelected.description}.
+	    			</div>
+    			</h:panelGroup>
+    		</div>
+    	  	
+	    	<ui:repeat  value="#{timeTableBBean.timeTable}" var="rsrc">
+		    	<div class="row">       	
+					<div class="col-md-offset-1 col-md-10" >
+						<p class="bg-info text-center mar-top10"><strong>#{rsrc.name}</strong></p>
+		    		</div>
+		    	</div>
+		    	<div class="row">       	
+					<div class="col-md-offset-1 col-md-10" >	
+						<h:panelGroup id="timetable">	
+			    			<ui:repeat value="#{rsrc.dailySchedule}" var="scheduleUnit">
+								<h:commandLink class="btn #{scheduleUnit.icon} btn-xs #{scheduleUnit.editable?'none':'disabled'}" 
+			    					actionListener="#{timeTableCBean.reserve(rsrc,scheduleUnit)}"
+	  								value="#{scheduleUnit.output}" />
+		    				</ui:repeat>
+		    			</h:panelGroup>
+	    			</div>
+	    		</div>	
+			</ui:repeat>
+			
+    		
+				
+				
+        </h:form>
+        	
+        </ui:define>
+      </ui:composition>
+   </h:body>
+</html>

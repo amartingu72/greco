@@ -8,7 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
+
 import org.springframework.stereotype.Repository;
+
+import com.greco.engine.IReservationStatus;
 import com.greco.entities.Reservation;
 import com.greco.repositories.ReservationDAO;
 
@@ -92,6 +95,19 @@ public class ReservationDAOImpl implements ReservationDAO {
 		List<Reservation> result= query.getResultList();
 		return result;
 		
+	}
+
+	@Override
+	public List<Reservation> loadLockedReservations(int userId) {
+		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and r.toDate>=:now and r.status=:status", Reservation.class );
+		
+		query.setParameter("userId", userId);
+		query.setParameter("now",Calendar.getInstance(),TemporalType.DATE);
+		query.setParameter("status",IReservationStatus.LOCKED);
+			
+		@SuppressWarnings("unchecked")	
+		List<Reservation> result= query.getResultList();
+		return result;
 	}
 	
 

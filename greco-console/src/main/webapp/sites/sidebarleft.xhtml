@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:corejsf="http://corejsf.com/facelets">
+      xmlns:corejsf="http://corejsf.com/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
 <head/>
 	
 <body>    
@@ -13,11 +14,24 @@
 		<div id="dl-menu" class="dl-menuwrapper">
 			<button class="dl-trigger">Open Menu</button>
 			<ul class="dl-menu">
-				<li><a href="#i">Inicio</a></li>
-				<li><a href="#services">Mis reservas</a></li>
-				<li><a href="#about">Nueva reserva</a></li>
+				<li>
+					<h:commandLink action="/sites/myreservations.xhtml">
+						#{msgs['sidebarleft.reservations']}
+					</h:commandLink>
+				</li>
+				<li>
+					<h:commandLink action="/sites/reservations.xhtml">
+						#{msgs['sidebarleft.reserve']}
+					</h:commandLink>
+				</li>
 				<li><a href="#works">Mi cuenta</a></li>
-				<li><a href="#contact">Salir</a></li>
+				<li>
+					<h:commandLink action="#{menuCBean.navigateSiteLogout}">
+						#{msgs['sidebarleft.logout']}
+						
+						
+					</h:commandLink>
+				</li>
 				
 			</ul>
 		</div>

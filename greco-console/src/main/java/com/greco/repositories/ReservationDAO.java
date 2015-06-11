@@ -38,6 +38,14 @@ public interface ReservationDAO {
 	 */
 	public List<Reservation> loadReservations(int userId);
 	
+	
+	/**
+	 * Recupera la lista de prereservas (reservas en estado IReservationStatus.LOCKED), del usuario indicado.
+	 * @param userId Identificador de usuario.
+	 * @return Lista de reservas.
+	 */
+	public List<Reservation> loadLockedReservations(int userId);
+	
 	/**
 	 * Devuelve la lista de reservas realizadas por un usuario, sobre un recurso concreto, en un intervalo de tiempo.
 	 * @param userId Identificador de usuario.

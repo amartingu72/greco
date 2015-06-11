@@ -79,7 +79,7 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 	@Override
 	public ResourceItem[] getResources(CommunityItem comm,
 			ResourceTypeItem rsrcTypeItem) {
-		List<Resource> list=resourcesRepository.loadResources(comm.getId());
+		List<Resource> list=resourcesRepository.loadResources(comm.getId(),rsrcTypeItem.getId());
 		
 		Iterator< Resource> it=list.iterator();
 		ResourceItem[] myResources=new ResourceItem[list.size()];
@@ -88,18 +88,19 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 		int i=0;
 		while (it.hasNext()) {
 			rsrc=it.next();
-			if (rsrc.getResourcetype().getId()==rsrcTypeItem.getId()) {
-				rsrcItem=new ResourceItem(rsrc.getId(), rsrc.getName(),rsrc.getResourcetype().getName(),rsrc.getDescription());
-				rsrcItem.setMintime(rsrc.getMinTime());
-				rsrcItem.setMaxtime(rsrc.getMaxTime());
-				rsrcItem.setAvailableFromTime(rsrc.getAvailableFromTime());
-				rsrcItem.setAvailableToTime(rsrc.getAvailableToTime());
-				rsrcItem.setBeforehand(rsrc.getBeforehand());
-				rsrcItem.setBeforehandTU(rsrc.getTimeunit2().getName());
-				rsrcItem.setTimeunit(rsrc.getTimeunit1().getName());
-				myResources[i]=rsrcItem;
-				i++;
-			}
+			
+			rsrcItem=new ResourceItem(rsrc.getId(), rsrc.getName(),rsrc.getResourcetype().getName(),rsrc.getDescription());
+			rsrcItem.setMintime(rsrc.getMinTime());
+			rsrcItem.setMaxtime(rsrc.getMaxTime());
+			rsrcItem.setAvailableFromTime(rsrc.getAvailableFromTime());
+			rsrcItem.setAvailableToTime(rsrc.getAvailableToTime());
+			rsrcItem.setBeforehand(rsrc.getBeforehand());
+			rsrcItem.setBeforehandTU(rsrc.getTimeunit2().getName());
+			rsrcItem.setTimeunit(rsrc.getTimeunit1().getName());
+			myResources[i]=rsrcItem;
+			i++;
+		
+			
 		}	
 		return myResources;
 		

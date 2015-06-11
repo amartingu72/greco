@@ -402,6 +402,11 @@
 			<property-class>com.greco.beans.MenuBBean</property-class>
 			<value>#{menuBBean}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>userSBean</property-name>
+			<property-class>com.greco.beans.UserSBean</property-class>
+			<value>#{userLogged}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<description>Bean de soporte para carga de los perfiles disponibles.</description>
@@ -634,6 +639,22 @@
 		<managed-bean-class>com.greco.beans.WelcomeCBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<description>Backing bean de la vista correspondiente al home de los sites.</description>
+		<managed-bean-name>myReservationsBBean</managed-bean-name>
+		<managed-bean-class>com.greco.beans.MyReservationsBBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>communityDataProvider</property-name>
+			<property-class>com.greco.services.CommunityDataProvider</property-class>
+			<value>#{communityDataProvider}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>userSBean</property-name>
+			<property-class>com.greco.beans.UserSBean</property-class>
+			<value>#{userLogged}</value>
+		</managed-property>
+	</managed-bean>
 	<navigation-rule>
 		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>
@@ -723,14 +744,6 @@
 		<navigation-case>
 			<from-outcome>delete</from-outcome>
 			<to-view-id>/sections/communities.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sites/reservations.xhtml</display-name>
-		<from-view-id>/sites/reservations.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>reserve</from-outcome>
-			<to-view-id>/sections/newreservation.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -1004,7 +1017,15 @@
 		<from-view-id>/sites/welcome.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>login</from-outcome>
-			<to-view-id>/sites/reservations.xhtml</to-view-id>
+			<to-view-id>/sites/myreservations.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sites/reservations.xhtml</display-name>
+		<from-view-id>/sites/reservations.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>confirm</from-outcome>
+			<to-view-id>/sites/myreservations.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<validator>

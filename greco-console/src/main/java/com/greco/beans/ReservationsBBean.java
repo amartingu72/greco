@@ -79,7 +79,7 @@ public class ReservationsBBean implements Serializable{
      */
     public void loadMyReservationsTable(){
     	//Cargamos la lista de reservas pendientes.
-    	activeReservations=reservationDataProvider.getActiveReservations(userBean.getId());
+    	activeReservations=reservationDataProvider.getLockedReservations(userBean.getId());
     }
     
     /**

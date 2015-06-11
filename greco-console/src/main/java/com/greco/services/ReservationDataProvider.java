@@ -42,6 +42,14 @@ public interface ReservationDataProvider {
 	 * @return Lista de reservas
 	 */
 	public abstract List<ReservationItem> getActiveReservations(int userId);
+	
+	/**
+	 * Devuelve las reservas sin confirmar del usuario, es decir, las que tienen el estado IReservationStatus.LOCKED 
+	 * @param userId Identificador de usuario.
+	 * @return Lista de reservas.
+	 */
+	public abstract List<ReservationItem> getLockedReservations(int userId);
+	
 	/**
 	 * Cancela la reserva indicada en el parámetro.
 	 * @param reservationItem Reserva a cancelar.

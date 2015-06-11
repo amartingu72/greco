@@ -94,6 +94,9 @@ margin, padding
 .mar-top0 {
 	margin-top: 0;
 }
+.mar-top5 {
+	margin-top: 5px;
+}
 .mar-top10 {
 	margin-top: 10px;
 }
@@ -105,6 +108,9 @@ margin, padding
 }
 .mar-top40 {
 	margin-top: 40px;
+}
+.mar-top40 {
+	margin-top: 50px;
 }
 .mar-top100 {
 	margin-top: 100px;
@@ -187,6 +193,7 @@ Spacer
 #spacer2{	
 	background-image: url(../../resources/img/spacer/2.jpg); 
 }
+
 
 
 /* ================================

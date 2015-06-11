@@ -13,9 +13,10 @@
          <ui:define name="content">
          <h:form id="reservationsForm">
          	<p:messages id="messages" showSummary="true" showDetail="true"/>
-         	        	
-         	<div class="col-md-offset-3  col-md-4" >	
-        			<div class="well mar-top20">
+         	<div class="row">        	
+         		
+				<div class="col-md-offset-1  col-md-5" >
+        			<div class="mar-top20">
 						<h:dataTable class="table table-condensed table-hover" id="activeReservationsTable" var="reservation"
 							value="#{reservationsBBean.activeReservations}">
 							
@@ -49,11 +50,31 @@
 						</p:commandButton>	
 					</div>
         				
-				</div>   
-			
-    		
-				
-				
+				</div>
+				<div class="col-md-offset-1  col-md-4" >
+					<ui:repeat  value="#{myReservationsBBean.resourceItemGroups}" var="rsrcItemGroup">
+						<div class="mar-top10">
+							<p>#{rsrcItemGroup.description}</p>
+						</div>
+						<ui:repeat value="#{rsrcItemGroup.resourceItems}" var="rsrcItem">
+							
+							
+							<button type="button" class="btn btn-sm btn-primary mar-top5" data-toggle="popover" 
+								>
+								
+								#{rsrcItem.name}
+							</button>
+							<script>
+								$("[data-toggle=popover]").popover({
+									content='Hola a todos.'
+								});
+							</script>
+							
+							
+						</ui:repeat>
+					</ui:repeat>
+				</div> 	  
+			</div>
         </h:form>
         </ui:define>
       </ui:composition>

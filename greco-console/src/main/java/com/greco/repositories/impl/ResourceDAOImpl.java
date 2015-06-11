@@ -80,4 +80,15 @@ public class ResourceDAOImpl implements ResourceDAO {
 			resource=result.get(0);
 		return resource;
 	}
+
+
+	@Override
+	public List<Resource> loadResources(int communityId, int resourceTypeId) {
+		Query query=em.createQuery( "select r from Resource as r where r.community.id=:communityId and r.resourcetype.id=:resourceTypeId", Resource.class );
+		query.setParameter("communityId", communityId);
+		query.setParameter("resourceTypeId", resourceTypeId);
+		@SuppressWarnings("unchecked")	
+		List<Resource> result= query.getResultList();
+		return result;
+	}
 }

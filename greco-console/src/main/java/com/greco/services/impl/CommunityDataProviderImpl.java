@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.primefaces.component.resources.ResourcesRenderer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +23,10 @@ import com.greco.repositories.ResourceTypeDAO;
 import com.greco.repositories.TimeUnitDAO;
 import com.greco.repositories.UserDAO;
 import com.greco.services.CommunityDataProvider;
+import com.greco.services.ResourceDataProvider;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ResourceItem;
+import com.greco.services.helpers.ResourceItemGroup;
 import com.greco.services.helpers.ResourceTypeItem;
 import com.greco.services.helpers.UserItem;
 
@@ -32,6 +35,9 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 	@Resource(name="CommunityRepository")
 	private CommunityDAO communityDAO;
 
+	@Resource(name="resourceDataProvider")
+	private ResourceDataProvider resourceDataProvider;
+	
 	@Resource(name="ResourcesRepository")
 	private ResourceDAO resourceDAO;
 	
@@ -205,5 +211,23 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 			if ( !rsrcTypeList.contains(rsrcTypeItem) )  rsrcTypeList.add(rsrcTypeItem);
 		}
 		return rsrcTypeList.toArray(new ResourceTypeItem[rsrcTypeList.size()]);
+	}
+
+
+
+	@Override
+	public ResourceItemGroup[] getResources(CommunityItem communityItem) {
+		//Recupero los tipos de recurso existentes en la comunidad.
+		ResourceTypeItem[] resourceTypeItems=getResourceTypes(communityItem);
+		ResourceItemGroup[] resourceItemGroups=new ResourceItemGroup[resourceTypeItems.length];
+		ResourceItem[] resourceItems;
+		ResourceItemGroup resourceItemGroup;
+		for (int i=0;i<resourceTypeItems.length;i++){
+			resourceItems=resourceDataProvider.getResources(communityItem, resourceTypeItems[i]);
+			resourceItemGroup=new ResourceItemGroup(resourceTypeItems[i]);
+			resourceItemGroup.setResourceItems(resourceItems);
+			resourceItemGroups[i]=resourceItemGroup;
+		}
+		return resourceItemGroups;
 	}
 }
