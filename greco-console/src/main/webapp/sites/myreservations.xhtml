@@ -11,43 +11,96 @@
    	  
       <ui:composition template="../templates/sites_layout.xhtml">
          <ui:define name="content">
-         <h:form id="reservationsForm">
+         <h:form id="reservationsForm" style=" min-height: 635px;">
          	<p:messages id="messages" showSummary="true" showDetail="true"/>
          	<div class="row">        	
          		
 				<div class="col-md-offset-1  col-md-5" >
         			<div class="mar-top20">
-						<h:dataTable class="table table-condensed table-hover" id="activeReservationsTable" var="reservation"
-							value="#{reservationsBBean.activeReservations}">
-							
-							<h:column>
-								<h:outputText title="#{msgs['reservations.rsrc_type']}" value="#{reservation.name}" />				
-							</h:column>
-							<h:column>
-								#{reservation.date}
-							</h:column>
-							<h:column> 
-								#{reservation.fromTime}
-							</h:column>
-							<h:column>
-								#{reservation.toTime}
-							</h:column>
-							<h:column>
-								<p:commandButton 
-									style="height:15px;width:20px;"
-									oncomplete="PF('summaryConfirmDialog').show();"
-									icon="ui-icon-close" title="#{msgs['reservations.cancel']}">
-									<f:setPropertyActionListener value="#{reservation}"
-										target="#{reservationsBBean.selectedReservation}" />
-								</p:commandButton>
-							</h:column>
-						</h:dataTable>
-						
-						<p:commandButton
-							style="margin-top:6px;margin-bottom:6px"
-							icon="ui-icon-circle-check"
-							value="#{msgs['reservations.confirm']}">
-						</p:commandButton>	
+        				<div class="row">
+        					<div class="col-md-12" >
+			  					<button type="button" class="btn btn-sm btn-info" 
+			  						data-toggle="popover" 
+			  						data-trigger="focus"
+			  						title="Pre-reservas" 
+			  						data-placement="bottom"
+			  						data-content="Las reservas de esta lista premanecerán bloqueadas para usted durante 15 minutos. Confírmelas para que sean definitivas.">
+			  						<span class="fa fa-shopping-cart" aria-hidden="true"></span>Pre-reservas
+			  					</button>
+			  					<script>
+			  						$("[data-toggle=popover]").popover();
+			  					</script>
+								<h:dataTable class="table table-condensed table-hover" id="activeReservationsTable" var="reservation"
+									value="#{reservationsBBean.activeReservations}">
+									
+									<h:column>
+										<h:outputText title="#{msgs['reservations.rsrc_type']}" value="#{reservation.name}" />				
+									</h:column>
+									<h:column>
+										#{reservation.date}
+									</h:column>
+									<h:column> 
+										#{reservation.fromTime}
+									</h:column>
+									<h:column>
+										#{reservation.toTime}
+									</h:column>
+									<h:column>
+										<h:commandLink  title="#{msgs['reservations.cancel']}">
+											<span class="fa-stack fa-1x">
+											<i class="fa fa-circle fa-stack-2x"></i>
+											<i class="fa fa-close fa-stack-1x fa-inverse"></i>
+											</span>
+										</h:commandLink>
+										
+									</h:column>
+								</h:dataTable>
+							</div>
+						</div>
+						<div class="row">
+        					<div class="col-md-12" >
+								<div class="text-center">
+									<p:commandButton
+										style="margin-top:6px;margin-bottom:6px"
+										icon="ui-icon-circle-check"
+										value="#{msgs['reservations.confirm']}">
+									</p:commandButton>	
+								</div>
+							</div>
+						</div>
+						<div class="row">
+        					<div class="col-md-12" >
+        						<div class="mar-top100">
+        							<h5>Reservas confirmadas</h5>
+        						</div>
+        						<h:dataTable class="table table-condensed table-hover" id="confirmedReservationsTable" var="reservation"
+									value="#{reservationsBBean.activeReservations}">
+									
+									<h:column>
+										<h:outputText title="#{msgs['reservations.rsrc_type']}" value="#{reservation.name}" />				
+									</h:column>
+									<h:column>
+										#{reservation.date}
+									</h:column>
+									<h:column> 
+										#{reservation.fromTime}
+									</h:column>
+									<h:column>
+										#{reservation.toTime}
+									</h:column>
+									<h:column>
+										<h:commandLink  title="#{msgs['reservations.cancel']}">
+											<span class="fa-stack fa-1x">
+											<i class="fa fa-circle fa-stack-2x"></i>
+											<i class="fa fa-close fa-stack-1x fa-inverse"></i>
+											</span>
+										</h:commandLink>
+										
+									</h:column>
+								</h:dataTable>
+        					</div>
+        				</div>
+        				
 					</div>
         				
 				</div>
@@ -58,17 +111,31 @@
 						</div>
 						<ui:repeat value="#{rsrcItemGroup.resourceItems}" var="rsrcItem">
 							
+							<a class="btn btn-link btn-xs mar-top5" data-toggle="collapse" href="#collapse-#{rsrcItem.id}" aria-expanded="false" aria-controls="collapseExample">
+  									#{rsrcItem.name}
+  									<span class="caret"></span>
+							</a>
 							
-							<button type="button" class="btn btn-sm btn-primary mar-top5" data-toggle="popover" 
-								>
-								
-								#{rsrcItem.name}
-							</button>
-							<script>
-								$("[data-toggle=popover]").popover({
-									content='Hola a todos.'
-								});
-							</script>
+							
+							
+							
+						</ui:repeat>
+						<ui:repeat value="#{rsrcItemGroup.resourceItems}" var="rsrcItem">
+							
+							
+							
+							<div class="collapse mar-top5" id="collapse-#{rsrcItem.id}">
+  								<div class="well well-sm">
+    								<p><strong>#{rsrcItem.name}</strong></p>
+    								<p>Disponibilidad: #{rsrcItem.availableFromTime} - #{rsrcItem.availableToTime}<br/>
+    								Antelación: #{rsrcItem.beforehand} #{rsrcItem.beforehandTU}<br/>
+    								Unidad de reserva: #{rsrcItem.mintime} #{rsrcItem.timeunit}<br/>
+    								Tiempo mínimo de reserva: #{rsrcItem.mintime} #{rsrcItem.timeunit}<br/> 
+    								Tiempo máximo de reserva: #{rsrcItem.maxtime} #{rsrcItem.timeunit}<br/></p>
+    								<p><em>#{rsrcItem.description}</em></p>
+  								</div>
+							</div>
+							
 							
 							
 						</ui:repeat>

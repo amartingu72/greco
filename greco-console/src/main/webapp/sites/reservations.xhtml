@@ -10,7 +10,7 @@
    <h:body> 
       <ui:composition template="../templates/sites_layout.xhtml">
          <ui:define name="content">
-         	<h:form id="reservationsForm" >
+         	<h:form id="reservationsForm" style="min-height: 635px;">
          		<div class="row">
          			<div class="col-md-offset-1 col-md-10" >
          				<p:messages id="messages" showSummary="true" showDetail="false"/>     
@@ -30,7 +30,7 @@
      							</ui:repeat>
      							<li class="list-group-item">
      								
-     									<a  href="#" class="bg-info text-center" >Ver cesta</a>
+     									<h:commandLink  action="./myreservations.xhtml" class="bg-info text-center"  value="Ver cesta"/>
      								
      							</li>
   							</ul>
@@ -72,11 +72,11 @@
 							action="#{timeTableBBean.load}">
 							<span class="fa fa-search">#{msgs['reservations.search']}</span>
 	    				</h:commandLink> 
-	    				<div class="hidden-xs mar-top20"> 	
+	    				<!-- <div class="hidden-xs mar-top20"> 	
          						<ui:insert name="adds">
          	   						<ui:include src="/sites/adds.xhtml"/>
          						</ui:insert>
-	    				</div>
+	    				</div> -->
 					</div>
 					<div class=" col-md-7" >
 						

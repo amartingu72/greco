@@ -1,14 +1,23 @@
 package com.greco.beans;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import com.greco.services.CommunityDataProvider;
 import com.greco.services.helpers.CommunityItem;
+import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.ResourceItemGroup;
 
 public class MyReservationsBBean {
 	//Grupo lista donde cada elemento (grupo), es un grupo de recursos del mismo tipo.
 	private ResourceItemGroup[] resourceItemGroups;
+	
+	//Reservas confirmadas
+	 List<ReservationItem> confirmedReservations;
+	
+	//NOTA: Las reservas del carrito se gestionan con ReservationsBBean.
+	
 	private CommunityDataProvider communityDataProvider; //Inyectado.
 	private UserSBean userSBean; //Inyectado
 	
@@ -48,6 +57,16 @@ public class MyReservationsBBean {
 
 	public void setUserSBean(UserSBean userSBean) {
 		this.userSBean = userSBean;
+	}
+
+
+	public List<ReservationItem> getConfirmedReservations() {
+		return confirmedReservations;
+	}
+
+
+	public void setConfirmedReservations(List<ReservationItem> confirmedReservations) {
+		this.confirmedReservations = confirmedReservations;
 	}
 	
 	 

@@ -27,7 +27,7 @@ public class ReservationsBBean implements Serializable{
 	
 	private CommunityItem communityItem;  //Comunidad.
 	
-	private List<ReservationItem> activeReservations; //Lista de reservas activas (no vencidas)
+	private List<ReservationItem> activeReservations; //Lista de preservas.
 	private ReservationDataProvider reservationDataProvider; //Inyectado
 	private CommunityDataProvider communityDataProvider; //Inyectado
 	private ReservationItem selectedReservation; //Item seleccionado para su eliminación.
