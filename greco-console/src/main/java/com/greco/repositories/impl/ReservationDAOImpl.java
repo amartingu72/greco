@@ -65,11 +65,12 @@ public class ReservationDAOImpl implements ReservationDAO {
 
 	@Override
 	public List<Reservation> loadReservations(int userId) {
-		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and r.toDate>=:now", Reservation.class );
+		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and r.toDate>=:now and r.status!=:status", Reservation.class );
 		
 		query.setParameter("userId", userId);
 		query.setParameter("now",Calendar.getInstance(),TemporalType.DATE);
-			
+		query.setParameter("status", IReservationStatus.LOCKED);
+		
 		@SuppressWarnings("unchecked")	
 		List<Reservation> result= query.getResultList();
 		return result;

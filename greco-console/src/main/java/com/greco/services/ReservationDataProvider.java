@@ -37,7 +37,8 @@ public interface ReservationDataProvider {
 	public abstract List<ReservationUnit> getReservations(ResourceItem rsrcItem, Date date);
 	
 	/**
-	 * Devuelve las reservas posteriores o vigentes, para el usuario indicado, en el momento en que se invoca este método. 
+	 * Devuelve las reservas posteriores o vigentes, para el usuario indicado, en el momento en que se invoca este método.
+	 * No incluye las no confirmadas, es decir, en estado IReservationStatus.LOCKED.
 	 * @param userId ID de usuario.
 	 * @return Lista de reservas
 	 */

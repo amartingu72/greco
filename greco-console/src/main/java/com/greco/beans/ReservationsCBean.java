@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import com.greco.services.ReservationDataProvider;
 import com.greco.services.helpers.ReservationItem;
@@ -65,6 +66,7 @@ public class ReservationsCBean implements Serializable{
     			+ reservationItem.getDate() + " " +reservationItem.getFromTime()+ "-" +reservationItem.getToTime();
     	logger.log("012000", msg);
     }
+    
     
    
     

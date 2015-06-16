@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import com.greco.services.CommunityDataProvider;
+import com.greco.services.ReservationDataProvider;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.ResourceItemGroup;
@@ -20,6 +21,7 @@ public class MyReservationsBBean {
 	
 	private CommunityDataProvider communityDataProvider; //Inyectado.
 	private UserSBean userSBean; //Inyectado
+	private ReservationDataProvider reservationDataProvider; //Inyectado
 	
 
 	@PostConstruct
@@ -27,6 +29,17 @@ public class MyReservationsBBean {
 		//Cargo la lista de grupos de recursos.
 		CommunityItem communityItem=communityDataProvider.getCommunityById(userSBean.getId());
 		resourceItemGroups=communityDataProvider.getResources(communityItem);
+		
+		//Cargo la lista de reservas confirmadas.
+		loadConfirmedReservations();
+		
+	}
+	
+	/**
+	 * Carga la lista de reservas ya confirmadas por el usuario con sesión iniciada.
+	 */
+	public void loadConfirmedReservations(){
+		confirmedReservations=reservationDataProvider.getActiveReservations(this.userSBean.getId());
 	}
 
 	 	
@@ -67,6 +80,15 @@ public class MyReservationsBBean {
 
 	public void setConfirmedReservations(List<ReservationItem> confirmedReservations) {
 		this.confirmedReservations = confirmedReservations;
+	}
+
+	public ReservationDataProvider getReservationDataProvider() {
+		return reservationDataProvider;
+	}
+
+	public void setReservationDataProvider(
+			ReservationDataProvider reservationDataProvider) {
+		this.reservationDataProvider = reservationDataProvider;
 	}
 	
 	 

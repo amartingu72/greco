@@ -32,7 +32,7 @@ public interface ReservationDAO {
 	
 	/**
 	 * Carga las reservas realizadas por el usuario indicado cuya fecha/hora de fin sea igual o posterior a 
-	 * el momento de invocación. 
+	 * el momento de invocación. No incluya las que estén en estado IReservationStatus.LOCKED.
 	 * @param userId Identificador de usuario.
 	 * @return Lista de reservas
 	 */

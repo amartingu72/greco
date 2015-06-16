@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -165,6 +167,14 @@ public class ReservationsBBean implements Serializable{
 		this.selectedReservation = selectedReservation;
 	}
 	
+	/**
+	 * PAra un "set" desde función ajax.
+	 * @param event
+	 */
+	public void setSelectedReservationAjax(ActionEvent event){
+    	ReservationItem ri=(ReservationItem)event.getComponent().getAttributes().get("reservation");
+    	this.setSelectedReservation(ri);
+    }
 	
 
 	public Date getNewReservationDate() {

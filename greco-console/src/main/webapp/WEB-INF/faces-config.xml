@@ -654,6 +654,11 @@
 			<property-class>com.greco.beans.UserSBean</property-class>
 			<value>#{userLogged}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>reservationDataProvider</property-name>
+			<property-class>com.greco.services.ReservationDataProvider</property-class>
+			<value>#{reservationDataProvider}</value>
+		</managed-property>
 	</managed-bean>
 	<navigation-rule>
 		<display-name>index.xhtml</display-name>
