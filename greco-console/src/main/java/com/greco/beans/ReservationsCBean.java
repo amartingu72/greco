@@ -44,28 +44,7 @@ public class ReservationsCBean implements Serializable{
 	public void setTimeTableBBean(TimeTableBBean timeTableBBean) {
 		this.timeTableBBean = timeTableBBean;
 	}
-	/**
-     * Cancela la reserva indicada en el BBEan en el campo selectedItem.
-     */
-    public void cancelReservation(){
-    	//Obtenemos la reserva a cancelar.
-    	ReservationItem reservationItem=reservationsBBean.getSelectedReservation();
-    	//Eliminamos de base de datos.
-    	reservationDataProvider.cancelReservation(reservationItem);
-    	//Eliminamos la reserva de la tabla de reservas de BBean.
-    	//reservationsBBean.removeReservation(reservationItem);
-    	
-    	//Recargamos la tabla de reservas pendientes.
-    	reservationsBBean.loadMyReservationsTable();
-    	
-    	//Recargamos la lista de reservas.
-    	this.timeTableBBean.load();
-    	//Grabamos el log.
-    	String msg;
-    	msg=reservationItem.getName() + "(" + reservationItem.getType() +") "
-    			+ reservationItem.getDate() + " " +reservationItem.getFromTime()+ "-" +reservationItem.getToTime();
-    	logger.log("012000", msg);
-    }
+	
     
     
    

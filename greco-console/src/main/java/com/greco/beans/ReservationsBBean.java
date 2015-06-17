@@ -1,16 +1,20 @@
 package com.greco.beans;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.AjaxBehaviorEvent;
+
+
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+
+
 
 import com.greco.services.CommunityDataProvider;
 import com.greco.services.ReservationDataProvider;
@@ -32,7 +36,7 @@ public class ReservationsBBean implements Serializable{
 	private List<ReservationItem> activeReservations; //Lista de preservas.
 	private ReservationDataProvider reservationDataProvider; //Inyectado
 	private CommunityDataProvider communityDataProvider; //Inyectado
-	private ReservationItem selectedReservation; //Item seleccionado para su eliminación.
+	
 	private Date newReservationDate; //Calendario
 	private ResourceTypeItem[] rsrcTypesList; //Lista de tipos de recursos seleccionables.
 	private int rsrcTypeSelectedId; //Identificador del tipo de recurso seleccionado.
@@ -76,6 +80,23 @@ public class ReservationsBBean implements Serializable{
 		newReservationDate=new Date();
 		
     }
+    /**
+     * Devuelve el item de reserva de la tabla de reservas activas cuyo identificador coincide con el indicado.
+     * @param reservationId Identificador de reserva.
+     * @return Item de reserva o null, si no lo encuentra.
+     */
+    public ReservationItem getActiveReservationItem(int reservationId){
+    	Iterator<ReservationItem> it=this.activeReservations.iterator();
+    	ReservationItem reservationItem=null;
+    	boolean bFound=false;
+    	while ( !bFound && it.hasNext()){
+    		reservationItem=it.next();
+    		bFound=reservationItem.getId()==reservationId;
+    	}
+    	if (!bFound) reservationItem=null;
+    	return reservationItem;
+    }
+    
     /**
      * Recarga la lista de mis reservas.
      */
@@ -156,27 +177,7 @@ public class ReservationsBBean implements Serializable{
 		this.reservationDataProvider = reservationDataProvider;
 	}
 	
-	
-	
-
-	public ReservationItem getSelectedReservation() {
-		return selectedReservation;
-	}
-
-	public void setSelectedReservation(ReservationItem selectedReservation) {
-		this.selectedReservation = selectedReservation;
-	}
-	
-	/**
-	 * PAra un "set" desde función ajax.
-	 * @param event
-	 */
-	public void setSelectedReservationAjax(ActionEvent event){
-    	ReservationItem ri=(ReservationItem)event.getComponent().getAttributes().get("reservation");
-    	this.setSelectedReservation(ri);
-    }
-	
-
+		
 	public Date getNewReservationDate() {
 		return newReservationDate;
 	}
@@ -230,7 +231,8 @@ public class ReservationsBBean implements Serializable{
 	public void setRsrcTypeSelectedId(int rsrcTypeSelectedId) {
 		this.rsrcTypeSelectedId = rsrcTypeSelectedId;
 	}
-
+	
+	
 	
 
 	    

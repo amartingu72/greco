@@ -3,6 +3,9 @@ package com.greco.beans;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+
+import org.primefaces.context.RequestContext;
 
 import com.greco.services.CommunityDataProvider;
 import com.greco.services.ReservationDataProvider;
@@ -17,7 +20,7 @@ public class MyReservationsBBean {
 	//Reservas confirmadas
 	 List<ReservationItem> confirmedReservations;
 	
-	//NOTA: Las reservas del carrito se gestionan con ReservationsBBean.
+	//NOTA: Las reservas del carrito se gestionan con ReservationsBBean. 
 	
 	private CommunityDataProvider communityDataProvider; //Inyectado.
 	private UserSBean userSBean; //Inyectado
@@ -90,6 +93,7 @@ public class MyReservationsBBean {
 			ReservationDataProvider reservationDataProvider) {
 		this.reservationDataProvider = reservationDataProvider;
 	}
+
 	
 	 
 }

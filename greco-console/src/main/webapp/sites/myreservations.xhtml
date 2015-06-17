@@ -21,12 +21,15 @@
         					<h5 class="modal-title">#{msgs['reservations.cancel_confirm_header']}</h5>
       					</div>
       					<div class="modal-body">
-      							<h:outputText id="canceled" value="#{reservationsBBean.selectedReservation.name} #{reservationsBBean.selectedReservation.date} #{reservationsBBean.selectedReservation.fromTime}-#{reservationsBBean.selectedReservation.toTime}"/>
+      							<input style="display:none;" name="reservid" id="reservid" value=""/>
+      							<p><input type="text" class="form-control" name="reserv" id="reserv" value="" readonly="true"/></p>
       							<p>#{msgs['reservations.cancel_confirm_msg']}</p>
       					</div>
       					<div class="modal-footer">
-        					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        					<button type="button" class="btn btn-primary">Save changes</button>
+        					<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['reservations.no']}</button>
+        					<h:commandButton class="btn btn-primary" value="#{msgs['reservations.yes']}" action="#{myReservationsCBean.cancelReservation}">
+        						
+        					</h:commandButton>
       					</div>
     				</div>
   				</div>
@@ -45,8 +48,8 @@
 			  						data-trigger="focus"
 			  						title="Pre-reservas" 
 			  						data-placement="bottom"
-			  						data-content="Las reservas de esta lista premanecerán bloqueadas para usted durante 15 minutos. Confírmelas para que sean definitivas.">
-			  						<span class="fa fa-shopping-cart" aria-hidden="true"></span>Pre-reservas
+			  						data-content="#{msgs['reservations.pre_reservation_msg']}">
+			  						<span class="fa fa-shopping-cart" aria-hidden="true"></span>#{msgs['reservations.pre_reservation']}
 			  					</button>
 			  					<script>
 			  						$("[data-toggle=popover]").popover();
@@ -67,23 +70,14 @@
 										#{reservation.toTime}
 									</h:column>
 									<h:column>
-										<h:commandLink  title="#{msgs['reservations.cancel']}"
-											update="myModal"
-											id="cancelActive" actionListener="#{reservationsBBean.setSelectedReservationAjax}">
+										
+										<h:commandLink onclick="$('#myModal').modal('show'); $('.modal-body #reserv').val( '#{reservation.name} #{reservation.date} #{reservation.fromTime}-#{reservation.toTime}' ); $('.modal-body #reservid').val(#{reservation.id});  return false;" >
 											
-											
-											<f:attribute name="reservation" value="#{reservation}" />
-											
-											<f:passThroughAttribute name="data-toggle" value="modal" />
-                                    		<f:passThroughAttribute name="data-target" value="#myModal" />
 											<span class="fa-stack fa-1x">
 											<i class="fa fa-circle fa-stack-2x"></i>
 											<i class="fa fa-close fa-stack-1x fa-inverse"></i>
 											</span>
 											
-										</h:commandLink>
-										<h:commandLink onclick="$('#myModal').modal('show'); return false;" value="Launch Modal">
-											<f:setPropertyActionListener target="#{reservationsBBean.selectedReservation}" value="#{reservation}" />
 										</h:commandLink> 
 										
 										
@@ -166,11 +160,11 @@
 							<div class="collapse mar-top5" id="collapse-#{rsrcItem.id}">
   								<div class="well well-sm">
     								<p><strong>#{rsrcItem.name}</strong></p>
-    								<p>Disponibilidad: #{rsrcItem.availableFromTime} - #{rsrcItem.availableToTime}<br/>
-    								Antelación: #{rsrcItem.beforehand} #{rsrcItem.beforehandTU}<br/>
-    								Unidad de reserva: #{rsrcItem.mintime} #{rsrcItem.timeunit}<br/>
-    								Tiempo mínimo de reserva: #{rsrcItem.mintime} #{rsrcItem.timeunit}<br/> 
-    								Tiempo máximo de reserva: #{rsrcItem.maxtime} #{rsrcItem.timeunit}<br/></p>
+    								<p>#{msgs['reservations.availability']}: #{rsrcItem.availableFromTime} - #{rsrcItem.availableToTime}<br/>
+    								#{msgs['reservations.beforehand']}: #{rsrcItem.beforehand} #{rsrcItem.beforehandTU}<br/>
+    								#{msgs['reservations.unit']}: #{rsrcItem.mintime} #{rsrcItem.timeunit}<br/>
+    								#{msgs['reservations.min']}: #{rsrcItem.mintime} #{rsrcItem.timeunit}<br/> 
+    								#{msgs['reservations.max']}: #{rsrcItem.maxtime} #{rsrcItem.timeunit}<br/></p>
     								<p><em>#{rsrcItem.description}</em></p>
   								</div>
 							</div>

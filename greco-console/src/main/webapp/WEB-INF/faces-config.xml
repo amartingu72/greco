@@ -566,27 +566,6 @@
 		</managed-property>
 	</managed-bean>
 	<managed-bean>
-		<description>Bean de controls para reservas.</description>
-		<managed-bean-name>reservationsCBean</managed-bean-name>
-		<managed-bean-class>com.greco.beans.ReservationsCBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-		<managed-property>
-			<property-name>reservationDataProvider</property-name>
-			<property-class>com.greco.services.ReservationDataProvider</property-class>
-			<value>#{reservationDataProvider}</value>
-		</managed-property>
-		<managed-property>
-			<property-name>reservationsBBean</property-name>
-			<property-class>com.greco.beans.ReservationsBBean</property-class>
-			<value>#{reservationsBBean}</value>
-		</managed-property>
-		<managed-property>
-			<property-name>timeTableBBean</property-name>
-			<property-class>com.greco.beans.TimeTableBBean</property-class>
-			<value>#{timeTableBBean}</value>
-		</managed-property>
-	</managed-bean>
-	<managed-bean>
 		<description>Backing bean para la tabla de reservas.</description>
 		<managed-bean-name>timeTableBBean</managed-bean-name>
 		<managed-bean-class>com.greco.beans.TimeTableBBean</managed-bean-class>
@@ -658,6 +637,27 @@
 			<property-name>reservationDataProvider</property-name>
 			<property-class>com.greco.services.ReservationDataProvider</property-class>
 			<value>#{reservationDataProvider}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<description>Bean controlador para la página de inicio de sites de comunidad.</description>
+		<managed-bean-name>myReservationsCBean</managed-bean-name>
+		<managed-bean-class>com.greco.beans.MyReservationsCBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>myReservationsBBean</property-name>
+			<property-class>com.greco.beans.MyReservationsBBean</property-class>
+			<value>#{myReservationsBBean}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>reservationDataProvider</property-name>
+			<property-class>com.greco.services.ReservationDataProvider</property-class>
+			<value>#{reservationDataProvider}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>reservationsBBean</property-name>
+			<property-class>com.greco.beans.ReservationsBBean</property-class>
+			<value>#{reservationsBBean}</value>
 		</managed-property>
 	</managed-bean>
 	<navigation-rule>
