@@ -3,10 +3,6 @@ package com.greco.beans;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-
-import org.primefaces.context.RequestContext;
-
 import com.greco.services.CommunityDataProvider;
 import com.greco.services.ReservationDataProvider;
 import com.greco.services.helpers.CommunityItem;

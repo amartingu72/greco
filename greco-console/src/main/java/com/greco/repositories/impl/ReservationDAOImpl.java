@@ -27,6 +27,10 @@ public class ReservationDAOImpl implements ReservationDAO {
     public void setEntityManager(EntityManager em) {
         this.em = em;
     }
+    @Override
+    public void save(Reservation reservation){
+    	em.merge(reservation);
+    }
 	
 	@Override
 	public List<Reservation> loadReservations(int communityId, int rsrcTypeId) {
@@ -64,12 +68,12 @@ public class ReservationDAOImpl implements ReservationDAO {
 	}
 
 	@Override
-	public List<Reservation> loadReservations(int userId) {
-		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and r.toDate>=:now and r.status!=:status", Reservation.class );
+	public List<Reservation> loadTakenReservations(int userId) {
+		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and r.toDate>=:now and r.status=:status", Reservation.class );
 		
 		query.setParameter("userId", userId);
 		query.setParameter("now",Calendar.getInstance(),TemporalType.DATE);
-		query.setParameter("status", IReservationStatus.LOCKED);
+		query.setParameter("status", IReservationStatus.TAKEN);
 		
 		@SuppressWarnings("unchecked")	
 		List<Reservation> result= query.getResultList();
@@ -109,6 +113,11 @@ public class ReservationDAOImpl implements ReservationDAO {
 		@SuppressWarnings("unchecked")	
 		List<Reservation> result= query.getResultList();
 		return result;
+	}
+	@Override
+	public Reservation load(int reservationId) {
+		Reservation r=em.find(Reservation.class, reservationId);
+		return r;
 	}
 	
 

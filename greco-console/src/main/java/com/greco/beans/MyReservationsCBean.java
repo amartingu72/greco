@@ -1,11 +1,14 @@
 package com.greco.beans;
 
 import java.io.Serializable;
+import java.util.Iterator;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.greco.services.ReservationDataProvider;
+import com.greco.services.except.reservation.NotOwnerException;
+import com.greco.services.except.reservation.ReservationMissingException;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.utils.MyLogger;
 
@@ -20,7 +23,7 @@ public class MyReservationsCBean  implements Serializable{
 	/**
      * Cancela la reserva indicada en el BBEan en el campo selectedItem.
      */
-    public void cancelReservation(){
+    public String cancelReservation(){
     	
     	HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String txtProperty = request.getParameter("reservid");
@@ -41,6 +44,30 @@ public class MyReservationsCBean  implements Serializable{
     	msg=reservationItem.getName() + "(" + reservationItem.getType() +") "
     			+ reservationItem.getDate() + " " +reservationItem.getFromTime()+ "-" +reservationItem.getToTime();
     	logger.log("012000", msg);
+    	
+    	return null;
+    }
+    
+    
+    /**
+     * Confirma las pre-reservas pasando al estado de reserva confirmada.
+     * Graba mensaje en el log con las reservas confirmadas.
+     */
+    public String confirmReservations(){
+    	Iterator<ReservationItem> it=this.reservationsBBean.getActiveReservations().iterator();
+    	while (it.hasNext()){
+			try {
+				reservationDataProvider.confirmReservation(myReservationsBBean.getUserSBean().getItem(), 
+						(ReservationItem)it.next());
+			} catch (ReservationMissingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotOwnerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	return null;
     }
     
     //GETTERs y SETTERs

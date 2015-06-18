@@ -17,7 +17,7 @@
   				<div class="modal-dialog modal-sm">
     				<div class="modal-content">
       					<div class="modal-header">
-        					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        					
         					<h5 class="modal-title">#{msgs['reservations.cancel_confirm_header']}</h5>
       					</div>
       					<div class="modal-body">
@@ -83,7 +83,7 @@
 										
 										
 										
-										
+					 					
 									</h:column>
 								</h:dataTable>
 								
@@ -92,11 +92,12 @@
 						<div class="row">
         					<div class="col-md-12" >
 								<div class="text-center">
-									<p:commandButton
-										style="margin-top:6px;margin-bottom:6px"
-										icon="ui-icon-circle-check"
+									<h:commandButton
+										class="btn btn-primary"
+										action="#{myReservationsCBean.confirmReservations}"
 										value="#{msgs['reservations.confirm']}">
-									</p:commandButton>	
+									</h:commandButton>	
+									
 								</div>
 							</div>
 						</div>
@@ -105,20 +106,20 @@
         						<div class="mar-top100">
         							<h5>Reservas confirmadas</h5>
         						</div>
-        						<h:dataTable class="table table-condensed table-hover" id="confirmedReservationsTable" var="reservation"
-									value="#{myreservationsBBean.confirmedReservations}">
+        						<h:dataTable class="table table-condensed table-hover" id="confirmedReservationsTable" var="taken_reservation"
+									value="#{myReservationsBBean.confirmedReservations}">
 									
 									<h:column>
-										<h:outputText title="#{msgs['reservations.rsrc_type']}" value="#{reservation.name}" />				
+										#{taken_reservation.name}				
 									</h:column>
 									<h:column>
-										#{reservation.date}
+										#{taken_reservation.date}
 									</h:column>
 									<h:column> 
-										#{reservation.fromTime}
+										#{taken_reservation.fromTime}
 									</h:column>
 									<h:column>
-										#{reservation.toTime}
+										#{taken_reservation.toTime}
 									</h:column>
 									<h:column>
 										<h:commandLink  title="#{msgs['reservations.cancel']}">
@@ -131,6 +132,7 @@
 										
 									</h:column>
 								</h:dataTable>
+								hola
         					</div>
         				</div>
         				

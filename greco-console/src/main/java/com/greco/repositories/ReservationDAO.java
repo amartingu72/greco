@@ -12,6 +12,13 @@ public interface ReservationDAO {
 	 * @param reservation Reserva
 	 */
 	public void addReservation(Reservation reservation);
+	
+	/**
+	 * Actualiza los valores de la reserva pasada como parámetro.
+	 * @param reservation Reserva.
+	 */
+	public void save(Reservation reservation);
+	
 	/**
 	 * Devuelve la reservas realizadas en la comunidad indicada del tipo recurso indicado
 	 * @param communityId
@@ -36,7 +43,7 @@ public interface ReservationDAO {
 	 * @param userId Identificador de usuario.
 	 * @return Lista de reservas
 	 */
-	public List<Reservation> loadReservations(int userId);
+	public List<Reservation> loadTakenReservations(int userId);
 	
 	
 	/**
@@ -61,4 +68,11 @@ public interface ReservationDAO {
 	 * @param reservationID
 	 */
 	public void remove(int reservationID);
+	
+	/**
+	 * Obtiene la reserva cuyo id coincide con el pasado como parámetro.
+	 * @param reservationId Identificador de reserva.
+	 * @return Reserva o null, si no existe.
+	 */
+	public Reservation load(int reservationId);
 }

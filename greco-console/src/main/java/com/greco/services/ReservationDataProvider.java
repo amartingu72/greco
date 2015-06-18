@@ -8,6 +8,7 @@ import com.greco.engine.ScheduleUnit;
 import com.greco.entities.Reservation;
 import com.greco.services.except.reservation.AlreadyLockedException;
 import com.greco.services.except.reservation.NotOwnerException;
+import com.greco.services.except.reservation.ReservationMissingException;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.ResourceItem;
 import com.greco.services.helpers.UserItem;
@@ -63,4 +64,13 @@ public interface ReservationDataProvider {
 	 * @param scheduleUnit Reserva a cancelar
 	 */
 	public abstract void cancelReservation(UserItem userItem, ResourceItem rsrcItem, ScheduleUnit scheduleUnit) throws NotOwnerException;
+	/**
+	 * Pasa a estado IReservation.TAKEN la reserva pasada como parámetro.
+	 * Comprueba que la pre-reserva haya sido realizada por el usuario indicado.
+	 * Nota si la reserva existe pero no como de pre-reserva y pertence al usuario indicado, no hace nada.
+	 * @param reservationItem
+	 * @exception ReservationMissingException La reserva no existe ya.
+	 * @exception NotOwnerException;
+	 */
+	public abstract void confirmReservation(UserItem userItem, ReservationItem reservationItem) throws ReservationMissingException, NotOwnerException;
 }

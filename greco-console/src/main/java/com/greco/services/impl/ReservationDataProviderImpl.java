@@ -4,20 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.annotation.Resource;
-import javax.persistence.TemporalType;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
-
-
-
+import com.greco.engine.IReservationStatus;
 import com.greco.engine.ReservationUnit;
 import com.greco.engine.ScheduleUnit;
 import com.greco.entities.Reservation;
@@ -28,6 +21,7 @@ import com.greco.repositories.UserDAO;
 import com.greco.services.ReservationDataProvider;
 import com.greco.services.except.reservation.AlreadyLockedException;
 import com.greco.services.except.reservation.NotOwnerException;
+import com.greco.services.except.reservation.ReservationMissingException;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.ResourceItem;
 import com.greco.services.helpers.UserItem;
@@ -126,7 +120,7 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 
 	@Override
 	public List<ReservationItem> getActiveReservations(int userId) {
-		List<Reservation> reservations=this.reservationRepository.loadReservations(userId);
+		List<Reservation> reservations=this.reservationRepository.loadTakenReservations(userId);
 		ArrayList<ReservationItem> reservationItems=new ArrayList<ReservationItem>(reservations.size());
 		
 		Iterator<Reservation> it=reservations.iterator();
@@ -193,22 +187,35 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 			reservationItem.setDate(date);
 			String time=dateTime.getHourOfDay() + ":" + String.format("%02d",dateTime.getMinuteOfHour());
 			reservationItem.setFromTime(time);
-			//Será cancelable si el inicio es anterior a ahora mismo.
-			reservationItem.setCancelable(dateTime.isAfterNow());
+			//Las pre-reservas son siempre cancelables.
+			reservationItem.setCancelable(true);
 			
 			dateTime=new DateTime(reservation.getToDate());
 			date=fmt.print(dateTime);
 			reservationItem.setDate(date);
 			time=dateTime.getHourOfDay() + ":" + String.format("%02d",dateTime.getMinuteOfHour());
 			reservationItem.setToTime(time);
-			
-			
-			
-			
 			reservationItems.add(reservationItem);
-			
 		}
-		
 		return reservationItems;
+	}
+
+	@Override
+	@Transactional
+	public void confirmReservation(UserItem userItem, ReservationItem reservationItem) throws ReservationMissingException, NotOwnerException{
+		
+		//Obtenemos el registro correspondiente a la reserva.
+		//Si no existe, excepción.
+		Reservation reservation=this.reservationRepository.load(reservationItem.getId());
+		if (reservation==null) throw new ReservationMissingException();
+		
+		//Comprobamos que la preserva corresponde al usuario indicado.
+		//Si no corresponde, excepción.
+		if (reservation.getUser().getId()!= userItem.getId())
+			throw new NotOwnerException();
+		
+		//Actualizamos la reserva.
+		reservation.setStatus(IReservationStatus.TAKEN);
+		reservationRepository.save(reservation);
 	}
 }
