@@ -16,8 +16,14 @@ public class ReservationItem {
 	public boolean equals(Object obj) {
 		return id==((ReservationItem)obj).getId();
 	}
-	//GETTERs y SETTERs
 	
+	
+	@Override
+	public String toString() {
+		return "(RESERVATION_ID)" + id + " (NAME)" + name + "(" + type +") " + date + " "+ fromTime +"-" + toTime;
+	}
+	
+	//GETTERs y SETTERs
 	public int getId() {
 		return id;
 	}

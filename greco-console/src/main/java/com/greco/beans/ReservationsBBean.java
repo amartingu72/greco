@@ -96,6 +96,13 @@ public class ReservationsBBean implements Serializable{
     	if (!bFound) reservationItem=null;
     	return reservationItem;
     }
+    /**
+     * Indica si hay alguna pre-reserva en el carrito.
+     * @return Si (true), no (false).
+     */
+    public boolean isEmptyCart(){
+		return this.activeReservations.size()==0;
+	}
     
     /**
      * Recarga la lista de mis reservas.

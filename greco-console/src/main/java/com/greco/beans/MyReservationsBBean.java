@@ -1,8 +1,10 @@
 package com.greco.beans;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+
 import com.greco.services.CommunityDataProvider;
 import com.greco.services.ReservationDataProvider;
 import com.greco.services.helpers.CommunityItem;
@@ -33,6 +35,30 @@ public class MyReservationsBBean {
 		loadConfirmedReservations();
 		
 	}
+	/**
+	 * Indica si el usuario que inició la sesion tiene reservas confirmadas y no pasadas. 
+	 * @return Si (true), no (false).
+	 */
+	public boolean isEmptyConfirmed(){
+		return this.confirmedReservations.size()==0;
+	}
+	
+	/**
+     * Devuelve el item de reserva de la tabla de reservas confirmadas cuyo identificador coincide con el indicado.
+     * @param reservationId Identificador de reserva.
+     * @return Item de reserva o null, si no lo encuentra.
+     */
+    public ReservationItem getConfirmedReservationItem(int reservationId){
+    	Iterator<ReservationItem> it=this.confirmedReservations.iterator();
+    	ReservationItem reservationItem=null;
+    	boolean bFound=false;
+    	while ( !bFound && it.hasNext()){
+    		reservationItem=it.next();
+    		bFound=reservationItem.getId()==reservationId;
+    	}
+    	if (!bFound) reservationItem=null;
+    	return reservationItem;
+    }
 	
 	/**
 	 * Carga la lista de reservas ya confirmadas por el usuario con sesión iniciada.
@@ -40,6 +66,8 @@ public class MyReservationsBBean {
 	public void loadConfirmedReservations(){
 		confirmedReservations=reservationDataProvider.getActiveReservations(this.userSBean.getId());
 	}
+	
+	
 
 	 	
 	//GETTERS y SETTERs

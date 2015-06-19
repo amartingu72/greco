@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html >
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -36,24 +35,34 @@
 			</div>
          	
          
-         	<p:messages id="messages" showSummary="true" showDetail="true"/>
+         	
          	<div class="row">        	
          		
 				<div class="col-md-offset-1  col-md-5" >
         			<div class="mar-top20">
         				<div class="row">
-        					<div class="col-md-12" >
+        					<div class="col-md-2" >
+        						
 			  					<button type="button" class="btn btn-sm btn-info" 
 			  						data-toggle="popover" 
 			  						data-trigger="focus"
-			  						title="Pre-reservas" 
+			  						title="#{msgs['reservations.pre_reservations']}" 
 			  						data-placement="bottom"
 			  						data-content="#{msgs['reservations.pre_reservation_msg']}">
-			  						<span class="fa fa-shopping-cart" aria-hidden="true"></span>#{msgs['reservations.pre_reservation']}
+			  						
+									<span class="fa fa-shopping-cart fa-2x pull-left" aria-hidden="true"/>
+			  						
 			  					</button>
+			  				</div>
+			  				<div class="col-md-10" >
+			  					<h5>#{msgs['reservations.pre_reservations']}</h5>
 			  					<script>
 			  						$("[data-toggle=popover]").popover();
 			  					</script>
+			  				</div>
+			  			</div>
+			  			<div class="row">
+        					<div class="col-md-12" >
 								<h:dataTable class="table table-condensed table-hover" id="activeReservationsTable" var="reservation"
 									value="#{reservationsBBean.activeReservations}">
 									
@@ -71,7 +80,8 @@
 									</h:column>
 									<h:column>
 										
-										<h:commandLink onclick="$('#myModal').modal('show'); $('.modal-body #reserv').val( '#{reservation.name} #{reservation.date} #{reservation.fromTime}-#{reservation.toTime}' ); $('.modal-body #reservid').val(#{reservation.id});  return false;" >
+										<h:commandLink title="#{msgs['reservations.dismiss']}" 
+												onclick="$('#myModal').modal('show'); $('.modal-body #reserv').val( '#{reservation.name} #{reservation.date} #{reservation.fromTime}-#{reservation.toTime}' ); $('.modal-body #reservid').val(#{reservation.id});  return false;" >
 											
 											<span class="fa-stack fa-1x">
 											<i class="fa fa-circle fa-stack-2x"></i>
@@ -79,60 +89,68 @@
 											</span>
 											
 										</h:commandLink> 
-										
-										
-										
-										
-					 					
+				
 									</h:column>
 								</h:dataTable>
 								
 							</div>
 						</div>
 						<div class="row">
-        					<div class="col-md-12" >
-								<div class="text-center">
+        					<div class="text-center" >
+								<h:panelGroup rendered="#{!reservationsBBean.emptyCart}">
 									<h:commandButton
+										
 										class="btn btn-primary"
 										action="#{myReservationsCBean.confirmReservations}"
 										value="#{msgs['reservations.confirm']}">
 									</h:commandButton>	
 									
-								</div>
+								</h:panelGroup>
+								<h:panelGroup rendered="#{reservationsBBean.emptyCart}">
+									#{msgs['reservations.no_pre_reservations']}
+								</h:panelGroup>
+								
 							</div>
 						</div>
 						<div class="row">
+							<p:messages id="messages" showSummary="true" showDetail="true"/>
+						</div>
+						<div class="row">
         					<div class="col-md-12" >
-        						<div class="mar-top100">
-        							<h5>Reservas confirmadas</h5>
+        						<div class="mar-top30">
+        							<h5>#{msgs['reservations.confirmed_reservations']}</h5>
         						</div>
-        						<h:dataTable class="table table-condensed table-hover" id="confirmedReservationsTable" var="taken_reservation"
+        						<h:dataTable class="table table-condensed table-hover" id="confirmedReservationsTable" var="reservation"
 									value="#{myReservationsBBean.confirmedReservations}">
 									
 									<h:column>
-										#{taken_reservation.name}				
+										#{reservation.name}				
 									</h:column>
 									<h:column>
-										#{taken_reservation.date}
+										#{reservation.date}
 									</h:column>
 									<h:column> 
-										#{taken_reservation.fromTime}
+										#{reservation.fromTime}
 									</h:column>
 									<h:column>
-										#{taken_reservation.toTime}
+										#{reservation.toTime}
 									</h:column>
 									<h:column>
-										<h:commandLink  title="#{msgs['reservations.cancel']}">
+										
+										<h:commandLink rendered="#{reservation.cancelable}" title="#{msgs['reservations.cancel']}"
+												onclick="$('#myModal').modal('show'); $('.modal-body #reserv').val( '#{reservation.name} #{reservation.date} #{reservation.fromTime}-#{reservation.toTime}' ); $('.modal-body #reservid').val(#{reservation.id});  return false;" >
+											
 											<span class="fa-stack fa-1x">
 											<i class="fa fa-circle fa-stack-2x"></i>
 											<i class="fa fa-close fa-stack-1x fa-inverse"></i>
 											</span>
-										</h:commandLink>
-										
-										
+											
+										</h:commandLink> 
 									</h:column>
 								</h:dataTable>
-								hola
+								<h:panelGroup rendered="#{myReservationsBBean.emptyConfirmed}">
+									#{msgs['reservations.no_reservations']} 
+								</h:panelGroup>
         					</div>
         				</div>
         				

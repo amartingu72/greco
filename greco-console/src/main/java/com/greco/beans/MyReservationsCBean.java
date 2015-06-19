@@ -3,6 +3,7 @@ package com.greco.beans;
 import java.io.Serializable;
 import java.util.Iterator;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,10 +12,14 @@ import com.greco.services.except.reservation.NotOwnerException;
 import com.greco.services.except.reservation.ReservationMissingException;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.utils.MyLogger;
+import com.greco.utils.Warnings;
 
 public class MyReservationsCBean  implements Serializable{
 	
+	
 	private static final long serialVersionUID = -6189462533318374923L;
+	
+	
 	private static final MyLogger logger = MyLogger.getLogger(MyReservationsCBean.class.getName());
 	private ReservationsBBean reservationsBBean; //Inyectado
 	private MyReservationsBBean myReservationsBBean; //Inyectado
@@ -29,21 +34,28 @@ public class MyReservationsCBean  implements Serializable{
         String txtProperty = request.getParameter("reservid");
         int reservationId=Integer.parseInt(txtProperty);
     	//Obtenemos la reserva a cancelar.
-    	ReservationItem reservationItem=reservationsBBean.getActiveReservationItem(reservationId);
+        //Miramos si es una prereserva o una reserva confirmada. 
+    	ReservationItem reservationItem=reservationsBBean.getActiveReservationItem(reservationId);  //Preserva
+    	if ( reservationItem==null) reservationItem=myReservationsBBean.getConfirmedReservationItem(reservationId); //Reserva confirmada;
     	//Eliminamos de base de datos.
     	reservationDataProvider.cancelReservation(reservationItem);
-    	//Eliminamos la reserva de la tabla de reservas de BBean.
-    	//reservationsBBean.removeReservation(reservationItem);
+    	
     	
     	//Recargamos la tabla de reservas pendientes.
     	reservationsBBean.loadMyReservationsTable();
-    	
-    	
-    	//Grabamos el log.
+    	//y la de reservas confirmadas.
+    	myReservationsBBean.loadConfirmedReservations();
     	String msg;
+    	//Mostramos mensaje de éxito.
     	msg=reservationItem.getName() + "(" + reservationItem.getType() +") "
     			+ reservationItem.getDate() + " " +reservationItem.getFromTime()+ "-" +reservationItem.getToTime();
-    	logger.log("012000", msg);
+		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("reservations.canceled"),msg); 
+		FacesContext.getCurrentInstance().addMessage(null, fm);
+    	
+    	//Grabamos el log.
+    	
+    	
+    	logger.log("012000", reservationItem.toString());
     	
     	return null;
     }
@@ -55,10 +67,12 @@ public class MyReservationsCBean  implements Serializable{
      */
     public String confirmReservations(){
     	Iterator<ReservationItem> it=this.reservationsBBean.getActiveReservations().iterator();
+    	ReservationItem reservationItem=null;
     	while (it.hasNext()){
 			try {
+				reservationItem=(ReservationItem)it.next();
 				reservationDataProvider.confirmReservation(myReservationsBBean.getUserSBean().getItem(), 
-						(ReservationItem)it.next());
+						reservationItem);
 			} catch (ReservationMissingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -66,7 +80,22 @@ public class MyReservationsCBean  implements Serializable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			
+			//Grabamos log.
+			logger.log("012003",reservationItem.toString());//INFO|Reserva confirmada:
+
+			
     	}
+    	//Mostramos mensaje de éxito.
+		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("reservations.successful"),
+				Warnings.getString("reservations.successful_detail") + this.reservationsBBean.getActiveReservationsNumber()); 
+		FacesContext.getCurrentInstance().addMessage(null, fm);
+    	
+    	//Actualizamos las tablas de reservas activas y confirmadas.
+		this.myReservationsBBean.loadConfirmedReservations(); //Reservas confirmadas.
+		this.reservationsBBean.loadMyReservationsTable();  //Pre-reservas
+		
     	return null;
     }
     
