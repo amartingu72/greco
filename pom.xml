@@ -1,167 +1,55 @@
-Started by user Jenkins Admin
-Building remotely on amgbldr (amg-build) in workspace /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo
-Checkout:repo / /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo - hudson.remoting.Channel@1953b2:amgbldr
-Using strategy: Default
-Last Built Revision: Revision 3be248fda675216a6bb20419edc4d540bcc40722 (origin/HEAD, origin/master)
-Checkout:repo / /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo - hudson.remoting.LocalChannel@a4efff
-Wiping out workspace first.
-Cloning the remote Git repository
-Cloning repository origin
-Fetching upstream changes from https://github.com/amartingu72/greco.git
-Seen branch in repository origin/HEAD
-Seen branch in repository origin/master
-Commencing build of Revision c6d6526bb24236b87cfa633c222cd8b01720a4c0 (origin/HEAD, origin/master)
-Checking out Revision c6d6526bb24236b87cfa633c222cd8b01720a4c0 (origin/HEAD, origin/master)
-Warning : There are multiple branch changesets here
-[repo] $ /bin/sh -xe /tmp/hudson3494287390105833940.sh
-+ source /usr/lib/openshift/cartridge_sdk/bash/sdk
-++ '[' false == true ']'
-++ OO_BASH_SDK=true
-+ alias 'rsync=rsync --delete-after -azS -e '\''/usr/libexec/openshift/cartridges/jenkins/bin/git_ssh_wrapper.sh'\'''
-+ upstream_ssh=5587bb6e4382ec730e0000c2@amg-greco.rhcloud.com
-+ rm -f /var/lib/openshift/55a4e4b6e0b8cdff150001a1//app-deployments/current/metadata.json
-+ marker_present force_clean_build
-+ '[' -f /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo//.openshift/markers/force_clean_build ']'
-+ set +e
-+ rsync --delete-after -azS -e /usr/libexec/openshift/cartridges/jenkins/bin/git_ssh_wrapper.sh '5587bb6e4382ec730e0000c2@amg-greco.rhcloud.com:$OPENSHIFT_BUILD_DEPENDENCIES_DIR' /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/build-dependencies/
-Warning: Permanently added 'amg-greco.rhcloud.com,10.136.106.101' (RSA) to the list of known hosts.
-+ rsync --delete-after -azS -e /usr/libexec/openshift/cartridges/jenkins/bin/git_ssh_wrapper.sh '5587bb6e4382ec730e0000c2@amg-greco.rhcloud.com:$OPENSHIFT_DEPENDENCIES_DIR' /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/dependencies/
-Warning: Permanently added 'amg-greco.rhcloud.com,10.136.106.101' (RSA) to the list of known hosts.
-+ set -e
-+ gear build
-Building git ref 'origin/HEAD', commit c6d6526
-Found pom.xml... attempting to build with 'mvn -e clean package -Popenshift -DskipTests'
-Apache Maven 3.0.4 (r1232336; 2012-12-18 14:36:37-0500)
-Maven home: /usr/share/java/apache-maven-3.0.4
-Java version: 1.7.0_79, vendor: Oracle Corporation
-Java home: /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.79/jre
-Default locale: en_US, platform encoding: ANSI_X3.4-1968
-OS name: "linux", version: "2.6.32-504.16.2.el6.x86_64", arch: "i386", family: "unix"
-[INFO] Scanning for projects...
-[INFO] ------------------------------------------------------------------------
-[INFO] Reactor Build Order:
-[INFO] 
-[INFO] greco-entities
-[INFO] greco-console Maven Webapp
-[INFO] Greco Maven Webapp
-[INFO]                                                                         
-[INFO] ------------------------------------------------------------------------
-[INFO] Building greco-entities 0.0.1-SNAPSHOT
-[INFO] ------------------------------------------------------------------------
-[INFO] 
-[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ greco-entities ---
-[INFO] 
-[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ greco-entities ---
-[debug] execute contextualize
-[WARNING] Using platform encoding (ANSI_X3.4-1968 actually) to copy filtered resources, i.e. build is platform dependent!
-[INFO] Copying 1 resource
-[INFO] 
-[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ greco-entities ---
-[WARNING] File encoding has not been set, using platform encoding ANSI_X3.4-1968, i.e. build is platform dependent!
-[INFO] Compiling 10 source files to /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo/greco-entities/target/classes
-[INFO] 
-[INFO] --- maven-resources-plugin:2.5:testResources (default-testResources) @ greco-entities ---
-[debug] execute contextualize
-[WARNING] Using platform encoding (ANSI_X3.4-1968 actually) to copy filtered resources, i.e. build is platform dependent!
-[INFO] skip non existing resourceDirectory /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo/greco-entities/src/test/resources
-[INFO] 
-[INFO] --- maven-compiler-plugin:2.3.2:testCompile (default-testCompile) @ greco-entities ---
-[INFO] No sources to compile
-[INFO] 
-[INFO] --- maven-surefire-plugin:2.10:test (default-test) @ greco-entities ---
-[INFO] Tests are skipped.
-[INFO] 
-[INFO] --- maven-jar-plugin:2.3.2:jar (default-jar) @ greco-entities ---
-[INFO] Building jar: /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo/greco-entities/target/greco-entities-0.0.1-SNAPSHOT.jar
-[INFO]                                                                         
-[INFO] ------------------------------------------------------------------------
-[INFO] Building greco-console Maven Webapp 0.0.1-SNAPSHOT
-[INFO] ------------------------------------------------------------------------
-[INFO] 
-[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ greco-console ---
-[INFO] 
-[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ greco-console ---
-[debug] execute contextualize
-[WARNING] Using platform encoding (ANSI_X3.4-1968 actually) to copy filtered resources, i.e. build is platform dependent!
-[INFO] skip non existing resourceDirectory /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo/greco-console/src/main/resources
-[INFO] 
-[INFO] --- maven-compiler-plugin:2.3.1:compile (default-compile) @ greco-console ---
-[INFO] Compiling 132 source files to /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo/greco-console/target/classes
-[INFO] 
-[INFO] --- maven-resources-plugin:2.5:testResources (default-testResources) @ greco-console ---
-[debug] execute contextualize
-[WARNING] Using platform encoding (ANSI_X3.4-1968 actually) to copy filtered resources, i.e. build is platform dependent!
-[INFO] skip non existing resourceDirectory /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo/greco-console/src/test/resources
-[INFO] 
-[INFO] --- maven-compiler-plugin:2.3.1:testCompile (default-testCompile) @ greco-console ---
-[INFO] No sources to compile
-[INFO] 
-[INFO] --- maven-surefire-plugin:2.10:test (default-test) @ greco-console ---
-[INFO] Tests are skipped.
-[INFO] 
-[INFO] --- maven-war-plugin:2.1.1:war (default-war) @ greco-console ---
-[INFO] Packaging webapp
-[INFO] Assembling webapp [greco-console] in [/var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo/greco-console/target/greco-console]
-[INFO] Processing war project
-[INFO] Copying webapp resources [/var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo/greco-console/src/main/webapp]
-[INFO] Webapp assembled in [1352 msecs]
-[INFO] Building war: /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo/greco-console/target/greco-console.war
-[INFO] WEB-INF/web.xml already added, skipping
-[INFO]                                                                         
-[INFO] ------------------------------------------------------------------------
-[INFO] Building Greco Maven Webapp 0.0.1-SNAPSHOT
-[INFO] ------------------------------------------------------------------------
-[INFO] 
-[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ greco ---
-[INFO] ------------------------------------------------------------------------
-[INFO] Reactor Summary:
-[INFO] 
-[INFO] greco-entities .................................... SUCCESS [5.135s]
-[INFO] greco-console Maven Webapp ........................ SUCCESS [11.531s]
-[INFO] Greco Maven Webapp ................................ SUCCESS [0.003s]
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time: 16.825s
-[INFO] Finished at: Tue Jul 14 06:31:44 EDT 2015
-[INFO] Final Memory: 21M/153M
-[INFO] ------------------------------------------------------------------------
-[WARNING] The requested profile "openshift" could not be activated because it does not exist.
-+ /usr/libexec/openshift/cartridges/jenkins/bin/git_ssh_wrapper.sh 5587bb6e4382ec730e0000c2@amg-greco.rhcloud.com 'gear stop --conditional --exclude-web-proxy --git-ref c6d6526bb24236b87cfa633c222cd8b01720a4c0'
-Warning: Permanently added 'amg-greco.rhcloud.com,10.136.106.101' (RSA) to the list of known hosts.
-fatal: not a tree object
-Stopping gear...
-Stopping jbossas cartridge
-Sending SIGTERM to jboss:402822 ...
-Stopping MySQL 5.5 cartridge
-Stopping PHPMyAdmin cartridge
-Waiting for stop to finish
-Waiting for stop to finish
-Waiting for stop to finish
-++ /usr/libexec/openshift/cartridges/jenkins/bin/git_ssh_wrapper.sh 5587bb6e4382ec730e0000c2@amg-greco.rhcloud.com 'gear create-deployment-dir'
-Warning: Permanently added 'amg-greco.rhcloud.com,10.136.106.101' (RSA) to the list of known hosts.
-+ deployment_dir=2015-07-14_06-31-55.516
-+ rsync --delete-after -azS -e /usr/libexec/openshift/cartridges/jenkins/bin/git_ssh_wrapper.sh /var/lib/openshift/55a4e4b6e0b8cdff150001a1//app-deployments/current/metadata.json 5587bb6e4382ec730e0000c2@amg-greco.rhcloud.com:app-deployments/2015-07-14_06-31-55.516/metadata.json
-Warning: Permanently added 'amg-greco.rhcloud.com,10.136.106.101' (RSA) to the list of known hosts.
-+ rsync --delete-after -azS -e /usr/libexec/openshift/cartridges/jenkins/bin/git_ssh_wrapper.sh --exclude .git /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/repo/ 5587bb6e4382ec730e0000c2@amg-greco.rhcloud.com:app-root/runtime/repo/
-Warning: Permanently added 'amg-greco.rhcloud.com,10.136.106.101' (RSA) to the list of known hosts.
-+ rsync --delete-after -azS -e /usr/libexec/openshift/cartridges/jenkins/bin/git_ssh_wrapper.sh /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/build-dependencies/ 5587bb6e4382ec730e0000c2@amg-greco.rhcloud.com:app-root/runtime/build-dependencies/
-Warning: Permanently added 'amg-greco.rhcloud.com,10.136.106.101' (RSA) to the list of known hosts.
-+ rsync --delete-after -azS -e /usr/libexec/openshift/cartridges/jenkins/bin/git_ssh_wrapper.sh /var/lib/openshift/55a4e4b6e0b8cdff150001a1/app-root/runtime/dependencies/ 5587bb6e4382ec730e0000c2@amg-greco.rhcloud.com:app-root/runtime/dependencies/
-Warning: Permanently added 'amg-greco.rhcloud.com,10.136.106.101' (RSA) to the list of known hosts.
-+ /usr/libexec/openshift/cartridges/jenkins/bin/git_ssh_wrapper.sh 5587bb6e4382ec730e0000c2@amg-greco.rhcloud.com 'gear remotedeploy --deployment-datetime 2015-07-14_06-31-55.516'
-Warning: Permanently added 'amg-greco.rhcloud.com,10.136.106.101' (RSA) to the list of known hosts.
-Preparing build for deployment
-Deployment id is d8fa49ea
-Activating deployment
-Starting MySQL 5.5 cartridge
-Starting PHPMyAdmin cartridge
-Deploying JBoss
-Starting jbossas cartridge
-Found 127.6.205.1:8080 listening port
-Found 127.6.205.1:9999 listening port
-/var/lib/openshift/5587bb6e4382ec730e0000c2/jbossas/standalone/deployments /var/lib/openshift/5587bb6e4382ec730e0000c2/jbossas
-/var/lib/openshift/5587bb6e4382ec730e0000c2/jbossas
-Artifacts deployed: ./ROOT.war
-Archiving artifacts
-Finished: SUCCESS
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.greco</groupId>
+  <artifactId>greco</artifactId>
+  <packaging>pom</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Greco Maven Webapp</name>
+   <modules>
+        <module>greco-entities</module>
+        <module>greco-console</module>
+    </modules>
+  
+	
+  
+  <build>
+    <finalName>greco-console</finalName>
+     
+     <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>2.3.1</version>
+            <configuration>
+               <source>1.7</source>
+               <target>1.7</target>
+            </configuration>
+         </plugin>
+      </plugins>
+
+  </build>
+  <profiles>
+	<profile>
+         <!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
+         <!-- Use this profile for any OpenShift specific customization your app will need. -->
+         <!-- By default that is to put the resulting archive into the 'deployments' folder. -->
+         <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+         <id>openshift</id>
+         <build>
+            <plugins>
+               <plugin>
+                  <artifactId>maven-war-plugin</artifactId>
+                  <version>2.1.1</version>
+                  <configuration>
+                     <outputDirectory>deployments</outputDirectory>
+                     <warName>ROOT</warName>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+
+   </profiles>
+  
+</project>
