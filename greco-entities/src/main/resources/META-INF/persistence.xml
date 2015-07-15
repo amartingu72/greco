@@ -4,7 +4,7 @@
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="default" transaction-type="JTA">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<jta-data-source>jdbc/greco</jta-data-source>
+		<jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
 		<class>com.greco.entities.Community</class>
 		<class>com.greco.entities.Country</class>
 		<class>com.greco.entities.Exception</class>
@@ -14,7 +14,7 @@
 		<class>com.greco.entities.Resourcetype</class>
 		<class>com.greco.entities.Timeunit</class>
 		<class>com.greco.entities.User</class>
-		<class>com.greco.entities.UsersCommunity</class>
+		<class>com.greco.entities.UsersCommunity</class> 
 		
 
 	</persistence-unit>
