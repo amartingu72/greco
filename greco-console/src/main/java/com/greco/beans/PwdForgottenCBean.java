@@ -29,7 +29,7 @@ public class PwdForgottenCBean {
 	
 	private static final MyLogger logger = MyLogger.getLogger(PwdForgottenCBean.class.getName());
 	//@Resource(name = "mail/gmailAccount")
-	@Resource(name = "mail/banestoAccount")
+	//@Resource(name = "mail/banestoAccount")
 	private Session mailSession;
 	private PwdForgottenBBean pwdForgottenBBean;  //Inyectado.
 	private UserDataProvider userDataProvider; //Inyectado
@@ -48,6 +48,8 @@ public class PwdForgottenCBean {
 	        FacesContext.getCurrentInstance().addMessage(null, fm);
 		}
 		else {
+			//Descomentar cuando vayas a implementar correo.
+			/*
 			//Generamos un contraseña aleatoria y se la asignamos al usuario.
 			String pwd=userDataProvider.changePassword(userSBean.getId());
 			//Mensaje para logger
@@ -55,7 +57,7 @@ public class PwdForgottenCBean {
 			msg+="EMAIL ("+ userSBean.getEmail() +")";
 			//Enviamos email. Indicar comunidad en el asunto.	
 			try {
-				//userDataProvider.sendEmail(userSBean.getId(), "Greco: cambio de contraseña", "Su nueva contraseña es " + pwd);
+				
 				sendEmail("Greco: cambio de contraseña", "Su nueva contraseña es " + pwd);
 				//Grabamos log
 				
@@ -70,7 +72,7 @@ public class PwdForgottenCBean {
 				String details=Warnings.getString("pwdforgotten.sending_error_detail");
 				FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, message, details);
 		        FacesContext.getCurrentInstance().addMessage(null, fm);
-			}
+			}*/
 			
 		}
 		
