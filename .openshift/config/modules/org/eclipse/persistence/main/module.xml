@@ -2,7 +2,7 @@
 <!-- Represents the EclipseLink 2.3.x module-->
 <module xmlns="urn:jboss:module:1.1" name="org.eclipse.persistence">
 <resources>
-<resource-root path="eclipselink-2.5.0.jar"/>
+<resource-root path="eclipselink-2.5.2.jar"/>
 </resources>
 <dependencies>
 <module name="javax.api"/>
