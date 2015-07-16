@@ -4,6 +4,8 @@
 	<groupId>com.greco</groupId>
 	<artifactId>greco-entities</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+		
+
 	<repositories>
 		<repository>
 			<id>EclipseLink Repo</id>
@@ -17,6 +19,7 @@
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>eclipselink</artifactId>
 			<version>2.5.2</version>
+			<scope>provided</scope> 
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
@@ -24,4 +27,68 @@
 			<version>2.0.3</version>
 		</dependency>  
 	</dependencies>
+	<build>
+		<plugins> 	
+			<plugin>  
+ 			   <groupId>de.empulse.eclipselink</groupId>
+               <artifactId>staticweave-maven-plugin</artifactId>
+               <version>1.0.0</version>
+               <executions>
+                   <execution>
+                       <phase>process-classes</phase>
+                       <goals>
+                           <goal>weave</goal>
+                       </goals>
+                       <configuration>
+                           <persistenceXMLLocation>META-INF/persistence.xml</persistenceXMLLocation>
+                           <logLevel>FINE</logLevel>
+                       </configuration>
+                   </execution>
+               </executions>
+ 				<dependencies>  
+  					<dependency>  
+   						<groupId>org.eclipse.persistence</groupId>  
+   						<artifactId>eclipselink</artifactId>  
+   						<version>2.5.2</version>  
+  					</dependency>  
+ 				</dependencies>  
+			</plugin> 
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											de.empulse.eclipselink
+										</groupId>
+										<artifactId>
+											staticweave-maven-plugin
+										</artifactId>
+										<versionRange>
+											[1.0.0,)
+										</versionRange>
+										<goals>
+											<goal>weave</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
 </project>
