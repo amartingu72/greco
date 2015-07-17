@@ -551,7 +551,7 @@ public class DailyScheduleTest {
 	// Tiempo máximo de reserva: 2h
 	// Disponible desde: 09:00
 	// Disponible hasta: 22:00
-	// Antelación: 1D
+	// Antelación: 2D
 	// Reservas realizadas en el periodo: ninguna (está todo libre)
 	// Reserva:
 	// - Día: MAÑANA
@@ -570,7 +570,7 @@ public class DailyScheduleTest {
 				DateTime.now().getMonthOfYear(),
 				DateTime.now().getDayOfMonth(),
 				22,00)).toString("HH:mm") );
-		ds.setBeforehand(1,DailySchedule.DAY );
+		ds.setBeforehand(2,DailySchedule.DAY );
 		ReservationUnit ru;
 		DateTime dt= new DateTime(DateTime.now().getYear(), DateTime.now().getMonthOfYear(),
 				DateTime.now().getDayOfMonth()+1, 9,0);
@@ -584,7 +584,7 @@ public class DailyScheduleTest {
 		// Tiempo máximo de reserva: 2h
 		// Disponible desde: 09:00
 		// Disponible hasta: 22:00
-		// Antelación: 1D
+		// Antelación: 2D
 		// Reservas realizadas en el periodo: ninguna (está todo libre)
 		// Reserva:
 		// - Día: MAÑANA
@@ -603,7 +603,7 @@ public class DailyScheduleTest {
 					DateTime.now().getMonthOfYear(),
 					DateTime.now().getDayOfMonth(),
 					22,00)).toString("HH:mm") );
-			ds.setBeforehand(1,DailySchedule.DAY );
+			ds.setBeforehand(2,DailySchedule.DAY );
 			ReservationUnit ru;
 			DateTime dt= new DateTime(DateTime.now().getYear(), DateTime.now().getMonthOfYear(),
 					DateTime.now().getDayOfMonth()+1, 9,0);
@@ -617,7 +617,7 @@ public class DailyScheduleTest {
 		// Tiempo máximo de reserva: 120h
 		// Disponible desde: 09:00
 		// Disponible hasta: 22:00
-		// Antelación: 1D
+		// Antelación: 2D
 		// Reservas realizadas en el periodo: ninguna (está todo libre)
 		// Reserva:
 		// - Día: MAÑANA
@@ -636,7 +636,7 @@ public class DailyScheduleTest {
 					DateTime.now().getMonthOfYear(),
 					DateTime.now().getDayOfMonth(),
 					22,00)).toString("HH:mm") );
-			ds.setBeforehand(1,DailySchedule.DAY );
+			ds.setBeforehand(2,DailySchedule.DAY );
 			ReservationUnit ru;
 			DateTime dt= new DateTime(DateTime.now().getYear(), DateTime.now().getMonthOfYear(),
 					DateTime.now().getDayOfMonth()+1, 9,0);
