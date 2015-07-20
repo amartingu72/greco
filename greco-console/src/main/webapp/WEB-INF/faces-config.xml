@@ -670,181 +670,12 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>sections/newaccount.xhtml</display-name>
+		<display-name>/sections/admin/newaccount.xhtml</display-name>
 		<from-view-id>/sections/admin/newaccount.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>cancel</from-outcome>
 			<to-view-id>/sections/login/login.xhtml</to-view-id>
 			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/communities.xhtml</display-name>
-		<from-view-id>/sections/communities.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>new</from-outcome>
-			<to-view-id>/sections/newcommunity.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/communities.xhtml</display-name>
-		<from-view-id>/sections/communities.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>edit</from-outcome>
-			<to-view-id>/sections/editcommunity.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/editcommunity.xhtml</display-name>
-		<from-view-id>/sections/editcommunity.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>cancel</from-outcome>
-			<to-view-id>/sections/communities.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/newcommunity.xhtml</display-name>
-		<from-view-id>/sections/newcommunity.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>cancel</from-outcome>
-			<to-view-id>/sections/communities.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/editcommunity.xhtml</display-name>
-		<from-view-id>/sections/editcommunity.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>addResource</from-outcome>
-			<to-view-id>/sections/newresource.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/newresource.xhtml</display-name>
-		<from-view-id>/sections/newresource.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>cancel_u</from-outcome>
-			<to-view-id>/sections/editcommunity.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/editcommunity.xhtml</display-name>
-		<from-view-id>/sections/editcommunity.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>editResource</from-outcome>
-			<to-view-id>/sections/editresource.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/editresource.xhtml</display-name>
-		<from-view-id>/sections/editresource.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>cancel_u</from-outcome>
-			<to-view-id>/sections/editcommunity.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/communities.xhtml</display-name>
-		<from-view-id>/sections/communities.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>delete</from-outcome>
-			<to-view-id>/sections/communities.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/newreservation.xhtml</display-name>
-		<from-view-id>/sections/newreservation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>search</from-outcome>
-			<to-view-id>/sections/newreservation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/newreservation.xhtml</display-name>
-		<from-view-id>/sections/newreservation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>confirm</from-outcome>
-			<to-view-id>/sections/confirm_reservation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/confirm_reservation.xhtml</display-name>
-		<from-view-id>/sections/confirm_reservation.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>cancel</from-outcome>
-			<to-view-id>/sections/newreservation.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/editcommunity.xhtml</display-name>
-		<from-view-id>/sections/editcommunity.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>save</from-outcome>
-			<to-view-id>/sections/editcommunity.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/editresource.xhtml</display-name>
-		<from-view-id>/sections/editresource.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>save_u</from-outcome>
-			<to-view-id>/sections/editcommunity.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/newresource.xhtml</display-name>
-		<from-view-id>/sections/newresource.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>save_u</from-outcome>
-			<to-view-id>/sections/editcommunity.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/editresource.xhtml</display-name>
-		<from-view-id>/sections/editresource.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>cancel_a</from-outcome>
-			<to-view-id>/sections/newcommunity.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/editresource.xhtml</display-name>
-		<from-view-id>/sections/editresource.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>save_a</from-outcome>
-			<to-view-id>/sections/newcommunity.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/newcommunity.xhtml</display-name>
-		<from-view-id>/sections/newcommunity.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>editResource</from-outcome>
-			<to-view-id>/sections/editresource.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/newcommunity.xhtml</display-name>
-		<from-view-id>/sections/newcommunity.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>addResource</from-outcome>
-			<to-view-id>/sections/newresource.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/newresource.xhtml</display-name>
-		<from-view-id>/sections/newresource.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>cancel_a</from-outcome>
-			<to-view-id>/sections/newcommunity.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/newresource.xhtml</display-name>
-		<from-view-id>/sections/newresource.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>save_a</from-outcome>
-			<to-view-id>/sections/newcommunity.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -856,7 +687,7 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>sections/newaccount.xhtml</display-name>
+		<display-name>/sections/admin/newaccount.xhtml</display-name>
 		<from-view-id>/sections/admin/newaccount.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>success</from-outcome>

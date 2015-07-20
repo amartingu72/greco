@@ -1,13 +1,12 @@
 package com.greco.beans;
 
-import java.text.MessageFormat;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
-import org.primefaces.event.FlowEvent;
+
 
 import com.greco.services.CommunityDataProvider;
 import com.greco.services.UserDataProvider;
@@ -34,12 +33,12 @@ public class SubscribeMeCBean {
 	}
 	
 	
-	/**
+	/** NO PROCEDE.
 	 * Este método es invocado cada vez que hay un cambio de paso.
 	 * Si es el cambio desde email comprobamos que no está dado de alta. Si lo está se le solicitará nuevo login
 	 * @param event
 	 * @return
-	 */
+	 
 	public String onFlowProcess(FlowEvent event) {
 		
 		String ret=event.getNewStep();
@@ -91,7 +90,7 @@ public class SubscribeMeCBean {
 		
 		
         return ret;
-    }
+    }*/
 	
 	public String submit() {
 		//Creamos el usuario y se suscribimos a la comunidad como candidato (estado Pending), a la espera de que un 
@@ -131,12 +130,16 @@ public class SubscribeMeCBean {
 		
 	}
 	/**
-	 * Comprueba que el nickname no está duplicado.
+	 * Comprueba que el nickname no está duplicado ni supera el tamaño máximo.
 	 * @param fc
 	 * @param c
 	 * @param value
 	 */
 	public void validateName(FacesContext fc, UIComponent c, Object value) {
+		if ( ((String)value).length() > 16 )	//16 es el tamaño máximo prefijado en BD
+			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+															Warnings.getString("subscribeMe.too_long_nick"),
+															null) );
 		if (   this.userDataProvider.isDuplicated(((String)value)) )	
 		throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
 														Warnings.getString("subscribeMe.duplicated_nick"),

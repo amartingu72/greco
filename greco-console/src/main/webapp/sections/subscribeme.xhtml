@@ -21,10 +21,10 @@
 						<p:commandButton rendered="#{subscribeMeBBean.showLoginBtn}" value="#{msgs['subscribeme.login']}" action="#{subscribeMeCBean.navigateLogin}"/>
 						<h:panelGrid columns="2" columnClasses="label, value">
 							<h:outputText value="#{msgs['subscribeme.email']}*:" />
-							<p:inputText value="#{subscribeMeBBean.email}" required="true"
+							<p:inputText  value="#{subscribeMeBBean.email}" required="true"
+								
 								label="#{msgs['editaccount.email_label']}"
-								requiredMessage="#{msgs['editaccount.required_msg']}" 
-								size="64">
+								requiredMessage="#{msgs['editaccount.required_msg']}"								>
 								<f:validator validatorId="com.greco.validators.EmailValidator" />
 							</p:inputText>
                			</h:panelGrid>
@@ -35,7 +35,7 @@
 					<p:panel>
 						<h:panelGrid columns="3" columnClasses="label, value">	
 							<h:outputText for="nickname" value="#{msgs['subscribeme.nickname']}*" />
-							<p:inputText id="nickname" value="#{subscribeMeBBean.nickname}" validator="#{subscribeMeCBean.validateName}"/>							
+							<p:inputText id="nickname" value="#{subscribeMeBBean.nickname}" maxlength="16" validator="#{subscribeMeCBean.validateName}"/>							
 							<p:message for="nickname" id="nickError" />
 							
 							<h:outputLabel for="pwd" value="#{msgs['subscribeme.pwd']}*" />

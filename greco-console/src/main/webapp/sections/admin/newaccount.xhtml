@@ -35,7 +35,7 @@
 							label="#{msgs['editaccount.email']}"
 							requiredMessage="#{msgs['editaccount.required_msg']}" 
 							aria-describedby="emailHelpBlock"
-							size="64">
+							maxlength="64">
 							<f:validator validatorId="com.greco.validators.EmailValidator" />
 						</p:inputText>
 						<p:message for="email" />
@@ -53,6 +53,7 @@
 						<label for="nickname">#{msgs['newaccount.nickname']}</label>
 						<p:inputText id="nickname" class="form-control" value="#{newAccountBBean.nickname}"
 							required="true"
+							maxlength="16"
 							requiredMessage="#{msgs['newaccount.nick_required_msg']}" 
 							validator="#{newAccountCBean.validateName}" 
 							aria-describedby="nickHelpBlock"/>							
