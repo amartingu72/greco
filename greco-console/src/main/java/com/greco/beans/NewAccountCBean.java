@@ -150,6 +150,21 @@ public class NewAccountCBean {
 														null) );
 	}
 	
+	
+	/**
+	 * Comprueba que el emaiñl no está duplicado.
+	 * @param fc
+	 * @param c
+	 * @param value
+	 */
+	public void validateUniqueEmailAddress(FacesContext fc, UIComponent c, Object value) {
+		if (   this.userDataProvider.loadAdminCredentials(((String)value))!=null )	
+		throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+														Warnings.getString("newaccount.duplicated_email"),
+														null) );
+	}
+	
+	
 	//GETTERs y SETTERs
 	
 	

@@ -35,6 +35,7 @@
 							label="#{msgs['editaccount.email']}"
 							requiredMessage="#{msgs['editaccount.required_msg']}" 
 							aria-describedby="emailHelpBlock"
+							validator="#{newAccountCBean.validateUniqueEmailAddress}"
 							maxlength="64">
 							<f:validator validatorId="com.greco.validators.EmailValidator" />
 						</p:inputText>
