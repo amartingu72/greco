@@ -1,11 +1,11 @@
 package com.greco.beans;
 
-import java.text.MessageFormat;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-import org.primefaces.event.FlowEvent;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,7 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.greco.services.AuthenticationProvider;
 import com.greco.services.UserDataProvider;
-import com.greco.services.helpers.CommunityItem;
+
 import com.greco.services.helpers.UserItem;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
@@ -26,62 +26,13 @@ public class NewAccountCBean {
 	private AuthenticationManager authenticationManager; //Inyectado
 	
 	
+	
 	/**
-	 * A ELIMINAR. YA NO EXISTE TAP. LO DEJO COMO EJEMPLO DE GESTIÓN DE USUARIOS QUE YA CONOCEMOS PORQUE SE REGISTRARON ANTES.
-	 * Este método es invocado cada vez que hay un cambio de paso.
-	 * Si es el cambio desde email comprobamos que no está dado de alta. Si lo está se le solicitará nuevo login
-	 * @param event
+	 * Crea un usuario.
 	 * @return
 	 */
-	public String onFlowProcess(FlowEvent event) {
-		
-		String ret=event.getNewStep();
-		newAccountBBean.setShowLoginBtn(false); 
-				
-		if ( event.getOldStep().equals("email") ) {
-			
-			UserSBean userSBean=userDataProvider.loadAdminCredentials(newAccountBBean.getEmail());
-			if ( userSBean != null ) {
-				String msg="";
-				String details="";
-				CommunityItem[] communities=userDataProvider.getMyComunities(userSBean);
-				String comList="";		
-				
-				//Buscamos nuestra comunidad.
-				int i=0;
-				while (i<communities.length)
-				{
-					comList+=communities[i].getName()+" ";
-					i++;
-				}
-				
-				if ( comList.equals("") ){
-					//El usuario existe pero no está asignado a ninguna comunidad.
-					msg=Warnings.getString("subscribeMe.user_exist_msg");									
-				} else {
-					//El usuario es miembro de otras comunidades. Tenemos sus datos y los podemos utilizar
-					MessageFormat form=new MessageFormat(Warnings.getString("subscribeMe.member_other_communities_msg"));
-					Object[] params={comList};
-					msg=form.format(params);
-				}
-				
-				//Mostramos mensaje informativo.
-				FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, msg, details);
-		        FacesContext.getCurrentInstance().addMessage(null, fm);
-		        newAccountBBean.setShowLoginBtn(true); //Habilitamos el botón para enviar de nuevo a login.
-		        ret="email";  //Nos quedamos en la pestaña de email.
-			}
-				
-			
-		}
-		
-		
-        return ret;
-    }
-	
 	public String submit() {
-		//Creamos el usuario y se suscribimos a la comunidad como candidato (estado Pending), a la espera de que un 
-		//administrador le confirme.
+		//Creamos el usuario administrador
 		UserItem userItem=new UserItem();
 		userItem.setEmail(newAccountBBean.getEmail());
 		userItem.setMydata(newAccountBBean.getMydata());
@@ -101,7 +52,7 @@ public class NewAccountCBean {
 		try {
 
 			// authenticate against spring security
-			//Indicamos que intentamos login como administrador..
+			//Indicamos que intentamos login en aplicación de administración.
 			
 			Authentication request = new UsernamePasswordAuthenticationToken(this.newAccountBBean.getEmail()+ "#" + AuthenticationProvider.ROLE_ADMIN, this.newAccountBBean.getPassword());            
 
