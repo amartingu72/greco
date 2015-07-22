@@ -613,12 +613,6 @@
 		</managed-property>
 	</managed-bean>
 	<managed-bean>
-		<description>Gestiona la ventana de welcome que aparece tras crear un usaurio adminstrador.</description>
-		<managed-bean-name>welcomeCBean</managed-bean-name>
-		<managed-bean-class>com.greco.beans.WelcomeCBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
 		<description>Backing bean de la vista correspondiente al home de los sites.</description>
 		<managed-bean-name>myReservationsBBean</managed-bean-name>
 		<managed-bean-class>com.greco.beans.MyReservationsBBean</managed-bean-class>
