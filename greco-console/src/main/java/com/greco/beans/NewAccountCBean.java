@@ -95,6 +95,11 @@ public class NewAccountCBean {
 	 * @param value
 	 */
 	public void validateName(FacesContext fc, UIComponent c, Object value) {
+		if (   ((String)value).trim().isEmpty() )	
+			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+															Warnings.getString("newaccount.nick_required"),
+															null) );
+		
 		if (   this.userDataProvider.isDuplicated(((String)value)) )	
 		throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
 														Warnings.getString("newaccount.duplicated_nick"),

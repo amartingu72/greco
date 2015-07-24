@@ -13,7 +13,7 @@
             Mi título
          </ui:define> 
          <ui:define name="content">
-            <h:form>
+            <h:form id="welcomeForm">
             	<div class="row">
             		<div class="col-md-offset-1 col-md-11">
 						<div class="brand">		
@@ -30,7 +30,7 @@
 				<div class="line-spacer"></div>
 				<div class="row">
             		<div class="col-md-offset-8 col-md-4">
-            			<h:commandButton class="btn btn-theme" value="#{msgs['welcome.new_community']}" action="new" />
+            			<h:commandButton id="newCommunityBtn" class="btn btn-theme" value="#{msgs['welcome.new_community']}" action="new" />
             		</div>
 				</div>
             </h:form>	            

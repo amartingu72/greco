@@ -130,7 +130,7 @@
 										<li>Crea una comunidad y define los espacios.</li>
 										<li>Difunde entre tus amigos la URL de tu comunidad o inclúyela en tu propia web.</li>
 									</ol>
-									<h:commandButton class="btn btn-theme btn-sm" value="#{msgs['login.new_account']}" action="#{loginCBean.register}">
+									<h:commandButton id="newAccountBtn" class="btn btn-theme btn-sm" value="#{msgs['login.new_account']}" action="#{loginCBean.register}">
 										<f:param name="community_id" value="#{loginBBean.communityId}"/>
 									</h:commandButton>
 								

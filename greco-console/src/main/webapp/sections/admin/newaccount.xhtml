@@ -19,7 +19,7 @@
 		</h:commandLink>
 	</ui:define>
 	<ui:define name="content">
-		<h:form>
+		<h:form id="newAccountForm">
 			<div class="row">
             	<div class="col-md-offset-1 col-md-8"> 
 					<h5>#{msgs['newaccount.intro']}</h5>
@@ -105,7 +105,7 @@
 				</div>
 				<div class="col-md-2">
 					<div class="text-right">
-							<h:commandButton class="btn btn-primary" value="#{msgs['newaccount.save_btn']}"
+							<h:commandButton id="nextBtn" class="btn btn-primary" value="#{msgs['newaccount.save_btn']}"
 								action="#{newAccountCBean.submit}"	/>
 					</div>
 				</div>
