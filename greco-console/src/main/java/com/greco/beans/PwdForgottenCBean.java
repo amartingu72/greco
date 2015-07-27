@@ -3,20 +3,12 @@ package com.greco.beans;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.mail.MessagingException;
-
-
-
+import com.greco.services.MailProvider;
 import com.greco.services.UserDataProvider;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
 
-import javax.annotation.Resource;
-import javax.mail.Address;
-import javax.mail.Message.RecipientType;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+
 
 /**
  * Bean controlador para la funcionalidad de password olvidada 
@@ -28,11 +20,9 @@ import javax.mail.internet.MimeMessage;
 public class PwdForgottenCBean {
 	
 	private static final MyLogger logger = MyLogger.getLogger(PwdForgottenCBean.class.getName());
-	//Requisito JBOSS que empiece por java:
-	@Resource(name = "java:/gmailAccount")
-	//@Resource(name = "mail/gmailAccount")
 	
-	private Session mailSession;
+	
+	private MailProvider mailProvider; //Inyectado
 	private PwdForgottenBBean pwdForgottenBBean;  //Inyectado.
 	private UserDataProvider userDataProvider; //Inyectado
 
@@ -58,8 +48,8 @@ public class PwdForgottenCBean {
 			msg+="EMAIL ("+ userSBean.getEmail() +")";
 			//Enviamos email. Indicar comunidad en el asunto.	
 			try {
-				
-				sendEmail("Greco: cambio de contraseña", "Su nueva contraseña es " + pwd);
+				mailProvider.sendNewPassword(userSBean.getItem(), pwd);
+				//sendEmail("Greco: cambio de contraseña", "Su nueva contraseña es " + pwd);
 				//Grabamos log
 				
 				logger.log("010000",msg);//010000=INFO|Enviada nueva pwd:
@@ -102,24 +92,18 @@ public class PwdForgottenCBean {
 	public void setUserDataProvider(UserDataProvider userDataProvider) {
 		this.userDataProvider = userDataProvider;
 	}
-	
-	public void sendEmail(String subject, String text) throws MessagingException {
-		
-		
-		MimeMessage message = new MimeMessage(mailSession);
-		
-		Address toAddress = new InternetAddress(this.pwdForgottenBBean.getEmail());
-		message.setRecipient(RecipientType.TO, toAddress);
-		message.setSubject(subject);
-		message.setText(text);
-		message.saveChanges();
-		Transport tr = mailSession.getTransport();
-		String serverPassword = mailSession.getProperty("mail.password");
-		tr.connect(null, serverPassword);
-		tr.sendMessage(message, message.getAllRecipients());
-		tr.close();
-		
+
+	public MailProvider getMailProvider() {
+		return mailProvider;
 	}
+
+	public void setMailProvider(MailProvider mailProvider) {
+		this.mailProvider = mailProvider;
+	}
+	
+	
+	
+	
 	
 
 }

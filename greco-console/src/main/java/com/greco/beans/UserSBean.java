@@ -28,6 +28,8 @@ public class UserSBean implements Serializable{
 	private int communityId;
 	
 	
+	
+	
 	public UserItem getItem(){
 		UserItem userItem=new UserItem();
 		userItem.setEmail(email);
