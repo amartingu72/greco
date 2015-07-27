@@ -30,6 +30,7 @@ public class PwdForgottenCBean {
 	private static final MyLogger logger = MyLogger.getLogger(PwdForgottenCBean.class.getName());
 	//Requisito JBOSS que empiece por java:
 	@Resource(name = "java:/gmailAccount")
+	//@Resource(name = "mail/gmailAccount")
 	
 	private Session mailSession;
 	private PwdForgottenBBean pwdForgottenBBean;  //Inyectado.

@@ -327,9 +327,9 @@
                 <smtp-server outbound-socket-binding-ref="mail-smtp"/>
             </mail-session>
 			
-			<mail-session jndi-name="java:/gmailAccount" from="laredo.torres@gmail.com">  
+			<mail-session jndi-name="java:/gmailAccount" from="greco.adm@gmail.com">  
                 <smtp-server ssl="true" outbound-socket-binding-ref="mail-smtp-gmail">  
-                    <login name="laredo.torres@gmail.com" password="atlanticas"/>  
+                    <login name="greco.adm@gmail.com" password="alberto72"/>  
                 </smtp-server>  
             </mail-session>  
         </subsystem>
