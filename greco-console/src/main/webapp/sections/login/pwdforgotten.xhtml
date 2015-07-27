@@ -19,7 +19,7 @@
 			</h:commandLink>
 		</ui:define>
 	<ui:define name="content">
-		<h:form style="height:400px;">
+		<h:form id="pwdForgottenForm" style="height:400px;">
 			<div class="row">
 				<div class="col-md-offset-2 col-md-6" >
 					<h:inputHidden value="#{pwdForgottenBBean.communityId}" />	
@@ -33,7 +33,7 @@
 					<div class="form-group">
 						<div class="input-group">
 			  				<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-			  				<p:inputText value="#{pwdForgottenBBean.email}" required="true"  class="form-control"
+			  				<p:inputText id="email" value="#{pwdForgottenBBean.email}" required="true"  class="form-control"
 			  					 placeholder="#{msgs['pwdforgotten.email']}"
 								label="#{msgs['editaccount.email_label']}"
 								requiredMessage="#{msgs['editaccount.required_msg']}" 
@@ -50,7 +50,7 @@
 
 					<ul class="social-network">
 						<li>
-							<h:commandLink action="#{pwdForgottenCBean.submit}" title="${msgs['pwdforgotten.submit']}">
+							<h:commandLink id="submitBtn" action="#{pwdForgottenCBean.submit}" title="${msgs['pwdforgotten.submit']}">
 								<span class="fa-stack fa-2x">
 								<i class="fa fa-circle fa-stack-2x"></i>
 								<i class="fa fa-send fa-stack-1x fa-inverse"></i>

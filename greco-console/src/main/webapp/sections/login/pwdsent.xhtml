@@ -10,7 +10,7 @@
 <body> 
 <ui:composition template="/templates/login_layout.xhtml">
 	<ui:define name="content">
-		<h:form>		
+		<h:form id="pwdSentForm">		
 			<h:inputHidden value="#{pwdForgottenBBean.communityId}" />
 			<p:graphicImage value="../../resources/img/subscription_sent.jpg" width="100px" height="70.5px"/>
 			<br/>

@@ -116,7 +116,7 @@
 								<div class="form-inline">
 										<h:commandButton id="loginBtn" class="btn btn-theme btn-sm" render="message" value="#{msgs['login.login']}" action="#{loginCBean.login}" />
 										<div class="text-right"> 
-											<h:commandLink value="Olvidé mi contraseña" action="#{loginCBean.pwdForgotten}">
+											<h:commandLink id="pwdForgottenBtn" value="Olvidé mi contraseña" action="#{loginCBean.pwdForgotten}">
 												<f:param name="communityid" value="#{pwdForgottenBBean.communityId}"/>
 											</h:commandLink>
 										</div>
