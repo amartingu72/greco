@@ -324,10 +324,7 @@
         <subsystem xmlns="urn:jboss:domain:jsr77:1.0"/>
         <subsystem xmlns="urn:jboss:domain:mail:1.0">
             <mail-session jndi-name="java:jboss/mail/Default">
-                <smtp-server outbound-socket-binding-ref="mail-smtp"/>
-            </mail-session>
-            <mail-session jndi-name="java:/gmailAccount" from="greco.adm@gmail.com">
-                <smtp-server ssl="true" outbound-socket-binding-ref="mail-smtp-gmail">
+                <smtp-server ssl="true" outbound-socket-binding-ref="mail-smtp">
                     <login name="greco.adm@gmail.com" password="alberto72"/>
                 </smtp-server>
             </mail-session>
@@ -516,7 +513,7 @@
         <socket-binding name="remoting" port="4447"/>
         <socket-binding name="txn-recovery-environment" port="4712"/>
         <socket-binding name="txn-status-manager" port="4713"/>
-        <outbound-socket-binding name="mail-smtp-gmail">
+        <outbound-socket-binding name="mail-smtp">
             <remote-destination host="smtp.gmail.com" port="465"/>
         </outbound-socket-binding>
     </socket-binding-group>

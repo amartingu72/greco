@@ -27,7 +27,7 @@ import com.greco.services.helpers.UserItem;
 @Service("mailProvider")
 public class MailProviderImpl implements MailProvider {
 	
-	private final String JNDI_NAME="java:/gmailAccount";  //Para JBOSS
+	private final String JNDI_NAME="java:jboss/mail/Default";  //Para JBOSS
 	//private final String JNDI_NAME="mail/gmailAccount";  //Para Glassfish
 	
 	@Resource(name="UsersRepository")
@@ -46,7 +46,7 @@ public class MailProviderImpl implements MailProvider {
 		InitialContext ctx;
 		try {
 			ctx = new InitialContext();
-			 mailSession =(Session) ctx.lookup("mail/gmailAccount");
+			 mailSession =(Session) ctx.lookup(JNDI_NAME);
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
