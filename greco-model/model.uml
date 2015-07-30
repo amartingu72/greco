@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_nWp2UDUaEeWCVeIgiFSA1A" name="Gestión de espacios comunitarios">
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_nWp2UDUaEeWCVeIgiFSA1A" name="UCD Gestión de backoffice">
   <packagedElement xmi:type="uml:Actor" xmi:id="_-vYkYDUnEeWCVeIgiFSA1A" name="Usuario"/>
   <packagedElement xmi:type="uml:Actor" xmi:id="__f0i0DUnEeWCVeIgiFSA1A" name="Administrador">
     <ownedComment xmi:id="_PV8uADUoEeWCVeIgiFSA1A" annotatedElement="__f0i0DUnEeWCVeIgiFSA1A">
@@ -13,159 +13,7 @@
     </ownedComment>
     <generalization xmi:id="_K7TusDUoEeWCVeIgiFSA1A" general="_-vYkYDUnEeWCVeIgiFSA1A"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Component" xmi:id="_0UGYYDXDEeWU78UardWkpQ" name="Consola principal" useCase="_tZDR0DXDEeWU78UardWkpQ _9X9lkDXDEeWU78UardWkpQ _wd0GgDXHEeWU78UardWkpQ _bRfvYDXrEeWU78UardWkpQ">
-    <ownedUseCase xmi:id="_tZDR0DXDEeWU78UardWkpQ" name="Crear comunidad" subject="_0UGYYDXDEeWU78UardWkpQ">
-      <include xmi:id="_6kGaADXHEeWU78UardWkpQ" addition="_wd0GgDXHEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_wd0GgDXHEeWU78UardWkpQ" name="Login (consola)" subject="_0UGYYDXDEeWU78UardWkpQ">
-      <include xmi:id="_vCfzgDXREeWU78UardWkpQ" addition="_XX5VgDXIEeWU78UardWkpQ"/>
-      <include xmi:id="_ya89EDXREeWU78UardWkpQ" addition="_Rw_-cDXIEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_BP91EDXIEeWU78UardWkpQ" name="Crear recurso">
-      <extend xmi:id="_92clcDXQEeWU78UardWkpQ" extendedCase="_XX5VgDXIEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_GAUlsDXIEeWU78UardWkpQ" name="Editar recurso">
-      <extend xmi:id="_83Mu8DXQEeWU78UardWkpQ" extendedCase="_XX5VgDXIEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_HqS0MDXIEeWU78UardWkpQ" name="Eliminar recurso">
-      <extend xmi:id="_-pGKYDXQEeWU78UardWkpQ" extendedCase="_XX5VgDXIEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_NwyRUDXIEeWU78UardWkpQ" name="Editar cuenta">
-      <extend xmi:id="_NJYTQDXtEeWU78UardWkpQ" extendedCase="_-u9REDXsEeWU78UardWkpQ"/>
-      <include xmi:id="_1kiEgDXOEeWU78UardWkpQ" addition="_wd0GgDXHEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_Rw_-cDXIEeWU78UardWkpQ" name="Eliminar comunidad">
-      <include xmi:id="_7GJBADXQEeWU78UardWkpQ" addition="_HqS0MDXIEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_XX5VgDXIEeWU78UardWkpQ" name="Editar comunidad"/>
-    <ownedUseCase xmi:id="_ouMEMDXOEeWU78UardWkpQ" name="Eliminar cuenta">
-      <include xmi:id="_2iQRADXOEeWU78UardWkpQ" addition="_wd0GgDXHEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_qUcTgDXSEeWU78UardWkpQ" name="Listar suscripciones">
-      <include xmi:id="_5r6z0DXSEeWU78UardWkpQ" addition="_wd0GgDXHEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_tYJVEDXSEeWU78UardWkpQ" name="Cambiar rol de suscriptor">
-      <include xmi:id="_6KrMYDXSEeWU78UardWkpQ" addition="_wd0GgDXHEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_wnNSEDXSEeWU78UardWkpQ" name="Cambiar estado suscriptor">
-      <include xmi:id="_6tiB0DXSEeWU78UardWkpQ" addition="_wd0GgDXHEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_bRfvYDXrEeWU78UardWkpQ" name="Recuperar contraseña" subject="_0UGYYDXDEeWU78UardWkpQ _Q7w8YDXEEeWU78UardWkpQ"/>
-    <ownedUseCase xmi:id="_gC4TYDXuEeWU78UardWkpQ" name="Expulsar miembro">
-      <include xmi:id="_kwnN0DXuEeWU78UardWkpQ" addition="_wd0GgDXHEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_Gv0s0DXEEeWU78UardWkpQ" memberEnd="_Gwlh0DXEEeWU78UardWkpQ _Gwlh0TXEEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_Gwlh0DXEEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_Gv0s0DXEEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_Gwlh0TXEEeWU78UardWkpQ" type="_9X9lkDXDEeWU78UardWkpQ" association="_Gv0s0DXEEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_Lzn94DXEEeWU78UardWkpQ" memberEnd="_Lzok8DXEEeWU78UardWkpQ _Lzok8TXEEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_Lzok8DXEEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_Lzn94DXEEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_Lzok8TXEEeWU78UardWkpQ" type="_tZDR0DXDEeWU78UardWkpQ" association="_Lzn94DXEEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_crnOsDXEEeWU78UardWkpQ" memberEnd="_crnOsTXEEeWU78UardWkpQ _crnOsjXEEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_crnOsTXEEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_crnOsDXEEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_crnOsjXEEeWU78UardWkpQ" type="_ZGGgkDXEEeWU78UardWkpQ" association="_crnOsDXEEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_UnyFsDXFEeWU78UardWkpQ" memberEnd="_UnyswDXFEeWU78UardWkpQ _UnyswTXFEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_UnyswDXFEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_UnyFsDXFEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_UnyswTXFEeWU78UardWkpQ" type="_g5PFsDXEEeWU78UardWkpQ" association="_UnyFsDXFEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_WrHq4DXPEeWU78UardWkpQ" memberEnd="_WrIR8DXPEeWU78UardWkpQ _WrI5ADXPEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_WrIR8DXPEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_WrHq4DXPEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_WrI5ADXPEeWU78UardWkpQ" type="_NwyRUDXIEeWU78UardWkpQ" association="_WrHq4DXPEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_XbuocDXPEeWU78UardWkpQ" name="A_usuario_eliminar cuenta" memberEnd="_XbvPgDXPEeWU78UardWkpQ _XbvPgTXPEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_XbvPgDXPEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_XbuocDXPEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_XbvPgTXPEeWU78UardWkpQ" type="_ouMEMDXOEeWU78UardWkpQ" association="_XbuocDXPEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_Bm1G0DXREeWU78UardWkpQ" memberEnd="_Bm1t4DXREeWU78UardWkpQ _Bm1t4TXREeWU78UardWkpQ">
-      <ownedEnd xmi:id="_Bm1t4DXREeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_Bm1G0DXREeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_Bm1t4TXREeWU78UardWkpQ" type="_XX5VgDXIEeWU78UardWkpQ" association="_Bm1G0DXREeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_FE1ewDXREeWU78UardWkpQ" memberEnd="_FE1ewTXREeWU78UardWkpQ _FE2F0DXREeWU78UardWkpQ">
-      <ownedEnd xmi:id="_FE1ewTXREeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_FE1ewDXREeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_FE2F0DXREeWU78UardWkpQ" type="_Rw_-cDXIEeWU78UardWkpQ" association="_FE1ewDXREeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_76rKYDXSEeWU78UardWkpQ" memberEnd="_76rxcDXSEeWU78UardWkpQ _76rxcTXSEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_76rxcDXSEeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_76rKYDXSEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_76rxcTXSEeWU78UardWkpQ" type="_qUcTgDXSEeWU78UardWkpQ" association="_76rKYDXSEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_9G5s8DXSEeWU78UardWkpQ" memberEnd="_9G5s8TXSEeWU78UardWkpQ _9G6UADXSEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_9G5s8TXSEeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_9G5s8DXSEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_9G6UADXSEeWU78UardWkpQ" type="_tYJVEDXSEeWU78UardWkpQ" association="_9G5s8DXSEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_9vog4DXSEeWU78UardWkpQ" memberEnd="_9vpH8DXSEeWU78UardWkpQ _9vpvADXSEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_9vpH8DXSEeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_9vog4DXSEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_9vpvADXSEeWU78UardWkpQ" type="_wnNSEDXSEeWU78UardWkpQ" association="_9vog4DXSEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_WS3JoDXUEeWU78UardWkpQ" memberEnd="_WS3JoTXUEeWU78UardWkpQ _WS3JojXUEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_WS3JoTXUEeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_WS3JoDXUEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_WS3JojXUEeWU78UardWkpQ" association="_WS3JoDXUEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_d45PcDXrEeWU78UardWkpQ" memberEnd="_d45PcTXrEeWU78UardWkpQ _d452gDXrEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_d45PcTXrEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_d45PcDXrEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_d452gDXrEeWU78UardWkpQ" type="_bRfvYDXrEeWU78UardWkpQ" association="_d45PcDXrEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_Zax-ADXuEeWU78UardWkpQ" memberEnd="_Zax-ATXuEeWU78UardWkpQ _Zax-AjXuEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_Zax-ATXuEeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_Zax-ADXuEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_Zax-AjXuEeWU78UardWkpQ" type="_ClrOgDXuEeWU78UardWkpQ" association="_Zax-ADXuEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_ji6EkDXuEeWU78UardWkpQ" memberEnd="_ji6EkTXuEeWU78UardWkpQ _ji6EkjXuEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_ji6EkTXuEeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_ji6EkDXuEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_ji6EkjXuEeWU78UardWkpQ" type="_gC4TYDXuEeWU78UardWkpQ" association="_ji6EkDXuEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <packagedElement xmi:type="uml:UseCase" xmi:id="_9X9lkDXDEeWU78UardWkpQ" name="Crear una cuenta" subject="_0UGYYDXDEeWU78UardWkpQ"/>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Component" xmi:id="_Q7w8YDXEEeWU78UardWkpQ" name="Sitio de comunidad" useCase="_ZGGgkDXEEeWU78UardWkpQ _g5PFsDXEEeWU78UardWkpQ _bRfvYDXrEeWU78UardWkpQ _-u9REDXsEeWU78UardWkpQ">
-    <ownedUseCase xmi:id="_nWDdgDXXEeWU78UardWkpQ" name="Seleccionar reservas candidatas (cesta)">
-      <include xmi:id="_prFlwDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_uaMOoDXXEeWU78UardWkpQ" name="Cancelar reserva">
-      <include xmi:id="_rddiUDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_NxawMDXYEeWU78UardWkpQ" name="Eliminar reserva candidata (cesta)">
-      <include xmi:id="_qbdSwDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_j5pLkDXYEeWU78UardWkpQ" name="Login (comunidad)">
-      <generalization xmi:id="_hzJMkDXtEeWU78UardWkpQ" general="_wd0GgDXHEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_-u9REDXsEeWU78UardWkpQ" name="Editar suscripción" subject="_Q7w8YDXEEeWU78UardWkpQ">
-      <include xmi:id="_kMu6IDXtEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <ownedUseCase xmi:id="_ClrOgDXuEeWU78UardWkpQ" name="Finalizar suscripción">
-      <include xmi:id="_K08WADXuEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
-    </ownedUseCase>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_XIpawDXXEeWU78UardWkpQ" memberEnd="_XIpawTXXEeWU78UardWkpQ _XIpawjXXEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_XIpawTXXEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_XIpawDXXEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_XIpawjXXEeWU78UardWkpQ" association="_XIpawDXXEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_ause8DXYEeWU78UardWkpQ" memberEnd="_ause8TXYEeWU78UardWkpQ _autGADXYEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_ause8TXYEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_ause8DXYEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_autGADXYEeWU78UardWkpQ" type="_nWDdgDXXEeWU78UardWkpQ" association="_ause8DXYEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_n6PTMDXYEeWU78UardWkpQ" memberEnd="_n6P6QDXYEeWU78UardWkpQ _n6P6QTXYEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_n6P6QDXYEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_n6PTMDXYEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_n6P6QTXYEeWU78UardWkpQ" type="_uaMOoDXXEeWU78UardWkpQ" association="_n6PTMDXYEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_oejhMDXYEeWU78UardWkpQ" memberEnd="_oekIQDXYEeWU78UardWkpQ _oekvUDXYEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_oekIQDXYEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_oejhMDXYEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_oekvUDXYEeWU78UardWkpQ" type="_NxawMDXYEeWU78UardWkpQ" association="_oejhMDXYEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_FJcoQDXtEeWU78UardWkpQ" memberEnd="_FJcoQTXtEeWU78UardWkpQ _FJcoQjXtEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_FJcoQTXtEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_FJcoQDXtEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_FJcoQjXtEeWU78UardWkpQ" type="_-u9REDXsEeWU78UardWkpQ" association="_FJcoQDXtEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_HblNgDXuEeWU78UardWkpQ" memberEnd="_HblNgTXuEeWU78UardWkpQ _HblNgjXuEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_HblNgTXuEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_HblNgDXuEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_HblNgjXuEeWU78UardWkpQ" type="_ClrOgDXuEeWU78UardWkpQ" association="_HblNgDXuEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <packagedElement xmi:type="uml:UseCase" xmi:id="_ZGGgkDXEEeWU78UardWkpQ" name="Reservar" subject="_Q7w8YDXEEeWU78UardWkpQ">
-      <include xmi:id="_q3ThQDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:UseCase" xmi:id="_g5PFsDXEEeWU78UardWkpQ" name="Suscribirse a una comunidad" subject="_Q7w8YDXEEeWU78UardWkpQ">
-      <include xmi:id="_-BRL0DXEEeWU78UardWkpQ" addition="_9X9lkDXDEeWU78UardWkpQ"/>
-    </packagedElement>
-  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_ksKfgDaaEeWnW8OSAdDaOg" name="Sistema"/>
   <packagedElement xmi:type="uml:Package" xmi:id="_HdTmcDXbEeWU78UardWkpQ" name="Entities">
     <packagedElement xmi:type="uml:Class" xmi:id="_E87w4DXaEeWU78UardWkpQ" name="User">
       <ownedAttribute xmi:id="_hM3xYDXaEeWU78UardWkpQ" name="id">
@@ -292,5 +140,166 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_QFzzsTXjEeWU78UardWkpQ" value="*"/>
       </ownedEnd>
     </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_0UGYYDXDEeWU78UardWkpQ" name="Consola principal" useCase="_tZDR0DXDEeWU78UardWkpQ _9X9lkDXDEeWU78UardWkpQ _wd0GgDXHEeWU78UardWkpQ _bRfvYDXrEeWU78UardWkpQ">
+    <ownedUseCase xmi:id="_tZDR0DXDEeWU78UardWkpQ" name="Crear comunidad" subject="_0UGYYDXDEeWU78UardWkpQ">
+      <include xmi:id="_6kGaADXHEeWU78UardWkpQ" addition="_wd0GgDXHEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_wd0GgDXHEeWU78UardWkpQ" name="Login (consola)" subject="_0UGYYDXDEeWU78UardWkpQ">
+      <include xmi:id="_vCfzgDXREeWU78UardWkpQ" addition="_XX5VgDXIEeWU78UardWkpQ"/>
+      <include xmi:id="_ya89EDXREeWU78UardWkpQ" addition="_Rw_-cDXIEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_BP91EDXIEeWU78UardWkpQ" name="Crear recurso">
+      <extend xmi:id="_92clcDXQEeWU78UardWkpQ" extendedCase="_XX5VgDXIEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_GAUlsDXIEeWU78UardWkpQ" name="Editar recurso">
+      <extend xmi:id="_83Mu8DXQEeWU78UardWkpQ" extendedCase="_XX5VgDXIEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_HqS0MDXIEeWU78UardWkpQ" name="Eliminar recurso">
+      <extend xmi:id="_-pGKYDXQEeWU78UardWkpQ" extendedCase="_XX5VgDXIEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_NwyRUDXIEeWU78UardWkpQ" name="Editar cuenta">
+      <extend xmi:id="_NJYTQDXtEeWU78UardWkpQ" extendedCase="_-u9REDXsEeWU78UardWkpQ"/>
+      <include xmi:id="_1kiEgDXOEeWU78UardWkpQ" addition="_wd0GgDXHEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_Rw_-cDXIEeWU78UardWkpQ" name="Eliminar comunidad">
+      <include xmi:id="_7GJBADXQEeWU78UardWkpQ" addition="_HqS0MDXIEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_XX5VgDXIEeWU78UardWkpQ" name="Editar comunidad"/>
+    <ownedUseCase xmi:id="_ouMEMDXOEeWU78UardWkpQ" name="Eliminar cuenta">
+      <include xmi:id="_2iQRADXOEeWU78UardWkpQ" addition="_wd0GgDXHEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_qUcTgDXSEeWU78UardWkpQ" name="Listar suscripciones">
+      <include xmi:id="_5r6z0DXSEeWU78UardWkpQ" addition="_wd0GgDXHEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_tYJVEDXSEeWU78UardWkpQ" name="Cambiar rol de suscriptor">
+      <extend xmi:id="_G3dmADatEeWnW8OSAdDaOg" extendedCase="_qUcTgDXSEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_wnNSEDXSEeWU78UardWkpQ" name="Cambiar estado suscriptor">
+      <extend xmi:id="_DApFcDatEeWnW8OSAdDaOg" extendedCase="_qUcTgDXSEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_bRfvYDXrEeWU78UardWkpQ" name="Recuperar contraseña" subject="_0UGYYDXDEeWU78UardWkpQ _Q7w8YDXEEeWU78UardWkpQ"/>
+    <ownedUseCase xmi:id="_gC4TYDXuEeWU78UardWkpQ" name="Expulsar miembro">
+      <extend xmi:id="_HskCADatEeWnW8OSAdDaOg" extendedCase="_qUcTgDXSEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_Gv0s0DXEEeWU78UardWkpQ" memberEnd="_Gwlh0DXEEeWU78UardWkpQ _Gwlh0TXEEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_Gwlh0DXEEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_Gv0s0DXEEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_Gwlh0TXEEeWU78UardWkpQ" type="_9X9lkDXDEeWU78UardWkpQ" association="_Gv0s0DXEEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_Lzn94DXEEeWU78UardWkpQ" memberEnd="_Lzok8DXEEeWU78UardWkpQ _Lzok8TXEEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_Lzok8DXEEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_Lzn94DXEEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_Lzok8TXEEeWU78UardWkpQ" type="_tZDR0DXDEeWU78UardWkpQ" association="_Lzn94DXEEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_crnOsDXEEeWU78UardWkpQ" memberEnd="_crnOsTXEEeWU78UardWkpQ _crnOsjXEEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_crnOsTXEEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_crnOsDXEEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_crnOsjXEEeWU78UardWkpQ" type="_ZGGgkDXEEeWU78UardWkpQ" association="_crnOsDXEEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_UnyFsDXFEeWU78UardWkpQ" memberEnd="_UnyswDXFEeWU78UardWkpQ _UnyswTXFEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_UnyswDXFEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_UnyFsDXFEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_UnyswTXFEeWU78UardWkpQ" type="_g5PFsDXEEeWU78UardWkpQ" association="_UnyFsDXFEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_WrHq4DXPEeWU78UardWkpQ" memberEnd="_WrIR8DXPEeWU78UardWkpQ _WrI5ADXPEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_WrIR8DXPEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_WrHq4DXPEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_WrI5ADXPEeWU78UardWkpQ" type="_NwyRUDXIEeWU78UardWkpQ" association="_WrHq4DXPEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_XbuocDXPEeWU78UardWkpQ" name="A_usuario_eliminar cuenta" memberEnd="_XbvPgDXPEeWU78UardWkpQ _XbvPgTXPEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_XbvPgDXPEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_XbuocDXPEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_XbvPgTXPEeWU78UardWkpQ" type="_ouMEMDXOEeWU78UardWkpQ" association="_XbuocDXPEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_Bm1G0DXREeWU78UardWkpQ" memberEnd="_Bm1t4DXREeWU78UardWkpQ _Bm1t4TXREeWU78UardWkpQ">
+      <ownedEnd xmi:id="_Bm1t4DXREeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_Bm1G0DXREeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_Bm1t4TXREeWU78UardWkpQ" type="_XX5VgDXIEeWU78UardWkpQ" association="_Bm1G0DXREeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_FE1ewDXREeWU78UardWkpQ" memberEnd="_FE1ewTXREeWU78UardWkpQ _FE2F0DXREeWU78UardWkpQ">
+      <ownedEnd xmi:id="_FE1ewTXREeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_FE1ewDXREeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_FE2F0DXREeWU78UardWkpQ" type="_Rw_-cDXIEeWU78UardWkpQ" association="_FE1ewDXREeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_76rKYDXSEeWU78UardWkpQ" name="A_administrador_listar suscripciones" memberEnd="_76rxcDXSEeWU78UardWkpQ _76rxcTXSEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_76rxcDXSEeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_76rKYDXSEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_76rxcTXSEeWU78UardWkpQ" type="_qUcTgDXSEeWU78UardWkpQ" association="_76rKYDXSEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_WS3JoDXUEeWU78UardWkpQ" memberEnd="_WS3JoTXUEeWU78UardWkpQ _WS3JojXUEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_WS3JoTXUEeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_WS3JoDXUEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_WS3JojXUEeWU78UardWkpQ" association="_WS3JoDXUEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_d45PcDXrEeWU78UardWkpQ" memberEnd="_d45PcTXrEeWU78UardWkpQ _d452gDXrEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_d45PcTXrEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_d45PcDXrEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_d452gDXrEeWU78UardWkpQ" type="_bRfvYDXrEeWU78UardWkpQ" association="_d45PcDXrEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_Zax-ADXuEeWU78UardWkpQ" memberEnd="_Zax-ATXuEeWU78UardWkpQ _Zax-AjXuEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_Zax-ATXuEeWU78UardWkpQ" type="__f0i0DUnEeWCVeIgiFSA1A" association="_Zax-ADXuEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_Zax-AjXuEeWU78UardWkpQ" type="_ClrOgDXuEeWU78UardWkpQ" association="_Zax-ADXuEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_9X9lkDXDEeWU78UardWkpQ" name="Crear una cuenta" subject="_0UGYYDXDEeWU78UardWkpQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_Q7w8YDXEEeWU78UardWkpQ" name="Sitio de comunidad" useCase="_ZGGgkDXEEeWU78UardWkpQ _g5PFsDXEEeWU78UardWkpQ _bRfvYDXrEeWU78UardWkpQ _-u9REDXsEeWU78UardWkpQ">
+    <ownedUseCase xmi:id="_nWDdgDXXEeWU78UardWkpQ" name="Seleccionar reservas candidatas (cesta)">
+      <include xmi:id="_prFlwDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_uaMOoDXXEeWU78UardWkpQ" name="Cancelar reserva">
+      <include xmi:id="_rddiUDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_NxawMDXYEeWU78UardWkpQ" name="Eliminar reserva candidata (cesta)">
+      <include xmi:id="_qbdSwDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_j5pLkDXYEeWU78UardWkpQ" name="Login (comunidad)">
+      <generalization xmi:id="_hzJMkDXtEeWU78UardWkpQ" general="_wd0GgDXHEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_-u9REDXsEeWU78UardWkpQ" name="Editar suscripción" subject="_Q7w8YDXEEeWU78UardWkpQ">
+      <include xmi:id="_kMu6IDXtEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_ClrOgDXuEeWU78UardWkpQ" name="Finalizar suscripción">
+      <include xmi:id="_K08WADXuEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_XIpawDXXEeWU78UardWkpQ" memberEnd="_XIpawTXXEeWU78UardWkpQ _XIpawjXXEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_XIpawTXXEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_XIpawDXXEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_XIpawjXXEeWU78UardWkpQ" association="_XIpawDXXEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_ause8DXYEeWU78UardWkpQ" memberEnd="_ause8TXYEeWU78UardWkpQ _autGADXYEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_ause8TXYEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_ause8DXYEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_autGADXYEeWU78UardWkpQ" type="_nWDdgDXXEeWU78UardWkpQ" association="_ause8DXYEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_n6PTMDXYEeWU78UardWkpQ" memberEnd="_n6P6QDXYEeWU78UardWkpQ _n6P6QTXYEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_n6P6QDXYEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_n6PTMDXYEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_n6P6QTXYEeWU78UardWkpQ" type="_uaMOoDXXEeWU78UardWkpQ" association="_n6PTMDXYEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_oejhMDXYEeWU78UardWkpQ" memberEnd="_oekIQDXYEeWU78UardWkpQ _oekvUDXYEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_oekIQDXYEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_oejhMDXYEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_oekvUDXYEeWU78UardWkpQ" type="_NxawMDXYEeWU78UardWkpQ" association="_oejhMDXYEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_FJcoQDXtEeWU78UardWkpQ" memberEnd="_FJcoQTXtEeWU78UardWkpQ _FJcoQjXtEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_FJcoQTXtEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_FJcoQDXtEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_FJcoQjXtEeWU78UardWkpQ" type="_-u9REDXsEeWU78UardWkpQ" association="_FJcoQDXtEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_HblNgDXuEeWU78UardWkpQ" memberEnd="_HblNgTXuEeWU78UardWkpQ _HblNgjXuEeWU78UardWkpQ">
+      <ownedEnd xmi:id="_HblNgTXuEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_HblNgDXuEeWU78UardWkpQ"/>
+      <ownedEnd xmi:id="_HblNgjXuEeWU78UardWkpQ" type="_ClrOgDXuEeWU78UardWkpQ" association="_HblNgDXuEeWU78UardWkpQ"/>
+    </nestedClassifier>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_ZGGgkDXEEeWU78UardWkpQ" name="Reservar" subject="_Q7w8YDXEEeWU78UardWkpQ">
+      <include xmi:id="_q3ThQDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_g5PFsDXEEeWU78UardWkpQ" name="Suscribirse a una comunidad" subject="_Q7w8YDXEEeWU78UardWkpQ">
+      <include xmi:id="_-BRL0DXEEeWU78UardWkpQ" addition="_9X9lkDXDEeWU78UardWkpQ"/>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_0PxXUDaaEeWnW8OSAdDaOg" name="Backoffice" useCase="_5-dYcDaaEeWnW8OSAdDaOg">
+    <ownedUseCase xmi:id="_g5fCoDabEeWnW8OSAdDaOg" name="Eliminar comunidades inactivas"/>
+    <ownedUseCase xmi:id="_rTgKcDabEeWnW8OSAdDaOg" name="Eliminar reservas antiguas">
+      <include xmi:id="_5evhIDabEeWnW8OSAdDaOg" addition="_2MfGMDabEeWnW8OSAdDaOg"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_2MfGMDabEeWnW8OSAdDaOg" name="Volcar reservas antiguas"/>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_BeQK0DabEeWnW8OSAdDaOg" memberEnd="_Bec_IDabEeWnW8OSAdDaOg _BedmMDabEeWnW8OSAdDaOg">
+      <ownedEnd xmi:id="_Bec_IDabEeWnW8OSAdDaOg" type="_ksKfgDaaEeWnW8OSAdDaOg" association="_BeQK0DabEeWnW8OSAdDaOg"/>
+      <ownedEnd xmi:id="_BedmMDabEeWnW8OSAdDaOg" type="_5-dYcDaaEeWnW8OSAdDaOg" association="_BeQK0DabEeWnW8OSAdDaOg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_wgNf4DabEeWnW8OSAdDaOg" memberEnd="_wgNf4TabEeWnW8OSAdDaOg _wgOG8DabEeWnW8OSAdDaOg">
+      <ownedEnd xmi:id="_wgNf4TabEeWnW8OSAdDaOg" type="_ksKfgDaaEeWnW8OSAdDaOg" association="_wgNf4DabEeWnW8OSAdDaOg"/>
+      <ownedEnd xmi:id="_wgOG8DabEeWnW8OSAdDaOg" type="_g5fCoDabEeWnW8OSAdDaOg" association="_wgNf4DabEeWnW8OSAdDaOg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_xbkU4DabEeWnW8OSAdDaOg" memberEnd="_xbkU4TabEeWnW8OSAdDaOg _xbljADabEeWnW8OSAdDaOg">
+      <ownedEnd xmi:id="_xbkU4TabEeWnW8OSAdDaOg" type="_ksKfgDaaEeWnW8OSAdDaOg" association="_xbkU4DabEeWnW8OSAdDaOg"/>
+      <ownedEnd xmi:id="_xbljADabEeWnW8OSAdDaOg" type="_rTgKcDabEeWnW8OSAdDaOg" association="_xbkU4DabEeWnW8OSAdDaOg"/>
+    </nestedClassifier>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_5-dYcDaaEeWnW8OSAdDaOg" name="Eliminar pre-resevas expiradas" subject="_0PxXUDaaEeWnW8OSAdDaOg"/>
   </packagedElement>
 </uml:Model>
