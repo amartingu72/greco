@@ -233,14 +233,15 @@
     <packagedElement xmi:type="uml:UseCase" xmi:id="_9X9lkDXDEeWU78UardWkpQ" name="Crear una cuenta" subject="_0UGYYDXDEeWU78UardWkpQ"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Component" xmi:id="_Q7w8YDXEEeWU78UardWkpQ" name="Sitio de comunidad" useCase="_ZGGgkDXEEeWU78UardWkpQ _g5PFsDXEEeWU78UardWkpQ _bRfvYDXrEeWU78UardWkpQ _-u9REDXsEeWU78UardWkpQ">
-    <ownedUseCase xmi:id="_nWDdgDXXEeWU78UardWkpQ" name="Seleccionar reservas candidatas (cesta)">
-      <include xmi:id="_prFlwDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
+    <ownedUseCase xmi:id="_nWDdgDXXEeWU78UardWkpQ" name="Seleccionar reserva candidata (cesta)">
+      <extend xmi:id="_9zulUDdUEeWh9sDiop90Mg" extendedCase="_plFhwDdUEeWh9sDiop90Mg"/>
     </ownedUseCase>
     <ownedUseCase xmi:id="_uaMOoDXXEeWU78UardWkpQ" name="Cancelar reserva">
-      <include xmi:id="_rddiUDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
+      <extend xmi:id="_oWijoDdXEeWh9sDiop90Mg" extendedCase="_HN6V4DdXEeWh9sDiop90Mg"/>
     </ownedUseCase>
     <ownedUseCase xmi:id="_NxawMDXYEeWU78UardWkpQ" name="Eliminar reserva candidata (cesta)">
-      <include xmi:id="_qbdSwDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
+      <extend xmi:id="_-VkuIDdUEeWh9sDiop90Mg" extendedCase="_plFhwDdUEeWh9sDiop90Mg"/>
+      <extend xmi:id="_eqX1wDdWEeWh9sDiop90Mg" extendedCase="_a34RADdVEeWh9sDiop90Mg"/>
     </ownedUseCase>
     <ownedUseCase xmi:id="_j5pLkDXYEeWU78UardWkpQ" name="Login (comunidad)">
       <generalization xmi:id="_hzJMkDXtEeWU78UardWkpQ" general="_wd0GgDXHEeWU78UardWkpQ"/>
@@ -251,21 +252,18 @@
     <ownedUseCase xmi:id="_ClrOgDXuEeWU78UardWkpQ" name="Finalizar suscripción">
       <include xmi:id="_K08WADXuEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
     </ownedUseCase>
+    <ownedUseCase xmi:id="_plFhwDdUEeWh9sDiop90Mg" name="Consultar disponibilidad">
+      <include xmi:id="_prFlwDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_a34RADdVEeWh9sDiop90Mg" name="Consultar  cesta">
+      <include xmi:id="_SE_CkDdWEeWh9sDiop90Mg" addition="_j5pLkDXYEeWU78UardWkpQ"/>
+    </ownedUseCase>
+    <ownedUseCase xmi:id="_HN6V4DdXEeWh9sDiop90Mg" name="Consultar reservas">
+      <include xmi:id="_rddiUDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
+    </ownedUseCase>
     <nestedClassifier xmi:type="uml:Association" xmi:id="_XIpawDXXEeWU78UardWkpQ" memberEnd="_XIpawTXXEeWU78UardWkpQ _XIpawjXXEeWU78UardWkpQ">
       <ownedEnd xmi:id="_XIpawTXXEeWU78UardWkpQ" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_XIpawDXXEeWU78UardWkpQ"/>
       <ownedEnd xmi:id="_XIpawjXXEeWU78UardWkpQ" association="_XIpawDXXEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_ause8DXYEeWU78UardWkpQ" memberEnd="_ause8TXYEeWU78UardWkpQ _autGADXYEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_ause8TXYEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_ause8DXYEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_autGADXYEeWU78UardWkpQ" type="_nWDdgDXXEeWU78UardWkpQ" association="_ause8DXYEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_n6PTMDXYEeWU78UardWkpQ" memberEnd="_n6P6QDXYEeWU78UardWkpQ _n6P6QTXYEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_n6P6QDXYEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_n6PTMDXYEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_n6P6QTXYEeWU78UardWkpQ" type="_uaMOoDXXEeWU78UardWkpQ" association="_n6PTMDXYEeWU78UardWkpQ"/>
-    </nestedClassifier>
-    <nestedClassifier xmi:type="uml:Association" xmi:id="_oejhMDXYEeWU78UardWkpQ" memberEnd="_oekIQDXYEeWU78UardWkpQ _oekvUDXYEeWU78UardWkpQ">
-      <ownedEnd xmi:id="_oekIQDXYEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_oejhMDXYEeWU78UardWkpQ"/>
-      <ownedEnd xmi:id="_oekvUDXYEeWU78UardWkpQ" type="_NxawMDXYEeWU78UardWkpQ" association="_oejhMDXYEeWU78UardWkpQ"/>
     </nestedClassifier>
     <nestedClassifier xmi:type="uml:Association" xmi:id="_FJcoQDXtEeWU78UardWkpQ" memberEnd="_FJcoQTXtEeWU78UardWkpQ _FJcoQjXtEeWU78UardWkpQ">
       <ownedEnd xmi:id="_FJcoQTXtEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_FJcoQDXtEeWU78UardWkpQ"/>
@@ -275,7 +273,19 @@
       <ownedEnd xmi:id="_HblNgTXuEeWU78UardWkpQ" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_HblNgDXuEeWU78UardWkpQ"/>
       <ownedEnd xmi:id="_HblNgjXuEeWU78UardWkpQ" type="_ClrOgDXuEeWU78UardWkpQ" association="_HblNgDXuEeWU78UardWkpQ"/>
     </nestedClassifier>
-    <packagedElement xmi:type="uml:UseCase" xmi:id="_ZGGgkDXEEeWU78UardWkpQ" name="Reservar" subject="_Q7w8YDXEEeWU78UardWkpQ">
+    <nestedClassifier xmi:type="uml:Association" xmi:id="__X8xIDdUEeWh9sDiop90Mg" memberEnd="__X8xITdUEeWh9sDiop90Mg __X8xIjdUEeWh9sDiop90Mg">
+      <ownedEnd xmi:id="__X8xITdUEeWh9sDiop90Mg" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="__X8xIDdUEeWh9sDiop90Mg"/>
+      <ownedEnd xmi:id="__X8xIjdUEeWh9sDiop90Mg" type="_plFhwDdUEeWh9sDiop90Mg" association="__X8xIDdUEeWh9sDiop90Mg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_gh7NQDdWEeWh9sDiop90Mg" memberEnd="_gh70UDdWEeWh9sDiop90Mg _gh70UTdWEeWh9sDiop90Mg">
+      <ownedEnd xmi:id="_gh70UDdWEeWh9sDiop90Mg" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_gh7NQDdWEeWh9sDiop90Mg"/>
+      <ownedEnd xmi:id="_gh70UTdWEeWh9sDiop90Mg" type="_a34RADdVEeWh9sDiop90Mg" association="_gh7NQDdWEeWh9sDiop90Mg"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Association" xmi:id="_tveXMDdXEeWh9sDiop90Mg" memberEnd="_tveXMTdXEeWh9sDiop90Mg _tve-QDdXEeWh9sDiop90Mg">
+      <ownedEnd xmi:id="_tveXMTdXEeWh9sDiop90Mg" type="_BOwJ0DUoEeWCVeIgiFSA1A" association="_tveXMDdXEeWh9sDiop90Mg"/>
+      <ownedEnd xmi:id="_tve-QDdXEeWh9sDiop90Mg" type="_HN6V4DdXEeWh9sDiop90Mg" association="_tveXMDdXEeWh9sDiop90Mg"/>
+    </nestedClassifier>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_ZGGgkDXEEeWU78UardWkpQ" name="Confirmar cesta" subject="_Q7w8YDXEEeWU78UardWkpQ">
       <include xmi:id="_q3ThQDXYEeWU78UardWkpQ" addition="_j5pLkDXYEeWU78UardWkpQ"/>
     </packagedElement>
     <packagedElement xmi:type="uml:UseCase" xmi:id="_g5PFsDXEEeWU78UardWkpQ" name="Suscribirse a una comunidad" subject="_Q7w8YDXEEeWU78UardWkpQ">
@@ -300,6 +310,6 @@
       <ownedEnd xmi:id="_xbkU4TabEeWnW8OSAdDaOg" type="_ksKfgDaaEeWnW8OSAdDaOg" association="_xbkU4DabEeWnW8OSAdDaOg"/>
       <ownedEnd xmi:id="_xbljADabEeWnW8OSAdDaOg" type="_rTgKcDabEeWnW8OSAdDaOg" association="_xbkU4DabEeWnW8OSAdDaOg"/>
     </nestedClassifier>
-    <packagedElement xmi:type="uml:UseCase" xmi:id="_5-dYcDaaEeWnW8OSAdDaOg" name="Eliminar pre-resevas expiradas" subject="_0PxXUDaaEeWnW8OSAdDaOg"/>
+    <packagedElement xmi:type="uml:UseCase" xmi:id="_5-dYcDaaEeWnW8OSAdDaOg" name="Eliminar pre-reservas expiradas" subject="_0PxXUDaaEeWnW8OSAdDaOg"/>
   </packagedElement>
 </uml:Model>
