@@ -47,7 +47,7 @@ public class ResourceDAOImpl implements ResourceDAO {
 	public int addResource(Resource rsrc) {
 		em.persist(rsrc);
 		//Refresco la entidad comunidad para futuras referencias.
-		//em.refresh(rsrc.getCommunity());
+		em.refresh(rsrc.getCommunity());
 		int id=0;
 		Resource myResource=loadSelected(rsrc.getCommunity().getId(), rsrc.getResourcetype().getId() ,rsrc.getName());
 		if ( myResource != null) id=myResource.getId();

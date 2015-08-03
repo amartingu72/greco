@@ -58,7 +58,7 @@ public class NewCommunityCBean {
 	}
 	
 	public String finish(){
-		return "finish";
+		return "done";
 	}
 	
 	/*public String addPF() {

@@ -28,12 +28,21 @@
 						</div>
 					</div>					
 				 </div>
+				 
+				 
+				 
 				 <div class="row">
 				 	<div class="col-md-12">
 				 		<p>#{msgs['editcommunity.subscription']}:
 						#{editCommunityBBean.joiningDate}</p>
+					</div>
+				 </div>
+				 <div class="row">
+				 	<div class="col-md-12">
+				 		<label for="site">#{msgs['editcommunity.site']}:</label>
+						<h:outputLink id="site" target="_blank" value="#{editCommunityBBean.site}">#{editCommunityBBean.site}</h:outputLink>
 						
-				</div>
+					</div>
 				 </div>
 				 <div class="row">
 					<div class="col-md-12">	

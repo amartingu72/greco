@@ -26,6 +26,7 @@ public class EditCommunityBBean implements Serializable{
 	private boolean available;
 	private String joiningDate;
 	private String profiles;
+	private String site;  //URL del la comunidad.
 	private boolean saveBtnVisible;
 	
 	
@@ -61,6 +62,9 @@ public class EditCommunityBBean implements Serializable{
 		this.available=item.isAvailable();
 		this.joiningDate=item.getJoiningDate();
 		this.profiles=item.getProfiles();
+		
+		//Monto la URL de site generado.
+		this.site=FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/sites/?communityid=" + item.getId();
 		
 		//Botón 'Guardar' visible.
 		this.saveBtnVisible=true;
@@ -178,6 +182,10 @@ public class EditCommunityBBean implements Serializable{
 
 	public void setSelectedMember(MemberItem selectedMember) {
 		this.selectedMember = selectedMember;
+	}
+
+	public String getSite() {
+		return site;
 	}
 	
 }

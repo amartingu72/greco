@@ -40,6 +40,12 @@ public class LoginBBean implements Serializable{
 			//Cargamos los tipos de recurso que la comunidad tiene configurados. 
 			//De esto dependerá las imágenes que se mostrarán en la página de 
 			resourceTypeList=communityDataProvider.getResourceTypes(communityItem);
+			//Si no tiene recursos, ponemos uno para que la página indique que aún no se han creado recursos.
+			if (resourceTypeList.length == 0) {
+				ResourceTypeItem rtItem=new ResourceTypeItem(0, "", "");
+				resourceTypeList=new ResourceTypeItem[1];
+				resourceTypeList[0]=rtItem;
+			}
 		}
 		
 		return ret;
