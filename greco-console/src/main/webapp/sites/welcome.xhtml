@@ -68,7 +68,7 @@
 							</div>									
 						</div>
 						<div class="form-inline">
-							<h:commandButton class="btn btn-theme btn-sm" render="message" value="#{msgs['login.login']}" action="#{loginCBean.login}" />
+							<h:commandButton class="btn btn-theme btn-sm" disabled="#{loginBBean.accessDisabled}" render="message" value="#{msgs['login.login']}" action="#{loginCBean.login}" />
 							<h:commandLink value="Olvidé mi contraseña" action="#{loginCBean.pwdForgotten}">
 								<f:param name="communityid" value="#{pwdForgottenBBean.communityId}"/>
 							</h:commandLink>

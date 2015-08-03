@@ -23,6 +23,7 @@ public class LoginBBean implements Serializable{
 	private ResourceTypeItem[] resourceTypeList;
 	
 	private CommunityDataProvider communityDataProvider; //Inyectado
+	private boolean accessDisabled; //Solo para accesos de comunidad. Se habilita solo el acceso si hay algún recurso configurado.
 
 
 	/**
@@ -32,6 +33,7 @@ public class LoginBBean implements Serializable{
 	 */
 	public String checkParam(){
 		String ret=null;
+		accessDisabled=false;
 		//Si el ID de comunidad pasasdo como parámetro (GET), tiene un valor válido, le buscamos.
 		if (communityId != -1)
 			communityItem=communityDataProvider.getCommunityById(communityId);
@@ -45,6 +47,7 @@ public class LoginBBean implements Serializable{
 				ResourceTypeItem rtItem=new ResourceTypeItem(0, "", "");
 				resourceTypeList=new ResourceTypeItem[1];
 				resourceTypeList[0]=rtItem;
+				accessDisabled=true; //Desabilitamos el botón de acceso.
 			}
 		}
 		
@@ -131,6 +134,14 @@ public class LoginBBean implements Serializable{
 
 	public void setResourceTypeList(ResourceTypeItem[] resourceTypeList) {
 		this.resourceTypeList = resourceTypeList;
+	}
+
+	public boolean isAccessDisabled() {
+		return accessDisabled;
+	}
+
+	public void setAccessDisabled(boolean accessDisabled) {
+		this.accessDisabled = accessDisabled;
 	}
 	
 	

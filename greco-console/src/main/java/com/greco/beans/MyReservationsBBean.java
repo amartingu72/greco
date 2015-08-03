@@ -28,7 +28,7 @@ public class MyReservationsBBean {
 	@PostConstruct
 	public void init(){
 		//Cargo la lista de grupos de recursos.
-		CommunityItem communityItem=communityDataProvider.getCommunityById(userSBean.getId());
+		CommunityItem communityItem=communityDataProvider.getCommunityById(userSBean.getCommunityId());
 		resourceItemGroups=communityDataProvider.getResources(communityItem);
 		
 		//Cargo la lista de reservas confirmadas.
