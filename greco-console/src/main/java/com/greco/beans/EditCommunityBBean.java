@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.model.LazyDataModel;
 
@@ -63,8 +65,10 @@ public class EditCommunityBBean implements Serializable{
 		this.joiningDate=item.getJoiningDate();
 		this.profiles=item.getProfiles();
 		
-		//Monto la URL de site generado.
-		this.site=FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/sites/?communityid=" + item.getId();
+		//Monto la URL de site.
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		String[] url = req.getRequestURL().toString().split("faces");
+		this.site=url[0] + "sites/?communityid=" + item.getId();
 		
 		//Botón 'Guardar' visible.
 		this.saveBtnVisible=true;
