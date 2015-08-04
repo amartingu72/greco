@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -15,7 +14,6 @@
 			
 			<div class="row">
 			<div class="col-md-offset-1 col-md-4">
-				
 				<div class="row">		
 					<div class=" col-md-12">
 						<p:growl id="messages" showSummary="true" showDetail="true"/>
@@ -28,23 +26,22 @@
 						</div>
 					</div>					
 				 </div>
-				 
-				 
-				 
 				 <div class="row">
 				 	<div class="col-md-12">
 				 		<p>#{msgs['editcommunity.subscription']}:
 						#{editCommunityBBean.joiningDate}</p>
 					</div>
 				 </div>
-				 <div class="row">
-				 	<div class="col-md-12">
-				 		<label for="site">#{msgs['editcommunity.site']}:</label>
-						<h:outputLink id="site" target="_blank" value="#{editCommunityBBean.site}">#{editCommunityBBean.site}</h:outputLink>
-						
-					</div>
-				 </div>
 				 
+				 <div class="row">
+				 	<div class="form-group col-md-12">
+				 		<label for="enabled">#{msgs['editcommunity.status']}</label>	
+				 		 <h:selectOneMenu id="enabled" class="form-control" value="#{editCommunityBBean.available}">
+        					<f:selectItem id="item1" itemLabel="#{msgs['editcommunity.available']}" itemValue="true" />
+       						<f:selectItem id="item2" itemLabel="#{msgs['editcommunity.unavailable']}" itemValue="false" />
+   						 </h:selectOneMenu>
+				 	</div>
+				 </div>
 				 <div class="row">
 					<div class="form-group col-md-6">
 						<label for="zipcode"> 
@@ -65,12 +62,7 @@
 						
 					
 				 </div>
-				 <div class="row">
-					<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">	
-						<h:selectBooleanCheckbox id="enabled" value="#{editCommunityBBean.available}" />
-    					<label for="enabled">#{msgs['editcommunity.available']}</label>
-				 	</div>
-				 </div>
+				
 				 <div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
@@ -86,6 +78,16 @@
 				</div>
 				
 				<div class="col-md-offset-1 col-md-5"> 
+				<div class="row">
+				 	<div class="col-md-12">
+				 		<label for="site">#{msgs['editcommunity.site']}:</label>
+				 		<div id="site" class="panel panel-default">
+  							<div class="panel-body">
+								<h:outputLink  target="_blank" value="#{editCommunityBBean.site}">#{editCommunityBBean.site}</h:outputLink>
+							</div>
+						</div>
+					</div>
+				 </div>
 				<div class="row">
 					<div class="col-md-12">
 						
