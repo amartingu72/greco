@@ -4,7 +4,7 @@
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="default" transaction-type="JTA">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<jta-data-source>jdbc/greco</jta-data-source>
+		<jta-data-source>java:jboss/datasources/MySQLDS</jta-data-source>
 		<!--  Cambiar a java:jboss/datasources/MySQLDS para que funcione en JBOSS -->
 		<!--  Cambiar a jdbc/greco para que funcione en GlassFish -->
 		<class>com.greco.entities.Community</class>
@@ -19,12 +19,12 @@
 		<class>com.greco.entities.UsersCommunity</class> 
 		
 		
-		<!-- Solo para JBOSS. 
+		<!-- Solo para JBOSS. -->
 		<properties>
 			<property name="eclipselink.weaving" value="static"/>
 			<property name="eclipselink.target-server" value="JBoss"/>
 		</properties>
-		-->
+		
 
 	</persistence-unit>
 </persistence>
