@@ -2,14 +2,10 @@ package com.greco.beans;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-
 import org.primefaces.model.LazyDataModel;
-
 import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.LazyMembersDataModel;
