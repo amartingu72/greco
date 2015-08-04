@@ -13,132 +13,134 @@
 			<h:form id="editCommForm">
 			
 			<div class="row">
-			<div class="col-md-offset-1 col-md-4">
-				<div class="row">		
-					<div class=" col-md-12">
-						<p:growl id="messages" showSummary="true" showDetail="true"/>
-						<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
-						<div class="form-group">
-							<label for="name">#{msgs['editcommunity.name']}</label>
-							<h:inputText class="form-control" id="name" value="#{editCommunityBBean.name}"  maxlength="32" required="true">
-								<f:validator binding="#{duplicatedCommunityValidator}" />
-							</h:inputText>
+				<div class="col-md-offset-1 col-md-4">
+					<div class="row">		
+						<div class=" col-md-12">
+							<p:growl id="messages" showSummary="true" showDetail="true"/>
+							<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
+							<div class="form-group">
+								<label for="name">#{msgs['editcommunity.name']}</label>
+								<h:inputText class="form-control" id="name" value="#{editCommunityBBean.name}"  maxlength="32" required="true">
+									<f:validator binding="#{duplicatedCommunityValidator}" />
+								</h:inputText>
+							</div>
+						</div>					
+					 </div>
+					 <div class="row">
+					 	<div class="col-md-12">
+					 		<p>#{msgs['editcommunity.subscription']}:
+							#{editCommunityBBean.joiningDate}</p>
 						</div>
-					</div>					
-				 </div>
-				 <div class="row">
-				 	<div class="col-md-12">
-				 		<p>#{msgs['editcommunity.subscription']}:
-						#{editCommunityBBean.joiningDate}</p>
-					</div>
-				 </div>
-				 
-				 <div class="row">
-				 	<div class="form-group col-md-12">
-				 		<label for="enabled">#{msgs['editcommunity.status']}</label>	
-				 		 <h:selectOneMenu id="enabled" class="form-control" value="#{editCommunityBBean.available}">
-        					<f:selectItem id="item1" itemLabel="#{msgs['editcommunity.available']}" itemValue="true" />
-       						<f:selectItem id="item2" itemLabel="#{msgs['editcommunity.unavailable']}" itemValue="false" />
-   						 </h:selectOneMenu>
-				 	</div>
-				 </div>
-				 <div class="row">
-					<div class="form-group col-md-6">
-						<label for="zipcode"> 
-							#{msgs['editcommunity.zipcode']}</label>:  
-						<p:inputMask class="form-control" id="zipcode" value="#{editCommunityBBean.zipcode}" mask="99999"
-							size="5"
-							maxlength="5"
-							required="true" />			
-					</div>
-					<div class="form-group col-md-6">
-						<label for="country"> 
-							#{msgs['editcommunity.country']}</label>:  
-						<h:selectOneMenu id="country" class="form-control" 
-							value="#{editCommunityBBean.country}" required="true">
-							<f:selectItems value="#{countriesSBean.countries}" /> 
-						</h:selectOneMenu>
-					</div>	
+					 </div>
+					 
+					 <div class="row">
+					 	<div class="form-group col-md-12">
+					 		<label for="enabled">#{msgs['editcommunity.status']}</label>	
+					 		 <h:selectOneMenu id="enabled" class="form-control" value="#{editCommunityBBean.available}">
+	        					<f:selectItem id="item1" itemLabel="#{msgs['editcommunity.available']}" itemValue="true" />
+	       						<f:selectItem id="item2" itemLabel="#{msgs['editcommunity.unavailable']}" itemValue="false" />
+	   						 </h:selectOneMenu>
+					 	</div>
+					 </div>
+					 <div class="row">
+						<div class="form-group col-md-6">
+							<label for="zipcode"> 
+								#{msgs['editcommunity.zipcode']}</label>:  
+							<p:inputMask class="form-control" id="zipcode" value="#{editCommunityBBean.zipcode}" mask="99999"
+								size="5"
+								maxlength="5"
+								required="true" />			
+						</div>
+						<div class="form-group col-md-6">
+							<label for="country"> 
+								#{msgs['editcommunity.country']}</label>:  
+							<h:selectOneMenu id="country" class="form-control" 
+								value="#{editCommunityBBean.country}" required="true">
+								<f:selectItems value="#{countriesSBean.countries}" /> 
+							</h:selectOneMenu>
+						</div>	
+							
 						
+					 </div>
 					
-				 </div>
-				
-				 <div class="row">
-					<div class="col-md-12">
-						<div class="form-group">
-							<label for="notes">#{msgs['editcommunity.notes']} </label>
-							<p:inputTextarea class="form-control" id="notes" value="#{editCommunityBBean.mydata}"
-								rows="5" cols="58" maxlength="255" counter="display"
-								counterTemplate="#{msgs['editaccount.remaining_chars']}" />
-							<p:outputLabel id="display" />
-				 	 	</div>
-				 	 </div>
-				</div>
+					 <div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="notes">#{msgs['editcommunity.notes']} </label>
+								<p:inputTextarea class="form-control" id="notes" value="#{editCommunityBBean.mydata}"
+									rows="5" cols="58" maxlength="255" counter="display"
+									counterTemplate="#{msgs['editaccount.remaining_chars']}" />
+								<p:outputLabel id="display" />
+					 	 	</div>
+					 	 </div>
+					</div>
 				
 				</div>
 				
 				<div class="col-md-offset-1 col-md-5"> 
-				<div class="row">
-				 	<div class="col-md-12">
-				 		<label for="site">#{msgs['editcommunity.site']}:</label>
-				 		<div id="site" class="panel panel-default">
-  							<div class="panel-body">
-								<h:outputLink  target="_blank" value="#{editCommunityBBean.site}">#{editCommunityBBean.site}</h:outputLink>
+					<div class="row">
+					 	<div class="col-md-12">
+					 		<label for="site">#{msgs['editcommunity.site']}:</label>
+					 		<div id="site" class="panel panel-default">
+	  							<div class="panel-body">
+									<h:outputLink  target="_blank" value="#{editCommunityBBean.site}">#{editCommunityBBean.site}</h:outputLink>
+								</div>
 							</div>
 						</div>
-					</div>
-				 </div>
-				<div class="row">
-					<div class="col-md-12">
-						
-						<ul class="social-network">
-							<li>
-								<label>#{msgs['editcommunity.resources_tab']}</label>
-							</li>
-							<li>
-								<h:commandLink action="#{editCommunityCBean.addResource}">
-									<span class="fa-stack fa-1x">
-									<i class="fa fa-circle fa-stack-2x"></i>
-									<i class="fa fa-plus fa-stack-1x fa-inverse"></i>
-									</span>
-								</h:commandLink>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						
-						<h:dataTable class="table table-condensed table-hover" id="resourcesTable" value="#{editCommunityBBean.myResources}" 
-							var="rsrc">                        	
-							<h:column>
-								
-            					<h:commandLink action="#{editCommunityCBean.editResource(rsrc)}"  title="#{msgs['editresource.title']}">
-									<span class="fa-stack fa-1x">
-									<i class="fa fa-circle fa-stack-2x"></i>
-									<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-									</span>
-								</h:commandLink>
-								
-							</h:column>
-							<h:column>
-								#{rsrc.name}
-							</h:column>
-							<h:column>   
-								#{rsrc.type}
-							</h:column>
+					 </div>
+					<div class="row">
+						<div class="col-md-12">
 							
-        					<h:column id="status" styleClass="rscrColumn4">
-        						<h:outputText styleClass="ui-icon ui-icon-newwin" title="#{msgs['editcommunity.new']}" rendered="#{rsrc.added}"/>
-        						<h:outputText styleClass="ui-icon ui-icon-circle-check" title="#{msgs['editcommunity.updated']}" rendered="#{rsrc.updated}"/>
-							</h:column>
-						</h:dataTable>
+							<ul class="social-network">
+								<li>
+									<label>#{msgs['editcommunity.resources_tab']}</label>
+								</li>
+								<li>
+									<h:commandLink action="#{editCommunityCBean.addResource}">
+										<span class="fa-stack fa-1x">
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+										</span>
+									</h:commandLink>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							
+							<h:dataTable class="table table-condensed table-hover" id="resourcesTable" value="#{editCommunityBBean.myResources}" 
+								var="rsrc">                        	
+								<h:column>
+									
+	            					<h:commandLink action="#{editCommunityCBean.editResource(rsrc)}"  title="#{msgs['editresource.title']}">
+										<span class="fa-stack fa-1x">
+										<i class="fa fa-circle fa-stack-2x"></i>
+										<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+										</span>
+									</h:commandLink>
+									
+								</h:column>
+								<h:column>
+									#{rsrc.name}
+								</h:column>
+								<h:column>   
+									#{rsrc.type}
+								</h:column>
+								
+	        					<h:column id="status" styleClass="rscrColumn4">
+	        						<h:outputText styleClass="ui-icon ui-icon-newwin" title="#{msgs['editcommunity.new']}" rendered="#{rsrc.added}"/>
+	        						<h:outputText styleClass="ui-icon ui-icon-circle-check" title="#{msgs['editcommunity.updated']}" rendered="#{rsrc.updated}"/>
+								</h:column>
+							</h:dataTable>
+						</div>
+						
 					</div>
 					
-				</div>
-				
 				
 				</div>
+			
+				
 				</div>
 				<div class="row">
 					<div class="text-right">
