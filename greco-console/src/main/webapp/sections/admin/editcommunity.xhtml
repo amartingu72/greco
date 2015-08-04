@@ -44,16 +44,7 @@
 						
 					</div>
 				 </div>
-				 <div class="row">
-					<div class="col-md-12">	
-						<div class="form-group">
-							<div class="checkbox">
-								<p:selectBooleanCheckbox id="enabled" value="#{editCommunityBBean.available}" />
-    							<label for="enabled">#{msgs['editcommunity.available']}</label>
-    						</div>
-					 	</div>
-				 	</div>
-				 </div>
+				 
 				 <div class="row">
 					<div class="form-group col-md-6">
 						<label for="zipcode"> 
@@ -73,6 +64,12 @@
 					</div>	
 						
 					
+				 </div>
+				 <div class="row">
+					<div class="form-group col-xs-6 col-sm-6 col-md-6 col-lg-6">	
+						<h:selectBooleanCheckbox id="enabled" value="#{editCommunityBBean.available}" />
+    					<label for="enabled">#{msgs['editcommunity.available']}</label>
+				 	</div>
 				 </div>
 				 <div class="row">
 					<div class="col-md-12">
