@@ -134,7 +134,9 @@ public class CommunityItem implements Serializable{
 	 */
 	public DateTime getLocalTime() {
 		
-		return new LocalDateTime(new DateTime()).toDateTime(dateTimeZone);
+		
+	
+		return new DateTime(dateTimeZone);
 		
 	}
 	
