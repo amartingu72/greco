@@ -8,7 +8,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.primefaces.component.resources.ResourcesRenderer;
+
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -229,5 +232,14 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 			resourceItemGroups[i]=resourceItemGroup;
 		}
 		return resourceItemGroups;
+	}
+
+
+
+	@Override
+	public DateTime getLocalTime() {
+		DateTime dt = new DateTime();
+		DateTimeZone dtZone = DateTimeZone.forID("GMT + 1");
+		return  dt.withZone(dtZone);
 	}
 }

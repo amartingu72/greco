@@ -2,6 +2,11 @@ package com.greco.services;
 
 import java.util.List;
 
+
+
+
+import org.joda.time.DateTime;
+
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ResourceItem;
 import com.greco.services.helpers.ResourceItemGroup;
@@ -47,4 +52,11 @@ public interface CommunityDataProvider {
 	 * @return Lista de recursos ordenada por tipos.
 	 */
 	public abstract ResourceItemGroup[] getResources(CommunityItem communityItem);
+	
+	/**
+	 * Devuelve la hora local de la comunidad.
+	 * Nota: por el momento solo se considerará GMT+1
+	 * @return Hora local de la comunidad
+	 */
+	public abstract DateTime getLocalTime();
 }
