@@ -68,12 +68,14 @@ public class ReservationDAOImpl implements ReservationDAO {
 	}
 
 	@Override
-	public List<Reservation> loadTakenReservations(int userId) {
-		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and r.toDate>=:now and r.status=:status", Reservation.class );
+	public List<Reservation> loadTakenReservations(int userId, int commnityId) {
+		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and r.resource.community.id=:commId and r.toDate>=:now and r.status=:status", Reservation.class );
 		
 		query.setParameter("userId", userId);
 		query.setParameter("now",Calendar.getInstance(),TemporalType.DATE);
 		query.setParameter("status", IReservationStatus.TAKEN);
+		query.setParameter("commId",commnityId);
+		
 		
 		@SuppressWarnings("unchecked")	
 		List<Reservation> result= query.getResultList();
@@ -103,12 +105,13 @@ public class ReservationDAOImpl implements ReservationDAO {
 	}
 
 	@Override
-	public List<Reservation> loadLockedReservations(int userId) {
-		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and r.toDate>=:now and r.status=:status", Reservation.class );
+	public List<Reservation> loadLockedReservations(int userId, int commnityId) {
+		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and r.resource.community.id=:commId and r.toDate>=:now and r.status=:status", Reservation.class );
 		
 		query.setParameter("userId", userId);
 		query.setParameter("now",Calendar.getInstance(),TemporalType.DATE);
 		query.setParameter("status",IReservationStatus.LOCKED);
+		query.setParameter("commId",commnityId);
 			
 		@SuppressWarnings("unchecked")	
 		List<Reservation> result= query.getResultList();

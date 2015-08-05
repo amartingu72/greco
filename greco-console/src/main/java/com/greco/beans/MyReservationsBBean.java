@@ -23,12 +23,13 @@ public class MyReservationsBBean {
 	private CommunityDataProvider communityDataProvider; //Inyectado.
 	private UserSBean userSBean; //Inyectado
 	private ReservationDataProvider reservationDataProvider; //Inyectado
+	private CommunityItem communityItem; //Comunidad a la que pertenece el recurso.
 	
 
 	@PostConstruct
 	public void init(){
 		//Cargo la lista de grupos de recursos.
-		CommunityItem communityItem=communityDataProvider.getCommunityById(userSBean.getCommunityId());
+		communityItem=communityDataProvider.getCommunityById(userSBean.getCommunityId());
 		resourceItemGroups=communityDataProvider.getResources(communityItem);
 		
 		//Cargo la lista de reservas confirmadas.
@@ -64,7 +65,7 @@ public class MyReservationsBBean {
 	 * Carga la lista de reservas ya confirmadas por el usuario con sesión iniciada.
 	 */
 	public void loadConfirmedReservations(){
-		confirmedReservations=reservationDataProvider.getActiveReservations(this.userSBean.getId());
+		confirmedReservations=reservationDataProvider.getActiveReservations(this.userSBean.getId(),communityItem);
 	}
 	
 	

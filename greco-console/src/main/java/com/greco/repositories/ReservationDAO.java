@@ -41,17 +41,19 @@ public interface ReservationDAO {
 	 * Carga las reservas realizadas por el usuario indicado cuya fecha/hora de fin sea igual o posterior a 
 	 * el momento de invocación. No incluya las que estén en estado IReservationStatus.LOCKED.
 	 * @param userId Identificador de usuario.
+	 * @param communityId Id de comunidad.
 	 * @return Lista de reservas
 	 */
-	public List<Reservation> loadTakenReservations(int userId);
+	public List<Reservation> loadTakenReservations(int userId, int communityId);
 	
 	
 	/**
 	 * Recupera la lista de prereservas (reservas en estado IReservationStatus.LOCKED), del usuario indicado.
 	 * @param userId Identificador de usuario.
+	 * @param communityId Id de comunidad.
 	 * @return Lista de reservas.
 	 */
-	public List<Reservation> loadLockedReservations(int userId);
+	public List<Reservation> loadLockedReservations(int userId, int communityId);
 	
 	/**
 	 * Devuelve la lista de reservas realizadas por un usuario, sobre un recurso concreto, en un intervalo de tiempo.

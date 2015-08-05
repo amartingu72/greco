@@ -236,10 +236,6 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 
 
 
-	@Override
-	public DateTime getLocalTime() {
-		DateTime dt = new DateTime();
-		DateTimeZone dtZone = DateTimeZone.forID("GMT + 1");
-		return  dt.withZone(dtZone);
-	}
+	
+	
 }

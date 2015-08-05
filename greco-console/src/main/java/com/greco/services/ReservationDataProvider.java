@@ -9,6 +9,7 @@ import com.greco.entities.Reservation;
 import com.greco.services.except.reservation.AlreadyLockedException;
 import com.greco.services.except.reservation.NotOwnerException;
 import com.greco.services.except.reservation.ReservationMissingException;
+import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.ResourceItem;
 import com.greco.services.helpers.UserItem;
@@ -38,19 +39,21 @@ public interface ReservationDataProvider {
 	public abstract List<ReservationUnit> getReservations(ResourceItem rsrcItem, Date date);
 	
 	/**
-	 * Devuelve las reservas posteriores o vigentes, para el usuario indicado, en el momento en que se invoca este método.
+	 * Devuelve las reservas posteriores o vigentes, para el usuario y comunidad indicado, en el momento en que se invoca este método.
 	 * No incluye las no confirmadas, es decir, en estado IReservationStatus.LOCKED.
 	 * @param userId ID de usuario.
+	 * @param communityItem Item de comunidad.
 	 * @return Lista de reservas
 	 */
-	public abstract List<ReservationItem> getActiveReservations(int userId);
+	public abstract List<ReservationItem> getActiveReservations(int userId, CommunityItem communityItem);
 	
 	/**
 	 * Devuelve las reservas sin confirmar del usuario, es decir, las que tienen el estado IReservationStatus.LOCKED 
 	 * @param userId Identificador de usuario.
+	 * @param communityItem Item de comunidad.
 	 * @return Lista de reservas.
 	 */
-	public abstract List<ReservationItem> getLockedReservations(int userId);
+	public abstract List<ReservationItem> getLockedReservations(int userId, CommunityItem communityItem);
 	
 	/**
 	 * Cancela la reserva indicada en el parámetro.
