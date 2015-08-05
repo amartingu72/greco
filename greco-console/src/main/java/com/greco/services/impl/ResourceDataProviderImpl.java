@@ -4,17 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
-
-
-
-
-
-
-
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
-
 import com.greco.engine.DailySchedule;
 import com.greco.engine.DailyScheduleException;
 import com.greco.engine.IReservationStatus;
@@ -28,6 +19,7 @@ import com.greco.services.ResourceDataProvider;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ResourceItem;
 import com.greco.services.helpers.ResourceTypeItem;
+
 
 
 @Service("resourceDataProvider")
@@ -140,30 +132,40 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 				DateTime dt=new DateTime(date);
 				DateTime fromDate=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(),0,0);
 				DateTime toDate=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(),23,59);
-					
+				
+				//Bloqueo el calendario para que no pueda hacer reservas de periodos anteriores a ahora.
+				if ( comm.getLocalTime().isAfter(toDate) )
+					//Bloqueamos todo para la reserva porque es de una fecha anterior.
+					dailySchedule.add(new ReservationUnit(userId,fromDate, toDate), IReservationStatus.BLOCKED);
+				else if (comm.getLocalTime().isAfter(fromDate) && (comm.getLocalTime().isBefore(toDate)) )
+					//Bloqueamos solo el intervalo desde el inicio hasta la hora actual.
+					dailySchedule.add(new ReservationUnit(userId,fromDate, comm.getLocalTime()), IReservationStatus.BLOCKED);
+				//En otro caso, no bloqueamos nada.
+				
 				List<Reservation> rList=reservationRepository.loadReservations(r.getId(),
 						fromDate.toDate(), toDate.toDate());
+						
 				//Actualizo dailySchedule con las reservas ya realizadas, es decir, la procedentes de BD. 
 				Iterator<Reservation>itr=rList.iterator();
 				Reservation reservation=null;
 				while (itr.hasNext()) {
 					reservation=itr.next();
-					try {
+					
 						//Si el estado es LOCKED y el usuario no es el que hizo la reserva, consideramos LOCKED_BY_OTHER,
 						int status=reservation.getStatus();
 						if ( status==IReservationStatus.LOCKED && reservation.getUser().getId()!=userId)
 							status=IReservationStatus.LOCKED_BY_OTHER;
 						dailySchedule.add(new ReservationUnit(reservation), status);
-					} catch (DailyScheduleException e) {
-						//La excepcioón es debido a que la unidad de reserva ReservationUnit no está dentro del rango de fechas que gestiona el horario (DailySchedule)
-						e.printStackTrace();
-					} 
+					 
 				}				
 				timeTable[i]=dailySchedule;
 				i++;
 			} catch (InvalidTimeUnitException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (DailyScheduleException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 			
 		}

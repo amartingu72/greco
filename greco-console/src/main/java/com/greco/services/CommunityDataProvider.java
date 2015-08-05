@@ -53,10 +53,4 @@ public interface CommunityDataProvider {
 	 */
 	public abstract ResourceItemGroup[] getResources(CommunityItem communityItem);
 	
-	/**
-	 * Devuelve la hora local de la comunidad.
-	 * Nota: por el momento solo se considerará GMT+1
-	 * @return Hora local de la comunidad
-	 */
-	public abstract DateTime getLocalTime();
 }

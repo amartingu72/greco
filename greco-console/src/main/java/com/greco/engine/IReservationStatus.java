@@ -18,19 +18,20 @@ public interface IReservationStatus {
 	 * El usuario ha realizado la reserva pero aún no la ha hecho efectiva (no la ha confirmado o pagado)
 	 */
 	public static final int LOCKED=1;
-	public static final String LOCKED_ICON="btn-info";
+	public static final String LOCKED_ICON="btn-primary";
 	/**
 	 * El adminsitrador de la comunidad ha bloqueado el recurso en ese periodo para que no se pueda reservar.
+	 * La otra causa de bloqueo es que la hora de fin de reserva sea anterior a la hora actual.
 	 */
 	public static final int BLOCKED=2;
-	public static final String BLOCKED_ICON="btn-danger";
+	public static final String BLOCKED_ICON="btn-default";
 	 
 	/**
 	 * El estado free indica la ausencia de registro en base de datos. Si no está en la tabla reservations, 
 	 * está libre.
 	 */
 	public static final int FREE=3;
-	public static final String FREE_ICON="btn-success";
+	public static final String FREE_ICON="btn-info";
 	
 	/**
 	 * Otro usuario ha realizado la reserva pero aún no la ha hecho efectiva

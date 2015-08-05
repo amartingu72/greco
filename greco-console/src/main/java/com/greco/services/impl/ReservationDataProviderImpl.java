@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.greco.engine.IReservationStatus;
 import com.greco.engine.ReservationUnit;
 import com.greco.engine.ScheduleUnit;
@@ -22,6 +25,7 @@ import com.greco.services.ReservationDataProvider;
 import com.greco.services.except.reservation.AlreadyLockedException;
 import com.greco.services.except.reservation.NotOwnerException;
 import com.greco.services.except.reservation.ReservationMissingException;
+import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.ResourceItem;
 import com.greco.services.helpers.UserItem;
@@ -119,8 +123,8 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 
 
 	@Override
-	public List<ReservationItem> getActiveReservations(int userId) {
-		List<Reservation> reservations=this.reservationRepository.loadTakenReservations(userId);
+	public List<ReservationItem> getActiveReservations(int userId, CommunityItem communityItem) {
+		List<Reservation> reservations=this.reservationRepository.loadTakenReservations(userId,communityItem.getId());
 		ArrayList<ReservationItem> reservationItems=new ArrayList<ReservationItem>(reservations.size());
 		
 		Iterator<Reservation> it=reservations.iterator();
@@ -140,8 +144,8 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 			reservationItem.setDate(date);
 			String time=dateTime.getHourOfDay() + ":" + String.format("%02d",dateTime.getMinuteOfHour());
 			reservationItem.setFromTime(time);
-			//Será cancelable si el inicio es anterior a ahora mismo.
-			reservationItem.setCancelable(dateTime.isAfterNow());
+			//Será cancelable si el inicio es anterior a ahora mismo (hora local de la comunidad).
+			reservationItem.setCancelable(dateTime.isAfter(communityItem.getLocalTime()));
 			
 			dateTime=new DateTime(reservation.getToDate());
 			date=fmt.print(dateTime);
@@ -166,8 +170,8 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 	}
 
 	@Override
-	public List<ReservationItem> getLockedReservations(int userId) {
-		List<Reservation> reservations=this.reservationRepository.loadLockedReservations(userId);
+	public List<ReservationItem> getLockedReservations(int userId,CommunityItem communityItem) {
+		List<Reservation> reservations=this.reservationRepository.loadLockedReservations(userId,communityItem.getId());
 		ArrayList<ReservationItem> reservationItems=new ArrayList<ReservationItem>(reservations.size());
 		
 		Iterator<Reservation> it=reservations.iterator();

@@ -1,6 +1,10 @@
 package com.greco.services.helpers;
 
 import java.io.Serializable;
+import java.util.Locale;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 public class CommunityItem implements Serializable{
 	/**
@@ -16,6 +20,8 @@ public class CommunityItem implements Serializable{
 	private String profiles;
 	private String myData;
 	private String country;
+	private Locale locale;
+	private DateTimeZone dateTimeZone;
 	
 	/**
 	 * Contructor para consultas.
@@ -29,6 +35,9 @@ public class CommunityItem implements Serializable{
 		this.country=country;
 		this.zipcode=zipcode;
 		this.name=name;
+		
+		locale=new Locale("es", "ES");
+		dateTimeZone=DateTimeZone.forID("Europe/Madrid");
 	}
 	
 	
@@ -43,6 +52,9 @@ public class CommunityItem implements Serializable{
 		this.id=id;
 		this.available=status;
 		this.myData=myData;
+		
+		locale=new Locale("es", "ES");
+		dateTimeZone=DateTimeZone.forID("Europe/Madrid");
 	}
 	/**
 	 * Constructor sin vinculación con un usuario.
@@ -63,6 +75,9 @@ public class CommunityItem implements Serializable{
 		//this.profiles=profiles;
 		this.myData=myData;
 		this.country=country;
+		
+		locale=new Locale("es", "ES");
+		dateTimeZone=DateTimeZone.forID("Europe/Madrid");
 	}
 	
 	
@@ -88,6 +103,9 @@ public class CommunityItem implements Serializable{
 		this.profiles=profiles;
 		this.myData=myData;
 		this.country=country;
+		
+		locale=new Locale("es", "ES");
+		dateTimeZone=DateTimeZone.forID("Europe/Madrid");
 	}
 	
 	@Override
@@ -104,6 +122,17 @@ public class CommunityItem implements Serializable{
 			communityItem.getCountry().equals(country) &&
 				communityItem.getZipcode().equals(zipcode);		
 		return bEqual;
+	}
+	
+	/**
+	 * Devuelve la hora local de la comunidad.
+	 * Nota: por el momento solo se considerará GMT+1
+	 * @return Hora local de la comunidad
+	 */
+	public DateTime getLocalTime() {
+		DateTime dt = new DateTime();
+		
+		return  dt.withZone(dateTimeZone);
 	}
 	
 	public boolean isNew(){
@@ -169,6 +198,25 @@ public class CommunityItem implements Serializable{
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
+
+
+	public Locale getLocale() {
+		return locale;
+	}
+
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
+
+
+	public DateTimeZone getDateTimeZone() {
+		return dateTimeZone;
+	}
+
+
+	public void setDateTimeZone(DateTimeZone dateTimeZone) {
+		this.dateTimeZone = dateTimeZone;
+	}
 	
 }

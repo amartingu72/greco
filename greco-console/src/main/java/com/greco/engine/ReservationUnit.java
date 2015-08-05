@@ -25,6 +25,13 @@ public class ReservationUnit implements ITimeUnits{
 			interval=null;
 		} 	
 		
+		public ReservationUnit(int userId, DateTime fromDate, DateTime toDate){
+			this.userId=userId;
+			this.interval=new Interval(fromDate, toDate);
+			
+		}
+		
+		
 		public ReservationUnit(Reservation reservation) {
 			userId=reservation.getUser().getId();
 			interval=new Interval(new DateTime(reservation.getFromDate()), 

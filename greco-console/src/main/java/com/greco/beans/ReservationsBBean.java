@@ -3,25 +3,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
-
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-
-
-
-
-
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
-
-
-
-
 import com.greco.services.CommunityDataProvider;
 import com.greco.services.ReservationDataProvider;
 import com.greco.services.ResourceTypeDataProvider;
@@ -115,7 +101,7 @@ public class ReservationsBBean implements Serializable{
      */
     public void loadMyReservationsTable(){
     	//Cargamos la lista de reservas pendientes.
-    	activeReservations=reservationDataProvider.getLockedReservations(userBean.getId());
+    	activeReservations=reservationDataProvider.getLockedReservations(userBean.getId(), this.communityItem);
     }
     
     /**
@@ -142,7 +128,7 @@ public class ReservationsBBean implements Serializable{
      */
     public String getReservationDateString() {
     	// Format for output
-    	DateTimeFormatter dtfOut = DateTimeFormat.forPattern("E, dd MMM YYYY").withLocale(new Locale("es", "ES")).withZone(DateTimeZone.forID("Europe/Madrid"));
+    	DateTimeFormatter dtfOut = DateTimeFormat.forPattern("E, dd MMM YYYY").withLocale(this.communityItem.getLocale()).withZone(this.communityItem.getDateTimeZone());
     	// Printing the date
     	DateTime dt=new DateTime(this.newReservationDate);
     	return dtfOut.print(dt);
