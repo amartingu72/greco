@@ -5,7 +5,9 @@ import java.util.Locale;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+
 import org.joda.time.LocalDateTime;
+
 
 public class CommunityItem implements Serializable{
 	/**
@@ -134,7 +136,6 @@ public class CommunityItem implements Serializable{
 		
 		return new LocalDateTime(new DateTime()).toDateTime(dateTimeZone);
 		
-	
 	}
 	
 	public boolean isNew(){
