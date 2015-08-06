@@ -1,9 +1,9 @@
 package com.greco.services;
 
-import java.util.Date;
+
 import java.util.List;
 
-import com.greco.engine.ReservationUnit;
+
 import com.greco.engine.ScheduleUnit;
 import com.greco.entities.Reservation;
 import com.greco.services.except.reservation.AlreadyLockedException;
@@ -30,13 +30,7 @@ public interface ReservationDataProvider {
 	
 	public abstract void add(Reservation reservation);
 	
-	/**
-	 * Devuelve las reservas realizadas de recurso en la fecha inidicada.
-	 * @param rsrc Recurso.
-	 * @param date Día para el que se consultan las reservas.
-	 * @return Lista de reservas.
-	 */
-	public abstract List<ReservationUnit> getReservations(ResourceItem rsrcItem, Date date);
+	
 	
 	/**
 	 * Devuelve las reservas posteriores o vigentes, para el usuario y comunidad indicado, en el momento en que se invoca este método.

@@ -124,14 +124,14 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 		int i=0;
 		for (Resource r : myList) {
 			try {
-				dailySchedule=new DailySchedule(r);
-				dailySchedule.buildSchedule(new DateTime(date));
-				//Asigna el estado a cada item de reserva.
-				//-Recupero todas las reservas realizadas sobre ese recurso en la fecha indicada.
+				DateTime dt=new DateTime(date, comm.getDateTimeZone());
+				dailySchedule=new DailySchedule(r,comm.getDateTimeZone());
+				dailySchedule.buildSchedule(dt);
+				
 				//Convertimos a DateTime para facilitar la gestión.
-				DateTime dt=new DateTime(date);
-				DateTime fromDate=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(),0,0);
-				DateTime toDate=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(),23,59);
+				
+				DateTime fromDate=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(),0,0,comm.getDateTimeZone());
+				DateTime toDate=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(),23,59,comm.getDateTimeZone());
 				
 				//Bloqueo el calendario para que no pueda hacer reservas de periodos anteriores a ahora.
 				if ( comm.getLocalTime().isAfter(toDate) )
@@ -142,6 +142,8 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 					dailySchedule.add(new ReservationUnit(userId,fromDate, comm.getLocalTime()), IReservationStatus.BLOCKED);
 				//En otro caso, no bloqueamos nada.
 				
+				//Asigna el estado a cada item de reserva.
+				//-Recupero todas las reservas realizadas sobre ese recurso en la fecha indicada.
 				List<Reservation> rList=reservationRepository.loadReservations(r.getId(),
 						fromDate.toDate(), toDate.toDate());
 						
@@ -155,7 +157,7 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 						int status=reservation.getStatus();
 						if ( status==IReservationStatus.LOCKED && reservation.getUser().getId()!=userId)
 							status=IReservationStatus.LOCKED_BY_OTHER;
-						dailySchedule.add(new ReservationUnit(reservation), status);
+						dailySchedule.add(new ReservationUnit(reservation,comm.getDateTimeZone()), status);
 					 
 				}				
 				timeTable[i]=dailySchedule;

@@ -69,7 +69,7 @@ public class ReservationsBBean implements Serializable{
 		if (rsrcTypesList.length >0 )  rsrcTypeSelectedId=rsrcTypesList[0].getId();
 		
 		//Asignamos al calendario la fecha de hoy.
-		newReservationDate=new Date();
+		newReservationDate=communityItem.getLocalTime().toDate();
 		
     }
     /**

@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.greco.engine.IReservationStatus;
-import com.greco.engine.ReservationUnit;
+
 import com.greco.engine.ScheduleUnit;
 import com.greco.entities.Reservation;
 import com.greco.entities.User;
@@ -101,25 +98,7 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 	
 
 
-	@Override
-	public List<ReservationUnit> getReservations(
-			ResourceItem rsrcItem, Date date) {
-		//Convertimos a DateTime para facilitar la gestión.
-		DateTime dt=new DateTime(date);
-		DateTime fromDate=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(),0,0);
-		DateTime toDate=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(),23,59);
-			
-		List<Reservation> rList=reservationRepository.loadReservations(rsrcItem.getId(),
-				fromDate.toDate(), toDate.toDate());
-		ArrayList<ReservationUnit> ruList=new ArrayList<ReservationUnit>(rList.size()); 
-		Iterator<Reservation>it=rList.iterator();
-		while (it.hasNext()) {
-			ruList.add(new ReservationUnit(it.next()) );
-		}
-		
-		return ruList;
-		
-	}
+	
 
 
 	@Override
@@ -138,7 +117,8 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 			reservationItem.setType(reservation.getResource().getResourcetype().getName());
 			reservationItem.setName(reservation.getResource().getName());
 			
-			DateTime dateTime=new DateTime(reservation.getFromDate());
+			DateTime dateTime=new DateTime(reservation.getFromDate(),communityItem.getDateTimeZone());
+					
 			DateTimeFormatter fmt=DateTimeFormat.forPattern("d MMM. Y");
 			String date=fmt.print(dateTime);
 			reservationItem.setDate(date);
@@ -147,7 +127,7 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 			//Será cancelable si el inicio es anterior a ahora mismo (hora local de la comunidad).
 			reservationItem.setCancelable(dateTime.isAfter(communityItem.getLocalTime()));
 			
-			dateTime=new DateTime(reservation.getToDate());
+			dateTime=new DateTime(reservation.getToDate(),communityItem.getDateTimeZone());
 			date=fmt.print(dateTime);
 			reservationItem.setDate(date);
 			time=dateTime.getHourOfDay() + ":" + String.format("%02d",dateTime.getMinuteOfHour());
@@ -185,7 +165,7 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 			reservationItem.setType(reservation.getResource().getResourcetype().getName());
 			reservationItem.setName(reservation.getResource().getName());
 			
-			DateTime dateTime=new DateTime(reservation.getFromDate());
+			DateTime dateTime=new DateTime(reservation.getFromDate(),communityItem.getDateTimeZone());
 			DateTimeFormatter fmt=DateTimeFormat.forPattern("d MMM. Y");
 			String date=fmt.print(dateTime);
 			reservationItem.setDate(date);
@@ -194,7 +174,7 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 			//Las pre-reservas son siempre cancelables.
 			reservationItem.setCancelable(true);
 			
-			dateTime=new DateTime(reservation.getToDate());
+			dateTime=new DateTime(reservation.getToDate(),communityItem.getDateTimeZone());
 			date=fmt.print(dateTime);
 			reservationItem.setDate(date);
 			time=dateTime.getHourOfDay() + ":" + String.format("%02d",dateTime.getMinuteOfHour());

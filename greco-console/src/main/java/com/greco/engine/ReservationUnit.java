@@ -1,7 +1,9 @@
 package com.greco.engine;
 
 import java.util.Date;
+
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
@@ -32,10 +34,11 @@ public class ReservationUnit implements ITimeUnits{
 		}
 		
 		
-		public ReservationUnit(Reservation reservation) {
+		public ReservationUnit(Reservation reservation, DateTimeZone dateTimeZone) {
 			userId=reservation.getUser().getId();
-			interval=new Interval(new DateTime(reservation.getFromDate()), 
-									new DateTime(reservation.getToDate()));
+			DateTime fromDate=new DateTime(reservation.getFromDate(),dateTimeZone);
+			DateTime toDate=new DateTime(reservation.getToDate(),dateTimeZone);
+			interval=new Interval(fromDate,toDate);
 		}
 		
 		/**

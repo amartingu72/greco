@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 
 
+
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 import org.joda.time.Interval;
 import org.joda.time.LocalTime;
@@ -32,6 +34,7 @@ public class DailySchedule implements ITimeUnits {
 	private LocalTime availableTo;
 	private int beforehand;
 	private int beforehandTU;
+	private DateTimeZone dateTimeZone;
 
 	
 	@Override
@@ -40,11 +43,12 @@ public class DailySchedule implements ITimeUnits {
 		return rsrcId==((DailySchedule)obj).getRsrcId();
 	}
 
-	public DailySchedule(Resource rsrc) throws InvalidTimeUnitException {
+	public DailySchedule(Resource rsrc, DateTimeZone dateTimeZone) throws InvalidTimeUnitException {
 		this.dailySchedule = null;
 		this.rsrcId=rsrc.getId();
 		this.name=rsrc.getName();
 		this.description=rsrc.getDescription();
+		this.dateTimeZone=dateTimeZone;
 		//mintime, maxtime
 		setMintime(rsrc.getMinTime(), rsrc.getTimeunit1().getId());
 		setMaxtime(rsrc.getMinTime(), rsrc.getTimeunit1().getId());
@@ -74,8 +78,8 @@ public class DailySchedule implements ITimeUnits {
 			
 	
 			
-			DateTime toTime=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(), availableTo.getHourOfDay(), availableTo.getMinuteOfHour());
-			DateTime miDt=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(), availableFrom.getHourOfDay(), availableFrom.getMinuteOfHour());
+			DateTime toTime=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(), availableTo.getHourOfDay(), availableTo.getMinuteOfHour(),dateTimeZone);
+			DateTime miDt=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(), availableFrom.getHourOfDay(), availableFrom.getMinuteOfHour(),dateTimeZone);
 			ScheduleUnit su=null;
 
 			while ( miDt.plus(mintime.toPeriod()).isBefore(toTime) || miDt.plus(mintime.toPeriod()).isEqual(toTime)){
