@@ -96,6 +96,7 @@ create table reservations (
 	fromDate timestamp not null default 0,
 	toDate timestamp not null null default 0,
 	status int not null default 0,
+	status_date timestamp  not null default current_timestamp,
 	FOREIGN KEY (user_id) REFERENCES users(id),
 	FOREIGN KEY (resource_id) REFERENCES resources(id)	
 );
@@ -113,5 +114,9 @@ insert into resourcetypes values (DEFAULT, 'sala', 'Sala de reunión');
 insert into resourcetypes values (DEFAULT, 'parking', 'Plaza de aparcamiento');
 insert into resourcetypes values (DEFAULT, 'citas', 'Concertación cita');
 insert into resourcetypes values (DEFAULT, 'espacio', 'Espacio multiusos');
+
+create event expirator on schedule every 5 minute do delete from reservations where status=1 and status_date < now() - interval 15 minute;
+SET GLOBAL event_scheduler = ON;
+
 
 
