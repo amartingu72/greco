@@ -863,6 +863,14 @@
 			<to-view-id>/sites/myreservations.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>sites/welcome.xhtml</display-name>
+		<from-view-id>/sites/welcome.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>subscribeme</from-outcome>
+			<to-view-id>/sites/subscribeme.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	<validator>
 		<description>Valida el formato de email</description>
 		<validator-id>com.greco.validators.EmailValidator</validator-id>

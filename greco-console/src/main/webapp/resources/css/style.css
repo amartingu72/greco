@@ -201,7 +201,7 @@ Intro
 ================================= */
 
 #intro{
-    /* height: 635px; */
+    /*min-height: 635px;*/
     width:100%;
     /*background-color: #529abb;
     background-image: url(../img/bg-mac.png);

@@ -1,10 +1,16 @@
 package com.greco.beans;
 
 
+import java.io.IOException;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+
+
+
 
 
 
@@ -92,6 +98,43 @@ public class SubscribeMeCBean {
         return ret;
     }*/
 	
+	
+	public void gotoStep1(){
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+	    
+	    try {
+			ec.redirect("sites/subscribeme.xhtml#step1");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void gotoStep2(){
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+	    
+	    try {
+			ec.redirect("#step2");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void gotoStep3(){
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+	    
+	    try {
+			ec.redirect("sites/subscribeme.xhtml#step3");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	public String submit() {
 		//Creamos el usuario y se suscribimos a la comunidad como candidato (estado Pending), a la espera de que un 
 		//administrador le confirme.
@@ -117,9 +160,11 @@ public class SubscribeMeCBean {
 	}	
 	
 
-	public String cancel() {
-		return "cancel";
+	public String cancel(){
+		return navigateLogin();
 	}
+	
+	
 	/**
 	 * Volver a comlogin, manteniendo el parámetro de comunidad pasado inicialmente.
 	 * @return URL de retorno
@@ -130,19 +175,34 @@ public class SubscribeMeCBean {
 		
 	}
 	/**
-	 * Comprueba que el nickname no está duplicado ni supera el tamaño máximo.
+	 * Comprueba que el nickname no está duplicado.
 	 * @param fc
 	 * @param c
 	 * @param value
 	 */
 	public void validateName(FacesContext fc, UIComponent c, Object value) {
-		if ( ((String)value).length() > 16 )	//16 es el tamaño máximo prefijado en BD
+		if (   ((String)value).trim().isEmpty() )	
 			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-															Warnings.getString("subscribeMe.too_long_nick"),
+															Warnings.getString("newaccount.nick_required"),
 															null) );
+		
 		if (   this.userDataProvider.isDuplicated(((String)value)) )	
 		throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-														Warnings.getString("subscribeMe.duplicated_nick"),
+														Warnings.getString("newaccount.duplicated_nick"),
+														null) );
+	}
+	
+	
+	/**
+	 * Comprueba que el emaiñl no está duplicado.
+	 * @param fc
+	 * @param c
+	 * @param value
+	 */
+	public void validateUniqueEmailAddress(FacesContext fc, UIComponent c, Object value) {
+		if (   this.userDataProvider.loadAdminCredentials(((String)value))!=null )	
+		throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+														Warnings.getString("newaccount.duplicated_email"),
 														null) );
 	}
 	

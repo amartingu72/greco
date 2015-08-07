@@ -20,9 +20,10 @@ public class SubscribeMeBBean {
 	private boolean showLoginBtn;
 	
 	
+	
 	@PostConstruct
 	public void initialize(){
-		String sCom=FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("community_id");
+		String sCom=FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("communityid");
 		communityId=Integer.parseInt(sCom);
 		this.showLoginBtn=false;
 	}
