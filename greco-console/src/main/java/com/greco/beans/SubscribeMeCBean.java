@@ -1,11 +1,8 @@
 package com.greco.beans;
 
 
-import java.io.IOException;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
@@ -99,39 +96,20 @@ public class SubscribeMeCBean {
     }*/
 	
 	
-	public void gotoStep1(){
-		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	    
-	    try {
-			ec.redirect("sites/subscribeme.xhtml#step1");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public String gotoStep1(){
+		
+		this.subscribeMeBBean.step=1;
+	    return null;
 	}
 	
-	public void gotoStep2(){
-		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	    
-	    try {
-			ec.redirect("#step2");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public String gotoStep2(){
+		this.subscribeMeBBean.step=2;
+	    return null;
 	}
 	
-	public void gotoStep3(){
-		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	    
-	    try {
-			ec.redirect("sites/subscribeme.xhtml#step3");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public String gotoStep3(){
+		this.subscribeMeBBean.step=3;
+	    return null;
 	}
 	
 	

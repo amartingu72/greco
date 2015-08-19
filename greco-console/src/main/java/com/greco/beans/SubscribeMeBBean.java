@@ -1,5 +1,7 @@
 package com.greco.beans;
 
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 
@@ -18,14 +20,18 @@ public class SubscribeMeBBean {
 	//El botón de login es una opción de volver al lógin cuando, al registrarse, observamos que el usuario
 	//ya existe.
 	private boolean showLoginBtn;
+	int step; //Indica el paso en que nos encontramos
 	
 	
 	
 	@PostConstruct
 	public void initialize(){
-		String sCom=FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("communityid");
+		Map<String,String> map=FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String sCom=map.get("communityid");
 		communityId=Integer.parseInt(sCom);
+		String sStep=map.get("step");
 		this.showLoginBtn=false;
+		step=Integer.parseInt(sStep); //Situamos al usuario en el primer paso indicado.
 	}
 	
 	
@@ -69,6 +75,13 @@ public class SubscribeMeBBean {
 
 	public void setShowLoginBtn(boolean showLoginBtn) {
 		this.showLoginBtn = showLoginBtn;
+	}
+
+	public int getStep() {
+		return step;
+	}
+	public void setStep(int step) {
+		this.step = step;
 	}
 	
 
