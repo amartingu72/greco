@@ -19,158 +19,173 @@
 		</h:commandLink>
 	</ui:define>
 	<ui:define name="content">
-		<div style="min-height: 500px">
 		
-			<!-- Nav tabs -->
-			
-		  	<div class="row">
-            	<div class="col-md-offset-1 col-md-10"> 
-				  	<ul class="nav nav-tabs" role="tablist">
-					    <li role="presentation" class="#{subscribeMeBBean.step==1?'active':'none'}"><a href="#step1" role="tab">#{msgs['subscribeme.step1']}</a></li>
-					    <li  role="presentation" class="#{subscribeMeBBean.step==2?'active':'none'}"> <a href="#step2"  role="tab">#{msgs['subscribeme.step2']}</a></li>
-					    <li role="presentation" class="#{subscribeMeBBean.step==3?'active':'none'}"><a href="#step3"  role="tab">#{msgs['subscribeme.step3']}</a></li>
-				  	</ul>
-				  	
-				</div>
-			</div>	 
 		
-		 	<!-- Tab panes -->
-		  	<div class="tab-content">
-		  		
-			    <div role="tabpanel" class="tab-pane #{subscribeMeBBean.step==1?'active':'none'}" id="step1">
-				    <h:form id="step1Form">
-				    	<div class="row" style="min-height: 300px;">
-	            			<div class="col-md-offset-1 col-md-4">  
-								<div class="form-group">
-									<label for="email">#{msgs['newaccount.email']}</label>
-									<p:inputText id="email" class="form-control" value="#{subscribeMeBBean.email}" 
-										required="true"
-										label="#{msgs['editaccount.email']}"
-										requiredMessage="#{msgs['editaccount.required_msg']}" 
-										aria-describedby="emailHelpBlock"
-										validator="#{subscribeMeCBean.validateUniqueEmailAddress}"
-										maxlength="64">
-										<f:validator validatorId="com.greco.validators.EmailValidator" />
-									</p:inputText>
-									<p:message for="email" />
-								</div>
-							</div>
-			            	<div class="col-md-6"> 
-			            		<span id="emailHelpBlock" class="help-block text-justify">#{msgs['newaccount.email_note']}</span>
-			            	</div>
-			            </div>
-			            <div class="row">
-	            			<div class="col-md-offset-1 col-md-10">
-	            				<div class="text-right">
-	            					<h:commandButton class="btn btn-primary btn-lg btnNext" value="#{msgs['subscribeme.next']}"
-										action="#{subscribeMeCBean.gotoStep2}"	/> 
-	            					
-								</div>
-	            			</div>
-	            		</div>
-	            	</h:form>
-			    </div>
-			  
-			    
-			    <div role="tabpanel" class="tab-pane #{subscribeMeBBean.step==2?'active':'none'}" id="step2">
-			    <h:form id="step2Form">
-			    	<div class="row">
-			    		
-		            	<div class="col-md-offset-1 col-md-4"> 
-		           
+		<!-- Nav tabs -->
+		
+	  	<div class="row">
+           	<div class="col-md-offset-1 col-md-10"> 
+			  	<ul class="nav nav-tabs" role="tablist">
+				    <li role="presentation" class="#{subscribeMeBBean.step==1?'active':'none'}"><a href="#step1" role="tab">#{msgs['subscribeme.step1']}</a></li>
+				    <li  role="presentation" class="#{subscribeMeBBean.step==2?'active':'none'}"> <a href="#step2"  role="tab">#{msgs['subscribeme.step2']}</a></li>
+				    <li role="presentation" class="#{subscribeMeBBean.step==3?'active':'none'}"><a href="#step3"  role="tab">#{msgs['subscribeme.step3']}</a></li>
+			  	</ul>
+			  	
+			</div>
+		</div>	 
+	
+	 	<!-- Tab panes -->
+	  	<div class="tab-content">
+	  		
+		    <div role="tabpanel" class="tab-pane #{subscribeMeBBean.step==1?'active':'none'}" id="step1">
+			    <h:form id="step1Form">
+			    	<div class="row" style="min-height: 300px;">
+            			<div class="col-md-offset-1 col-md-4">  
 							<div class="form-group">
-								<label for="nickname">#{msgs['newaccount.nickname']}</label>
-								<p:inputText id="nickname" class="form-control" value="#{subscribeMeBBean.nickname}"
+								<label for="email">#{msgs['newaccount.email']}</label>
+								<p:inputText id="email" class="form-control" value="#{subscribeMeBBean.email}" 
 									required="true"
-									maxlength="16"
-									requiredMessage="#{msgs['newaccount.nick_required_msg']}" 
-									validator="#{subscribeMeCBean.validateName}" 
-									aria-describedby="nickHelpBlock"/>							
-								<p:message for="nickname" id="nickError" />
-								
+									label="#{msgs['editaccount.email']}"
+									requiredMessage="#{msgs['editaccount.required_msg']}" 
+									aria-describedby="emailHelpBlock"
+									validator="#{subscribeMeCBean.validateUniqueEmailAddress}"
+									maxlength="64">
+									<f:validator validatorId="com.greco.validators.EmailValidator" />
+								</p:inputText>
+								<p:message for="email" />
 							</div>
 						</div>
-						
-						<div class="col-md-6"> 
-							<span id="nickHelpBlock" class="help-block text-justify">#{msgs['newaccount.nick_note']}</span>
+		            	<div class="col-md-6"> 
+		            		<span id="emailHelpBlock" class="help-block text-justify">#{msgs['newaccount.email_note']}</span>
+		            	</div>
+		            </div>
+		            <div class="row">
+            			<div class="col-md-offset-1 col-md-10">
+            				<div class="text-right">
+            					<h:commandButton class="btn btn-primary btn-lg btnNext" value="#{msgs['subscribeme.next']}"
+									action="#{subscribeMeCBean.gotoStep2}"	/> 
+            					
+							</div>
+            			</div>
+            		</div>
+            	</h:form>
+		    </div>
+		  
+		    
+		    <div role="tabpanel" class="tab-pane #{subscribeMeBBean.step==2?'active':'none'}" id="step2">
+		    <h:form id="step2Form">
+		    	<div class="row">
+		    		
+	            	<div class="col-md-offset-1 col-md-4"> 
+	           
+						<div class="form-group">
+							<label for="nickname">#{msgs['newaccount.nickname']}</label>
+							<p:inputText id="nickname" class="form-control" value="#{subscribeMeBBean.nickname}"
+								required="true"
+								maxlength="16"
+								requiredMessage="#{msgs['newaccount.nick_required_msg']}" 
+								validator="#{subscribeMeCBean.validateName}" 
+								aria-describedby="nickHelpBlock"/>							
+							<p:message for="nickname" id="nickError" />
+							
 						</div>
 					</div>
-					<div class="row">
-		            	<div class="col-md-offset-1 col-md-4">
-				
+					
+					<div class="col-md-6"> 
+						<span id="nickHelpBlock" class="help-block text-justify">#{msgs['newaccount.nick_note']}</span>
+					</div>
+				</div>
+				<div class="row">
+	            	<div class="col-md-offset-1 col-md-4">
+			
+		           		<div class="form-group">	
+							<label for="myData">#{msgs['newaccount.mydata']}</label>
+							<p:inputTextarea id="myData" class="form-control" value="#{subscribeMeBBean.mydata}" rows="3" cols="58" maxlength="256" 
+									counter="display"
+									counterTemplate="#{msgs['editaccount.remaining_chars']}"
+									aria-describedby="noteHelpBlock"/>
+							<p:outputLabel id="display" />
+								
+						</div>
+					</div>	
+					<div class="col-md-6">
+						<span id="noteHelpBlock" class="help-block text-justify">#{msgs['newaccount.data_note']}</span>	 
+					</div>			
+				</div>	
+				<div class="row">
+	            	<div class="col-md-offset-1 col-md-4">
+						<div class="form-group">			
+							<label for="pwd">#{msgs['newaccount.pwd']}</label>
+							<p:password id="pwd" value="#{subscribeMeBBean.password}"
+								class="form-control"
+								match="passwordConfirm" maxlength="16" required="true" redisplay="true"	
+								label="#{msgs['newaccount.pwd']}"
+								requiredMessage="#{msgs['newaccount.pwd_required_msg']}"
+								validatorMessage="#{msgs['newaccount.pwd_validator_msg']}"/>
+							<p:message for="pwd" id="pwdError" />
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<label for="passwordConfirm">#{msgs['newaccount.pwd_confirm']}</label>
+							<p:password id="passwordConfirm" class="form-control" value="#{subscribeMeBBean.password}" redisplay="true"/>
+							<p:message for="passwordConfirm" id="passwordConfirmError" />
+						</div>
+					</div>
+					
+				</div>
+				 <div class="row">
+           			<div class="col-md-offset-1 col-md-2 btn-group">
+           				<div class="text-left">
+            				<h:commandButton class="btn btn-lg btn-default" immediate="true" value="#{msgs['subscribeme.back']}"
+								action="#{subscribeMeCBean.gotoStep1}"	/>
+						</div>
+					</div>
+					<div class="col-md-offset-6 col-md-2 btn-group">
+            			<div class="text-right">
+            				<h:commandButton class="btn btn-lg btn-primary" value="#{msgs['subscribeme.next']}"
+								action="#{subscribeMeCBean.gotoStep3}"	/>
+						</div>
+           			</div>
+           		</div>
+           	</h:form>
+		    </div>
+		    
+		    
+		    <div role="tabpanel" class="tab-pane #{subscribeMeBBean.step==3?'active':'none'}" id="step3">
+			   	<h:form id="step3Form">
+			   		<div class="row" style="min-height: 300px;">
+				   		<div class="col-md-offset-1 col-md-4">				
 			           		<div class="form-group">	
-								<label for="myData">#{msgs['newaccount.mydata']}</label>
-								<p:inputTextarea id="myData" class="form-control" value="#{subscribeMeBBean.mydata}" rows="3" cols="58" maxlength="256" 
+								<label for="application">#{msgs['newaccount.application']}</label>
+								<p:inputTextarea id="myData" class="form-control" value="#{subscribeMeBBean.application}" rows="3" cols="58" maxlength="256" 
 										counter="display"
 										counterTemplate="#{msgs['editaccount.remaining_chars']}"
-										aria-describedby="noteHelpBlock"/>
+										aria-describedby="applicationHelpBlock"/>
 								<p:outputLabel id="display" />
-									
 							</div>
 						</div>	
 						<div class="col-md-6">
-							<span id="noteHelpBlock" class="help-block text-justify">#{msgs['newaccount.data_note']}</span>	 
-						</div>			
-					</div>	
-					<div class="row">
-		            	<div class="col-md-offset-1 col-md-4">
-							<div class="form-group">			
-								<label for="pwd">#{msgs['newaccount.pwd']}</label>
-								<p:password id="pwd" value="#{subscribeMeBBean.password}"
-									class="form-control"
-									match="passwordConfirm" maxlength="16" required="true" redisplay="true"	
-									label="#{msgs['newaccount.pwd']}"
-									requiredMessage="#{msgs['newaccount.pwd_required_msg']}"
-									validatorMessage="#{msgs['newaccount.pwd_validator_msg']}"/>
-								<p:message for="pwd" id="pwdError" />
-							</div>
+							<span id="applicationHelpBlock" class="help-block text-justify">#{msgs['newaccount.application_note']}</span>	 
 						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="passwordConfirm">#{msgs['newaccount.pwd_confirm']}</label>
-								<p:password id="passwordConfirm" class="form-control" value="#{subscribeMeBBean.password}" redisplay="true"/>
-								<p:message for="passwordConfirm" id="passwordConfirmError" />
-							</div>
-						</div>
-						
-					</div>
-					 <div class="row">
-            			<div class="col-md-offset-1 col-md-10 btn-group">
-            				<div class="text-right">
-	            				<h:commandButton class="btn btn-lg btn-default" immediate="true" value="#{msgs['subscribeme.back']}"
-									action="#{subscribeMeCBean.gotoStep1}"	/>
-							</div>
-	            			<div class="text-left">
-	            				<h:commandButton class="btn btn-lg btn-primary" value="#{msgs['subscribeme.next']}"
-									action="#{subscribeMeCBean.gotoStep3}"	/>
-							</div>
-            			</div>
-            		</div>
-            	</h:form>
-			    </div>
-			    
-			    
-			    <div role="tabpanel" class="tab-pane #{subscribeMeBBean.step==3?'active':'none'}" id="step3">
-			   	<h:form id="step3Form">
+			   		</div>
 			    	<div class="row">
-            			<div class="col-md-offset-1 col-md-10 btn-group">
-            				<div class="text-right">
+	           			<div class="col-md-offset-1 col-md-2 btn-group">
+	           				<div class="text-left">
 	            				<h:commandButton class="btn btn-lg btn-default" immediate="true" value="#{msgs['subscribeme.back']}"
 									action="#{subscribeMeCBean.gotoStep2}"	/>
 	            			</div>
-	            			<div class="text-left">
+	            		</div>
+						<div class="col-md-offset-6 col-md-2 btn-group">
+	            			<div class="text-right">
 	            				<h:commandButton class="btn btn-lg btn-primary" value="#{msgs['subscribeme.finish']}"
 									action="#{subscribeMeCBean.submit}"	/>
 							</div>
-            			</div>
-            		</div>
-            	</h:form>
-			    </div>
-			    
-		  	</div>
-	
-		
-		</div>
+	           			</div>
+	           		</div>
+	           	</h:form>
+		    </div>	    
+	  	</div>	
 	</ui:define>
 </ui:composition>
 </body>

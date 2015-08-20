@@ -678,14 +678,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>sections/subscribeme.xhtml</display-name>
-		<from-view-id>/sections/subscribeme.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>completed</from-outcome>
-			<to-view-id>/sections/subscriptioncomplete.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
 		<display-name>/sections/admin/newaccount.xhtml</display-name>
 		<from-view-id>/sections/admin/newaccount.xhtml</from-view-id>
 		<navigation-case>
@@ -716,30 +708,6 @@
 		<navigation-case>
 			<from-outcome>editAccount</from-outcome>
 			<to-view-id>/sections/editaccount.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>index.xhtml</display-name>
-		<from-view-id>/sections/login/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>subscribeme</from-outcome>
-			<to-view-id>/sections/subscribeme.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>sections/subscribeme.xhtml</display-name>
-		<from-view-id>/sections/subscribeme.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>cancel</from-outcome>
-			<to-view-id>/sections/login/login.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>index.xhtml</display-name>
-		<from-view-id>/sections/login/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>nomember</from-outcome>
-			<to-view-id>/sections/login/nomember.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -869,6 +837,22 @@
 		<navigation-case>
 			<from-outcome>subscribeme</from-outcome>
 			<to-view-id>/sites/subscribeme.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sites/welcome.xhtml</display-name>
+		<from-view-id>/sites/welcome.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>nomember</from-outcome>
+			<to-view-id>/sections/login/nomember.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sites/subscribeme.xhtml</display-name>
+		<from-view-id>/sites/subscribeme.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>completed</from-outcome>
+			<to-view-id>/sections/subscriptioncomplete.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<validator>

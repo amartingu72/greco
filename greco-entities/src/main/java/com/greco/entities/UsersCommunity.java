@@ -18,6 +18,8 @@ public class UsersCommunity implements Serializable {
 	@Id
 	private int id;
 
+	private String application;
+
 	private Timestamp registerDate;
 
 	private int status;
@@ -43,6 +45,14 @@ public class UsersCommunity implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getApplication() {
+		return this.application;
+	}
+
+	public void setApplication(String application) {
+		this.application = application;
 	}
 
 	public Timestamp getRegisterDate() {

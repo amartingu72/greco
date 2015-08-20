@@ -73,6 +73,7 @@ create table users_communities (
 	registerDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                   ON UPDATE CURRENT_TIMESTAMP,
 	status int not null default 0,
+	application varchar(256),
 	FOREIGN KEY (community_id) REFERENCES communities (id),
 	FOREIGN KEY (user_id) REFERENCES users (id),
 	FOREIGN KEY (profile_id) REFERENCES profiles (id)

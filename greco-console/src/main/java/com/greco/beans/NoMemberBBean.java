@@ -7,6 +7,7 @@ import com.greco.services.helpers.CommunityItem;
 public class NoMemberBBean {
 	UserSBean userSBean;  //Inyectado
 	UserDataProvider userDataProvider;  //Inyectado
+	String application;
 	CommunityItem[] communityItems;
 
 	
@@ -40,6 +41,14 @@ public class NoMemberBBean {
 
 	public void setCommunityItems(CommunityItem[] communityItems) {
 		this.communityItems = communityItems;
+	}
+
+	public String getApplication() {
+		return application;
+	}
+
+	public void setApplication(String application) {
+		this.application = application;
 	}
 	
 	

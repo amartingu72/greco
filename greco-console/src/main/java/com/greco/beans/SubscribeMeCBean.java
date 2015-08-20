@@ -124,7 +124,7 @@ public class SubscribeMeCBean {
 		//Creamos usuario
 		int userId=userDataProvider.addUser(userItem);
 		//Subscribimos el usuario a la comunidad.
-		userDataProvider.subscribe(userId, subscribeMeBBean.getCommunityId());
+		userDataProvider.subscribe(userId, subscribeMeBBean.getCommunityId(),subscribeMeBBean.getApplication());
 		
 		//Creamos mensaje para log
 		//Preparamos el mensaje para el log.

@@ -233,7 +233,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 	
 	@Override
 	@Transactional
-	public void subscribe(int userId, int communityId){
+	public void subscribe(int userId, int communityId, String application){
 		
 		
 		//Suscribimos a la comunidad en estado "pendiente".
@@ -246,6 +246,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 		usersCommunity.setProfile(profile);
 		usersCommunity.setStatus(StatusItem.PENDING);
 		usersCommunity.setUser(user);
+		usersCommunity.setApplication(application);
 		this.userCommunitiesDAO.add(usersCommunity);
 		
 	}

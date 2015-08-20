@@ -35,8 +35,9 @@ public interface UserDataProvider {
 	 * Suscribe un usuario a una comunidad..
 	 * @param userItem Item de usuario
 	 * @param communityId Id de comunidad.
+	 * @param application Texto en base al cual el administrador decidirá si acepta la suscripción.
 	 */
-	public abstract void subscribe(int userId, int communityId);
+	public abstract void subscribe(int userId, int communityId, String application);
 	
 	/**
 	 * Guarda el usuario pasado como parámetro.

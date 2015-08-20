@@ -17,9 +17,7 @@ public class SubscribeMeBBean {
 	private String password;
 	private String email;
 	private String mydata;
-	//El botón de login es una opción de volver al lógin cuando, al registrarse, observamos que el usuario
-	//ya existe.
-	private boolean showLoginBtn;
+	private String application;
 	int step; //Indica el paso en que nos encontramos
 	
 	
@@ -30,7 +28,6 @@ public class SubscribeMeBBean {
 		String sCom=map.get("communityid");
 		communityId=Integer.parseInt(sCom);
 		String sStep=map.get("step");
-		this.showLoginBtn=false;
 		step=Integer.parseInt(sStep); //Situamos al usuario en el primer paso indicado.
 	}
 	
@@ -69,21 +66,17 @@ public class SubscribeMeBBean {
 		this.mydata = mydata;
 	}
 
-	public boolean isShowLoginBtn() {
-		return showLoginBtn;
-	}
-
-	public void setShowLoginBtn(boolean showLoginBtn) {
-		this.showLoginBtn = showLoginBtn;
-	}
-
 	public int getStep() {
 		return step;
 	}
 	public void setStep(int step) {
 		this.step = step;
 	}
-	
-
+	public String getApplication() {
+		return application;
+	}
+	public void setApplication(String application) {
+		this.application = application;
+	}
 	
 }

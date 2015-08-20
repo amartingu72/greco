@@ -22,6 +22,9 @@ public class Reservation implements Serializable {
 
 	private int status;
 
+	@Column(name="status_date")
+	private Timestamp statusDate;
+
 	private Timestamp toDate;
 
 	//bi-directional many-to-one association to Resource
@@ -57,6 +60,14 @@ public class Reservation implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public Timestamp getStatusDate() {
+		return this.statusDate;
+	}
+
+	public void setStatusDate(Timestamp statusDate) {
+		this.statusDate = statusDate;
 	}
 
 	public Timestamp getToDate() {

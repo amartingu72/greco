@@ -7,26 +7,55 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core">
   
-<ui:composition template="/templates/login_layout.xhtml">
+<ui:composition template="/templates/sites_layout.xhtml">
+	<ui:param name="displayMenu" value="display:none"/>
 	<ui:define name="content">
 	    <h:form>
-	    	<h:messages showSummary="true" showDetail="false"/>
-			<h3>#{msgs['nomember.message']}</h3>
+	    	<div class="row">
+          		<div class="col-md-offset-1 col-md-10">
+					<h5>#{msgs['nomember.message']}</h5>
 						
-			<ul>				
-				<ui:repeat value="#{noMemberBBean.communityItems}" var="comm">
-					<li>
-						#{comm.name} (#{comm.zipcode})
-					</li>
-				</ui:repeat>			
-			</ul>
+					<ul>				
+						<ui:repeat value="#{noMemberBBean.communityItems}" var="comm">
+							<li>
+								#{comm.name} (#{comm.zipcode})
+							</li>
+						</ui:repeat>			
+					</ul>
+				</div>
+			</div>
 			
-			<h3>#{msgs['nomember.subscribe_question']}</h3>
-			
-			<p:commandButton value="#{msgs['nomember.yes_btn']}" action="#{noMemberCBean.subscribe}" ajax="false">
-				<f:param name="communityid" value="#{noMemberBBean.userSBean.communityId}"/>
-			</p:commandButton>	
-			<p:commandButton value="#{msgs['nomember.no_btn']}" action="#{noMemberCBean.cancel}" ajax="false"/>
+			<div class="row" style="min-height: 300px;">
+		   		<div class="col-md-offset-1 col-md-4">				
+	           		<div class="form-group">	
+						<label for="application">#{msgs['newaccount.application']}</label>
+						<p:inputTextarea id="myData" class="form-control" value="#{noMemberBBean.application}" rows="3" cols="58" maxlength="256" 
+								counter="display"
+								counterTemplate="#{msgs['editaccount.remaining_chars']}"
+								aria-describedby="applicationHelpBlock"/>
+						<p:outputLabel id="display" />
+					</div>
+				</div>	
+				<div class="col-md-6">
+					<span id="applicationHelpBlock" class="help-block text-justify">#{msgs['newaccount.application_note']}</span>	 
+				</div>
+	   		</div>
+	    	<div class="row">
+          		<div class="col-md-offset-4 col-md-2 btn-group">
+          			<div class="text-left">
+           				<h:commandButton class="btn btn-lg btn-default" immediate="true" value="#{msgs['nomember.no_btn']}"
+							action="#{noMemberCBean.cancel}">
+							<f:param name="communityid" value="#{noMemberBBean.userSBean.communityId}"/>
+						</h:commandButton>
+           			</div>
+           		</div>
+				<div class="col-md-offset-2 col-md-2 btn-group">
+           			<div class="text-right">
+           				<h:commandButton class="btn btn-lg btn-primary" value="#{msgs['nomember.yes_btn']}"
+							action="#{noMemberCBean.subscribe}"	/>
+					</div>
+          		</div>
+          	</div>
 					
 		</h:form>
 	</ui:define>

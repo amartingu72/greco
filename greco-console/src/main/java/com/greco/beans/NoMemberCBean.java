@@ -12,7 +12,7 @@ public class NoMemberCBean {
 		//Suscribimos al usuario en la comunidad como pendiente.
 		//Subscribimos el usuario a la comunidad.
 		UserSBean user=noMemberBBean.getUserSBean();
-		userDataProvider.subscribe(user.getId(), user.getCommunityId());
+		userDataProvider.subscribe(user.getId(), user.getCommunityId(),noMemberBBean.getApplication());
 				
 		//Creamos mensaje para log
 		
@@ -29,7 +29,7 @@ public class NoMemberCBean {
 	}
 
 	public String cancel(){
-		String ret="/sections/login/login?communityid="+ this.noMemberBBean.getUserSBean().getCommunityId() +"&faces-redirect=true";
+		String ret="/sites?communityid="+ this.noMemberBBean.getUserSBean().getCommunityId() +"&faces-redirect=true";
 		return ret;
 		
 	}
