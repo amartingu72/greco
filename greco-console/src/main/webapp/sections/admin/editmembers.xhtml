@@ -14,18 +14,13 @@
 			<h:form id="editMembersForm">
 				
 				<p:growl id="messages" showSummary="true" showDetail="true"/>
-				<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
+				<h:inputHidden id="id" value="#{communitiesSBean.selectedItem.id}"/>
 				
-				<div class="row">
-					<div class="col-md-offset-1 col-md-11">
-						<h5>#{communitiesSBean.selectedItem.name}</h5>
-					</div>
-					
-				</div>
+				
 				<div class="row">
 					<div class="hidden-xs hidden-sm col-md-offset-1 col-md-10">
 							
-						<p:dataTable id="membersTable" var="member" value="#{editCommunityBBean.members}"
+						<p:dataTable id="membersTable" var="member" value="#{editMembershipBBean.members}"
 							tableStyleClass="ui-table-columntoggle" 					
 							paginator="true" 
 							rows="8"
@@ -64,7 +59,7 @@
 										<i class="fa fa-circle fa-stack-2x"></i>
 										<i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>
 										</span>
-										<f:setPropertyActionListener value="#{member}" target="#{editCommunityBBean.selectedMember}" />
+										<f:setPropertyActionListener value="#{member}" target="#{editMembershipBBean.selectedMember}" />
 									</h:commandLink>
 								</li>
 							</ul>
@@ -78,7 +73,7 @@
 				</div>
 				<!-- Tabla para móviles (menos de 780px)  -->
 				<div class="hidden-md hidden-lg col-md-offset-1 col-md-10">			
-					<p:dataTable id="membersTable2" var="member" value="#{editCommunityBBean.members}"
+					<p:dataTable id="membersTable2" var="member" value="#{editMembershipBBean.members}"
 						tableStyleClass="ui-table-columntoggle" 					
 						paginator="true" 
 						rows="8"
@@ -106,14 +101,14 @@
 					</p:dataTable>
 				</div>
 			</div> 
-				
+			
 			<p:dialog
 				header="#{msgs['editcommunity.unsubscribe_confirm_header']}"
 				widgetVar="summaryConfirmDialog">
 				<p:outputPanel id="confirm_remove">
 					<p:outputPanel styleClass="ui-icon ui-confirm-dialog-severity ui-icon-alert display-inline-block">
 					</p:outputPanel>
-      				#{msgs['editcommunity.unsubscribe_confirm_msg']} #{editCommunityBBean.selectedMember.nickname} 
+      				#{msgs['editcommunity.unsubscribe_confirm_msg']} #{editMembershipBBean.selectedMember.nickname} 
    				</p:outputPanel>
 				<p:commandButton value="#{msgs['editcommunity.unsubscribe_yes']}"
 					update=":editMembersForm:membersTable" 

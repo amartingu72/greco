@@ -1,8 +1,6 @@
 package com.greco.beans;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-
-import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.except.user.NoCommunityAdminException;
 import com.greco.services.helpers.MemberItem;
 import com.greco.utils.MyLogger;
@@ -12,8 +10,8 @@ public class EditMembershipCBean {
 	
 	private static final MyLogger log = MyLogger.getLogger(EditMembershipCBean.class.getName());
 	
-	UserCommunityDataProvider userCommunityDataProvider; //Inyectado
-	EditCommunityBBean editCommunityBBean; //Inyectado
+	//UserCommunityDataProvider userCommunityDataProvider; //Inyectado
+	EditMembershipBBean editMembershipBBean; //Inyectado
 	
 	
 	/**
@@ -21,7 +19,7 @@ public class EditMembershipCBean {
 	 * @param memberItem Miembro (o candidato a miembro), afectado.
 	 */
 	public void saveMembershipStatus(MemberItem memberItem){
-		userCommunityDataProvider.saveStatus(memberItem);
+		editMembershipBBean.getUserCommunityDataProvider().saveStatus(memberItem);
 		//Generamos mensaje para el log.
 		String msg="UserCommunityID (" + memberItem.getMemberId() + ") ";
 		msg += "New status ("+ memberItem.getStatus() + ")";
@@ -35,7 +33,7 @@ public class EditMembershipCBean {
 	 */
 	public void saveMemberProfile(MemberItem memberItem){
 		try {
-			userCommunityDataProvider.saveMemberProfile(memberItem);
+			editMembershipBBean.getUserCommunityDataProvider().saveMemberProfile(memberItem);
 			//Generamos mensaje para el log.
 			
 			String msg="UserCommunityID (" + memberItem.getMemberId() + ") ";
@@ -58,9 +56,9 @@ public class EditMembershipCBean {
 	public void unsubscribe(){
 		
 		try {
-			userCommunityDataProvider.removeMember(this.editCommunityBBean.getSelectedMember());
+			editMembershipBBean.getUserCommunityDataProvider().removeMember(this.editMembershipBBean.getSelectedMember());
 			//Grabamos el log
-			String msg="userID (" + this.editCommunityBBean.getSelectedMember().getId() + ") ";
+			String msg="userID (" + this.editMembershipBBean.getSelectedMember().getId() + ") ";
 			log.log("007003", msg ); //007003=INFO|Baja de miembro:
 			
 		} catch (NoCommunityAdminException e) {
@@ -72,24 +70,19 @@ public class EditMembershipCBean {
 		
 		
 	}
-	
+
 	//GETTERs y SETTERs
+	public EditMembershipBBean getEditMembershipBBean() {
+		return editMembershipBBean;
+	}
+
+	public void setEditMembershipBBean(EditMembershipBBean editMembershipBBean) {
+		this.editMembershipBBean = editMembershipBBean;
+	}
 	
-	public UserCommunityDataProvider getUserCommunityDataProvider() {
-		return userCommunityDataProvider;
-	}
+	
+	
+	
 
-	public void setUserCommunityDataProvider(
-			UserCommunityDataProvider userCommunityDataProvider) {
-		this.userCommunityDataProvider = userCommunityDataProvider;
-	}
-
-	public EditCommunityBBean getEditCommunityBBean() {
-		return editCommunityBBean;
-	}
-
-	public void setEditCommunityBBean(EditCommunityBBean editCommunityBBean) {
-		this.editCommunityBBean = editCommunityBBean;
-	}
 	
 }

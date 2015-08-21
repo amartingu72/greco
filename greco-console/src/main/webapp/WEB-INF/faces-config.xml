@@ -144,11 +144,6 @@
 			<property-class>java.util.List</property-class>
 			<value>#{resourcesSBean.myResources}</value>
 		</managed-property>
-		<managed-property>
-			<property-name>userCommunityDataProvider</property-name>
-			<property-class>com.greco.services.UserCommunityDataProvider</property-class>
-			<value>#{userCommunityDataProvider}</value>
-		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<description>Bean controllador de la edición de comunidades.</description>
@@ -657,6 +652,17 @@
 			<property-name>reservationsBBean</property-name>
 			<property-class>com.greco.beans.ReservationsBBean</property-class>
 			<value>#{reservationsBBean}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<description>Backing bean para la página de administración de miembros de una comunidad.</description>
+		<managed-bean-name>editMembershipBBean</managed-bean-name>
+		<managed-bean-class>com.greco.beans.EditMembershipBBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>userCommunityDataProvider</property-name>
+			<property-class>com.greco.services.UserCommunityDataProvider</property-class>
+			<value>#{userCommunityDataProvider}</value>
 		</managed-property>
 	</managed-bean>
 	<navigation-rule>

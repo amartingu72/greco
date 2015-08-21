@@ -5,11 +5,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import org.primefaces.model.LazyDataModel;
 import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.helpers.CommunityItem;
-import com.greco.services.helpers.LazyMembersDataModel;
-import com.greco.services.helpers.MemberItem;
 import com.greco.services.helpers.ResourceItem;
 
 public class EditCommunityBBean implements Serializable{
@@ -28,11 +25,7 @@ public class EditCommunityBBean implements Serializable{
 	private boolean saveBtnVisible;
 	
 	
-	private List <ResourceItem> myResources; //inyectado
-	
-	private LazyDataModel<MemberItem> members;
-	
-	private UserCommunityDataProvider userCommunityDataProvider; //inyectado
+	private List <ResourceItem> myResources; //inyectado	
 	
 	
 	
@@ -40,7 +33,7 @@ public class EditCommunityBBean implements Serializable{
 	private ResourceItem selectedItem;
 	
 	//Miembro seleccionado cuando se pulsa eliminar (o dar de baja).
-	private MemberItem selectedMember;
+	//private MemberItem selectedMember;
 	
 	
 	@PostConstruct
@@ -50,7 +43,7 @@ public class EditCommunityBBean implements Serializable{
 		CommunityItem item=comms.getSelectedItem();
 		
 		//Inicializo el objeto que gestionará la tabla de miembros.
-		members=new LazyMembersDataModel(item, userCommunityDataProvider);
+		//members=new LazyMembersDataModel(item, userCommunityDataProvider);
 						
 		this.id=item.getId();
 		this.name=item.getName();
@@ -151,22 +144,7 @@ public class EditCommunityBBean implements Serializable{
 		this.profiles = profiles;
 	}
 
-	public LazyDataModel<MemberItem> getMembers() {
-		return members;
-	}
-
-	public void setMembers(LazyDataModel<MemberItem> members) {
-		this.members = members;
-	}
-
-	public UserCommunityDataProvider getUserCommunityDataProvider() {
-		return userCommunityDataProvider;
-	}
-
-	public void setUserCommunityDataProvider(
-			UserCommunityDataProvider userCommunityDataProvider) {
-		this.userCommunityDataProvider = userCommunityDataProvider;
-	}
+	
 
 	public boolean isSaveBtnVisible() {
 		return saveBtnVisible;
@@ -176,13 +154,7 @@ public class EditCommunityBBean implements Serializable{
 		this.saveBtnVisible = saveBtnVisible;
 	}
 
-	public MemberItem getSelectedMember() {
-		return selectedMember;
-	}
-
-	public void setSelectedMember(MemberItem selectedMember) {
-		this.selectedMember = selectedMember;
-	}
+	
 
 	public String getSite() {
 		return site;

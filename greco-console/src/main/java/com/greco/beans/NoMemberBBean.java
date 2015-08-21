@@ -14,7 +14,8 @@ public class NoMemberBBean {
 	@PostConstruct
 	public void initilize(){
 		//Obtenemos las comunidades en las que está suscrito.
-		communityItems=userDataProvider.getMyComunities(userSBean);		
+		communityItems=userDataProvider.getMyComunities(userSBean);	
+		
 	}
 	
 	//GETTERs y SETTERs

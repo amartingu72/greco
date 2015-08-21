@@ -29,7 +29,7 @@ public class NoMemberCBean {
 	}
 
 	public String cancel(){
-		String ret="/sites?communityid="+ this.noMemberBBean.getUserSBean().getCommunityId() +"&faces-redirect=true";
+		String ret="/sections/login/logout?communityid=" + this.noMemberBBean.getUserSBean().getCommunityId() +"&faces-redirect=true";
 		return ret;
 		
 	}
