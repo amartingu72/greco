@@ -26,6 +26,14 @@ public interface UserCommunityDataProvider{
 	public abstract List<MemberItem> findRangeOrder(CommunityItem communityItem, Map<String,Object> criteria,int start, int max, String sortField, SortOrder sortOrder);
 	
 	/**
+	 * Recupera las suscriciones pendientes de ser aprovadas de una comunidad.
+	 * @param communityItem Comunidad.
+	 * @return Lista de suscripciones
+	 */
+	public abstract List<MemberItem> findPendingMemberships(CommunityItem communityItem);
+	
+	
+	/**
 	 * Cambia el estado de un miembro: pendiente a miembro o viceversa.
 	 * @param memberItem Item que define al miembro y su estado.
 	 */

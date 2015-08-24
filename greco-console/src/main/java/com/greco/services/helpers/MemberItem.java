@@ -24,6 +24,11 @@ public class MemberItem extends UserItem{
 	private StatusItem status;
 	
 	/**
+	 * Datos relacionados con la suscripción. Dotará de criterio el adminstrador para admitirle en la comunidad o no.
+	 */
+	private String application;
+	
+	/**
 	 * Indica si el miembro tiene perfil de administrador.
 	 * @return Si(true) o no (false).
 	 */
@@ -105,6 +110,14 @@ public class MemberItem extends UserItem{
 
 	public void setMemberId(int memberId) {
 		this.memberId = memberId;
+	}
+
+	public String getApplication() {
+		return application;
+	}
+
+	public void setApplication(String application) {
+		this.application = application;
 	}
 
 	

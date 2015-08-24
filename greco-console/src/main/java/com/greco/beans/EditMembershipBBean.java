@@ -1,5 +1,7 @@
 package com.greco.beans;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 
@@ -11,8 +13,15 @@ import com.greco.services.helpers.LazyMembersDataModel;
 import com.greco.services.helpers.MemberItem;
 
 public class EditMembershipBBean {
+	
+	//Para la pestaña de consulta avanzado
 	private LazyDataModel<MemberItem> members;
+	
+	//Suscripciones pendientes de aprobación. Para la pestaña de inicio.
+	private List<MemberItem> pendings; 
+	
 	private UserCommunityDataProvider userCommunityDataProvider; //inyectado
+	
 	//Miembro seleccionado cuando se pulsa eliminar (o dar de baja).
 	private MemberItem selectedMember;
 	
@@ -25,6 +34,9 @@ public class EditMembershipBBean {
 			
 		//Inicializo el objeto que gestionará la tabla de miembros.
 		members=new LazyMembersDataModel(item, userCommunityDataProvider);
+		
+		//Cargo las fichas de pendientes de suscripción
+		pendings=userCommunityDataProvider.findPendingMemberships(item);
 	}
 	
 	public int getWaitingMembers(){
@@ -72,6 +84,14 @@ public class EditMembershipBBean {
 
 	public void setSelectedMember(MemberItem selectedMember) {
 		this.selectedMember = selectedMember;
+	}
+
+	public List<MemberItem> getPendings() {
+		return pendings;
+	}
+
+	public void setPendings(List<MemberItem> pendings) {
+		this.pendings = pendings;
 	}
 	
 	

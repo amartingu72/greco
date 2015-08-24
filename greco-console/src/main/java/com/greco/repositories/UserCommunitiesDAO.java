@@ -37,6 +37,15 @@ public interface UserCommunitiesDAO {
 	 */
 	public List<UsersCommunity> findRangeOrder(int communityID, Map<String,Object> criteria,int start, int max, String sortField, SortOrder sortOrder);
 	
+	
+	/**
+	 * Recupera las suscripciones pendintes de aprovación de una comunidad.
+	 * @param communityID
+	 * @return 
+	 */
+	public List<UsersCommunity> findPendingMemberships(int communityID);
+
+	
 	/**
 	 * Acualiza el estado en la relación UserCommunities
 	 * @param userCommunity_id Id de la tabla UserCommunities

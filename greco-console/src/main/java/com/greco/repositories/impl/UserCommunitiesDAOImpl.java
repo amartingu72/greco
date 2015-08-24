@@ -161,6 +161,17 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 		return status;
 		
 	}
+
+
+	@Override
+	public List<UsersCommunity> findPendingMemberships(int communityID) {
+		String sql = "SELECT uc FROM UsersCommunity AS uc WHERE uc.community.id=:community_id AND uc.status=1";
+		Query q = em.createQuery(sql);
+		q.setParameter("community_id", communityID);
+		@SuppressWarnings("unchecked")	
+		List<UsersCommunity> results= q.getResultList();
+		return results;
+	}
 	
 	
 	

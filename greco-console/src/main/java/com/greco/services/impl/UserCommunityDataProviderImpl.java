@@ -47,7 +47,7 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
         	memberItem.setEmail(uc.getUser().getEmail());
         	memberItem.setId(uc.getUser().getId()); 
         	memberItem.setJoinningDate(uc.getRegisterDate());
-        	
+        	memberItem.setApplication(uc.getApplication());
         	memberItem.setMydata(uc.getUser().getMydata());
         	memberItem.setNickname(uc.getUser().getNickname());
         	memberItem.setProfile(uc.getUser().getProfile());
@@ -79,6 +79,36 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
 	@Transactional
 	public void removeMember(MemberItem memberItem) throws NoCommunityAdminException{ 	
 		userCommunitiesDAO.remove(memberItem.getMemberId());
+	}
+
+	@Override
+	public List<MemberItem> findPendingMemberships(CommunityItem communityItem) {
+		List<UsersCommunity> data = userCommunitiesDAO.findPendingMemberships(communityItem.getId());
+        Iterator<UsersCommunity> it=data.iterator();
+        MemberItem memberItem;
+        UsersCommunity uc;
+        List<MemberItem> members=new ArrayList<MemberItem>();
+        while ( it.hasNext() ) {
+        	uc=it.next();
+        	memberItem=new MemberItem();
+        	memberItem.setMemberId(uc.getId());
+        	memberItem.setCommunityId(communityItem.getId());
+        	memberItem.setEmail(uc.getUser().getEmail());
+        	memberItem.setId(uc.getUser().getId()); 
+        	memberItem.setJoinningDate(uc.getRegisterDate());
+        	memberItem.setApplication(uc.getApplication());
+        	memberItem.setMydata(uc.getUser().getMydata());
+        	memberItem.setNickname(uc.getUser().getNickname());
+        	memberItem.setProfile(uc.getUser().getProfile());
+        	
+        	memberItem.setStatus(new StatusItem(uc.getStatus()));
+        	members.add(memberItem);
+        	Profile profile=uc.getProfile();
+        	ProfileItem profileItem=new ProfileItem(profile.getId(), 
+        			profile.getProfile(),profile.getDescription());
+        	memberItem.setMemberProfile(profileItem);
+        }
+        return members;
 	}
 	
 	
