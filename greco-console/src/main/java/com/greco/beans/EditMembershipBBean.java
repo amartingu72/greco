@@ -25,7 +25,13 @@ public class EditMembershipBBean {
 	//Miembro seleccionado cuando se pulsa eliminar (o dar de baja).
 	private MemberItem selectedMember;
 	
+	//Contadores
+	private int adminCounter;
+	private int pendingsCounter;
+	private int membersCounter;
+	private int summary;   //Suma de los anteriores.
 	
+
 	@PostConstruct
 	public void initialize() {
 		//Obtengo la comunidad seleccionada de Communities
@@ -37,23 +43,16 @@ public class EditMembershipBBean {
 		
 		//Cargo las fichas de pendientes de suscripción
 		pendings=userCommunityDataProvider.findPendingMemberships(item);
+		
+		//Asigno valor inicial a los contadores.
+		this.pendingsCounter=pendings.size();
+		this.adminCounter=this.userCommunityDataProvider.getAdmins(item);
+		this.membersCounter=this.userCommunityDataProvider.getMembers(item);
+		this.summary=this.adminCounter+this.membersCounter+this.pendingsCounter;
+		
 	}
 	
-	public int getWaitingMembers(){
-		return 0;
-	}
 	
-	public int getAdmins(){
-		return 0;
-	}
-	
-	public int getActiveMembers(){
-		return 0;
-	} 
-	
-	public int getTotalMembers(){
-		return getWaitingMembers()+getAdmins()+getActiveMembers();
-	} 
 	
 	//GETTERS y SETTERs
 
@@ -93,7 +92,37 @@ public class EditMembershipBBean {
 	public void setPendings(List<MemberItem> pendings) {
 		this.pendings = pendings;
 	}
-	
-	
+
+	public int getAdminCounter() {
+		return adminCounter;
+	}
+
+	public void setAdminCounter(int adminCounter) {
+		this.adminCounter = adminCounter;
+	}
+
+	public int getPendingsCounter() {
+		return pendingsCounter;
+	}
+
+	public void setPendingsCounter(int pendingsCounter) {
+		this.pendingsCounter = pendingsCounter;
+	}
+
+	public int getMembersCounter() {
+		return membersCounter;
+	}
+
+	public void setMembersCounter(int membersCounter) {
+		this.membersCounter = membersCounter;
+	}
+
+	public int getSummary() {
+		return summary;
+	}
+
+	public void setSummary(int summary) {
+		this.summary = summary;
+	}
 	
 }

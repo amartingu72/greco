@@ -418,16 +418,11 @@
 		<description>Bean controlador para la tabla de miembros de una comunidad.</description>
 		<managed-bean-name>editMembershipCBean</managed-bean-name>
 		<managed-bean-class>com.greco.beans.EditMembershipCBean</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
+		<managed-bean-scope>request</managed-bean-scope>
 		<managed-property>
-			<property-name>userCommunityDataProvider</property-name>
-			<property-class>com.greco.services.UserCommunityDataProvider</property-class>
-			<value>#{userCommunityDataProvider}</value>
-		</managed-property>
-		<managed-property>
-			<property-name>editCommunityBBean</property-name>
-			<property-class>com.greco.beans.EditCommunityBBean</property-class>
-			<value>#{editCommunityBBean}</value>
+			<property-name>editMembershipBBean</property-name>
+			<property-class>com.greco.beans.EditMembershipBBean</property-class>
+			<value>#{editMembershipBBean}</value>
 		</managed-property>
 	</managed-bean>
 	<managed-bean>

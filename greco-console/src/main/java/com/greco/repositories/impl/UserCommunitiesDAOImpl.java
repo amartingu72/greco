@@ -134,12 +134,13 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 	 * @param communityId Identificador de comunidad.
 	 * @return Número de administradores de la comunidad.
 	 */
-	private long adminCount(int communityId) {
+	@Override
+	public int adminCount(int communityId) {
 		String sql = "SELECT COUNT(uc) FROM UsersCommunity AS uc WHERE uc.profile.id=:profile_id AND uc.community.id=:community_id";
 		Query q = em.createQuery(sql);
 		q.setParameter("profile_id", ProfileItem.ADMIN);
 		q.setParameter("community_id", communityId);
-		long count = ( (Long)q.getSingleResult() ).longValue();
+		int count = ( (Long)q.getSingleResult() ).intValue();
 		return count;
 	}
 
@@ -165,12 +166,29 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 
 	@Override
 	public List<UsersCommunity> findPendingMemberships(int communityID) {
-		String sql = "SELECT uc FROM UsersCommunity AS uc WHERE uc.community.id=:community_id AND uc.status=1";
+		String sql = "SELECT uc FROM UsersCommunity AS uc WHERE uc.profile.id=:profile_id AND uc.community.id=:community_id AND uc.status=:status";
 		Query q = em.createQuery(sql);
+		q.setParameter("profile_id", ProfileItem.USER);
 		q.setParameter("community_id", communityID);
+		q.setParameter("status", PENDING_STATUS);
 		@SuppressWarnings("unchecked")	
 		List<UsersCommunity> results= q.getResultList();
 		return results;
+	}
+
+
+	
+
+
+	@Override
+	public int membersCount(int communityId) {
+		String sql = "SELECT COUNT(uc) FROM UsersCommunity AS uc WHERE uc.profile.id=:profile_id AND uc.community.id=:community_id AND uc.status=:status";
+		Query q = em.createQuery(sql);
+		q.setParameter("profile_id", ProfileItem.USER);
+		q.setParameter("community_id", communityId);
+		q.setParameter("status", SUBSCRIBED_STATUS);
+		int count = ( (Long)q.getSingleResult() ).intValue();
+		return count;
 	}
 	
 	

@@ -110,6 +110,16 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
         }
         return members;
 	}
+
+	@Override
+	public int getAdmins(CommunityItem communityItem) {		
+		return this.userCommunitiesDAO.adminCount(communityItem.getId());
+	}
+
+	@Override
+	public int getMembers(CommunityItem communityItem) {	
+		return this.userCommunitiesDAO.membersCount(communityItem.getId());
+	}
 	
 	
 }

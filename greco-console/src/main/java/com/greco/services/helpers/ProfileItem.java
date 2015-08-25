@@ -2,7 +2,7 @@ package com.greco.services.helpers;
 
 public class ProfileItem {
 	public static final int ADMIN=1; //Id en BBDD del usuario administrador.
-	
+	public static final int USER=2; //Id en BBDD del usuario miembro.
 	private int id;
 	private String name;
 	private String description;

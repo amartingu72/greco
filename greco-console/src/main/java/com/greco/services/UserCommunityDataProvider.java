@@ -53,4 +53,17 @@ public interface UserCommunityDataProvider{
 	 */
 	public abstract void removeMember(MemberItem memberItem) throws NoCommunityAdminException;
 	
+	/**
+	 * Devuelve el número de administradores.
+	 * @param communityItem Comunidad.
+	 * @return Número de administradores de una comunidad.
+	 */
+	public abstract int getAdmins(CommunityItem communityItem);
+	
+	/**
+	 * Devuelve el número de miembros suscritos a una comunidad (¡Ojo! No incluye a los pendientes de suscripción).
+	 * @param communityItem Comunidad.
+	 * @return Número de miembros de una comunidad.
+	 */
+	public abstract int getMembers(CommunityItem communityItem);
 }

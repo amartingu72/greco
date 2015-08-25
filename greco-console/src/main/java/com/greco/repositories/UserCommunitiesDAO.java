@@ -77,4 +77,18 @@ public interface UserCommunitiesDAO {
 	 */
 	public int getSubscriptionStatus(int userId, int communityId);
 	
+	/**
+	 * Indica el número usuarios administradores para una comunidad dada.
+	 * @param communityId Identificador de comunidad.
+	 * @return Número de administradores de la comunidad.
+	 */
+	public int adminCount(int communityId);
+	
+	/**
+	 * Devuelve el número de miembros suscritos a una comunidad: status=SUBSCRIBED_STATUS
+	 * @param communityID
+	 * @return Número de miembros.
+	 */
+	public int membersCount(int communityId);
+	
 }

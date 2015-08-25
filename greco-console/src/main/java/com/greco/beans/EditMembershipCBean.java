@@ -1,8 +1,10 @@
 package com.greco.beans;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
 import com.greco.services.except.user.NoCommunityAdminException;
 import com.greco.services.helpers.MemberItem;
+import com.greco.services.helpers.StatusItem;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
 
@@ -10,7 +12,7 @@ public class EditMembershipCBean {
 	
 	private static final MyLogger log = MyLogger.getLogger(EditMembershipCBean.class.getName());
 	
-	//UserCommunityDataProvider userCommunityDataProvider; //Inyectado
+	
 	EditMembershipBBean editMembershipBBean; //Inyectado
 	
 	
@@ -26,6 +28,27 @@ public class EditMembershipCBean {
 		
 		log.log("007001", msg );//007001=INFO|Cambio de estado:
 	}
+	
+	/**
+	 * Rechaza la suscripción.
+	 */
+	public void approved(MemberItem memberItem){
+		
+		memberItem.setStatus(new StatusItem(StatusItem.MEMBER));
+		saveMembershipStatus(memberItem);
+		int count=editMembershipBBean.getPendingsCounter();
+		editMembershipBBean.setPendingsCounter(count-1);
+		count=editMembershipBBean.getMembersCounter();
+		editMembershipBBean.setMembersCounter(count+1);
+		
+    	//Mostramos mensaje de éxito.
+		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+				memberItem.getNickname(),Warnings.getString("editmembership.approved_detail")); 
+		FacesContext.getCurrentInstance().addMessage("editMembersForm:membership_msgs", fm);
+	}
+	
+	
+	
 	
 	/**
 	 * Guarda el cambio de perfil (admin o usr), de un miembro.

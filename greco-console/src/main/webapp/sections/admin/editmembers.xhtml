@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -30,29 +30,33 @@
 						<div class="row">
 							<div class="col-md-offset-1 col-md-3">
 								...
-								<ul class="list-group">
-  									<li class="list-group-item">
-    									<span class="badge">2</span>
-    									Administradores
-  									</li>
-  									<li class="list-group-item">
-    									<span class="badge">14</span>
-    									Suscripciones en espera
-  									</li>
-  									<li class="list-group-item">
-    									<span class="badge">50</span>
-    									Miembros activos
-  									</li>
-  									<li class="list-group-item list-group-item-info">
-    									<span class="badge">66</span>
-    									Total
-  									</li>
-								</ul>							
+								<h:panelGroup id="counters">
+									<ul class="list-group">
+	  									<li class="list-group-item">
+	    									<span class="badge">#{editMembershipBBean.adminCounter}</span>
+	    									Administradores
+	  									</li>
+	  									<li class="list-group-item">
+	    									<span class="badge">#{editMembershipBBean.pendingsCounter}</span>
+	    									Suscripciones en espera
+	  									</li>
+	  									<li class="list-group-item">
+	    									<span class="badge">#{editMembershipBBean.membersCounter}</span>
+	    									Miembros activos
+	  									</li>
+	  									<li class="list-group-item list-group-item-info">
+	    									<span class="badge">#{editMembershipBBean.summary}</span>
+	    									Total
+	  									</li>
+									</ul>		
+								</h:panelGroup>					
 							</div>
 							<div class="col-md-offset-1 col-md-6">
 								Suscripciones pendientes	
+								<p:messages id="membership_msgs" showSummary="true" showDetail="true"/>
+								<h:outputLabel class="well" id="noPendingsMsg" rendered="#{editMembershipBBean.pendingsCounter==0?'true':'false'}" value="No hay suscripciones pendientes." />
 								<ui:repeat value="#{editMembershipBBean.pendings}" var="pending">							
-									<div id="collapseOne" class=" collapse in">
+									<div id="m#{pending.memberId}" class=" collapse in">
 										<div class="panel panel-default">
 											  <div class="panel-body">
 		    									<h6 class="list-group-item-heading">#{pending.nickname}</h6>
@@ -60,17 +64,17 @@
 		    									
 		    									
 		    									
-		    									<div class="text-right">
+		    									<div class="text-right"> 
 		    										
-		    										<h:commandLink  title="Rechazar suscripción." >												
-														<f:ajax render=":content" />
+		    										<h:commandLink  title="Rechazar suscripción." >															
 														<span class="fa-stack fa-1x">
 															<i class="fa fa-circle fa-stack-2x" style="color: red;"></i>
 															<i class="fa fa-close fa-stack-1x fa-inverse"></i>
 														</span>											
 													</h:commandLink>
 													
-		    										<h:commandLink title="Aceptar suscripción." onclick="$('#collapseOne').collapse('hide');">
+		    										<h:commandLink title="Aceptar suscripción." onclick="$('#m#{pending.memberId}').collapse('hide');" action="#{editMembershipCBean.approved(pending)}">
+		    											<f:ajax render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg" />
 														<span class="fa-stack fa-1x">
 															<i class="fa fa-circle fa-stack-2x" style="color: green;"></i>
 															<i class="fa fa-check fa-stack-1x fa-inverse"></i>
