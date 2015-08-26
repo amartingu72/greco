@@ -29,6 +29,11 @@ public class MemberItem extends UserItem{
 	private String application;
 	
 	/**
+	 * Causa por la que se rechaza (solo en el caso de que la solicitud de suscripción sera rechazada).
+	 */
+	private String rejectionReason;
+	
+	/**
 	 * Indica si el miembro tiene perfil de administrador.
 	 * @return Si(true) o no (false).
 	 */
@@ -118,6 +123,16 @@ public class MemberItem extends UserItem{
 
 	public void setApplication(String application) {
 		this.application = application;
+	}
+
+
+	public String getRejectionReason() {
+		return rejectionReason;
+	}
+
+
+	public void setRejectionReason(String rejectionReason) {
+		this.rejectionReason = rejectionReason;
 	}
 
 	

@@ -31,6 +31,8 @@ public class EditMembershipBBean {
 	private int membersCounter;
 	private int summary;   //Suma de los anteriores.
 	
+	
+	
 
 	@PostConstruct
 	public void initialize() {
@@ -49,6 +51,8 @@ public class EditMembershipBBean {
 		this.adminCounter=this.userCommunityDataProvider.getAdmins(item);
 		this.membersCounter=this.userCommunityDataProvider.getMembers(item);
 		this.summary=this.adminCounter+this.membersCounter+this.pendingsCounter;
+		
+		
 		
 	}
 	

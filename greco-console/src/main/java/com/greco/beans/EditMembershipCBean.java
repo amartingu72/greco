@@ -30,9 +30,9 @@ public class EditMembershipCBean {
 	}
 	
 	/**
-	 * Rechaza la suscripción.
+	 *  Aprueba la suscripción.
 	 */
-	public void approved(MemberItem memberItem){
+	public void approve(MemberItem memberItem){
 		
 		memberItem.setStatus(new StatusItem(StatusItem.MEMBER));
 		saveMembershipStatus(memberItem);
@@ -47,7 +47,32 @@ public class EditMembershipCBean {
 		FacesContext.getCurrentInstance().addMessage("editMembersForm:membership_msgs", fm);
 	}
 	
+	/**
+	 * Rechaza una petición de suscripción.
+	 */
+	public void reject(MemberItem memberItem){
+		
+		try {
+			//Borrar de la tabla user_communities.
+			editMembershipBBean.getUserCommunityDataProvider().removeMember(memberItem);
+			//Grabamos el log
+			String msg="userID (" + memberItem.getId() + ") COMMUNITYID(" + memberItem.getCommunityId() + ")";
+			log.log("007004", msg ); //007004=INFO|Suscripción rechazada:
+			//Enviamos correo al suscriptor rechazado.
+			
+			//Mostramos mensaje de suscripción rechazada.
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+					memberItem.getNickname(),Warnings.getString("editmembership.rejected_detail")); 
+			FacesContext.getCurrentInstance().addMessage("editMembersForm:membership_msgs", fm);
+			
+		} catch (NoCommunityAdminException e) {
+			//Generamos mensaje para el usuario.
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null,new FacesMessage(Warnings.getString("editcommunity.nocommunityadmin_del_msg"),  
+    				Warnings.getString("editcommunity.nocommunityadmin_del_detail" ) ) );
+		}
 	
+	}
 	
 	
 	/**
@@ -81,7 +106,7 @@ public class EditMembershipCBean {
 		try {
 			editMembershipBBean.getUserCommunityDataProvider().removeMember(this.editMembershipBBean.getSelectedMember());
 			//Grabamos el log
-			String msg="userID (" + this.editMembershipBBean.getSelectedMember().getId() + ") ";
+			String msg="userID (" + this.editMembershipBBean.getSelectedMember().getId() + ") COMMUNITYID(" + editMembershipBBean.getSelectedMember().getCommunityId() + ")";
 			log.log("007003", msg ); //007003=INFO|Baja de miembro:
 			
 		} catch (NoCommunityAdminException e) {
