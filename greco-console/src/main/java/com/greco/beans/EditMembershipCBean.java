@@ -55,9 +55,16 @@ public class EditMembershipCBean {
 		try {
 			//Borrar de la tabla user_communities.
 			editMembershipBBean.getUserCommunityDataProvider().removeMember(memberItem);
+			
+			//Actualizamos contadores.
+			int count=editMembershipBBean.getPendingsCounter();
+			editMembershipBBean.setPendingsCounter(count-1);
+			
 			//Grabamos el log
 			String msg="userID (" + memberItem.getId() + ") COMMUNITYID(" + memberItem.getCommunityId() + ")";
 			log.log("007004", msg ); //007004=INFO|Suscripción rechazada:
+			
+			
 			//Enviamos correo al suscriptor rechazado.
 			
 			//Mostramos mensaje de suscripción rechazada.

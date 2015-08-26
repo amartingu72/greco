@@ -60,7 +60,7 @@
 									<div id="m#{pending.memberId}" class="collapse in">
 										<div class="panel panel-default">
 											  <div  class="panel-body">
-		    									<h6 class="list-group-item-heading">#{pending.nickname}</h6>
+		    									<h6 class="list-group-item-heading">#{pending.nickname}<small>-(#{pending.joinningDate})</small></h6>
 		    									<p class="list-group-item-text">#{pending.application}</p>
 		    									
 		    									
@@ -99,7 +99,7 @@
 														</h:commandLink>
 														
 			    										<h:commandLink  class="btn btn-default btn-sm" onclick="$('#m#{pending.memberId}').collapse('hide');" value="Enviar" action="#{editMembershipCBean.reject(pending)}">
-			    												<f:ajax render=":editMembersForm:membership_msgs"/>											
+			    												<f:ajax render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg"/>											
 														</h:commandLink> 
 			    									</div>
 		    									</div>
