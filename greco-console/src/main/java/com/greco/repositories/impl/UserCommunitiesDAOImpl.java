@@ -89,7 +89,8 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 		return results;
 	}
 	
-	private UsersCommunity load(int userCommunity_id){
+	@Override
+	public UsersCommunity load(int userCommunity_id){
 		return em.find(UsersCommunity.class, userCommunity_id);
 	}
 
@@ -190,6 +191,9 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 		int count = ( (Long)q.getSingleResult() ).intValue();
 		return count;
 	}
+
+
+	
 	
 	
 	

@@ -27,6 +27,13 @@ public interface UserCommunitiesDAO {
 	public static final String SUBSCRIPTION="joinningDate";
 		
 	/**
+	 * Devuelve la entidad correspondiente al Id de miembro (no de usuario), pasado como parámetro.
+	 * @param ucId Id de miembro (id en usercommunities)
+	 * @return Entidad miembro
+	 */
+	public UsersCommunity load(int userCommunity_id);
+	
+	/**
 	 * Recupera un subconjunto de miembros de una comunidad dada de base de datos según un criterio.
 	 * @param criteria Pares columna [(uno de los valores de arriba), like value]. Null si no se establece. 
 	 * @param start Inicio

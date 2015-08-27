@@ -1,10 +1,13 @@
 package com.greco.services.helpers;
 
 import java.sql.Timestamp;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+
 import com.greco.beans.ProfilesSBean;
+import com.greco.utils.Warnings;
 
 
 
@@ -32,6 +35,19 @@ public class MemberItem extends UserItem{
 	 * Causa por la que se rechaza (solo en el caso de que la solicitud de suscripción sera rechazada).
 	 */
 	private String rejectionReason;
+	/**
+	 * Se diferencia del getter normal (getApplicacion), en que, si no se facilita info de suscripción,
+	 * devulve un mensaje indicándolo
+	 * @return
+	 */
+	public String getApplicationNotNull() {
+		String ret=application;
+		if ( application == null){
+			ret=Warnings.getString("editmembership.no_application");
+		}
+			
+		return ret;
+	}
 	
 	/**
 	 * Indica si el miembro tiene perfil de administrador.
@@ -84,7 +100,7 @@ public class MemberItem extends UserItem{
 	
 	public String getJoinningDate() {
 		DateTime jodatime = new DateTime(joinningDate);
-		DateTimeFormatter dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy");
+		DateTimeFormatter dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
 		return dtfOut.print(jodatime);
 	}
 	public void setJoinningDate(Timestamp joinningDate) {

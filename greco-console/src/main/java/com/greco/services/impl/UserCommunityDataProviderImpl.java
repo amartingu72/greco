@@ -120,6 +120,32 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
 	public int getMembers(CommunityItem communityItem) {	
 		return this.userCommunitiesDAO.membersCount(communityItem.getId());
 	}
+
+	@Override
+	public MemberItem find(int memberItemId) {
+		UsersCommunity uc=this.userCommunitiesDAO.load(memberItemId);
+		MemberItem memberItem=null;
+		if ( uc!=null) { 
+			memberItem=new MemberItem();
+			memberItem=new MemberItem();
+	    	memberItem.setMemberId(uc.getId());
+	    	memberItem.setCommunityId(uc.getCommunity().getId());
+	    	memberItem.setEmail(uc.getUser().getEmail());
+	    	memberItem.setId(uc.getUser().getId()); 
+	    	memberItem.setJoinningDate(uc.getRegisterDate());
+	    	memberItem.setApplication(uc.getApplication());
+	    	memberItem.setMydata(uc.getUser().getMydata());
+	    	memberItem.setNickname(uc.getUser().getNickname());
+	    	memberItem.setProfile(uc.getUser().getProfile());
+	    	
+	    	memberItem.setStatus(new StatusItem(uc.getStatus()));
+	    	Profile profile=uc.getProfile();
+	    	ProfileItem profileItem=new ProfileItem(profile.getId(), 
+	    			profile.getProfile(),profile.getDescription());
+	    	memberItem.setMemberProfile(profileItem);
+		}
+		return memberItem;
+	}
 	
 	
 }

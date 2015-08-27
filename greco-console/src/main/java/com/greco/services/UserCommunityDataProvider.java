@@ -66,4 +66,12 @@ public interface UserCommunityDataProvider{
 	 * @return Número de miembros de una comunidad.
 	 */
 	public abstract int getMembers(CommunityItem communityItem);
+	
+	
+	/**
+	 * Recurpera el miembro por su clave en user-communities.
+	 * @param memberItemId Id de miembro (no de usuario)
+	 * @return Miembro.
+	 */
+	public MemberItem find(int memberItemId);
 }

@@ -1,10 +1,13 @@
 package com.greco.services.helpers;
 
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
+
 import com.greco.services.UserCommunityDataProvider;
 
 
@@ -34,6 +37,11 @@ public class LazyMembersDataModel extends LazyDataModel<MemberItem> {
     public Object getRowKey(MemberItem member) {
         return member.getId();
     }
+	
+	@Override
+    public MemberItem getRowData(String rowKey) {
+        return userCommunityDataProvider.find(Integer.parseInt(rowKey));
+    }
 
 	@Override
     public List<MemberItem> load(int first, 
@@ -45,8 +53,29 @@ public class LazyMembersDataModel extends LazyDataModel<MemberItem> {
 		
 		List<MemberItem> data = userCommunityDataProvider.findRangeOrder(communityItem,filters,first,pageSize, sortField,sortOrder);
         
-        setRowCount(data.size());
-        return data;
+		//sort
+        if(sortField != null) {
+            Collections.sort(data, new LazyMembersShorter(sortField, sortOrder));
+        }
+		
+        //rowCount
+        
+        int dataSize=data.size();
+        setRowCount(dataSize);
+        
+        
+      //paginate
+        if(dataSize > pageSize) {
+            try {
+                return data.subList(first, first + pageSize);
+            }
+            catch(IndexOutOfBoundsException e) {
+                return data.subList(first, first + (dataSize % pageSize));
+            }
+        }
+        else {
+            return data;
+        }
 	}
 	
 	//GETTERs y SETTERs
