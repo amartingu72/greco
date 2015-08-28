@@ -11,11 +11,34 @@
 <h:body>
 	<ui:composition template="../../templates/admin2_layout.xhtml">
 		<ui:define name="content">
+			
 			<h:form id="editMembersForm">
+				<div id="myModal" class="modal fade" tabindex="0" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	  				<div class="modal-dialog modal-sm">
+	    				<div class="modal-content">
+	      					<div class="modal-header">
+	        					
+	        					<h5 class="modal-title">#{msgs['editmembership.unsubscribe_confirm_header']}</h5>
+	        					<div class="modal-body">
+	      							
+	      							<input style="display:none;" name="memberid" id="memberid" value=""/>
+	      							<p><input type="text" class="form-control" name="member" id="member" value="" readonly="true"/></p>
+	      							<p>#{msgs['editmembership.unsubscribe_confirm_detail']}</p>
+	      						</div>
+	      						<div class="modal-footer">
+	        						<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['editcommunity.unsubscribe_no']}</button>
+	        						<h:commandLink class="btn btn-primary" value="#{msgs['editcommunity.unsubscribe_yes']}" action="#{editMembershipCBean.unsubscribe}"/>
+	        			
+	      						</div>
+	      					</div>
+	      					
+	      					
+	    				</div>
+	  				</div>
+				</div>
 				
-				<p:growl id="messages" showSummary="true" showDetail="true"/>
 				<h:inputHidden id="id" value="#{communitiesSBean.selectedItem.id}"/>
-				
+				<p:growl id="messages" showSummary="true" showDetail="true"/>
 				<div class="row">
 		           	<div class="col-md-offset-1 col-md-10"> 
 					  	<ul class="nav nav-tabs" role="tablist">
@@ -152,14 +175,15 @@
 					        		<p:column class="rsrcColumn5">
 						        		<ul class="social-network">
 											<li>
-												<h:commandLink update=":editMembersForm:confirm_remove" 
-														oncomplete="PF('summaryConfirmDialog').show();" 
-														title="#{msgs['editcommunity.unsubscribe']}">
+												<h:commandLink 
+														title="#{msgs['editcommunity.unsubscribe']}" 
+														onclick="$('.modal-body #member').val( '#{member.nickname}' ); $('.modal-body #memberid').val('#{member.memberId}'); $('#myModal').appendTo('body').modal('show'); return false;" > 
+														
 													<span class="fa-stack fa-1x">
 													<i class="fa fa-circle fa-stack-2x"></i>
 													<i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>
 													</span>
-													<f:setPropertyActionListener value="#{member}" target="#{editMembershipBBean.selectedMember}" />
+													
 												</h:commandLink>
 											</li>
 										</ul>
@@ -210,28 +234,13 @@
 				
 				
 			
-			<p:dialog
-				header="#{msgs['editcommunity.unsubscribe_confirm_header']}"
-				widgetVar="summaryConfirmDialog">
-				<p:outputPanel id="confirm_remove">
-					<p:outputPanel styleClass="ui-icon ui-confirm-dialog-severity ui-icon-alert display-inline-block">
-					</p:outputPanel>
-      				#{msgs['editcommunity.unsubscribe_confirm_msg']} #{editMembershipBBean.selectedMember.nickname} 
-   				</p:outputPanel>
-				<p:commandButton value="#{msgs['editcommunity.unsubscribe_yes']}"
-					update=":editMembersForm:membersTable" 
-					onstart="setUpOnStart();"
-					oncomplete="setUpOnComplete();"
-					actionListener="#{editMembershipCBean.unsubscribe}"
-					icon="ui-icon-check" />
-				<p:commandButton value="#{msgs['editcommunity.unsubscribe_no']}"
-					onclick="PF('summaryConfirmDialog').hide();" type="button"
-					icon="ui-icon-close" />
-			</p:dialog>
+			
 				
-				<p:messages id="membership_messages"/>
+				
 			</h:form>
+			
 		</ui:define>
 	</ui:composition>
+	
 </h:body>
 </html>

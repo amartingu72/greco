@@ -1,6 +1,7 @@
 package com.greco.beans;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import com.greco.services.except.user.NoCommunityAdminException;
 import com.greco.services.helpers.MemberItem;
@@ -109,20 +110,24 @@ public class EditMembershipCBean {
 	 * Da de baja de la comunidad al miembre seleccionado (atributo selectedMember)
 	 */
 	public void unsubscribe(){
-		
-		try {
-			editMembershipBBean.getUserCommunityDataProvider().removeMember(this.editMembershipBBean.getSelectedMember());
-			//Grabamos el log
-			String msg="userID (" + this.editMembershipBBean.getSelectedMember().getId() + ") COMMUNITYID(" + editMembershipBBean.getSelectedMember().getCommunityId() + ")";
-			log.log("007003", msg ); //007003=INFO|Baja de miembro:
-			
-		} catch (NoCommunityAdminException e) {
-			//Generamos mensaje para el usuario.
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null,new FacesMessage(Warnings.getString("editcommunity.nocommunityadmin_del_msg"),  
-    				Warnings.getString("editcommunity.nocommunityadmin_del_detail" ) ) );
-		}
-		
+		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String txtProperty = request.getParameter("memberid");
+        int memberId=Integer.parseInt(txtProperty);
+        MemberItem memberItem=editMembershipBBean.getUserCommunityDataProvider().find(memberId);
+        if (memberItem!=null) {
+			try {
+				editMembershipBBean.getUserCommunityDataProvider().removeMember(this.editMembershipBBean.getSelectedMember());
+				//Grabamos el log
+				String msg="userID (" + this.editMembershipBBean.getSelectedMember().getId() + ") COMMUNITYID(" + editMembershipBBean.getSelectedMember().getCommunityId() + ")";
+				log.log("007003", msg ); //007003=INFO|Baja de miembro:
+				
+			} catch (NoCommunityAdminException e) {
+				//Generamos mensaje para el usuario.
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage(null,new FacesMessage(Warnings.getString("editcommunity.nocommunityadmin_del_msg"),  
+	    				Warnings.getString("editcommunity.nocommunityadmin_del_detail" ) ) );
+			}
+        }
 		
 	}
 
