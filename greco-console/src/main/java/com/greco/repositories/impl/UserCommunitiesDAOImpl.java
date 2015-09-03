@@ -40,7 +40,7 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 		Object profile_id=null;
 		Object status_id=null;
 		//Comprobamos su hay filtro.
-		if (!criteria.isEmpty()){
+		if (criteria !=null && !criteria.isEmpty()){
 			alias=criteria.get(ALIAS);
 			if ( alias!= null )
 				sQuery+=" and uc.user.nickname like :alias";

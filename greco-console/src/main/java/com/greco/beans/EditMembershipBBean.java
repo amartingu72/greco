@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortOrder;
 
 import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.helpers.CommunityItem;
@@ -15,7 +16,8 @@ import com.greco.services.helpers.MemberItem;
 public class EditMembershipBBean {
 	
 	//Para la pestaña de consulta avanzado
-	private LazyDataModel<MemberItem> members;
+	//private LazyDataModel<MemberItem> members;
+	List<MemberItem> members;
 	
 	//Suscripciones pendientes de aprobación. Para la pestaña de inicio.
 	private List<MemberItem> pendings; 
@@ -24,6 +26,8 @@ public class EditMembershipBBean {
 	
 	//Miembro seleccionado cuando se pulsa eliminar (o dar de baja).
 	private MemberItem selectedMember;
+	
+
 	
 	//Contadores
 	private int adminCounter;
@@ -41,7 +45,8 @@ public class EditMembershipBBean {
 		CommunityItem item=comms.getSelectedItem();
 			
 		//Inicializo el objeto que gestionará la tabla de miembros.
-		members=new LazyMembersDataModel(item, userCommunityDataProvider);
+		//members=new LazyMembersDataModel(item, userCommunityDataProvider);
+		members=userCommunityDataProvider.findRangeOrder(item, null, 0, 500, "nickname", SortOrder.ASCENDING);
 		
 		//Cargo las fichas de pendientes de suscripción
 		pendings=userCommunityDataProvider.findPendingMemberships(item);
@@ -61,12 +66,12 @@ public class EditMembershipBBean {
 	//GETTERS y SETTERs
 
 
-	public LazyDataModel<MemberItem> getMembers() {
+	public List<MemberItem> getMembers() {
 		return members;
 	}
 
 
-	public void setMembers(LazyDataModel<MemberItem> members) {
+	public void setMembers(List<MemberItem> members) {
 		this.members = members;
 	}
 
@@ -128,5 +133,10 @@ public class EditMembershipBBean {
 	public void setSummary(int summary) {
 		this.summary = summary;
 	}
+
+
+
+	
+	
 	
 }

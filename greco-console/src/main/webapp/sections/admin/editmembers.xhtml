@@ -11,34 +11,40 @@
 <h:body>
 	<ui:composition template="../../templates/admin2_layout.xhtml">
 		<ui:define name="content">
-			
-			<h:form id="editMembersForm">
-				<div id="myModal" class="modal fade" tabindex="0" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+			<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				
 	  				<div class="modal-dialog modal-sm">
 	    				<div class="modal-content">
+	    				 <h:form id="modalForm">
 	      					<div class="modal-header">
-	        					
 	        					<h5 class="modal-title">#{msgs['editmembership.unsubscribe_confirm_header']}</h5>
-	        					<div class="modal-body">
-	      							
-	      							<input style="display:none;" name="memberid" id="memberid" value=""/>
-	      							<p><input type="text" class="form-control" name="member" id="member" value="" readonly="true"/></p>
-	      							<p>#{msgs['editmembership.unsubscribe_confirm_detail']}</p>
-	      						</div>
-	      						<div class="modal-footer">
-	        						<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['editcommunity.unsubscribe_no']}</button>
-	        						<h:commandLink class="btn btn-primary" value="#{msgs['editcommunity.unsubscribe_yes']}" action="#{editMembershipCBean.unsubscribe}"/>
-	        			
-	      						</div>
-	      					</div>
+	        				</div>
+        					<div class="modal-body">
+      							
+      							<input style="display:none;" type="text" name="selected" id="selected" value=""/>	    							
+      							<p><input type="text" class="form-control" name="member" id="member" value="" readonly="true"/></p>
+      							<h:outputText value="#{editMembershipBBean.selectedMember.nickname}" />		
+      							<p>#{msgs['editmembership.unsubscribe_confirm_detail']}</p>
+      						</div>
+      						<div class="modal-footer">
+        						<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['editcommunity.unsubscribe_no']}</button>
+        						
+        						<h:commandLink class="btn btn-default" value="#{msgs['editcommunity.unsubscribe_yes']}" 
+        							action="#{editMembershipCBean.unsubscribe}"/> 
+      						</div>
+	      				</h:form>
 	      					
 	      					
 	    				</div>
 	  				</div>
-				</div>
+	  			
+			</div>
+			<h:form id="editMembersForm">
+				<p:growl id="growl" showSummary="true" showDetail="true"/>
+				
 				
 				<h:inputHidden id="id" value="#{communitiesSBean.selectedItem.id}"/>
-				<p:growl id="messages" showSummary="true" showDetail="true"/>
+				
 				<div class="row">
 		           	<div class="col-md-offset-1 col-md-10"> 
 					  	<ul class="nav nav-tabs" role="tablist">
@@ -135,100 +141,93 @@
 					</div> <!--  de tabpanel -->
 
 					<div role="tabpanel" class="tab-pane" id="advanced">
-					
+						.
 						<div class="row">
-							<div class="hidden-xs hidden-sm col-md-offset-1 col-md-10">
-								....	
-								<p:dataTable id="membersTable" var="member" value="#{editMembershipBBean.members}"
-									tableStyleClass="ui-table-columntoggle" 					
-									paginator="true" 
-									rows="8"
-									widgetVar="membersTable"
-									resizableColumns="true"
-									paginatorPosition="bottom"
-				                	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-				                	lazy="true"> 
-				        		
-					        		<p:column width="50">
-			            				<p:rowToggler />
-			        				</p:column>	 
-					        		<p:column id="alias_column" class="rsrcColumn1" headerText="#{msgs['editcommunity.member_alias']}" >
-					            		#{member.nickname}
-					        		</p:column>
-					        	 
-					        		<p:column id="profile_column" class="rsrcColumn2"  priority="4" headerText="#{msgs['editcommunity.member_profile']}">
-									 	<p:selectBooleanCheckbox value="#{member.admin}">
-			            					<p:ajax update=":editMembersForm:messages :editMembersForm:membersTable" listener="#{editMembershipCBean.saveMemberProfile(member)}" />
+							<div class="col-md-offset-1 col-md-3">
+								
+							    	<p:inputText id="filter" class="form-control" placeholder="Texto a buscar..."/>
+							    	<div class="checkbox">
+							    		<h:outputText value="Limitar a administradores: " />
+										<p:selectBooleanCheckbox value="true">
+			        					</p:selectBooleanCheckbox>
+							    		
+							    	</div>
+							    	
+							    	
+							</div>
+							
+								
+							
+							<div class="col-md-1 text-right">			
+									<h:commandLink>
+								    	<span class="fa-stack fa-1x">
+											<i class="fa fa-circle fa-stack-2x"></i>
+											<i class="fa fa-search fa-stack-1x fa-inverse"></i>
+										</span>
+									</h:commandLink>
+								
+							</div>
+							
+							
+						</div>
+						<div class="row">
+							<div class="col-md-offset-1 col-md-10">
+									
+								<h:dataTable class="table table-condensed table-hover" id="membersTable" var="member"
+									value="#{editMembershipBBean.members}">
+									<h:column>
+										<f:facet name="header">#{msgs['editcommunity.member_alias']}</f:facet>
+										<h:outputText value="#{member.nickname}" />				
+									</h:column>
+									<h:column>
+										<f:facet name="header">#{msgs['editcommunity.member_subscription']}</f:facet>
+										<h:outputText value="#{member.joinningDate}" />		
+									</h:column>
+									<h:column>
+										<f:facet name="header">#{msgs['editcommunity.member_profile']}</f:facet>
+										<p:selectBooleanCheckbox value="#{member.admin}">
+			            					<p:ajax update=":editMembersForm:membersTable" listener="#{editMembershipCBean.saveMemberProfile(member)}" />
+			        					</p:selectBooleanCheckbox>									
+									</h:column>
+									<h:column>
+										<f:facet name="header">#{msgs['editcommunity.member_status']}</f:facet>
+										<p:selectBooleanCheckbox value="#{member.pendingMembership}">
+			            					<p:ajax update="" listener="#{editMembershipCBean.saveMembershipStatus(member)}" />
 			        					</p:selectBooleanCheckbox>	
-						        	</p:column>
-						        	
-					    	    	<p:column id="status_column" class="rsrcColumn3" priority="2" headerText="#{msgs['editcommunity.member_status']}">
-					            		<p:selectBooleanCheckbox value="#{member.pendingMembership}">
-			            					<p:ajax update=":editMembersForm:messages" listener="#{editMembershipCBean.saveMembershipStatus(member)}" />
-			        					</p:selectBooleanCheckbox>	
-					        		</p:column>
-					        		
-					       					        		
-					    	    	<p:column class="rsrcColumn4" priority="3" headerText="#{msgs['editcommunity.member_subscription']}">
-					        	    	<h:outputText value="#{member.joinningDate}" />
-					        		</p:column>
-					        		<p:column class="rsrcColumn5">
-						        		<ul class="social-network">
+									</h:column>
+									<h:column>
+										<f:facet name="header">Suscripción</f:facet>
+										<h:outputText value="#{member.application}" />		
+									</h:column>
+									<h:column>
+										<ul class="social-network">
 											<li>
 												<h:commandLink 
 														title="#{msgs['editcommunity.unsubscribe']}" 
-														onclick="$('.modal-body #member').val( '#{member.nickname}' ); $('.modal-body #memberid').val('#{member.memberId}'); $('#myModal').appendTo('body').modal('show'); return false;" > 
-														
+														onclick="$('#myModal').appendTo('body').modal('show'); $('.modal-body #member').val( '#{member.nickname}' ); $('.modal-body #selected').val(#{member.memberId});  return false;"
+														>
+													
+													<f:ajax update="growl"/>
 													<span class="fa-stack fa-1x">
 													<i class="fa fa-circle fa-stack-2x"></i>
 													<i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>
 													</span>
 													
 												</h:commandLink>
+												
+												
 											</li>
 										</ul>
-					        		</p:column>
-					        		<p:rowExpansion>
-					        			<div style="white-space: pre-wrap">
-					        				<h:outputText value="#{member.applicationNotNull}" styleClass="white-space:pre-wrap;"/>
-					        			</div>
-					        		</p:rowExpansion>
-								</p:dataTable>
-							</div>
-							<!-- Tabla para móviles (menos de 780px)  -->
-							<div class="hidden-md hidden-lg col-md-offset-1 col-md-10">			
-								<p:dataTable id="membersTable2" var="member" value="#{editMembershipBBean.members}"
-									tableStyleClass="ui-table-columntoggle" 					
-									paginator="true" 
-									rows="8"
-									widgetVar="membersTable"
-									resizableColumns="true"
-									paginatorPosition="bottom"
-					               	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-					               	lazy="true"> 
-				   					
-			            				
-			        				 
-					        		<p:column id="alias_column2" headerText="#{msgs['editcommunity.member_alias']}"  >
-					            			<h:outputText id="alias" value="#{member.nickname}"/>
-					        		</p:column>
-					        			
-					        		<p:column id="status_column2" class="rsrcColumn3" headerText="#{msgs['editcommunity.member_status']}" >
-					        			<p:rowToggler />
-					    	    		<p:selectBooleanCheckbox value="#{member.pendingMembership}">
-			            					<p:ajax update=":editMembersForm:messages" listener="#{editMembershipCBean.saveMembershipStatus(member)}" />
-			        					</p:selectBooleanCheckbox>
-			        					
-									</p:column>
+									</h:column>
 									
-									<p:rowExpansion>
-					        			<div style="white-space: pre-wrap">
-					        				<h:outputText value="#{member.applicationNotNull}" styleClass="white-space:pre-wrap;"/>
-					        			</div>
-					        		</p:rowExpansion>
-								</p:dataTable>
+								</h:dataTable>
 							</div>
 						</div> 
+						<div class="row">
+							<div class="col-md-offset-1 col-md-10">
+								<p><em>Búsqueda limitada a los 25 primeros resultados</em></p>
+							</div>
+						</div>
 					</div>  <!-- Del tabpanel advanced -->
 				</div>
 				

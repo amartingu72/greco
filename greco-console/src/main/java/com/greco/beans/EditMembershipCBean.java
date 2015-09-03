@@ -1,7 +1,21 @@
 package com.greco.beans;
+import java.util.Enumeration;
+import java.util.Map;
+import java.util.Set;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.HttpServletRequest;
+
+
+
+
+
+
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 import com.greco.services.except.user.NoCommunityAdminException;
 import com.greco.services.helpers.MemberItem;
@@ -109,16 +123,17 @@ public class EditMembershipCBean {
 	/**
 	 * Da de baja de la comunidad al miembre seleccionado (atributo selectedMember)
 	 */
-	public void unsubscribe(){
+	public String unsubscribe(){
 		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String txtProperty = request.getParameter("memberid");
+        String txtProperty = request.getParameter("selected");
+                        
         int memberId=Integer.parseInt(txtProperty);
         MemberItem memberItem=editMembershipBBean.getUserCommunityDataProvider().find(memberId);
         if (memberItem!=null) {
 			try {
-				editMembershipBBean.getUserCommunityDataProvider().removeMember(this.editMembershipBBean.getSelectedMember());
+				editMembershipBBean.getUserCommunityDataProvider().removeMember(memberItem);
 				//Grabamos el log
-				String msg="userID (" + this.editMembershipBBean.getSelectedMember().getId() + ") COMMUNITYID(" + editMembershipBBean.getSelectedMember().getCommunityId() + ")";
+				String msg="userID (" + this.editMembershipBBean.getSelectedMember().getId() + ") COMMUNITYID(" + memberItem.getCommunityId() + ")";
 				log.log("007003", msg ); //007003=INFO|Baja de miembro:
 				
 			} catch (NoCommunityAdminException e) {
@@ -128,8 +143,13 @@ public class EditMembershipCBean {
 	    				Warnings.getString("editcommunity.nocommunityadmin_del_detail" ) ) );
 			}
         }
-		
+		return null;
 	}
+	
+	
+	
+	
+	
 
 	//GETTERs y SETTERs
 	public EditMembershipBBean getEditMembershipBBean() {
