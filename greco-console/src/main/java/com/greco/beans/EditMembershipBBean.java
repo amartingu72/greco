@@ -1,16 +1,19 @@
 package com.greco.beans;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.model.LazyDataModel;
+
+import org.joda.time.DateTime;
+//import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
 import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.helpers.CommunityItem;
-import com.greco.services.helpers.LazyMembersDataModel;
+//import com.greco.services.helpers.LazyMembersDataModel;
 import com.greco.services.helpers.MemberItem;
 
 public class EditMembershipBBean {
@@ -35,6 +38,18 @@ public class EditMembershipBBean {
 	private int membersCounter;
 	private int summary;   //Suma de los anteriores.
 	
+	//Criterios de búsqueda
+	private String textCriterion;
+	private boolean adminsSelectCriterion;
+	private boolean pendingsSelectCriterion;
+	private boolean activeSelectCriterion;
+	private Date fromDateCriterion;
+	private Date toDateCriterion;
+	private String orderedByCriterion;
+	private int sortOrderCriterion;
+	
+	
+	
 	
 	
 
@@ -44,9 +59,7 @@ public class EditMembershipBBean {
 		CommunitiesSBean comms = (CommunitiesSBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("communitiesSBean");
 		CommunityItem item=comms.getSelectedItem();
 			
-		//Inicializo el objeto que gestionará la tabla de miembros.
-		//members=new LazyMembersDataModel(item, userCommunityDataProvider);
-		members=userCommunityDataProvider.findRangeOrder(item, null, 0, 500, "nickname", SortOrder.ASCENDING);
+		
 		
 		//Cargo las fichas de pendientes de suscripción
 		pendings=userCommunityDataProvider.findPendingMemberships(item);
@@ -57,6 +70,19 @@ public class EditMembershipBBean {
 		this.membersCounter=this.userCommunityDataProvider.getMembers(item);
 		this.summary=this.adminCounter+this.membersCounter+this.pendingsCounter;
 		
+		//Asigno valor inicial a los criterios de búsqueda
+		textCriterion="";
+		adminsSelectCriterion=true;
+		pendingsSelectCriterion=true;
+		activeSelectCriterion=true;
+		fromDateCriterion=null;
+		toDateCriterion=item.getLocalTime().toDate();
+		orderedByCriterion="registerdate";
+		sortOrderCriterion=0;
+		
+		//Inicializo el objeto que gestionará la tabla de miembros.
+		//members=new LazyMembersDataModel(item, userCommunityDataProvider);
+		members=userCommunityDataProvider.findRangeOrder(item, null, 0, 25, "nickname", SortOrder.ASCENDING);
 		
 		
 	}
@@ -132,6 +158,102 @@ public class EditMembershipBBean {
 
 	public void setSummary(int summary) {
 		this.summary = summary;
+	}
+
+
+
+	public String getTextCriterion() {
+		return textCriterion;
+	}
+
+
+
+	public void setTextCriterion(String textCriterion) {
+		this.textCriterion = textCriterion;
+	}
+
+
+
+	public boolean isAdminsSelectCriterion() {
+		return adminsSelectCriterion;
+	}
+
+
+
+	public void setAdminsSelectCriterion(boolean adminsSelectCriterion) {
+		this.adminsSelectCriterion = adminsSelectCriterion;
+	}
+
+
+
+	public boolean isPendingsSelectCriterion() {
+		return pendingsSelectCriterion;
+	}
+
+
+
+	public void setPendingsSelectCriterion(boolean pendingsSelectCriterion) {
+		this.pendingsSelectCriterion = pendingsSelectCriterion;
+	}
+
+
+
+	public boolean isActiveSelectCriterion() {
+		return activeSelectCriterion;
+	}
+
+
+
+	public void setActiveSelectCriterion(boolean activeSelectCriterion) {
+		this.activeSelectCriterion = activeSelectCriterion;
+	}
+
+
+
+	public Date getFromDateCriterion() {
+		return fromDateCriterion;
+	}
+
+
+
+	public void setFromDateCriterion(Date fromDateCriterion) {
+		this.fromDateCriterion = fromDateCriterion;
+	}
+
+
+
+	public Date getToDateCriterion() {
+		return toDateCriterion;
+	}
+
+
+
+	public void setToDateCriterion(Date toDateCriterion) {
+		this.toDateCriterion = toDateCriterion;
+	}
+
+
+
+	public String getOrderedByCriterion() {
+		return orderedByCriterion;
+	}
+
+
+
+	public void setOrderedByCriterion(String orderedByCriterion) {
+		this.orderedByCriterion = orderedByCriterion;
+	}
+
+
+
+	public int getSortOrderCriterion() {
+		return sortOrderCriterion;
+	}
+
+
+
+	public void setSortOrderCriterion(int sortOrderCriterion) {
+		this.sortOrderCriterion = sortOrderCriterion;
 	}
 
 
