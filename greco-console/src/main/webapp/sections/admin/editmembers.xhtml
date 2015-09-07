@@ -85,57 +85,59 @@
 								#{msgs['editmembership.pendings_title']}
 								<p:messages id="membership_msgs" showSummary="true" showDetail="true"/>
 								<h:outputLabel class="well" id="noPendingsMsg" rendered="#{editMembershipBBean.pendingsCounter==0?'true':'false'}" value="#{msgs['editmembership.no_pendings']}" />
-								<c:forEach items="#{editMembershipBBean.pendings}" var="pending" varStatus="status">							
-									<div id="m#{pending.memberId}" class="collapse in">
-										<div class="panel panel-default">
-											  <div  class="panel-body">
-		    									<h6 class="list-group-item-heading">#{pending.nickname}<small>-(#{pending.joinningDate})</small></h6>
-		    									<p class="list-group-item-text">#{pending.applicationNotNull}</p>
-		    									
-		    									
-		    									
-		    									<div id="btnsPanel#{status.index}" class="collapse in text-right" > 
-		    										
-		    										<h:commandLink  title="#{msgs['editmembership.reject_title']}" onclick="$('#rejectPanel#{status.index}').collapse('show');$('#btnsPanel#{status.index}').collapse('hide');">		
-		    											<f:ajax render=":editMembersForm:membership_msgs"/>													
-														<span class="fa-stack fa-1x">
-															<i class="fa fa-circle fa-stack-2x" style="color: red;"></i>
-															<i class="fa fa-close fa-stack-1x fa-inverse"></i>
-														</span>											
-													</h:commandLink>
-													
-		    										<h:commandLink title="#{msgs['editmembership.approve_title']}" onclick="$('#m#{pending.memberId}').collapse('hide');" action="#{editMembershipCBean.approve(pending)}">
-		    											<f:ajax render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg" />
-														<span class="fa-stack fa-1x">
-															<i class="fa fa-circle fa-stack-2x" style="color: green;"></i>
-															<i class="fa fa-check fa-stack-1x fa-inverse"></i>
-														</span>											
-													</h:commandLink> 
-		    										
-		    									</div>
-		    									<div id="rejectPanel#{status.index}" class="collapse">
-			    									<h6 style="color: red;">#{msgs['editmembership.reject_warning']}</h6> 
-			    									<div class="form-group">
-														<label for="notes">#{msgs['editmembership.reject']} </label>
-														<p:inputTextarea class="form-control" id="notes" value="#{pending.rejectionReason}"
-															rows="5" cols="58" maxlength="255" counter="display"
-															counterTemplate="#{msgs['editaccount.remaining_chars']}" />
-														<p:outputLabel id="display" />
-											 	 	</div>
-											 	 	<div class="text-right"> 
-			    										<h:commandLink   class="btn btn-default btn-sm" onclick="$('#rejectPanel#{status.index}').collapse('hide');$('#btnsPanel#{status.index}').collapse('show');" value="#{msgs['editmembership.cancel_btn']}" >															
-																<f:ajax render=":editMembersForm:membership_msgs"/>										
+								<h:panelGroup id="pendingCards">
+									<c:forEach items="#{editMembershipBBean.pendings}" var="pending" varStatus="status">							
+										<div id="m#{pending.memberId}" class="collapse in">
+											<div class="panel panel-default">
+												  <div  class="panel-body">
+			    									<h6 class="list-group-item-heading">#{pending.nickname}<small>-(#{pending.joinningDate})</small></h6>
+			    									<p class="list-group-item-text">#{pending.applicationNotNull}</p>
+			    									
+			    									
+			    									
+			    									<div id="btnsPanel#{status.index}" class="collapse in text-right" > 
+			    										
+			    										<h:commandLink  title="#{msgs['editmembership.reject_title']}" onclick="$('#rejectPanel#{status.index}').collapse('show');$('#btnsPanel#{status.index}').collapse('hide');">		
+			    											<f:ajax render=":editMembersForm:membership_msgs"/>													
+															<span class="fa-stack fa-1x">
+																<i class="fa fa-circle fa-stack-2x" style="color: red;"></i>
+																<i class="fa fa-close fa-stack-1x fa-inverse"></i>
+															</span>											
 														</h:commandLink>
 														
-			    										<h:commandLink  class="btn btn-default btn-sm" onclick="$('#m#{pending.memberId}').collapse('hide');" value="#{msgs['editmembership.send_btn']}" action="#{editMembershipCBean.reject(pending)}">
-			    												<f:ajax render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg"/>											
+			    										<h:commandLink title="#{msgs['editmembership.approve_title']}" onclick="$('#m#{pending.memberId}').collapse('hide');" action="#{editMembershipCBean.approve(pending)}">
+			    											<f:ajax render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg" />
+															<span class="fa-stack fa-1x">
+																<i class="fa fa-circle fa-stack-2x" style="color: green;"></i>
+																<i class="fa fa-check fa-stack-1x fa-inverse"></i>
+															</span>											
 														</h:commandLink> 
+			    										
 			    									</div>
-		    									</div>
-		  									  </div>  <!-- de panel-body -->	
-										</div> <!-- de panel -->
-									</div><!-- de collapseOne -->
-								</c:forEach>
+			    									<div id="rejectPanel#{status.index}" class="collapse">
+				    									<h6 style="color: red;">#{msgs['editmembership.reject_warning']}</h6> 
+				    									<div class="form-group">
+															<label for="notes">#{msgs['editmembership.reject']} </label>
+															<p:inputTextarea class="form-control" id="notes" value="#{pending.rejectionReason}"
+																rows="5" cols="58" maxlength="255" counter="display"
+																counterTemplate="#{msgs['editaccount.remaining_chars']}" />
+															<p:outputLabel id="display" />
+												 	 	</div>
+												 	 	<div class="text-right"> 
+				    										<h:commandLink   class="btn btn-default btn-sm" onclick="$('#rejectPanel#{status.index}').collapse('hide');$('#btnsPanel#{status.index}').collapse('show');" value="#{msgs['editmembership.cancel_btn']}" >															
+																	<f:ajax render=":editMembersForm:membership_msgs"/>										
+															</h:commandLink>
+															
+				    										<h:commandLink  class="btn btn-default btn-sm" onclick="$('#m#{pending.memberId}').collapse('hide');" value="#{msgs['editmembership.send_btn']}" action="#{editMembershipCBean.reject(pending)}">
+				    												<f:ajax render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg"/>											
+															</h:commandLink> 
+				    									</div>
+			    									</div>
+			  									  </div>  <!-- de panel-body -->	
+											</div> <!-- de panel -->
+										</div><!-- de collapseOne -->
+									</c:forEach>
+								</h:panelGroup>
 							</div> <!-- de md -->
 						</div> <!-- de row -->
 					</div> <!--  de tabpanel -->
@@ -145,14 +147,10 @@
 						<div class="row mar-top20">
 							<div class="col-md-offset-1 col-md-3">
 								
-							    	<p:inputText id="filter" class="form-control" placeholder="Texto a buscar..."/>
+							    	<p:inputText id="filter" class="form-control" placeholder="Texto a buscar..." value="#{editMembershipBBean.textCriterion}"/>
 							    	
 							    	
 							</div>
-							
-								
-							
-							
 							
 							<div class="col-md-offset-5 col-md-2 text-right">			
 									<a data-toggle="collapse" href="#searchCriteria">Avanzado<span class="caret"></span></a>
@@ -164,25 +162,13 @@
 						<div id="searchCriteria" class="row collapse mar-top20">
 							<div class="col-md-offset-1 col-md-3">
 								<label>Filtro por estado y perfil:</label>
-								<table>
-									<tr>
-										<td>Mostrar administradores:</td>
-										<td><p:selectBooleanCheckbox id="showAdmins" value="true">
-			        					</p:selectBooleanCheckbox></td>
-			        				</tr>
-			        				<tr>
-			        					<td>Mostrar suscriptores activos:</td>
-										<td><p:selectBooleanCheckbox id="showActives" value="true">
-			        					</p:selectBooleanCheckbox></td>
-			        				</tr>
-			        				<tr>
-			        					<td>Mostrar suscriptores en espera:</td>
-										<td><p:selectBooleanCheckbox id="showPending" value="true">
-			        					</p:selectBooleanCheckbox></td>
-									</tr>
-								</table>
-								
-								
+								<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+							 		<h:outputText value="Mostrar administradores: " />
+							        <p:selectBooleanCheckbox value="#{editMembershipBBean.adminsSelectCriterion}" />
+							     							        
+							        <h:outputText value="Mostrar suscriptores en espera: " />
+							        <p:selectBooleanCheckbox value="#{editMembershipBBean.pendingsSelectCriterion}" />
+							    </h:panelGrid>								
 							</div>
 							<div class="col-md-7">	
 								<div class="row">
@@ -248,9 +234,9 @@
 						</div>
 						<div class="row">
 							<div class="col-md-11 text-right">				 		
-								<h:commandLink class="btn btn-primary" value="Buscar">
-									    	
-								</h:commandLink>
+								<h:commandButton class="btn btn-primary" value="Buscar" action="#{editMembershipCBean.search}">
+									  <f:ajax execute="@form" render=":editMembersForm:membersTable"/>  	
+								</h:commandButton>
 							</div>
 						</div>
 						<div class="row">
@@ -269,13 +255,13 @@
 									<h:column>
 										<f:facet name="header">#{msgs['editcommunity.member_profile']}</f:facet>
 										<p:selectBooleanCheckbox value="#{member.admin}">
-			            					<p:ajax update=":editMembersForm:membersTable" listener="#{editMembershipCBean.saveMemberProfile(member)}" />
+			            					<p:ajax update=":editMembersForm:counters :editMembersForm:pendingCards" listener="#{editMembershipCBean.saveMemberProfile(member)}" />
 			        					</p:selectBooleanCheckbox>									
 									</h:column>
 									<h:column>
 										<f:facet name="header">#{msgs['editcommunity.member_status']}</f:facet>
 										<p:selectBooleanCheckbox value="#{member.pendingMembership}">
-			            					<p:ajax update="" listener="#{editMembershipCBean.saveMembershipStatus(member)}" />
+			            					<p:ajax update=":editMembersForm:counters :editMembersForm:pendingCards" listener="#{editMembershipCBean.saveMembershipStatus(member)}" />
 			        					</p:selectBooleanCheckbox>	
 									</h:column>
 									<h:column>

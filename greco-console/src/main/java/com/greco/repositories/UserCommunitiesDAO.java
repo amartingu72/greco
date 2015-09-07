@@ -21,10 +21,15 @@ public interface UserCommunitiesDAO {
 	/**
 	 * Campos por los que se puede establecer criterio ("like"), para hacer una consulta o para establecer un criterio de ordenación..
 	 */
+	public static final String TEXT="text"; //Alias o application
 	public static final String ALIAS="nickname";
-	public static final String PROFILE="memberProfile.description";
+	public static final String PROFILE="memberProfile";
 	public static final String STATUS="status";
-	public static final String SUBSCRIPTION="joinningDate";
+	public static final String SUBSCRIPTION_FROM_DATE="fromDate";
+	public static final String SUBSCRIPTION_TO_DATE="toDate";
+	public static final String SUBSCRIPTION="registerdate";
+	public static final String APPLICATION="application";
+	
 		
 	/**
 	 * Devuelve la entidad correspondiente al Id de miembro (no de usuario), pasado como parámetro.

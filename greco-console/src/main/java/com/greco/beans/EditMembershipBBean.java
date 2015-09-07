@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 
 
-import org.joda.time.DateTime;
+
 //import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
@@ -42,7 +42,7 @@ public class EditMembershipBBean {
 	private String textCriterion;
 	private boolean adminsSelectCriterion;
 	private boolean pendingsSelectCriterion;
-	private boolean activeSelectCriterion;
+
 	private Date fromDateCriterion;
 	private Date toDateCriterion;
 	private String orderedByCriterion;
@@ -74,7 +74,7 @@ public class EditMembershipBBean {
 		textCriterion="";
 		adminsSelectCriterion=true;
 		pendingsSelectCriterion=true;
-		activeSelectCriterion=true;
+		
 		fromDateCriterion=null;
 		toDateCriterion=item.getLocalTime().toDate();
 		orderedByCriterion="registerdate";
@@ -196,20 +196,6 @@ public class EditMembershipBBean {
 		this.pendingsSelectCriterion = pendingsSelectCriterion;
 	}
 
-
-
-	public boolean isActiveSelectCriterion() {
-		return activeSelectCriterion;
-	}
-
-
-
-	public void setActiveSelectCriterion(boolean activeSelectCriterion) {
-		this.activeSelectCriterion = activeSelectCriterion;
-	}
-
-
-
 	public Date getFromDateCriterion() {
 		return fromDateCriterion;
 	}
@@ -257,6 +243,8 @@ public class EditMembershipBBean {
 	}
 
 
+
+	
 
 	
 	

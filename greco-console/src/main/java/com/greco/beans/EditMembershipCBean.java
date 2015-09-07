@@ -1,24 +1,16 @@
 package com.greco.beans;
-import java.util.Enumeration;
-import java.util.Map;
-import java.util.Set;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.HttpServletRequest;
-
-
-
-
-
-
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
-
+import org.primefaces.model.SortOrder;
+import com.greco.repositories.UserCommunitiesDAO;
 import com.greco.services.except.user.NoCommunityAdminException;
+import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.MemberItem;
+import com.greco.services.helpers.ProfileItem;
 import com.greco.services.helpers.StatusItem;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
@@ -146,7 +138,63 @@ public class EditMembershipCBean {
 		return null;
 	}
 	
-	
+	/**
+	 * Busca con el criterio fijado.
+	 */
+	public String search(){
+		
+		//Obtengo la comunidad seleccionada de Communities
+		CommunitiesSBean comms = (CommunitiesSBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("communitiesSBean");
+		CommunityItem communityItem=comms.getSelectedItem();
+		
+		//Genero el criterio
+		
+		Map<String, Object> criteria=new HashMap<String, Object>();
+		String text=this.editMembershipBBean.getTextCriterion();
+		if ( text!=null && !text.trim().equals("") ) 
+			criteria.put(UserCommunitiesDAO.TEXT, this.editMembershipBBean.getTextCriterion() );
+			
+		
+		//Perfil: administrador o simple miembro.
+		if ( !this.editMembershipBBean.isAdminsSelectCriterion() )
+			criteria.put(UserCommunitiesDAO.PROFILE, ProfileItem.USER);
+		
+		if ( !this.editMembershipBBean.isPendingsSelectCriterion() )
+			criteria.put(UserCommunitiesDAO.STATUS, StatusItem.MEMBER );
+		
+		//Rango de fechas.
+		//Desde
+		if ( this.editMembershipBBean.getFromDateCriterion() != null) {
+			criteria.put(UserCommunitiesDAO.SUBSCRIPTION_FROM_DATE, this.editMembershipBBean.getFromDateCriterion() );
+		}
+		//Hasta
+		if ( this.editMembershipBBean.getToDateCriterion() != null) {
+			criteria.put(UserCommunitiesDAO.SUBSCRIPTION_TO_DATE, this.editMembershipBBean.getToDateCriterion() );
+		}
+		
+		
+		//Ordenación
+		SortOrder sortOrder;
+		switch (this.editMembershipBBean.getSortOrderCriterion()){
+		case 0:
+			sortOrder=SortOrder.ASCENDING;
+			break;
+		case 1:
+			sortOrder=SortOrder.DESCENDING;
+			break;
+		default:
+			sortOrder=SortOrder.ASCENDING;
+		}
+		
+		//Lanzamos la búsqueda
+		editMembershipBBean.setMembers(this.editMembershipBBean.getUserCommunityDataProvider().findRangeOrder(communityItem, 
+				criteria, 
+				0, 25, 
+				this.editMembershipBBean.getOrderedByCriterion(), sortOrder));
+		
+		return null;
+		
+	}
 	
 	
 	

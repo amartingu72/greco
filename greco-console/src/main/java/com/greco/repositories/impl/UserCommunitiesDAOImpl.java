@@ -1,11 +1,13 @@
 package com.greco.repositories.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 import org.primefaces.model.SortOrder;
 import org.springframework.stereotype.Repository;
@@ -36,14 +38,16 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 			int start, int max, String sortField, SortOrder sortOrder) {
 		
 		String sQuery="select uc from UsersCommunity as uc where uc.community.id=:community_id";
-		Object alias=null;
+		Object text=null;
 		Object profile_id=null;
 		Object status_id=null;
+		Object fromDate=null;
+		Object toDate=null;
 		//Comprobamos su hay filtro.
 		if (criteria !=null && !criteria.isEmpty()){
-			alias=criteria.get(ALIAS);
-			if ( alias!= null )
-				sQuery+=" and uc.user.nickname like :alias";
+			text=criteria.get(TEXT);
+			if ( text!= null )
+				sQuery+=" and (uc.user.nickname like :alias or uc.application like :application)";
 
 			profile_id=criteria.get(PROFILE);
 			if ( profile_id!= null )
@@ -52,17 +56,26 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 			status_id=criteria.get(STATUS);
 			if ( status_id!= null )
 				sQuery+=" and uc.status=:status_id";
+			
+			fromDate=criteria.get(SUBSCRIPTION_FROM_DATE);
+			if (fromDate !=null)
+				sQuery+=" and uc.registerDate>=:fromDate";
+			
+			toDate=criteria.get(SUBSCRIPTION_TO_DATE);
+			if (toDate !=null)
+				sQuery+=" and uc.registerDate<=:toDate";
+			
+			
+			
+			
+			
 		}
 		//Comprobamos si se especifica ordenación.
 		if ( sortField != null) {
 			sQuery+= " order by ";
 			if ( sortField.equals(ALIAS) )
 				sQuery+= "uc.user.nickname";
-			else if ( sortField.equals(PROFILE) )
-				sQuery+= "uc.profile.profile"; 
-			else if ( sortField.equals(STATUS) )
-				sQuery+= "uc.status";
-			else if ( sortField.equals(SUBSCRIPTION) )
+			else if ( sortField.equals(SUBSCRIPTION) ) //o SUBSCRIPTION_TO_DATE, es indiferente.
 				sQuery+= "uc.registerDate";
 			
 			if ( SortOrder.ASCENDING.equals(sortOrder) ) sQuery+=" asc";
@@ -72,15 +85,25 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 		Query query=em.createQuery( sQuery, UsersCommunity.class );
 		//Asignamos los parémetros
 		query.setParameter("community_id", communityId);
-		if (alias!=null) query.setParameter("alias", '%' + (String)alias + '%');
+		if (text!=null) {
+			query.setParameter("alias", '%' + (String)text + '%');
+			query.setParameter("application", '%' + (String)text + '%');
+		}
 		if (profile_id!=null){ 
-			int iProfile_id=Integer.valueOf((String)profile_id);
-			query.setParameter("profile_id", iProfile_id);
+			
+			query.setParameter("profile_id", (int)profile_id);
 		}
 		if (status_id!=null) {
-			int iStatus_id=Integer.valueOf((String)status_id);
-			query.setParameter("status_id", iStatus_id);
+			
+			query.setParameter("status_id", (int)status_id);
 		}
+		if (fromDate!=null){ 
+			query.setParameter("fromDate", (Date)fromDate, TemporalType.DATE);
+		}
+		if (toDate!=null){ 
+			query.setParameter("toDate", (Date)toDate, TemporalType.DATE);
+		}
+		
 		query.setMaxResults(max);
 		query.setFirstResult(start);
 		
