@@ -29,8 +29,10 @@
       						<div class="modal-footer">
         						<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['editcommunity.unsubscribe_no']}</button>
         						
-        						<h:commandLink class="btn btn-default" value="#{msgs['editcommunity.unsubscribe_yes']}" 
-        							action="#{editMembershipCBean.unsubscribe}"/> 
+        						<h:commandLink class="btn btn-default" data-dismiss="modal" value="#{msgs['editcommunity.unsubscribe_yes']}" 
+        							action="#{editMembershipCBean.unsubscribe}">
+        							
+        						</h:commandLink> 
       						</div>
 	      				</h:form>
 	      					
@@ -48,10 +50,15 @@
 				<div class="row">
 		           	<div class="col-md-offset-1 col-md-10"> 
 					  	<ul class="nav nav-tabs" role="tablist">
-						    <li role="presentation" class="active"><a href="#default" aria-controls="default" role="tab" data-toggle="tab">#{msgs['editmembership.subscriptions_tab']}</a></li>
+						    <li role="presentation" class="active"><a href="#default"  aria-controls="default" role="tab" data-toggle="tab">#{msgs['editmembership.subscriptions_tab']}</a></li>
 						    <li  role="presentation"> <a href="#advanced" aria-controls="advanced" role="tab" data-toggle="tab">#{msgs['editmembership.search_tab']}</a></li>
 					  	</ul>
 					</div>
+					<SCRIPT type="text/javascript">
+						$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+							$('#searchResult').collapse('hide');
+						});
+					</SCRIPT>
 				</div>	 
 				
 				<div class="tab-content">
@@ -67,7 +74,7 @@
 	    									#{msgs['editmembership.admins_counter']}
 	  									</li>
 	  									<li class="list-group-item">
-	    									<span class="badge">#{editMembershipBBean.pendingsCounter}</span>
+	    									<span class="badge">#{editMembershipBBean.pendingsCounter}</span> 
 	    									#{msgs['editmembership.pendings_counter']}
 	  									</li>
 	  									<li class="list-group-item">
@@ -80,64 +87,70 @@
 	  									</li>
 									</ul>		
 								</h:panelGroup>					
+								
 							</div>
 							<div class="col-md-offset-1 col-md-6">
-								#{msgs['editmembership.pendings_title']}
+								#{msgs['editmembership.pendings_title']} 
+								<h:commandLink title="Refrescar" onclick="window.location.reload();return false;">
+										<span class="fa-stack fa-1x">
+											<i class="fa fa-circle fa-stack-2x"></i>
+											<i class="fa fa-refresh fa-stack-1x fa-inverse"></i>
+										</span>
+								</h:commandLink>
 								<p:messages id="membership_msgs" showSummary="true" showDetail="true"/>
 								<h:outputLabel class="well" id="noPendingsMsg" rendered="#{editMembershipBBean.pendingsCounter==0?'true':'false'}" value="#{msgs['editmembership.no_pendings']}" />
-								<h:panelGroup id="pendingCards">
-									<c:forEach items="#{editMembershipBBean.pendings}" var="pending" varStatus="status">							
-										<div id="m#{pending.memberId}" class="collapse in">
-											<div class="panel panel-default">
-												  <div  class="panel-body">
-			    									<h6 class="list-group-item-heading">#{pending.nickname}<small>-(#{pending.joinningDate})</small></h6>
-			    									<p class="list-group-item-text">#{pending.applicationNotNull}</p>
-			    									
-			    									
-			    									
-			    									<div id="btnsPanel#{status.index}" class="collapse in text-right" > 
-			    										
-			    										<h:commandLink  title="#{msgs['editmembership.reject_title']}" onclick="$('#rejectPanel#{status.index}').collapse('show');$('#btnsPanel#{status.index}').collapse('hide');">		
-			    											<f:ajax render=":editMembersForm:membership_msgs"/>													
-															<span class="fa-stack fa-1x">
-																<i class="fa fa-circle fa-stack-2x" style="color: red;"></i>
-																<i class="fa fa-close fa-stack-1x fa-inverse"></i>
-															</span>											
+								<c:forEach items="#{editMembershipBBean.pendings}" var="pending" varStatus="status">							
+									<div id="m#{pending.memberId}" class="collapse in">
+										<div class="panel panel-default">
+											  <div  class="panel-body">
+		    									<h6 class="list-group-item-heading">#{pending.nickname}<small>-(#{pending.joinningDate})</small></h6>
+		    									<p class="list-group-item-text">#{pending.applicationNotNull}</p>
+		    									
+		    									
+		    									
+		    									<div id="btnsPanel#{status.index}" class="collapse in text-right" > 
+		    										
+		    										<h:commandLink  title="#{msgs['editmembership.reject_title']}" onclick="$('#rejectPanel#{status.index}').collapse('show');$('#btnsPanel#{status.index}').collapse('hide');">		
+		    											<f:ajax render=":editMembersForm:membership_msgs"/>													
+														<span class="fa-stack fa-1x">
+															<i class="fa fa-circle fa-stack-2x" style="color: red;"></i>
+															<i class="fa fa-close fa-stack-1x fa-inverse"></i>
+														</span>											
+													</h:commandLink>
+													
+		    										<h:commandLink title="#{msgs['editmembership.approve_title']}" onclick="$('#m#{pending.memberId}').collapse('hide');" action="#{editMembershipCBean.approve(pending)}">
+		    											<f:ajax render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg" />
+														<span class="fa-stack fa-1x">
+															<i class="fa fa-circle fa-stack-2x" style="color: green;"></i>
+															<i class="fa fa-check fa-stack-1x fa-inverse"></i>
+														</span>											
+													</h:commandLink> 
+		    										
+		    									</div>
+		    									<div id="rejectPanel#{status.index}" class="collapse">
+			    									<h6 style="color: red;">#{msgs['editmembership.reject_warning']}</h6> 
+			    									<div class="form-group">
+														<label for="notes">#{msgs['editmembership.reject']} </label>
+														<p:inputTextarea class="form-control" id="notes" value="#{pending.rejectionReason}"
+															rows="5" cols="58" maxlength="255" counter="display"
+															counterTemplate="#{msgs['editaccount.remaining_chars']}" />
+														<p:outputLabel id="display" />
+											 	 	</div>
+											 	 	<div class="text-right"> 
+			    										<h:commandLink   class="btn btn-default btn-sm" onclick="$('#rejectPanel#{status.index}').collapse('hide');$('#btnsPanel#{status.index}').collapse('show');" value="#{msgs['editmembership.cancel_btn']}" >															
+																<f:ajax render=":editMembersForm:membership_msgs"/>										
 														</h:commandLink>
 														
-			    										<h:commandLink title="#{msgs['editmembership.approve_title']}" onclick="$('#m#{pending.memberId}').collapse('hide');" action="#{editMembershipCBean.approve(pending)}">
-			    											<f:ajax render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg" />
-															<span class="fa-stack fa-1x">
-																<i class="fa fa-circle fa-stack-2x" style="color: green;"></i>
-																<i class="fa fa-check fa-stack-1x fa-inverse"></i>
-															</span>											
+			    										<h:commandLink  class="btn btn-default btn-sm" onclick="$('#m#{pending.memberId}').collapse('hide');" value="#{msgs['editmembership.send_btn']}" action="#{editMembershipCBean.reject(pending)}">
+			    												<f:ajax render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg"/>											
 														</h:commandLink> 
-			    										
 			    									</div>
-			    									<div id="rejectPanel#{status.index}" class="collapse">
-				    									<h6 style="color: red;">#{msgs['editmembership.reject_warning']}</h6> 
-				    									<div class="form-group">
-															<label for="notes">#{msgs['editmembership.reject']} </label>
-															<p:inputTextarea class="form-control" id="notes" value="#{pending.rejectionReason}"
-																rows="5" cols="58" maxlength="255" counter="display"
-																counterTemplate="#{msgs['editaccount.remaining_chars']}" />
-															<p:outputLabel id="display" />
-												 	 	</div>
-												 	 	<div class="text-right"> 
-				    										<h:commandLink   class="btn btn-default btn-sm" onclick="$('#rejectPanel#{status.index}').collapse('hide');$('#btnsPanel#{status.index}').collapse('show');" value="#{msgs['editmembership.cancel_btn']}" >															
-																	<f:ajax render=":editMembersForm:membership_msgs"/>										
-															</h:commandLink>
-															
-				    										<h:commandLink  class="btn btn-default btn-sm" onclick="$('#m#{pending.memberId}').collapse('hide');" value="#{msgs['editmembership.send_btn']}" action="#{editMembershipCBean.reject(pending)}">
-				    												<f:ajax render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg"/>											
-															</h:commandLink> 
-				    									</div>
-			    									</div>
-			  									  </div>  <!-- de panel-body -->	
-											</div> <!-- de panel -->
-										</div><!-- de collapseOne -->
-									</c:forEach>
-								</h:panelGroup>
+		    									</div>
+		  									  </div>  <!-- de panel-body -->	
+										</div> <!-- de panel -->
+									</div><!-- de collapseOne -->
+								</c:forEach>
+								
 							</div> <!-- de md -->
 						</div> <!-- de row -->
 					</div> <!--  de tabpanel -->
@@ -234,12 +247,12 @@
 						</div>
 						<div class="row">
 							<div class="col-md-11 text-right">				 		
-								<h:commandButton class="btn btn-primary" value="Buscar" action="#{editMembershipCBean.search}">
+								<h:commandButton class="btn btn-primary" value="Buscar" action="#{editMembershipCBean.search}" onclick="$('#searchResult').collapse('show')">
 									  <f:ajax execute="@form" render=":editMembersForm:membersTable"/>  	
 								</h:commandButton>
 							</div>
 						</div>
-						<div class="row">
+						<div id="searchResult" class="row collapse">
 							<div class="col-md-offset-1 col-md-10">
 									
 								<h:dataTable class="table table-condensed table-hover" id="membersTable" var="member"
@@ -255,13 +268,14 @@
 									<h:column>
 										<f:facet name="header">#{msgs['editcommunity.member_profile']}</f:facet>
 										<p:selectBooleanCheckbox value="#{member.admin}">
-			            					<p:ajax update=":editMembersForm:counters :editMembersForm:pendingCards" listener="#{editMembershipCBean.saveMemberProfile(member)}" />
+			            					<p:ajax update=":editMembersForm:counters" listener="#{editMembershipCBean.saveMemberProfile(member)}" />
 			        					</p:selectBooleanCheckbox>									
 									</h:column>
 									<h:column>
 										<f:facet name="header">#{msgs['editcommunity.member_status']}</f:facet>
-										<p:selectBooleanCheckbox value="#{member.pendingMembership}">
-			            					<p:ajax update=":editMembersForm:counters :editMembersForm:pendingCards" listener="#{editMembershipCBean.saveMembershipStatus(member)}" />
+										<p:selectBooleanCheckbox value="#{member.pendingMembership}" onchange="if(this.checked){$('#m#{member.memberId}').collapse('show');}else{$('#m#{member.memberId}').collapse('hide');}">
+			            					<p:ajax update=":editMembersForm:counters" listener="#{editMembershipCBean.saveMembershipStatus(member)}" />
+			            					
 			        					</p:selectBooleanCheckbox>	
 									</h:column>
 									<h:column>
@@ -276,7 +290,7 @@
 														onclick="$('#myModal').appendTo('body').modal('show'); $('.modal-body #member').val( '#{member.nickname}' ); $('.modal-body #selected').val(#{member.memberId});  return false;"
 														>
 													
-													<f:ajax update="growl"/>
+													
 													<span class="fa-stack fa-1x">
 													<i class="fa fa-circle fa-stack-2x"></i>
 													<i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>

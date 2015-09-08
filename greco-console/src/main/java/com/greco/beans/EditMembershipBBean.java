@@ -9,7 +9,7 @@ import javax.faces.context.FacesContext;
 
 
 //import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortOrder;
+
 
 import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.helpers.CommunityItem;
@@ -36,7 +36,6 @@ public class EditMembershipBBean {
 	private int adminCounter;
 	private int pendingsCounter;
 	private int membersCounter;
-	private int summary;   //Suma de los anteriores.
 	
 	//Criterios de búsqueda
 	private String textCriterion;
@@ -68,7 +67,7 @@ public class EditMembershipBBean {
 		this.pendingsCounter=pendings.size();
 		this.adminCounter=this.userCommunityDataProvider.getAdmins(item);
 		this.membersCounter=this.userCommunityDataProvider.getMembers(item);
-		this.summary=this.adminCounter+this.membersCounter+this.pendingsCounter;
+		
 		
 		//Asigno valor inicial a los criterios de búsqueda
 		textCriterion="";
@@ -76,16 +75,34 @@ public class EditMembershipBBean {
 		pendingsSelectCriterion=true;
 		
 		fromDateCriterion=null;
-		toDateCriterion=item.getLocalTime().toDate();
+		toDateCriterion=item.getLocalTime().plusDays(1).toDate(); //Ponemos el día siguiente para que, por defecto, salgan todos. 
 		orderedByCriterion="registerdate";
 		sortOrderCriterion=0;
 		
-		//Inicializo el objeto que gestionará la tabla de miembros.
+		//Inicializo el objeto que gestionará la búsqueda
 		//members=new LazyMembersDataModel(item, userCommunityDataProvider);
-		members=userCommunityDataProvider.findRangeOrder(item, null, 0, 25, "nickname", SortOrder.ASCENDING);
+		members=null;
 		
 		
 	}
+	
+	
+	/**
+	 * Actualiza la lista (no en base de datos), de miembros y, por tanto, las fichas visible en el tab inicial.
+	 * @param memberItem Miebmbro
+	 * @param delete Indica si hay que borrar el miembro indicado (true), o solo sustituir (false)
+	 */
+	public void updateMembersList(MemberItem memberItem, boolean delete){
+		int i=members.indexOf(memberItem);
+		if ( i >= 0){
+			if ( delete ) 
+				members.remove(i);
+			else 
+				members.set(i, memberItem);
+		} 
+		
+	}
+	
 	
 	
 	
@@ -153,15 +170,10 @@ public class EditMembershipBBean {
 	}
 
 	public int getSummary() {
-		return summary;
+		return adminCounter+membersCounter+pendingsCounter;
 	}
 
-	public void setSummary(int summary) {
-		this.summary = summary;
-	}
-
-
-
+	
 	public String getTextCriterion() {
 		return textCriterion;
 	}

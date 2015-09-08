@@ -29,6 +29,20 @@ public class EditMembershipCBean {
 	 */
 	public void saveMembershipStatus(MemberItem memberItem){
 		editMembershipBBean.getUserCommunityDataProvider().saveStatus(memberItem);
+		//Actualizamos contadores
+		if (memberItem.isPendingMembership() ){
+			//Ha pasado a estar pendiente.
+			editMembershipBBean.setMembersCounter(editMembershipBBean.getMembersCounter()-1);
+			editMembershipBBean.setPendingsCounter(editMembershipBBean.getPendingsCounter()+1);
+			
+			
+		} 
+		else { //Ha pasado a ser miembro activo
+			editMembershipBBean.setMembersCounter(editMembershipBBean.getMembersCounter()+1);
+			editMembershipBBean.setPendingsCounter(editMembershipBBean.getPendingsCounter()-1);
+		}
+			
+		
 		//Generamos mensaje para el log.
 		String msg="UserCommunityID (" + memberItem.getMemberId() + ") ";
 		msg += "New status ("+ memberItem.getStatus() + ")";
@@ -37,16 +51,13 @@ public class EditMembershipCBean {
 	}
 	
 	/**
-	 *  Aprueba la suscripción.
+	 *  Aprueba la suscripción (desde tab inicial)
 	 */
 	public void approve(MemberItem memberItem){
 		
 		memberItem.setStatus(new StatusItem(StatusItem.MEMBER));
 		saveMembershipStatus(memberItem);
-		int count=editMembershipBBean.getPendingsCounter();
-		editMembershipBBean.setPendingsCounter(count-1);
-		count=editMembershipBBean.getMembersCounter();
-		editMembershipBBean.setMembersCounter(count+1);
+		
 		
     	//Mostramos mensaje de éxito.
 		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO,  
@@ -55,7 +66,7 @@ public class EditMembershipCBean {
 	}
 	
 	/**
-	 * Rechaza una petición de suscripción.
+	 * Rechaza una petición de suscripción (desde tab inicial).
 	 */
 	public void reject(MemberItem memberItem){
 		
@@ -96,8 +107,17 @@ public class EditMembershipCBean {
 	public void saveMemberProfile(MemberItem memberItem){
 		try {
 			editMembershipBBean.getUserCommunityDataProvider().saveMemberProfile(memberItem);
+			//Actualizamos contadores
+			if (memberItem.isAdmin() ){
+				//Ha pasado a ser administrador.
+				editMembershipBBean.setAdminCounter(editMembershipBBean.getAdminCounter()+1);
+				editMembershipBBean.setMembersCounter(editMembershipBBean.getMembersCounter()-1);
+			} 
+			else { //Ha dejado de ser administrador..
+				editMembershipBBean.setAdminCounter(editMembershipBBean.getAdminCounter()-1);
+				editMembershipBBean.setMembersCounter(editMembershipBBean.getMembersCounter()+1);
+			}
 			//Generamos mensaje para el log.
-			
 			String msg="UserCommunityID (" + memberItem.getMemberId() + ") ";
 			msg += "New profile ("+ memberItem.getMemberProfile().getName() + ")";
 			log.log("007001", msg ); //007002=INFO|Cambio de perfil:
@@ -113,7 +133,7 @@ public class EditMembershipCBean {
 		
 	}
 	/**
-	 * Da de baja de la comunidad al miembre seleccionado (atributo selectedMember)
+	 * Da de baja de la comunidad al miembro seleccionado 
 	 */
 	public String unsubscribe(){
 		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -124,8 +144,18 @@ public class EditMembershipCBean {
         if (memberItem!=null) {
 			try {
 				editMembershipBBean.getUserCommunityDataProvider().removeMember(memberItem);
+				
+				//Actualizamos contadores
+				if (memberItem.isPendingMembership() ) //Aún no estaba suscrito
+					editMembershipBBean.setMembersCounter(editMembershipBBean.getMembersCounter()-1);
+				else //Era un miembro activo
+					editMembershipBBean.setMembersCounter(editMembershipBBean.getMembersCounter()+1);
+				
+				//Enviamos correo.
+					
+		
 				//Grabamos el log
-				String msg="userID (" + this.editMembershipBBean.getSelectedMember().getId() + ") COMMUNITYID(" + memberItem.getCommunityId() + ")";
+				String msg="userID (" + memberItem.getId() + ") COMMUNITYID(" + memberItem.getCommunityId() + ")";
 				log.log("007003", msg ); //007003=INFO|Baja de miembro:
 				
 			} catch (NoCommunityAdminException e) {

@@ -63,12 +63,7 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 			
 			toDate=criteria.get(SUBSCRIPTION_TO_DATE);
 			if (toDate !=null)
-				sQuery+=" and uc.registerDate<=:toDate";
-			
-			
-			
-			
-			
+				sQuery+=" and uc.registerDate<=:toDate";	
 		}
 		//Comprobamos si se especifica ordenación.
 		if ( sortField != null) {

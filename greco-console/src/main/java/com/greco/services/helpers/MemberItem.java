@@ -90,6 +90,11 @@ public class MemberItem extends UserItem{
 	
 	
 	
+	@Override
+	public boolean equals(Object obj) {
+		return ((MemberItem)obj).getMemberId()==this.memberId;
+	}
+
 	//GETTERs y SETTERs	
 	public int getCommunityId() {
 		return communityId;
