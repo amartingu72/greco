@@ -2,12 +2,16 @@ package com.greco.beans;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+
 import org.primefaces.model.SortOrder;
+
 import com.greco.repositories.UserCommunitiesDAO;
 import com.greco.services.except.user.NoCommunityAdminException;
+import com.greco.services.except.user.NoMemberException;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.MemberItem;
 import com.greco.services.helpers.ProfileItem;
@@ -26,9 +30,9 @@ public class EditMembershipCBean {
 	/**
 	 * Guarda el cambio de estado (miembro o pendiente) realizado sobre un miembro.
 	 * @param memberItem Miembro (o candidato a miembro), afectado.
+	 * @throws NoMemberException 
 	 */
-	public void saveMembershipStatus(MemberItem memberItem){
-		editMembershipBBean.getUserCommunityDataProvider().saveStatus(memberItem);
+	private void saveMembershipStatus(MemberItem memberItem) throws NoMemberException{
 		//Actualizamos contadores
 		if (memberItem.isPendingMembership() ){
 			//Ha pasado a estar pendiente.
@@ -48,13 +52,16 @@ public class EditMembershipCBean {
 		msg += "New status ("+ memberItem.getStatus() + ")";
 		
 		log.log("007001", msg );//007001=INFO|Cambio de estado:
+			
+		
 	}
 	
+	
 	/**
-	 *  Aprueba la suscripción (desde tab inicial)
+	 * Desde Tab1
+	 * @param memberItem
 	 */
-	public void approve(MemberItem memberItem){
-		
+	public void approveTab1(MemberItem memberItem){
 		memberItem.setStatus(new StatusItem(StatusItem.MEMBER));
 		saveMembershipStatus(memberItem);
 		
@@ -64,6 +71,15 @@ public class EditMembershipCBean {
 				memberItem.getNickname(),Warnings.getString("editmembership.approved_detail")); 
 		FacesContext.getCurrentInstance().addMessage("editMembersForm:membership_msgs", fm);
 	}
+	/**
+	 * Desde Tab2
+	 * @param memberItem
+	 */
+	public void changeMembershipStatus(MemberItem memberItem){
+		saveMembershipStatus(memberItem);
+		
+	}
+	
 	
 	/**
 	 * Rechaza una petición de suscripción (desde tab inicial).
@@ -123,17 +139,21 @@ public class EditMembershipCBean {
 			log.log("007001", msg ); //007002=INFO|Cambio de perfil:
 			
 		} catch (NoCommunityAdminException e) {
+			//Dejamos todo como antes.
+			memberItem.setAdmin(true);
+			
+			
 			//Generamos mensaje para el usuario.
 			FacesContext context = FacesContext.getCurrentInstance();
 	         
-	        context.addMessage(null,new FacesMessage(Warnings.getString("editcommunity.nocommunityadmin_msg"),  
+	        context.addMessage("editMembersForm:search_msgs",new FacesMessage(Warnings.getString("editcommunity.nocommunityadmin_msg"),  
 	        				Warnings.getString("editcommunity.nocommunityadmin_detail" ) ) );
 	        
 		}
 		
 	}
 	/**
-	 * Da de baja de la comunidad al miembro seleccionado 
+	 * Da de baja de la comunidad al miembro seleccionado (pestaña de búsqueda (tab 2))
 	 */
 	public String unsubscribe(){
 		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -151,6 +171,9 @@ public class EditMembershipCBean {
 				else //Era un miembro activo
 					editMembershipBBean.setMembersCounter(editMembershipBBean.getMembersCounter()+1);
 				
+				//Eliminamos del resultado de la consulta actual.
+				editMembershipBBean.updateMembersList(memberItem, true);
+				
 				//Enviamos correo.
 					
 		
@@ -161,7 +184,7 @@ public class EditMembershipCBean {
 			} catch (NoCommunityAdminException e) {
 				//Generamos mensaje para el usuario.
 				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage(null,new FacesMessage(Warnings.getString("editcommunity.nocommunityadmin_del_msg"),  
+				context.addMessage("editMembersForm:search_msgs",new FacesMessage(Warnings.getString("editcommunity.nocommunityadmin_del_msg"),  
 	    				Warnings.getString("editcommunity.nocommunityadmin_del_detail" ) ) );
 			}
         }

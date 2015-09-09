@@ -11,6 +11,9 @@ import javax.faces.context.FacesContext;
 //import org.primefaces.model.LazyDataModel;
 
 
+
+import org.primefaces.model.SortOrder;
+
 import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.helpers.CommunityItem;
 //import com.greco.services.helpers.LazyMembersDataModel;
@@ -81,7 +84,10 @@ public class EditMembershipBBean {
 		
 		//Inicializo el objeto que gestionará la búsqueda
 		//members=new LazyMembersDataModel(item, userCommunityDataProvider);
-		members=null;
+		members=this.userCommunityDataProvider.findRangeOrder(item, 
+				null, 
+				0, 25, 
+				orderedByCriterion, SortOrder.ASCENDING);
 		
 		
 	}

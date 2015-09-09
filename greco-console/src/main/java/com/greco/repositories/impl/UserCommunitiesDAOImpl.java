@@ -16,6 +16,7 @@ import com.greco.entities.Profile;
 import com.greco.entities.UsersCommunity;
 import com.greco.repositories.UserCommunitiesDAO;
 import com.greco.services.except.user.NoCommunityAdminException;
+import com.greco.services.except.user.NoMemberException;
 import com.greco.services.helpers.ProfileItem;
 
 
@@ -114,38 +115,53 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 
 
 	@Override
-	public void saveStatus(int userCommunity_id, int status_id) {
+	public void saveStatus(int userCommunity_id, int status_id) throws NoMemberException {
 		UsersCommunity usersCommunity=load(userCommunity_id);
-		usersCommunity.setStatus(status_id);
-		em.merge(usersCommunity);
+		if ( usersCommunity != null) {
+			usersCommunity.setStatus(status_id);
+			em.merge(usersCommunity);
+		} 
+		else {
+			throw new NoMemberException();
+		}
 	}
 
 
 	@Override
-	public void saveProfile(int userCommunity_id, Profile profile) throws NoCommunityAdminException{
+	public void saveProfile(int userCommunity_id, Profile profile) throws NoCommunityAdminException, NoMemberException{
 		UsersCommunity usersCommunity=load(userCommunity_id);
-		//Si es un administrador, comprobar que queda al menos otro antes de hacer el cambio.
-		if (usersCommunity.getProfile().getId() == ProfileItem.ADMIN) 
-			if ( adminCount(usersCommunity.getCommunity().getId())==1 )
-				//Solo queda un administrador. No se puede borrar.
-				throw new NoCommunityAdminException();
-		usersCommunity.setProfile(profile);
-		em.merge(usersCommunity);		
+		if ( usersCommunity != null) {
+			//Si es un administrador, comprobar que queda al menos otro antes de hacer el cambio.
+			if (usersCommunity.getProfile().getId() == ProfileItem.ADMIN) 
+				if ( adminCount(usersCommunity.getCommunity().getId())==1 )
+					//Solo queda un administrador. No se puede borrar.
+					throw new NoCommunityAdminException();
+			usersCommunity.setProfile(profile);
+			em.merge(usersCommunity);		
+		} 
+		else {
+			throw new NoMemberException();
+		}
 	}
 
 
 	@Override
-	public void remove(int ucId) throws NoCommunityAdminException{
+	public void remove(int ucId) throws NoCommunityAdminException, NoMemberException{
 		UsersCommunity uc=em.getReference(UsersCommunity.class, ucId);
-		//Si es un administrador, comprobar que queda al menos otro antes de hacer el cambio.
-		if (uc.getProfile().getId() == ProfileItem.ADMIN) 
-			if ( adminCount(uc.getCommunity().getId())==1 ){
-				//Solo queda un administrador. No se puede borrar.
-				throw new NoCommunityAdminException();
-			}
-		
-		em.remove(em.merge(uc));
-	}
+		if ( uc != null){
+			//Si es un administrador, comprobar que queda al menos otro antes de hacer el cambio.
+			if (uc.getProfile().getId() == ProfileItem.ADMIN) 
+				if ( adminCount(uc.getCommunity().getId())==1 ){
+					//Solo queda un administrador. No se puede borrar.
+					throw new NoCommunityAdminException();
+				}
+			
+			em.remove(em.merge(uc));
+		} 
+		else {
+			throw new NoMemberException();
+		}
+		}
 
 
 	/**

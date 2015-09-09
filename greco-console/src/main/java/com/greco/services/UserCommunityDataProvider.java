@@ -6,6 +6,7 @@ import java.util.Map;
 import org.primefaces.model.SortOrder;
 
 import com.greco.services.except.user.NoCommunityAdminException;
+import com.greco.services.except.user.NoMemberException;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.MemberItem;
 
@@ -36,22 +37,25 @@ public interface UserCommunityDataProvider{
 	/**
 	 * Cambia el estado de un miembro: pendiente a miembro o viceversa.
 	 * @param memberItem Item que define al miembro y su estado.
+	 * @throws NoMemberException Se intenta guardar el estado de un miembro no suscrito.
 	 */
-	public abstract void saveStatus(MemberItem memberItem);
+	public abstract void saveStatus(MemberItem memberItem) throws NoMemberException;
 	
 	/**
 	 * Cambia el perfil de un miembro: administrador a usuario o viceversa.
 	 * @param memberItem Item que define al miembro y su perfil.
 	 * @throws NoCommunityAdminException Se ha intentado eliminar al único usuario administrador.
+	 * @throws NoMemberException Se intenta guardar el estado de un miembro no suscrito.
 	 */
-	public abstract void saveMemberProfile(MemberItem memberItem)  throws NoCommunityAdminException;
+	public abstract void saveMemberProfile(MemberItem memberItem)  throws NoCommunityAdminException, NoMemberException;
 	
 	/**
 	 * Da de baja de la comunidad al miembro pasado como parámetro.
 	 * @param memberItem Item de miembro.
 	 * @throws NoCommunityAdminException Se ha intentado eliminar al único usuario administrador.
+	 * @throws NoMemberException Se intenta guardar el estado de un miembro no suscrito.
 	 */
-	public abstract void removeMember(MemberItem memberItem) throws NoCommunityAdminException;
+	public abstract void removeMember(MemberItem memberItem) throws NoCommunityAdminException, NoMemberException;
 	
 	/**
 	 * Devuelve el número de administradores.

@@ -8,6 +8,7 @@ import org.primefaces.model.SortOrder;
 import com.greco.entities.Profile;
 import com.greco.entities.UsersCommunity;
 import com.greco.services.except.user.NoCommunityAdminException;
+import com.greco.services.except.user.NoMemberException;
 
 public interface UserCommunitiesDAO {
 	
@@ -62,21 +63,24 @@ public interface UserCommunitiesDAO {
 	 * Acualiza el estado en la relación UserCommunities
 	 * @param userCommunity_id Id de la tabla UserCommunities
 	 * @param status Estado
+	 * @throws El miembro indicado no es miembro de la comunidad.
 	 */
-	public void saveStatus(int userCommunity_id, int status_id);
+	public void saveStatus(int userCommunity_id, int status_id) throws NoMemberException;
 	
 	/**
 	 * Acualiza el perfil en la relación UserCommunities
 	 * @param userCommunity_id
 	 * @param profile_id
+	 * @throws El miembro indicado no es miembro de la comunidad.
 	 */
-	public void saveProfile(int userCommunity_id, Profile profile) throws NoCommunityAdminException;
+	public void saveProfile(int userCommunity_id, Profile profile) throws NoCommunityAdminException, NoMemberException;
 	
 	/**
 	 * Borra la fila indicada.
 	 * @param ucId Id
+	 * @throws El miembro indicado no es miembro de la comunidad.
 	 */
-	public void remove(int ucId) throws NoCommunityAdminException;
+	public void remove(int ucId) throws NoCommunityAdminException, NoMemberException;
 	
 	//Crea un nuevo miembro.
 	public void add(UsersCommunity uc);

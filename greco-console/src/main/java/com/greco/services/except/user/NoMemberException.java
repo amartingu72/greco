@@ -1,6 +1,6 @@
 package com.greco.services.except.user;
 /*/
- * Indica que el usuario no es miembro de la comunidad sobre la que intenta hacer login. 
+ * Indica que el usuario no es miembro de la comunidad sobre la que intenta operar. 
  * @author Alberto Martín
  *
  */

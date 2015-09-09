@@ -17,6 +17,7 @@ import com.greco.repositories.ProfileDAO;
 import com.greco.repositories.UserCommunitiesDAO;
 import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.except.user.NoCommunityAdminException;
+import com.greco.services.except.user.NoMemberException;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.MemberItem;
 import com.greco.services.helpers.ProfileItem;
@@ -64,20 +65,20 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
 
 	@Override
 	@Transactional
-	public void saveStatus(MemberItem memberItem) {
+	public void saveStatus(MemberItem memberItem) throws NoMemberException {
 		userCommunitiesDAO.saveStatus(memberItem.getMemberId(), memberItem.getStatusId());
 	}
 
 	@Override
 	@Transactional
-	public void saveMemberProfile(MemberItem memberItem) throws NoCommunityAdminException{		
+	public void saveMemberProfile(MemberItem memberItem) throws NoCommunityAdminException, NoMemberException{		
 		Profile profile=profileDAO.loadSelected(memberItem.getMemberProfile().getId());
 		userCommunitiesDAO.saveProfile(memberItem.getMemberId(), profile);
 	}
 
 	@Override
 	@Transactional
-	public void removeMember(MemberItem memberItem) throws NoCommunityAdminException{ 	
+	public void removeMember(MemberItem memberItem) throws NoCommunityAdminException, NoMemberException{ 	
 		userCommunitiesDAO.remove(memberItem.getMemberId());
 	}
 

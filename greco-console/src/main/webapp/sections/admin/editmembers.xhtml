@@ -29,9 +29,9 @@
       						<div class="modal-footer">
         						<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['editcommunity.unsubscribe_no']}</button>
         						
-        						<h:commandLink class="btn btn-default" value="#{msgs['editcommunity.unsubscribe_yes']}" 
+        						<h:commandLink class="btn btn-default" value="#{msgs['editcommunity.unsubscribe_yes']}" onclick="$('#myModal').modal('hide');"        						
         							action="#{editMembershipCBean.unsubscribe}">
-        							
+        							<f:ajax render=":editMembersForm:membersTable :editMembersForm:counters"/>
         						</h:commandLink> 
       						</div>
 	      				</h:form>
@@ -42,7 +42,7 @@
 	  			
 			</div>
 			<h:form id="editMembersForm">
-				<p:growl id="growl" showSummary="true" showDetail="true"/>
+				
 				
 				
 				<h:inputHidden id="id" value="#{communitiesSBean.selectedItem.id}"/>
@@ -54,11 +54,11 @@
 						    <li  class="hidden-xs" role="presentation"> <a href="#advanced" aria-controls="advanced" role="tab" data-toggle="tab">#{msgs['editmembership.search_tab']}</a></li>
 					  	</ul>
 					</div>
-					<SCRIPT type="text/javascript">
+					<!-- <SCRIPT type="text/javascript">
 						$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 							$('#searchResult').collapse('hide');
 						});
-					</SCRIPT>
+					</SCRIPT> -->
 				</div>	 
 				
 				<div class="tab-content">
@@ -118,7 +118,7 @@
 														</span>											
 													</h:commandLink>
 													
-		    										<h:commandLink title="#{msgs['editmembership.approve_title']}" onclick="$('#m#{pending.memberId}').collapse('hide');" action="#{editMembershipCBean.approve(pending)}">
+		    										<h:commandLink title="#{msgs['editmembership.approve_title']}" onclick="$('#m#{pending.memberId}').collapse('hide');" action="#{editMembershipCBean.approveTab1(pending)}">
 		    											<f:ajax render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg" />
 														<span class="fa-stack fa-1x">
 															<i class="fa fa-circle fa-stack-2x" style="color: green;"></i>
@@ -164,8 +164,10 @@
 							    	
 							    	
 							</div>
-							
-							<div class="col-md-offset-5 col-md-2 text-right">			
+							<div class="col-md-5">
+								<p:messages id="search_msgs" showSummary="true" showDetail="true"/>
+							</div>
+							<div class="col-md-2 text-right">			
 									<a data-toggle="collapse" href="#searchCriteria">#{msgs['editmembership.advanced_search']}<span class="caret"></span></a>
 									
 							</div>
@@ -247,12 +249,13 @@
 						</div>
 						<div class="row">
 							<div class="col-md-11 text-right">				 		
-								<h:commandButton class="btn btn-primary" value="Buscar" action="#{editMembershipCBean.search}" onclick="$('#searchResult').collapse('show')">
+								<h:commandButton class="btn btn-primary" value="Buscar" action="#{editMembershipCBean.search}" >
+									<!-- onclick="$('#searchResult').collapse('show')" -->
 									  <f:ajax execute="@form" render=":editMembersForm:membersTable"/>  	
 								</h:commandButton>
 							</div>
 						</div>
-						<div id="searchResult" class="row collapse">
+						<div id="searchResult" class="row"> <!-- collapse -->
 							<div class="col-md-offset-1 col-md-10">
 									
 								<h:dataTable class="table table-condensed table-hover" id="membersTable" var="member"
@@ -268,13 +271,13 @@
 									<h:column>
 										<f:facet name="header">#{msgs['editcommunity.member_profile']}</f:facet>
 										<p:selectBooleanCheckbox value="#{member.admin}">
-			            					<p:ajax update=":editMembersForm:counters" listener="#{editMembershipCBean.saveMemberProfile(member)}" />
+			            					<p:ajax update=":editMembersForm:counters :editMembersForm:membersTable :editMembersForm:search_msgs" listener="#{editMembershipCBean.saveMemberProfile(member)}" />
 			        					</p:selectBooleanCheckbox>									
 									</h:column>
 									<h:column>
 										<f:facet name="header">#{msgs['editcommunity.member_status']}</f:facet>
 										<p:selectBooleanCheckbox value="#{member.pendingMembership}" onchange="if(this.checked){$('#m#{member.memberId}').collapse('show');}else{$('#m#{member.memberId}').collapse('hide');}">
-			            					<p:ajax update=":editMembersForm:counters" listener="#{editMembershipCBean.saveMembershipStatus(member)}" />
+			            					<p:ajax update=":editMembersForm:counters :editMembersForm:search_msgs" listener="#{editMembershipCBean.changeMembershipStatus(member)}" />
 			            					
 			        					</p:selectBooleanCheckbox>	
 									</h:column>
