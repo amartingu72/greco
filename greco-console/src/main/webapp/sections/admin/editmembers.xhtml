@@ -29,7 +29,7 @@
       						<div class="modal-footer">
         						<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['editcommunity.unsubscribe_no']}</button>
         						
-        						<h:commandLink class="btn btn-default" data-dismiss="modal" value="#{msgs['editcommunity.unsubscribe_yes']}" 
+        						<h:commandLink class="btn btn-default" value="#{msgs['editcommunity.unsubscribe_yes']}" 
         							action="#{editMembershipCBean.unsubscribe}">
         							
         						</h:commandLink> 
@@ -51,7 +51,7 @@
 		           	<div class="col-md-offset-1 col-md-10"> 
 					  	<ul class="nav nav-tabs" role="tablist">
 						    <li role="presentation" class="active"><a href="#default"  aria-controls="default" role="tab" data-toggle="tab">#{msgs['editmembership.subscriptions_tab']}</a></li>
-						    <li  role="presentation"> <a href="#advanced" aria-controls="advanced" role="tab" data-toggle="tab">#{msgs['editmembership.search_tab']}</a></li>
+						    <li  class="hidden-xs" role="presentation"> <a href="#advanced" aria-controls="advanced" role="tab" data-toggle="tab">#{msgs['editmembership.search_tab']}</a></li>
 					  	</ul>
 					</div>
 					<SCRIPT type="text/javascript">
@@ -91,7 +91,7 @@
 							</div>
 							<div class="col-md-offset-1 col-md-6">
 								#{msgs['editmembership.pendings_title']} 
-								<h:commandLink title="Refrescar" onclick="window.location.reload();return false;">
+								<h:commandLink title="#{msgs['editmembership.refresh']} " onclick="window.location.reload();return false;">
 										<span class="fa-stack fa-1x">
 											<i class="fa fa-circle fa-stack-2x"></i>
 											<i class="fa fa-refresh fa-stack-1x fa-inverse"></i>
@@ -160,13 +160,13 @@
 						<div class="row mar-top20">
 							<div class="col-md-offset-1 col-md-3">
 								
-							    	<p:inputText id="filter" class="form-control" placeholder="Texto a buscar..." value="#{editMembershipBBean.textCriterion}"/>
+							    	<p:inputText id="filter" class="form-control" placeholder="#{msgs['editmembership.text_search']}" value="#{editMembershipBBean.textCriterion}"/>
 							    	
 							    	
 							</div>
 							
 							<div class="col-md-offset-5 col-md-2 text-right">			
-									<a data-toggle="collapse" href="#searchCriteria">Avanzado<span class="caret"></span></a>
+									<a data-toggle="collapse" href="#searchCriteria">#{msgs['editmembership.advanced_search']}<span class="caret"></span></a>
 									
 							</div>
 							
@@ -174,19 +174,19 @@
 						</div>
 						<div id="searchCriteria" class="row collapse mar-top20">
 							<div class="col-md-offset-1 col-md-3">
-								<label>Filtro por estado y perfil:</label>
+								<label>#{msgs['editmembership.state_profile_filter']}:</label>
 								<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
-							 		<h:outputText value="Mostrar administradores: " />
+							 		<h:outputText value="#{msgs['editmembership.admins_filter']}: " />
 							        <p:selectBooleanCheckbox value="#{editMembershipBBean.adminsSelectCriterion}" />
 							     							        
-							        <h:outputText value="Mostrar suscriptores en espera: " />
+							        <h:outputText value="#{msgs['editmembership.pendings_filter']}: " />
 							        <p:selectBooleanCheckbox value="#{editMembershipBBean.pendingsSelectCriterion}" />
 							    </h:panelGrid>								
 							</div>
 							<div class="col-md-7">	
 								<div class="row">
 									<div class="col-md-12">					
-											<label>Rango de fechas de suscripción:</label>
+											<label>#{msgs['editmembership.dates_range']}:</label>
 									</div>
 								</div>
 								<div class="row">
@@ -222,10 +222,10 @@
 							    
 								    <div class="col-md-4">	
 										<div class="form-group">
-									 		<label for="orderedBy">Ordenado por</label>	
+									 		<label for="orderedBy">#{msgs['editmembership.order_by']}</label>	
 									 		<h:selectOneMenu id="orderedBy" class="form-control" value="#{editMembershipBBean.orderedByCriterion}">
-					        					<f:selectItem itemLabel="Alias" itemValue="nickname" />
-					       						<f:selectItem itemLabel="Suscripción" itemValue="registerdate" />
+					        					<f:selectItem itemLabel="#{msgs['editmembership.alias']}" itemValue="nickname" />
+					       						<f:selectItem itemLabel="#{msgs['editmembership.subscription_date']}" itemValue="registerdate" />
 					   						</h:selectOneMenu>
 							 			</div>
 							 		</div>
@@ -233,8 +233,8 @@
 							 			<div class="form-group">
 									 		<label for="sortOrder">Criterio</label>	
 									 		<h:selectOneMenu id="sortOrder" class="form-control" value="#{editMembershipBBean.sortOrderCriterion}">
-					        					<f:selectItem itemLabel="Ascendente" itemValue="0" />
-					       						<f:selectItem itemLabel="Descendente" itemValue="1" />
+					        					<f:selectItem itemLabel="#{msgs['editmembership.asc']}" itemValue="0" />
+					       						<f:selectItem itemLabel="#{msgs['editmembership.desc']}" itemValue="1" />
 					   						</h:selectOneMenu>
 							 			</div>
 								    
@@ -279,7 +279,7 @@
 			        					</p:selectBooleanCheckbox>	
 									</h:column>
 									<h:column>
-										<f:facet name="header">Suscripción</f:facet>
+										<f:facet name="header">#{msgs['editmembership.application']}</f:facet>
 										<h:outputText value="#{member.application}" />		
 									</h:column>
 									<h:column>
@@ -308,7 +308,7 @@
 						</div> 
 						<div class="row">
 							<div class="col-md-offset-1 col-md-10">
-								<p><em>Búsqueda limitada a los 25 primeros resultados</em></p>
+								<p><em>#{msgs['editmembership.search_limit']}</em></p>
 							</div>
 						</div>
 					</div>  <!-- Del tabpanel advanced -->
