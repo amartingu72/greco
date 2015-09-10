@@ -79,7 +79,7 @@ public class MenuCBean {
 	 */
 	public String navigateSiteLogout(){
 		
-		return "/sections/login/logout?communityid="+ userSBean.getId() +"&faces-redirect=true";
+		return "/sections/login/logout?communityid="+ userSBean.getCommunityId() +"&faces-redirect=true";
 	}
 	
 	

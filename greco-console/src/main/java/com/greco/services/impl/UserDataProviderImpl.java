@@ -90,33 +90,19 @@ public class UserDataProviderImpl implements UserDataProvider{
 		if ( com == null) 
 			throw new UnknownCommunityException();
 		
-		User user=usersRepository.loadSelectedUserByMail(email);
-		
-		
-		//Comprobamos que el usuario contiene la comunidad.
-		List<Community> comms=user.getCommunities(); 
-		if ( comms == null ) throw new NoMemberException();
-		Iterator<Community> it=comms.iterator();
-		boolean found=false;
-		Community comm=null;
-		while ( it.hasNext() && !found) {
-			comm=it.next();
-			found=( comm.getId()== communityId);
-		}
-		if ( !found )
-			throw new NoMemberException();	
-		
-		//Si ha encontrado una comunidad, comprobamos que está activa.
-		if ( found && (comm.getAvailable()==0) ) 
+		//Comprobamos que la comunidad esté activa.
+		if ( com.getAvailable()==0 ) 
 			throw new UnavailableCommunity();
 		
+		User user=usersRepository.loadSelectedUserByMail(email);
+			
 		//Comprobamos que la suscripción está activa.
-		int status=userCommunitiesDAO.getSubscriptionStatus(user.getId(), communityId);
+		int status=userCommunitiesDAO.getSubscriptionStatus(user.getId(), communityId);  //Si el usuario no fuera miembro, lanzarría excepción NoMemberException.
 		if ( status== UserCommunitiesDAO.PENDING_STATUS)
 			throw new PendingException();
 		
 		
-		//Una vez hechas las validaciones, cargaos el bean.
+		//Una vez hechas las validaciones, cargamos el bean.
 		UserSBean userbean=null;
 		if ( user != null ) {
 			userbean=new UserSBean();

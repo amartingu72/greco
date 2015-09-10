@@ -90,8 +90,9 @@ public interface UserCommunitiesDAO {
 	 * @param userId Identificado del usuario que realiza la suscripción.
 	 * @param communityId Identificador de la comunidad por cuya suscripción pregunta.
 	 * @return Estado de la suscriptición (ver contantes más arriba): PENDING, SUBSCRIBED.
+	 * @throws NoMemberException El usuario no es miembro ni ha solicitado suscribirse a esta comunidad.
 	 */
-	public int getSubscriptionStatus(int userId, int communityId);
+	public int getSubscriptionStatus(int userId, int communityId)  throws NoMemberException ;
 	
 	/**
 	 * Indica el número usuarios administradores para una comunidad dada.

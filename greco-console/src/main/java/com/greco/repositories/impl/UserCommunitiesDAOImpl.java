@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
@@ -188,12 +189,17 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 
 
 	@Override
-	public int getSubscriptionStatus(int userId, int communityId) {
+	public int getSubscriptionStatus(int userId, int communityId) throws NoMemberException {
 		String sql = "SELECT uc.status FROM UsersCommunity AS uc WHERE uc.user.id=:user_id AND uc.community.id=:community_id";
 		Query q = em.createQuery(sql);
 		q.setParameter("user_id", userId);
 		q.setParameter("community_id", communityId);
-		int status = ( (Integer)q.getSingleResult() ).intValue();
+		int status=-1;
+		try {
+			status = ( (Integer)q.getSingleResult() ).intValue();
+		} catch (NoResultException ex) { 
+			throw new NoMemberException();
+		}
 		return status;
 		
 	}
