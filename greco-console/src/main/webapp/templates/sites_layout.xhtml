@@ -36,7 +36,10 @@
 </h:head>
 <h:body>
 	<!-- Menú  -->
-	<div style="#{displayMenu}">
+	<ui:insert name="noSideBar">
+        <ui:param name="sidebar" value="true" />
+    </ui:insert>
+	<div style="#{sidebar?'':'display:none;'}">
 		<ui:insert name="sidebarLeft">
     		<ui:include src="/sites/sidebarleft.xhtml"/>
     	</ui:insert>
