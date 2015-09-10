@@ -33,6 +33,7 @@ public class EditMembershipCBean {
 	 * @throws NoMemberException 
 	 */
 	private void saveMembershipStatus(MemberItem memberItem) throws NoMemberException{
+		editMembershipBBean.getUserCommunityDataProvider().saveStatus(memberItem);
 		//Actualizamos contadores
 		if (memberItem.isPendingMembership() ){
 			//Ha pasado a estar pendiente.
@@ -63,20 +64,33 @@ public class EditMembershipCBean {
 	 */
 	public void approveTab1(MemberItem memberItem){
 		memberItem.setStatus(new StatusItem(StatusItem.MEMBER));
-		saveMembershipStatus(memberItem);
+		try {
+			saveMembershipStatus(memberItem);
+			//Mostramos mensaje de éxito.
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+					memberItem.getNickname(),Warnings.getString("editmembership.approved_detail")); 
+			FacesContext.getCurrentInstance().addMessage("editMembersForm:membership_msgs", fm);
+		} catch (NoMemberException e) {
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_WARN,  
+					Warnings.getString("editmembership.removed")
+					,Warnings.getString("editmembership.removed_details")); 
+			FacesContext.getCurrentInstance().addMessage("editMembersForm:membership_msgs", fm);
+		}
 		
-		
-    	//Mostramos mensaje de éxito.
-		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO,  
-				memberItem.getNickname(),Warnings.getString("editmembership.approved_detail")); 
-		FacesContext.getCurrentInstance().addMessage("editMembersForm:membership_msgs", fm);
 	}
 	/**
-	 * Desde Tab2
+	 * Cambio de estado realizado desde el tab 2, pulsando en el checkbox de la tabla.
 	 * @param memberItem
 	 */
 	public void changeMembershipStatus(MemberItem memberItem){
-		saveMembershipStatus(memberItem);
+		try {
+			saveMembershipStatus(memberItem);
+		} catch (NoMemberException e) {
+			FacesContext context = FacesContext.getCurrentInstance();
+	         
+	        context.addMessage("editMembersForm:search_msgs",new FacesMessage(Warnings.getString("editmembership.removed"),  
+	        				Warnings.getString("editmembership.removed_details" ) ) );
+		}
 		
 	}
 	
@@ -111,6 +125,11 @@ public class EditMembershipCBean {
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null,new FacesMessage(Warnings.getString("editcommunity.nocommunityadmin_del_msg"),  
     				Warnings.getString("editcommunity.nocommunityadmin_del_detail" ) ) );
+		} catch (NoMemberException e) {
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_WARN,  
+					Warnings.getString("editmembership.removed")
+					,Warnings.getString("editmembership.removed_details")); 
+			FacesContext.getCurrentInstance().addMessage("editMembersForm:membership_msgs", fm);
 		}
 	
 	}
@@ -146,9 +165,16 @@ public class EditMembershipCBean {
 			//Generamos mensaje para el usuario.
 			FacesContext context = FacesContext.getCurrentInstance();
 	         
-	        context.addMessage("editMembersForm:search_msgs",new FacesMessage(Warnings.getString("editcommunity.nocommunityadmin_msg"),  
+	        context.addMessage("editMembersForm:search_msgs",new FacesMessage(FacesMessage.SEVERITY_WARN,Warnings.getString("editcommunity.nocommunityadmin_msg"),  
 	        				Warnings.getString("editcommunity.nocommunityadmin_detail" ) ) );
+	        //Actualizamos la consulta para que deje los checkbox como estaban.
+	        this.search();
 	        
+		} catch (NoMemberException e) {
+			FacesContext context = FacesContext.getCurrentInstance();
+	         
+	        context.addMessage("editMembersForm:search_msgs",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("editmembership.removed"),  
+	        				Warnings.getString("editmembership.removed_details" ) ) );
 		}
 		
 	}
@@ -184,9 +210,20 @@ public class EditMembershipCBean {
 			} catch (NoCommunityAdminException e) {
 				//Generamos mensaje para el usuario.
 				FacesContext context = FacesContext.getCurrentInstance();
-				context.addMessage("editMembersForm:search_msgs",new FacesMessage(Warnings.getString("editcommunity.nocommunityadmin_del_msg"),  
+				context.addMessage("editMembersForm:search_msgs",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("editcommunity.nocommunityadmin_del_msg"),  
 	    				Warnings.getString("editcommunity.nocommunityadmin_del_detail" ) ) );
+			} catch (NoMemberException e) {
+				FacesContext context = FacesContext.getCurrentInstance();
+		         
+		        context.addMessage("editMembersForm:search_msgs",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("editmembership.removed"),  
+		        				Warnings.getString("editmembership.removed_details" ) ) );
 			}
+        }
+        else {
+        	FacesContext context = FacesContext.getCurrentInstance();
+	         
+	        context.addMessage("editMembersForm:search_msgs",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("editmembership.removed"),  
+	        				Warnings.getString("editmembership.removed_details" ) ) );
         }
 		return null;
 	}

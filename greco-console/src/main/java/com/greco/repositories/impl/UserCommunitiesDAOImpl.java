@@ -147,7 +147,7 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 
 	@Override
 	public void remove(int ucId) throws NoCommunityAdminException, NoMemberException{
-		UsersCommunity uc=em.getReference(UsersCommunity.class, ucId);
+		UsersCommunity uc=load(ucId);
 		if ( uc != null){
 			//Si es un administrador, comprobar que queda al menos otro antes de hacer el cambio.
 			if (uc.getProfile().getId() == ProfileItem.ADMIN) 

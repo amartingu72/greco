@@ -31,7 +31,7 @@
         						
         						<h:commandLink class="btn btn-default" value="#{msgs['editcommunity.unsubscribe_yes']}" onclick="$('#myModal').modal('hide');"        						
         							action="#{editMembershipCBean.unsubscribe}">
-        							<f:ajax render=":editMembersForm:membersTable :editMembersForm:counters"/>
+        							<f:ajax render=":editMembersForm:membersTable :editMembersForm:counters :editMembersForm:search_msgs"/>
         						</h:commandLink> 
       						</div>
 	      				</h:form>
@@ -250,7 +250,7 @@
 						<div class="row">
 							<div class="col-md-11 text-right">				 		
 								<h:commandButton class="btn btn-primary" value="Buscar" action="#{editMembershipCBean.search}" >
-									<!-- onclick="$('#searchResult').collapse('show')" -->
+									
 									  <f:ajax execute="@form" render=":editMembersForm:membersTable"/>  	
 								</h:commandButton>
 							</div>
