@@ -22,6 +22,7 @@ import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.MemberItem;
 import com.greco.services.helpers.ProfileItem;
 import com.greco.services.helpers.StatusItem;
+import com.greco.services.helpers.UserItem;
 
 @Service("userCommunityDataProvider")
 public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
@@ -32,6 +33,42 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
 	@Resource(name="ProfilesRepository")
 	private ProfileDAO profileDAO;
 	
+	/**
+	 * Convierte una entidad en un objeto MemberItem
+	 * @param uc Entidad
+	 * @return MemberItem
+	 */
+	private MemberItem convert(UsersCommunity uc){
+		MemberItem memberItem=new MemberItem();
+    	memberItem.setMemberId(uc.getId());
+    	
+    	CommunityItem communityItem=new CommunityItem(uc.getCommunity().getId(),
+    			uc.getCommunity().getAvailable()!=0,
+    			uc.getCommunity().getZipcode(),
+    			uc.getCommunity().getName(),
+    			uc.getCommunity().getNotes(),
+    			uc.getCommunity().getCountry().getName()
+    			);
+    	
+    	memberItem.setCommunityItem(communityItem);
+    	
+    	memberItem.setEmail(uc.getUser().getEmail());
+    	memberItem.setId(uc.getUser().getId()); 
+    	memberItem.setJoinningDate(uc.getRegisterDate());
+    	memberItem.setApplication(uc.getApplication());
+    	memberItem.setMydata(uc.getUser().getMydata());
+    	memberItem.setNickname(uc.getUser().getNickname());
+    	memberItem.setProfile(uc.getUser().getProfile());
+    	
+    	memberItem.setStatus(new StatusItem(uc.getStatus()));
+    	
+    	Profile profile=uc.getProfile();
+    	ProfileItem profileItem=new ProfileItem(profile.getId(), 
+    			profile.getProfile(),profile.getDescription());
+    	memberItem.setMemberProfile(profileItem);
+    	return memberItem;
+		
+	}
 	
 	public List<MemberItem> findRangeOrder(CommunityItem communityItem, Map<String,Object> criteria,int start, int max, String sortField, SortOrder sortOrder) {
 		
@@ -42,23 +79,9 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
         List<MemberItem> members=new ArrayList<MemberItem>();
         while ( it.hasNext() ) {
         	uc=it.next();
-        	memberItem=new MemberItem();
-        	memberItem.setMemberId(uc.getId());
-        	memberItem.setCommunityId(communityItem.getId());
-        	memberItem.setEmail(uc.getUser().getEmail());
-        	memberItem.setId(uc.getUser().getId()); 
-        	memberItem.setJoinningDate(uc.getRegisterDate());
-        	memberItem.setApplication(uc.getApplication());
-        	memberItem.setMydata(uc.getUser().getMydata());
-        	memberItem.setNickname(uc.getUser().getNickname());
-        	memberItem.setProfile(uc.getUser().getProfile());
-        	
-        	memberItem.setStatus(new StatusItem(uc.getStatus()));
+        	memberItem=convert(uc);
         	members.add(memberItem);
-        	Profile profile=uc.getProfile();
-        	ProfileItem profileItem=new ProfileItem(profile.getId(), 
-        			profile.getProfile(),profile.getDescription());
-        	memberItem.setMemberProfile(profileItem);
+        	
         }
         return members;
 	}
@@ -91,23 +114,9 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
         List<MemberItem> members=new ArrayList<MemberItem>();
         while ( it.hasNext() ) {
         	uc=it.next();
-        	memberItem=new MemberItem();
-        	memberItem.setMemberId(uc.getId());
-        	memberItem.setCommunityId(communityItem.getId());
-        	memberItem.setEmail(uc.getUser().getEmail());
-        	memberItem.setId(uc.getUser().getId()); 
-        	memberItem.setJoinningDate(uc.getRegisterDate());
-        	memberItem.setApplication(uc.getApplication());
-        	memberItem.setMydata(uc.getUser().getMydata());
-        	memberItem.setNickname(uc.getUser().getNickname());
-        	memberItem.setProfile(uc.getUser().getProfile());
-        	
-        	memberItem.setStatus(new StatusItem(uc.getStatus()));
+        	memberItem=convert(uc);
         	members.add(memberItem);
-        	Profile profile=uc.getProfile();
-        	ProfileItem profileItem=new ProfileItem(profile.getId(), 
-        			profile.getProfile(),profile.getDescription());
-        	memberItem.setMemberProfile(profileItem);
+        	
         }
         return members;
 	}
@@ -127,25 +136,25 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
 		UsersCommunity uc=this.userCommunitiesDAO.load(memberItemId);
 		MemberItem memberItem=null;
 		if ( uc!=null) { 
-			memberItem=new MemberItem();
-			memberItem=new MemberItem();
-	    	memberItem.setMemberId(uc.getId());
-	    	memberItem.setCommunityId(uc.getCommunity().getId());
-	    	memberItem.setEmail(uc.getUser().getEmail());
-	    	memberItem.setId(uc.getUser().getId()); 
-	    	memberItem.setJoinningDate(uc.getRegisterDate());
-	    	memberItem.setApplication(uc.getApplication());
-	    	memberItem.setMydata(uc.getUser().getMydata());
-	    	memberItem.setNickname(uc.getUser().getNickname());
-	    	memberItem.setProfile(uc.getUser().getProfile());
-	    	
-	    	memberItem.setStatus(new StatusItem(uc.getStatus()));
-	    	Profile profile=uc.getProfile();
-	    	ProfileItem profileItem=new ProfileItem(profile.getId(), 
-	    			profile.getProfile(),profile.getDescription());
-	    	memberItem.setMemberProfile(profileItem);
+			memberItem=convert(uc);
 		}
 		return memberItem;
+	}
+
+	@Override
+	public List<MemberItem> getMyCommunities(UserItem userItem) {
+		List<UsersCommunity> data = userCommunitiesDAO.getSubscriptions(userItem.getId());
+        Iterator<UsersCommunity> it=data.iterator();
+        MemberItem memberItem;
+        UsersCommunity uc;
+        List<MemberItem> members=new ArrayList<MemberItem>();
+        while ( it.hasNext() ) {
+        	uc=it.next();
+        	memberItem=convert(uc);
+        	members.add(memberItem);
+        	
+        }
+        return members;
 	}
 	
 	

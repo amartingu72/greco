@@ -16,7 +16,8 @@ public class MemberItem extends UserItem{
 	
 	private int memberId;
 	
-	private int communityId;
+		
+	private CommunityItem communityItem;
 	
 	private Timestamp joinningDate;
 	
@@ -97,11 +98,9 @@ public class MemberItem extends UserItem{
 
 	//GETTERs y SETTERs	
 	public int getCommunityId() {
-		return communityId;
+		return this.communityItem.getId();
 	}
-	public void setCommunityId(int communityId) {
-		this.communityId = communityId;
-	}
+	
 	
 	public String getJoinningDate() {
 		DateTime jodatime = new DateTime(joinningDate);
@@ -155,6 +154,16 @@ public class MemberItem extends UserItem{
 	public void setRejectionReason(String rejectionReason) {
 		this.rejectionReason = rejectionReason;
 	}
+
+	public CommunityItem getCommunityItem() {
+		return communityItem;
+	}
+
+	public void setCommunityItem(CommunityItem communityItem) {
+		this.communityItem = communityItem; 
+	}
+	
+	
 
 	
 }

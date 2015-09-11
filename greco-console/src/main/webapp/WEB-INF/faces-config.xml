@@ -289,6 +289,11 @@
 			<property-class>com.greco.beans.UserSBean</property-class>
 			<value>#{userLogged}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>userCommunityDataProvider</property-name>
+			<property-class>com.greco.services.UserCommunityDataProvider</property-class>
+			<value>#{userCommunityDataProvider}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<description>Bean controlador para la edición de cuenta.</description>

@@ -10,6 +10,7 @@ import com.greco.entities.UsersCommunity;
 import com.greco.services.except.user.NoCommunityAdminException;
 import com.greco.services.except.user.NoMemberException;
 
+
 public interface UserCommunitiesDAO {
 	
 	/**
@@ -108,4 +109,11 @@ public interface UserCommunitiesDAO {
 	 */
 	public int membersCount(int communityId);
 	
+	
+	/**
+	 * Devuelve la lista de suscripciones de usuario indicado.
+	 * @param userId Identificador de usuario.
+	 * @return Lista de suscripciones.
+	 */
+	public List<UsersCommunity> getSubscriptions(int userId);
 }

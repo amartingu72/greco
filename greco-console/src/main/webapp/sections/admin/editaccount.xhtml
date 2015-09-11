@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -34,7 +33,7 @@
 						</p:inputText>
 					</div>
 					<div class="row form-group">
-						<label for="password">#{msgs['editaccount.pwd']}</label>>
+						<label for="password">#{msgs['editaccount.pwd']}</label>
 						<p:password id="password" class="form-control" value="#{editAccountBBean.password}"  
 							redisplay="true" 
 							match="passwordConfirm"
@@ -58,14 +57,23 @@
 				</div>
 				<div class="col-md-offset-1 col-md-5">
 					<div class="row form-group">
-						<label for="myData">#{msgs['editaccount.my_data']}</label>
-						<p:inputTextarea id="myData" class="form-control" value="#{editAccountBBean.mydata}" 
-							rows="5" 
-							cols="58" 
-							maxlength="256"
-							counter="display"
-							counterTemplate="#{msgs['editaccount.remaining_chars']}"/>
-						<p:outputLabel id="display" />
+						<label>#{msgs['editaccount.my_communities']}</label> 
+						
+						<h:dataTable class="table table-condensed table-striped" id="membersTable" var="member"
+									value="#{editAccountBBean.subscriptions}">
+									<h:column>
+										<h:outputText value="#{member.communityItem.name}" />				
+									</h:column>
+									<h:column>
+										<h:outputText value="#{member.communityItem.zipcode}" />				
+									</h:column>
+									<h:column>
+										<h:outputText value="#{member.admin?msgs['editaccount.admin']:member.pendingMembership?msgs['editaccount.pending']:msgs['editaccount.member']}" />
+														
+									</h:column>
+									
+						</h:dataTable>
+						<em><h:outputText rendered="#{editAccountBBean.subscriptionsPending}" value="No se encontró ninguna suscripción." /></em>
 					</div>
 				</div>
 				</div>

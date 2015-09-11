@@ -89,7 +89,7 @@
   
   <error-page>
     
-    <location>/faces/sections/error_page.xhtml?faces-redirect=true</location>
+    <location>/faces/sections/error_page.xhtml</location>
   </error-page>
   
 </web-app>

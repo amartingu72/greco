@@ -11,7 +11,7 @@
    <body>
       <ui:composition template="../templates/sites_layout.xhtml">
          <ui:define name="content">
-            <h:form>
+            <h:form style="min-height: 550px;">
             	<p:growl id="messages" showDetail="false" autoUpdate="true" />
             	<div class="row">
             	<div class="col-md-offset-1 col-md-4">      	
@@ -59,13 +59,8 @@
 				<div class="col-md-offset-1 col-md-5">
 					<div class="row form-group">
 						<label for="myData">#{msgs['editaccount.my_data']}</label>
-						<p:inputTextarea id="myData" class="form-control" value="#{editAccountBBean.mydata}" 
-							rows="5" 
-							cols="58" 
-							maxlength="256"
-							counter="display"
-							counterTemplate="#{msgs['editaccount.remaining_chars']}"/>
-						<p:outputLabel id="display" />
+						<p:inputTextarea id="myData" disabled="true" class="form-control" value="#{editAccountBBean.application}"/>
+						
 					</div>
 				</div>
 				</div>

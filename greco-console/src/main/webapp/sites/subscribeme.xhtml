@@ -39,7 +39,7 @@
 	  		
 		    <div role="tabpanel" class="tab-pane #{subscribeMeBBean.step==1?'active':'none'}" id="step1">
 			    <h:form id="step1Form">
-			    	<div class="row" style="min-height: 300px;">
+			    	<div class="row"  style="min-height: 300px;">
             			<div class="col-md-offset-1 col-md-4">  
 							<div class="form-group">
 								<label for="email">#{msgs['newaccount.email']}</label>
@@ -74,67 +74,66 @@
 		    
 		    <div role="tabpanel" class="tab-pane #{subscribeMeBBean.step==2?'active':'none'}" id="step2">
 		    <h:form id="step2Form">
-		    	<div class="row">
-		    		
-	            	<div class="col-md-offset-1 col-md-4"> 
-	           
-						<div class="form-group">
-							<label for="nickname">#{msgs['newaccount.nickname']}</label>
-							<p:inputText id="nickname" class="form-control" value="#{subscribeMeBBean.nickname}"
-								required="true"
-								maxlength="16"
-								requiredMessage="#{msgs['newaccount.nick_required_msg']}" 
-								validator="#{subscribeMeCBean.validateName}" 
-								aria-describedby="nickHelpBlock"/>							
-							<p:message for="nickname" id="nickError" />
-							
-						</div>
-					</div>
-					
-					<div class="col-md-6"> 
-						<span id="nickHelpBlock" class="help-block text-justify">#{msgs['newaccount.nick_note']}</span>
-					</div>
-				</div>
-				<div class="row">
-	            	<div class="col-md-offset-1 col-md-4">
-			
-		           		<div class="form-group">	
-							<label for="myData">#{msgs['newaccount.mydata']}</label>
-							<p:inputTextarea id="myData" class="form-control" value="#{subscribeMeBBean.mydata}" rows="3" cols="58" maxlength="256" 
-									counter="display"
-									counterTemplate="#{msgs['editaccount.remaining_chars']}"
-									aria-describedby="noteHelpBlock"/>
-							<p:outputLabel id="display" />
+		    	<div style="min-height: 300px;">
+		    		<div class="row">
+		            	<div class="col-md-offset-1 col-md-4"> 
+		           
+							<div class="form-group">
+								<label for="nickname">#{msgs['newaccount.nickname']}</label>
+								<p:inputText id="nickname" class="form-control" value="#{subscribeMeBBean.nickname}"
+									required="true"
+									maxlength="16"
+									requiredMessage="#{msgs['newaccount.nick_required_msg']}" 
+									validator="#{subscribeMeCBean.validateName}" 
+									aria-describedby="nickHelpBlock"/>							
+								<p:message for="nickname" id="nickError" />
 								
+							</div>
 						</div>
-					</div>	
-					<div class="col-md-6">
-						<span id="noteHelpBlock" class="help-block text-justify">#{msgs['newaccount.data_note']}</span>	 
-					</div>			
-				</div>	
-				<div class="row">
-	            	<div class="col-md-offset-1 col-md-4">
-						<div class="form-group">			
-							<label for="pwd">#{msgs['newaccount.pwd']}</label>
-							<p:password id="pwd" value="#{subscribeMeBBean.password}"
-								class="form-control"
-								match="passwordConfirm" maxlength="16" required="true" redisplay="true"	
-								label="#{msgs['newaccount.pwd']}"
-								requiredMessage="#{msgs['newaccount.pwd_required_msg']}"
-								validatorMessage="#{msgs['newaccount.pwd_validator_msg']}"/>
-							<p:message for="pwd" id="pwdError" />
+						
+						<div class="col-md-6"> 
+							<span id="nickHelpBlock" class="help-block text-justify">#{msgs['newaccount.nick_note']}</span>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="form-group">
-							<label for="passwordConfirm">#{msgs['newaccount.pwd_confirm']}</label>
-							<p:password id="passwordConfirm" class="form-control" value="#{subscribeMeBBean.password}" redisplay="true"/>
-							<p:message for="passwordConfirm" id="passwordConfirmError" />
+					<!-- <div class="row">
+		            	<div class="col-md-offset-1 col-md-4">
+				
+			           		<div class="form-group">	
+								<label for="myData">#{msgs['newaccount.mydata']}</label>
+								<p:inputTextarea id="myData" class="form-control" value="#{subscribeMeBBean.mydata}" rows="3" cols="58" maxlength="256" 
+										counter="display"
+										counterTemplate="#{msgs['editaccount.remaining_chars']}"
+										aria-describedby="noteHelpBlock"/>
+								<p:outputLabel id="display" />
+									
+							</div>
+						</div>	
+						<div class="col-md-6">
+							<span id="noteHelpBlock" class="help-block text-justify">#{msgs['newaccount.data_note']}</span>	 
+						</div>			
+					</div>	 -->
+					<div class="row">
+		            	<div class="col-md-offset-1 col-md-4">
+							<div class="form-group">			
+								<label for="pwd">#{msgs['newaccount.pwd']}</label>
+								<p:password id="pwd" value="#{subscribeMeBBean.password}"
+									class="form-control"
+									match="passwordConfirm" maxlength="16" required="true" redisplay="true"	
+									label="#{msgs['newaccount.pwd']}"
+									requiredMessage="#{msgs['newaccount.pwd_required_msg']}"
+									validatorMessage="#{msgs['newaccount.pwd_validator_msg']}"/>
+								<p:message for="pwd" id="pwdError" />
+							</div>
+							<div class="form-group">
+								<label for="passwordConfirm">#{msgs['newaccount.pwd_confirm']}</label>
+								<p:password id="passwordConfirm" class="form-control" value="#{subscribeMeBBean.password}" redisplay="true"/>
+								<p:message for="passwordConfirm" id="passwordConfirmError" />
+							</div>
 						</div>
+	
 					</div>
-					
 				</div>
-				 <div class="row">
+				<div class="row">
            			<div class="col-md-offset-1 col-md-2 btn-group">
            				<div class="text-left">
             				<h:commandButton class="btn btn-lg btn-default" immediate="true" value="#{msgs['subscribeme.back']}"

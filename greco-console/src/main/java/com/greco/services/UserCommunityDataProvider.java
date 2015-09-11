@@ -9,6 +9,7 @@ import com.greco.services.except.user.NoCommunityAdminException;
 import com.greco.services.except.user.NoMemberException;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.MemberItem;
+import com.greco.services.helpers.UserItem;
 
 
 public interface UserCommunityDataProvider{
@@ -22,7 +23,7 @@ public interface UserCommunityDataProvider{
 	 * @param max Número máximo de miembros a recuperar (se trata de una recuperación "lazy" o por tandas)
 	 * @param sortField Campo de ordenación (si es null, no se ordena).
 	 * @param sortOrder Tipo de ordenación: ASC, DESC 
-	 * @return
+	 * @return Lista de suscripciones.
 	 */
 	public abstract List<MemberItem> findRangeOrder(CommunityItem communityItem, Map<String,Object> criteria,int start, int max, String sortField, SortOrder sortOrder);
 	
@@ -33,6 +34,12 @@ public interface UserCommunityDataProvider{
 	 */
 	public abstract List<MemberItem> findPendingMemberships(CommunityItem communityItem);
 	
+	/**
+	 * Devulve la lista de comunidades en la que el usuario pasado como parámetro está suscrito (o pendiente de aprobación de su suscripción), o es administrador.
+	 * @param userItem
+	 * @return Lista de suscripciones.
+	 */
+	public abstract List<MemberItem> getMyCommunities(UserItem userItem);
 	
 	/**
 	 * Cambia el estado de un miembro: pendiente a miembro o viceversa.
@@ -78,4 +85,7 @@ public interface UserCommunityDataProvider{
 	 * @return Miembro.
 	 */
 	public MemberItem find(int memberItemId);
+	
+	
+	
 }

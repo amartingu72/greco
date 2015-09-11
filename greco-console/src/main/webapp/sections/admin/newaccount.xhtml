@@ -66,7 +66,7 @@
 					<span id="nickHelpBlock" class="help-block text-justify">#{msgs['newaccount.nick_note']}</span>
 				</div>
 			</div>
-			<div class="row">
+			<!-- <div class="row">
             	<div class="col-md-offset-1 col-md-4">
 		
 	           		<div class="form-group">	
@@ -82,7 +82,7 @@
 				<div class="col-md-6">
 					<span id="noteHelpBlock" class="help-block text-justify">#{msgs['newaccount.data_note']}</span>	 
 				</div>			
-			</div>	
+			</div>	 -->
 			<div class="row">
             	<div class="col-md-offset-1 col-md-4">
 					<div class="form-group">			
@@ -96,14 +96,21 @@
 						<p:message for="pwd" id="pwdError" />
 					</div>
 				</div>
-				<div class="col-md-4">
+				
+				
+			</div>
+			<div class="row">
+            	<div class="col-md-offset-1 col-md-4">
 					<div class="form-group">
 						<label for="passwordConfirm">#{msgs['newaccount.pwd_confirm']}</label>
 						<p:password id="passwordConfirm" class="form-control" value="#{newAccountBBean.password}" redisplay="true"/>
 						<p:message for="passwordConfirm" id="passwordConfirmError" />
 					</div>
-				</div>
-				<div class="col-md-2">
+            	</div>
+            </div>
+			
+			<div class="row">
+				<div class="col-md-offset-1 col-md-10">
 					<div class="text-right">
 							<h:commandButton id="nextBtn" class="btn btn-primary" value="#{msgs['newaccount.save_btn']}"
 								action="#{newAccountCBean.submit}"	/>

@@ -1,8 +1,13 @@
 package com.greco.beans;
 
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
+
+import com.greco.services.UserCommunityDataProvider;
+import com.greco.services.helpers.MemberItem;
 
 public class EditAccountBBean implements Serializable{
 
@@ -15,11 +20,13 @@ public class EditAccountBBean implements Serializable{
 	private String password;
 	private String email;
 	private String profile="USER";
-	private String mydata;
+	private String mydata; //Sin uso por el momento
 	private String dni;
+	private List<MemberItem> subscriptions;
 	private boolean pwdUpdated;
 	
 	private UserSBean userBean; //Inyectado
+	private UserCommunityDataProvider userCommunityDataProvider; //Inyectado
 
 		
 	@PostConstruct
@@ -31,9 +38,40 @@ public class EditAccountBBean implements Serializable{
         //Así simulo que la contraseña se ha recuperado.
         this.password=FAKE_PASSWORD;  //Hacemos esto para salvaguardar la PWD del usuario. 
         this.pwdUpdated=false;
+        this.subscriptions=userCommunityDataProvider.getMyCommunities(userBean.getItem());
         
 	}
 	
+	/**
+	 * En el caso de que se invoque desde un site, devuelve el mensaje de suscripción. Si se invoca desde la consola, devolverá null.
+	 * @return
+	 */
+	public String getApplication(){
+		String ret=null;
+		if (userBean.getCommunityId() != 0){
+			Iterator<MemberItem> it=subscriptions.iterator();
+			boolean found=false;
+			
+			MemberItem memberItem=null;
+			while (it.hasNext() && !found){
+				memberItem=it.next();
+				if ( userBean.getCommunityId()==memberItem.getCommunityItem().getId() ) {
+					ret=memberItem.getApplication();
+					found=true;
+				}
+			}
+		}
+		return ret;
+	}
+	
+	
+	/**
+	 * Indica si el usuario tiene, al menos, una suscripción.
+	 * @return
+	 */
+	public boolean isSubscriptionsPending(){
+		return this.subscriptions.isEmpty();
+	}
 	
 	//GETTERs y SETTERs
 	
@@ -101,5 +139,29 @@ public class EditAccountBBean implements Serializable{
 	public void setPwdUpdated(boolean pwdUpdated) {
 		this.pwdUpdated = pwdUpdated;
 	}
+
+
+	public List<MemberItem> getSubscriptions() {
+		return subscriptions;
+	}
+
+
+	public void setSubscriptions(List<MemberItem> subscriptions) {
+		this.subscriptions = subscriptions;
+	}
+
+
+	public UserCommunityDataProvider getUserCommunityDataProvider() {
+		return userCommunityDataProvider;
+	}
+
+
+	public void setUserCommunityDataProvider(
+			UserCommunityDataProvider userCommunityDataProvider) {
+		this.userCommunityDataProvider = userCommunityDataProvider;
+	}
+	
+	
+
 	
 }
