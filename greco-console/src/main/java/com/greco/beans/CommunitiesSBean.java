@@ -2,14 +2,15 @@ package com.greco.beans;
 
 
 import java.io.Serializable;
-import java.util.Arrays;
+
 import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import com.greco.services.AuthenticationProvider;
-import com.greco.services.UserDataProvider;
+import com.greco.services.UserCommunityDataProvider;
+
 import com.greco.services.helpers.CommunityItem;
 
 public class CommunitiesSBean implements Serializable{
@@ -21,7 +22,7 @@ public class CommunitiesSBean implements Serializable{
 	private List<CommunityItem> myCommunities;
 	private CommunityItem selectedItem=null;  //Comunidad seleccionada
 	
-	private UserDataProvider userDataProvider; //Inyectado.
+	private UserCommunityDataProvider userCommunityDataProvider; //Inyectado
 	private UserSBean userBean; //Inyectado.
 	
 	
@@ -29,7 +30,8 @@ public class CommunitiesSBean implements Serializable{
 	@PostConstruct
 	public void initialize() {
 		//Obtengo la lista de comunidades.
-		myCommunities=Arrays.asList(userDataProvider.getMyComunities(userBean));				
+		
+		myCommunities=userCommunityDataProvider.getMyAdministeredCommunities(userBean.getItem());		
 	}
 	
 	/**
@@ -66,13 +68,7 @@ public class CommunitiesSBean implements Serializable{
 		
 	//GETTERs y SETTERs.
 
-	public UserDataProvider getUserDataProvider() {
-		return userDataProvider;
-	}
-
-	public void setUserDataProvider(UserDataProvider userDataProvider) {
-		this.userDataProvider = userDataProvider;
-	}
+	
 
 	public UserSBean getUserBean() {
 		return userBean;
@@ -109,6 +105,15 @@ public class CommunitiesSBean implements Serializable{
 	 */
 	public void unsetSelectedItem() {
 		this.selectedItem = null;
+	}
+
+	public UserCommunityDataProvider getUserCommunityDataProvider() {
+		return userCommunityDataProvider;
+	}
+
+	public void setUserCommunityDataProvider(
+			UserCommunityDataProvider userCommunityDataProvider) {
+		this.userCommunityDataProvider = userCommunityDataProvider;
 	}
 	
 	

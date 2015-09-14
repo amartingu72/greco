@@ -116,4 +116,13 @@ public interface UserCommunitiesDAO {
 	 * @return Lista de suscripciones.
 	 */
 	public List<UsersCommunity> getSubscriptions(int userId);
+	
+	/**
+	 * Devuelve la lista de suscripciones para el perfil inidicado ().
+	 * @param userId Identificador de usuario.
+	 * @param profileID (ver constantes ProfileItem )
+	 * @return Lista de suscripciones.
+	 */
+	public List<UsersCommunity> getSubscriptions(int userId, int profileId);
+	
 }

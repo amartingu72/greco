@@ -42,6 +42,14 @@ public interface UserCommunityDataProvider{
 	public abstract List<MemberItem> getMyCommunities(UserItem userItem);
 	
 	/**
+	 * Devulve la lista de comunidades administradas por el usuario pasado como parámetro.
+	 * @param userItem
+	 * @return Lista de comunidades.
+	 */
+	public abstract List<CommunityItem> getMyAdministeredCommunities(UserItem userItem);
+	
+	
+	/**
 	 * Cambia el estado de un miembro: pendiente a miembro o viceversa.
 	 * @param memberItem Item que define al miembro y su estado.
 	 * @throws NoMemberException Se intenta guardar el estado de un miembro no suscrito.

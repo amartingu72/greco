@@ -182,9 +182,9 @@
 			<value>#{userLogged}</value>
 		</managed-property>
 		<managed-property>
-			<property-name>userDataProvider</property-name>
-			<property-class>com.greco.services.UserDataProvider</property-class>
-			<value>#{userDataProvider}</value>
+			<property-name>userCommunityDataProvider</property-name>
+			<property-class>com.greco.services.UserCommunityDataProvider</property-class>
+			<value>#{userCommunityDataProvider}</value>
 		</managed-property>
 	</managed-bean>
 	<managed-bean>

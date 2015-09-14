@@ -11,6 +11,7 @@ import org.primefaces.model.SortOrder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.greco.entities.Community;
 import com.greco.entities.Profile;
 import com.greco.entities.UsersCommunity;
 import com.greco.repositories.ProfileDAO;
@@ -155,6 +156,27 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
         	
         }
         return members;
+	}
+
+	@Override
+	public List<CommunityItem> getMyAdministeredCommunities(UserItem userItem) {
+		List<UsersCommunity> data = userCommunitiesDAO.getSubscriptions(userItem.getId(),ProfileItem.ADMIN);
+        Iterator<UsersCommunity> it=data.iterator(); 
+        
+        CommunityItem communityItem;
+        Community community;
+       
+        List<CommunityItem> communities=new ArrayList<CommunityItem>();
+        while ( it.hasNext() ) {
+        	community=it.next().getCommunity();
+        	communityItem=new CommunityItem(community.getId(),(community.getAvailable()!=0), community.getName(),
+    				community.getZipcode(),null,null,community.getNotes(), community.getCountry().getName());
+        	        	
+        	communities.add(communityItem);
+        	
+        }
+        return communities;
+		
 	}
 	
 	

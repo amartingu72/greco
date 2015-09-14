@@ -246,6 +246,20 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 	}
 
 
+	@Override
+	public List<UsersCommunity> getSubscriptions(int userId, int profileId) {
+		String sql = "SELECT uc FROM UsersCommunity AS uc WHERE uc.user.id=:user_id and uc.profile.id=:profile_id";
+	
+		Query q = em.createQuery(sql);
+		
+		q.setParameter("user_id", userId);
+		q.setParameter("profile_id", profileId);
+		@SuppressWarnings("unchecked")	
+		List<UsersCommunity> results= q.getResultList();
+		return results;
+	}
+
+
 	
 	
 	
