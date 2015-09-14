@@ -89,21 +89,16 @@
 						</div>
 					 </div>
 					<div class="row">
-						<div class="col-md-12">
-							
-							<ul class="social-network">
-								<li>
-									<label>#{msgs['editcommunity.resources_tab']}</label>
-								</li>
-								<li>
-									<h:commandLink action="#{editCommunityCBean.addResource}">
-										<span class="fa-stack fa-1x">
-										<i class="fa fa-circle fa-stack-2x"></i>
-										<i class="fa fa-plus fa-stack-1x fa-inverse"></i>
-										</span>
-									</h:commandLink>
-								</li>
-							</ul>
+						<div class="col-md-2 col-xs-10">
+							<label>#{msgs['editcommunity.resources_tab']}</label>
+						</div>
+						<div class="col-md-offset-8 col-md-2 col-xs-2">	
+							<h:commandLink action="#{editCommunityCBean.addResource}">
+								<span class="fa-stack fa-1x">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+								</span>
+							</h:commandLink>
 						</div>
 					</div>
 					<div class="row">
@@ -111,6 +106,17 @@
 							
 							<h:dataTable class="table table-condensed table-hover" id="resourcesTable" value="#{editCommunityBBean.myResources}" 
 								var="rsrc">                        	
+								
+								<h:column id="status" styleClass="rscrColumn4">
+	        						<h:outputText styleClass="ui-icon ui-icon-newwin" title="#{msgs['editcommunity.new']}" rendered="#{rsrc.added}"/>
+	        						<h:outputText styleClass="ui-icon ui-icon-circle-check" title="#{msgs['editcommunity.updated']}" rendered="#{rsrc.updated}"/>
+								</h:column>
+								<h:column>
+									#{rsrc.name}
+								</h:column>
+								<h:column>   
+									#{rsrc.type}
+								</h:column>
 								<h:column>
 									
 	            					<h:commandLink action="#{editCommunityCBean.editResource(rsrc)}"  title="#{msgs['editresource.title']}">
@@ -121,17 +127,7 @@
 									</h:commandLink>
 									
 								</h:column>
-								<h:column>
-									#{rsrc.name}
-								</h:column>
-								<h:column>   
-									#{rsrc.type}
-								</h:column>
-								
-	        					<h:column id="status" styleClass="rscrColumn4">
-	        						<h:outputText styleClass="ui-icon ui-icon-newwin" title="#{msgs['editcommunity.new']}" rendered="#{rsrc.added}"/>
-	        						<h:outputText styleClass="ui-icon ui-icon-circle-check" title="#{msgs['editcommunity.updated']}" rendered="#{rsrc.updated}"/>
-								</h:column>
+	        					
 							</h:dataTable>
 						</div>
 						
