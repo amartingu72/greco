@@ -32,6 +32,9 @@ public class Resource implements Serializable {
 
 	private String name;
 
+	@Column(name="weekly_availability")
+	private String weeklyAvailability;
+
 	//bi-directional many-to-one association to Exception
 	@OneToMany(mappedBy="resource")
 	private List<Exception> exceptions;
@@ -123,6 +126,14 @@ public class Resource implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getWeeklyAvailability() {
+		return this.weeklyAvailability;
+	}
+
+	public void setWeeklyAvailability(String weeklyAvailability) {
+		this.weeklyAvailability = weeklyAvailability;
 	}
 
 	public List<Exception> getExceptions() {

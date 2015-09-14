@@ -17,6 +17,9 @@ public class ResourceItem implements Serializable {
 	private int beforehand;
 	private String beforehandTU; //Unidad de tiempo de la antelación.
 	private String timeunit;
+	//Por defecto, estará disponible todos los días de la semana.
+	private boolean[] weeklyAvailability={true, true, true, true, true, true, true};
+	
 	
 	
 	private enum Status {ADDED,UPDATED,DELETED,ADDED_UPDATED,NONE}
@@ -31,6 +34,7 @@ public class ResourceItem implements Serializable {
 		this.name = name;
 		this.type=type;
 		this.description = description;
+		
 	}
 	public boolean isAdded() {return (status==Status.ADDED)||(status==Status.ADDED_UPDATED); }
 	public void setAdded() {status=Status.ADDED;}
@@ -61,6 +65,31 @@ public class ResourceItem implements Serializable {
 	public void clearStatus(){
 		status=Status.NONE;
 	}
+	
+	public boolean isAvailableOnMonday(){
+		return this.weeklyAvailability[0];
+	}
+	public boolean isAvailableOnTuesday(){
+		return this.weeklyAvailability[1];
+	}
+	
+	public boolean isAvailableOnWednesday(){
+		return this.weeklyAvailability[2];
+	}
+	public boolean isAvailableOnThursday(){
+		return this.weeklyAvailability[3];
+	}
+	public boolean isAvailableOnFriday(){
+		return this.weeklyAvailability[4];
+	}
+	public boolean isAvailableOnSaturday(){
+		return this.weeklyAvailability[5];
+	}
+	public boolean isAvailableOnSunday(){
+		return this.weeklyAvailability[6];
+	}
+	
+	
 	
 	//GETTER's y SETTER's
 	public int getId() {
@@ -135,5 +164,40 @@ public class ResourceItem implements Serializable {
 		if ( status != Status.NONE ) ret=status.toString();
 		return ret;
 	}
+	public boolean[] getWeeklyAvailability() {
+		return weeklyAvailability;
+	}
+	public void setWeeklyAvailability(boolean[] weekly_availability) {
+		this.weeklyAvailability = weekly_availability;
+	}
+	/**
+	 * Asigna la disponibilidad semanal en base a una cadena de caracteres. El orden
+	 * representa cada uno de los 7 días de la semana. 0 indica no diponible y 1 disponible.
+	 * @param sWeeklyAvailability
+	 */
+	public void setWeeklyAvailability(String  sWeeklyAvailability) {
+		for (int i = 0; i < 7; i++){
+		    char c = sWeeklyAvailability.charAt(i);        
+		    this.weeklyAvailability[i]=( c == '0');
+		   
+		}
+	}
+	
+	/**
+	 * Devuelve un string donde cada carácter representa un día de la semana. El orden
+	 * representa cada uno de los 7 días de la semana. 0 indica no diponible y 1 disponible. 
+	 * @return Cadena que representa los días de la semana y su disponibilidad en base a 0s y 1s.
+	 */
+	public String getWeeklyAvailabilityString(){
+		String ret="";
+		for (int i = 0; i < 7; i++){
+		   if ( this.weeklyAvailability[i]  ) ret+="1";
+		   else ret+="0";
+		}
+		return ret;
+	}
+	
+	
+	
 			
 }

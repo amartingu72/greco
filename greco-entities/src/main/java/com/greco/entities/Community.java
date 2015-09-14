@@ -35,13 +35,13 @@ public class Community implements Serializable {
 	@OneToMany(mappedBy="community")
 	private List<Resource> resources;
 
-	//bi-directional many-to-one association to UsersCommunity
-	@OneToMany(mappedBy="community")
-	private List<UsersCommunity> usersCommunities;
-
 	//bi-directional many-to-many association to User
 	@ManyToMany(mappedBy="communities")
 	private List<User> users;
+
+	//bi-directional many-to-one association to UsersCommunity
+	@OneToMany(mappedBy="community")
+	private List<UsersCommunity> usersCommunities;
 
 	public Community() {
 	}
@@ -116,6 +116,14 @@ public class Community implements Serializable {
 		return resource;
 	}
 
+	public List<User> getUsers() {
+		return this.users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	public List<UsersCommunity> getUsersCommunities() {
 		return this.usersCommunities;
 	}
@@ -136,14 +144,6 @@ public class Community implements Serializable {
 		usersCommunity.setCommunity(null);
 
 		return usersCommunity;
-	}
-
-	public List<User> getUsers() {
-		return this.users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
 	}
 
 }

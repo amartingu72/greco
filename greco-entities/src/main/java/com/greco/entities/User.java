@@ -32,10 +32,6 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<Reservation> reservations;
 
-	//bi-directional many-to-one association to UsersCommunity
-	@OneToMany(mappedBy="user")
-	private List<UsersCommunity> usersCommunities;
-
 	//bi-directional many-to-many association to Community
 	@ManyToMany
 	@JoinTable(
@@ -48,6 +44,10 @@ public class User implements Serializable {
 			}
 		)
 	private List<Community> communities;
+
+	//bi-directional many-to-one association to UsersCommunity
+	@OneToMany(mappedBy="user")
+	private List<UsersCommunity> usersCommunities;
 
 	public User() {
 	}
@@ -122,6 +122,14 @@ public class User implements Serializable {
 		return reservation;
 	}
 
+	public List<Community> getCommunities() {
+		return this.communities;
+	}
+
+	public void setCommunities(List<Community> communities) {
+		this.communities = communities;
+	}
+
 	public List<UsersCommunity> getUsersCommunities() {
 		return this.usersCommunities;
 	}
@@ -142,14 +150,6 @@ public class User implements Serializable {
 		usersCommunity.setUser(null);
 
 		return usersCommunity;
-	}
-
-	public List<Community> getCommunities() {
-		return this.communities;
-	}
-
-	public void setCommunities(List<Community> communities) {
-		this.communities = communities;
 	}
 
 }
