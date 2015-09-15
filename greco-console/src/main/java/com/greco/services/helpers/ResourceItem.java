@@ -2,6 +2,9 @@ package com.greco.services.helpers;
 import java.io.Serializable;
 
 
+import org.joda.time.DateTime;
+
+
 public class ResourceItem implements Serializable {
 	//Datos básicos
 	private static final long serialVersionUID = 4247454215855690347L;
@@ -88,8 +91,17 @@ public class ResourceItem implements Serializable {
 	public boolean isAvailableOnSunday(){
 		return this.weeklyAvailability[6];
 	}
-	
-	
+	/**
+	 * Indica si el recursos está disponible en la fecha indicada.
+	 * @param date
+	 * @return Si (true), No (false)
+	 */
+	public boolean isBlocked(DateTime date){
+		
+		int index=date.getDayOfWeek() -1; //Nuestra lista empieza en 0.
+		
+		return !this.weeklyAvailability[index];
+	}
 	
 	//GETTER's y SETTER's
 	public int getId() {
@@ -178,7 +190,7 @@ public class ResourceItem implements Serializable {
 	public void setWeeklyAvailability(String  sWeeklyAvailability) {
 		for (int i = 0; i < 7; i++){
 		    char c = sWeeklyAvailability.charAt(i);        
-		    this.weeklyAvailability[i]=( c == '0');
+		    this.weeklyAvailability[i]=( c == '1');
 		   
 		}
 	}

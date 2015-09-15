@@ -15,6 +15,14 @@ public class NewResourceBBean {
 	private String beforehandTU; 
 	private String type;
 	private String timeunit;
+	//Disponibilidad semanal
+	private boolean mondayAvailable;
+	private boolean tuesdayAvailable;
+	private boolean wednesdayAvailable;
+	private boolean thursdayAvailable;
+	private boolean fridayAvailable;
+	private boolean saturdayAvailable;
+	private boolean sundayAvailable;
 		
 	@PostConstruct
 	public void initialize() {
@@ -28,6 +36,13 @@ public class NewResourceBBean {
 		this.mintime=1;
 		this.name="";
 		this.type="";
+		this.mondayAvailable=true;
+		this.tuesdayAvailable=true;
+		this.wednesdayAvailable=true;
+		this.thursdayAvailable=true;
+		this.fridayAvailable=true;
+		this.saturdayAvailable=true;
+		this.sundayAvailable=true;
 	}
 	
 	
@@ -142,5 +157,104 @@ public class NewResourceBBean {
 	public void setTimeunit(String timeunit) {
 		this.timeunit = timeunit;
 	}
+
+
+
+
+	public boolean isMondayAvailable() {
+		return mondayAvailable;
+	}
+
+
+
+
+	public void setMondayAvailable(boolean mondayAvailable) {
+		this.mondayAvailable = mondayAvailable;
+	}
+
+
+
+
+	public boolean isTuesdayAvailable() {
+		return tuesdayAvailable;
+	}
+
+
+
+
+	public void setTuesdayAvailable(boolean tuesdayAvailable) {
+		this.tuesdayAvailable = tuesdayAvailable;
+	}
+
+
+
+
+	public boolean isWednesdayAvailable() {
+		return wednesdayAvailable;
+	}
+
+
+
+
+	public void setWednesdayAvailable(boolean wednesdayAvailable) {
+		this.wednesdayAvailable = wednesdayAvailable;
+	}
+
+
+
+
+	public boolean isThursdayAvailable() {
+		return thursdayAvailable;
+	}
+
+
+
+
+	public void setThursdayAvailable(boolean thursdayAvailable) {
+		this.thursdayAvailable = thursdayAvailable;
+	}
+
+
+
+
+	public boolean isFridayAvailable() {
+		return fridayAvailable;
+	}
+
+
+
+
+	public void setFridayAvailable(boolean fridayAvailable) {
+		this.fridayAvailable = fridayAvailable;
+	}
+
+
+
+
+	public boolean isSaturdayAvailable() {
+		return saturdayAvailable;
+	}
+
+
+
+
+	public void setSaturdayAvailable(boolean saturdayAvailable) {
+		this.saturdayAvailable = saturdayAvailable;
+	}
+
+
+
+
+	public boolean isSundayAvailable() {
+		return sundayAvailable;
+	}
+
+
+
+
+	public void setSundayAvailable(boolean sundayAvailable) {
+		this.sundayAvailable = sundayAvailable;
+	}
+	
 
 }

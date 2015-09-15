@@ -92,6 +92,50 @@
 		            		</div>
 		            	</div>
 		            	<div class="row">
+		            		<div class="col-md-12">
+			            		<label>#{msgs['editresource.weekly_availability']}</label>
+			            		<div class="form-inline">
+			            			<div class="form-group">
+			            				
+				            			<p:selectBooleanCheckbox id="monday" value="#{newResourceBBean.mondayAvailable}" />
+				            			<label for="monday">#{msgs['editresource.monday']}</label>
+				            		</div>
+				            		<div class="form-group">
+				            			
+				            			<p:selectBooleanCheckbox id="tuesday" value="#{newResourceBBean.tuesdayAvailable}" />
+				            			<label  for="tuesday">#{msgs['editresource.tuesday']}</label>
+				            		</div>
+				            		<div class="form-group">
+				            			
+				            			<p:selectBooleanCheckbox id="wednesday" value="#{newResourceBBean.wednesdayAvailable}" />
+				            			<label for="wednesday">#{msgs['editresource.wednesday']}</label>
+				            		</div>
+				            		<div class="form-group">
+				            			
+				            			<p:selectBooleanCheckbox id="thursday" value="#{newResourceBBean.thursdayAvailable}" />
+				            			<label for="thursday">#{msgs['editresource.thursday']}</label>
+				            		</div>
+				            		<div class="form-group">
+				            			
+				            			<p:selectBooleanCheckbox id="friday" value="#{newResourceBBean.fridayAvailable}" />
+				            			<label for="friday">#{msgs['editresource.friday']}</label>
+				            		</div>
+				            		<div class="form-group">
+				            			
+				            			<p:selectBooleanCheckbox id="saturday" value="#{newResourceBBean.saturdayAvailable}" />
+				            			<label for="saturday">#{msgs['editresource.saturday']}</label>
+				            			
+				            		</div>
+				            		<div class="form-group">
+				            			
+				            			<p:selectBooleanCheckbox id="sunday" value="#{newResourceBBean.sundayAvailable}" />
+				            			<label for="sunday">#{msgs['editresource.sunday']}</label>
+				            			
+				            		</div>
+				            	</div>
+				            </div>
+		            	</div>
+		            	<div class="row">
 		            		<div class="col-md-6">
 								<div class="form-group"> 	
 		            	    		<label for="availableFromTime">#{msgs['editresource.available_from']}</label>

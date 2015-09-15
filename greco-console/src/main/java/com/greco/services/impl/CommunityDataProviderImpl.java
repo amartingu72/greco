@@ -111,6 +111,7 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 				resource.setResourcetype(resourceTypeDAO.loadSelected(resourceItem.getType()));
 				resource.setTimeunit1(timeUnitDAO.loadSelected(resourceItem.getTimeunit()));
 				resource.setTimeunit2(timeUnitDAO.loadSelected(resourceItem.getBeforehandTU()));
+				resource.setWeeklyAvailability(resourceItem.getWeeklyAvailabilityString());
 							} 
 			if ( resourceItem.isUpdated() ) {
 				//Modificamos el recurso
@@ -181,6 +182,7 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 					resource.setResourcetype(resourceTypeDAO.loadSelected(resourceItem.getType()));
 					resource.setTimeunit1(timeUnitDAO.loadSelected(resourceItem.getTimeunit()));
 					resource.setTimeunit2(timeUnitDAO.loadSelected(resourceItem.getBeforehandTU()));
+					resource.setWeeklyAvailability(resourceItem.getWeeklyAvailabilityString());
 				} 
 				if ( resourceItem.isUpdated() ) {
 					//Modificamos el recurso

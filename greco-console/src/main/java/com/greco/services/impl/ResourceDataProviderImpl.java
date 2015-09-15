@@ -30,6 +30,20 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 
 	@javax.annotation.Resource(name="ReservationRepository")
 	private ReservationDAO reservationRepository;
+	
+	
+	private ResourceItem convert(Resource rsrc) {
+		ResourceItem rsrcItem=new ResourceItem(rsrc.getId(), rsrc.getName(),rsrc.getResourcetype().getName(),rsrc.getDescription());
+		rsrcItem.setMintime(rsrc.getMinTime());
+		rsrcItem.setMaxtime(rsrc.getMaxTime());
+		rsrcItem.setAvailableFromTime(rsrc.getAvailableFromTime());
+		rsrcItem.setAvailableToTime(rsrc.getAvailableToTime());
+		rsrcItem.setBeforehand(rsrc.getBeforehand());
+		rsrcItem.setBeforehandTU(rsrc.getTimeunit2().getName());
+		rsrcItem.setTimeunit(rsrc.getTimeunit1().getName());
+		rsrcItem.setWeeklyAvailability(rsrc.getWeeklyAvailability());
+		return rsrcItem;
+	}
 
 	/* (non-Javadoc)
 	 * @see com.greco.services.ResourceDataProvider#getResources(com.greco.services.helpers.CommunityItem)
@@ -45,14 +59,7 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 		int i=0;
 		while (it.hasNext()) {
 			rsrc=it.next();
-			rsrcItem=new ResourceItem(rsrc.getId(), rsrc.getName(),rsrc.getResourcetype().getName(),rsrc.getDescription());
-			rsrcItem.setMintime(rsrc.getMinTime());
-			rsrcItem.setMaxtime(rsrc.getMaxTime());
-			rsrcItem.setAvailableFromTime(rsrc.getAvailableFromTime());
-			rsrcItem.setAvailableToTime(rsrc.getAvailableToTime());
-			rsrcItem.setBeforehand(rsrc.getBeforehand());
-			rsrcItem.setBeforehandTU(rsrc.getTimeunit2().getName());
-			rsrcItem.setTimeunit(rsrc.getTimeunit1().getName());
+			rsrcItem=convert(rsrc);
 			myResources[i]=rsrcItem;
 			i++;
 		}	
@@ -81,14 +88,7 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 		while (it.hasNext()) {
 			rsrc=it.next();
 			
-			rsrcItem=new ResourceItem(rsrc.getId(), rsrc.getName(),rsrc.getResourcetype().getName(),rsrc.getDescription());
-			rsrcItem.setMintime(rsrc.getMinTime());
-			rsrcItem.setMaxtime(rsrc.getMaxTime());
-			rsrcItem.setAvailableFromTime(rsrc.getAvailableFromTime());
-			rsrcItem.setAvailableToTime(rsrc.getAvailableToTime());
-			rsrcItem.setBeforehand(rsrc.getBeforehand());
-			rsrcItem.setBeforehandTU(rsrc.getTimeunit2().getName());
-			rsrcItem.setTimeunit(rsrc.getTimeunit1().getName());
+			rsrcItem=convert(rsrc);
 			myResources[i]=rsrcItem;
 			i++;
 		
@@ -121,6 +121,7 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 		//Por cada recurso, recupero su calendario para la fecha indicada
 		DailySchedule[] timeTable=new DailySchedule[list.size()];
 		DailySchedule dailySchedule;
+		ResourceItem resourceItem;
 		int i=0;
 		for (Resource r : myList) {
 			try {
@@ -128,13 +129,16 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 				dailySchedule=new DailySchedule(r,comm.getDateTimeZone());
 				dailySchedule.buildSchedule(dt);
 				
+				resourceItem=convert(r);
+				
 				//Convertimos a DateTime para facilitar la gestión.
 				
 				DateTime fromDate=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(),0,0,comm.getDateTimeZone());
 				DateTime toDate=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(),23,59,comm.getDateTimeZone());
-				
-				//Bloqueo el calendario para que no pueda hacer reservas de periodos anteriores a ahora.
-				if ( comm.getLocalTime().isAfter(toDate) )
+					
+				//Bloqueo el calendario para que no pueda hacer reservas de periodos anteriores a ahora ni en el caso de que 
+				//el recurso haya sido bloqueado por configuración.
+				if ( comm.getLocalTime().isAfter(toDate) || resourceItem.isBlocked(fromDate) )
 					//Bloqueamos todo para la reserva porque es de una fecha anterior.
 					dailySchedule.add(new ReservationUnit(userId,fromDate, toDate), IReservationStatus.BLOCKED);
 				else if (comm.getLocalTime().isAfter(fromDate) && (comm.getLocalTime().isBefore(toDate)) )
@@ -144,7 +148,7 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 				
 				//Asigna el estado a cada item de reserva.
 				//-Recupero todas las reservas realizadas sobre ese recurso en la fecha indicada.
-				List<Reservation> rList=reservationRepository.loadReservations(r.getId(),
+				List<Reservation> rList=reservationRepository.loadReservations(resourceItem.getId(),
 						fromDate.toDate(), toDate.toDate());
 						
 				//Actualizo dailySchedule con las reservas ya realizadas, es decir, la procedentes de BD. 
