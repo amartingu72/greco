@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -34,8 +35,16 @@ public class EditCommunityCBean {
 	 * @param rsrcItem
 	 * @return
 	 */
-	public String removeResource(ResourceItem rsrcItem){
-		return "remove";
+	public String removeResource(){
+		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String txtProperty = request.getParameter("resource_id");
+                        
+        int resourceId=Integer.parseInt(txtProperty);
+        //Buscamos el item seleccionado en la lista de recursos.
+        ResourceItem resourceItem=this.editCommunityBBean.getResourceItem(resourceId);
+        this.resourcesSBean.remove(resourceItem);
+        
+		return null;
 	}
 	
 	
@@ -129,20 +138,7 @@ public class EditCommunityCBean {
 		return result;
 	}
 	
-	/**
-	 * Abre el diálogo para crear un nuevo recurso (con PrimeFaces)
-	 */
-	public void addResourcePF() {
-		
-		Map<String,Object> options = new HashMap<String, Object>();
-		options.put("modal", true);
-        options.put("draggable", false);
-        options.put("resizable", false);
-        
-                
-		RequestContext.getCurrentInstance().openDialog("/sections/admin/newresource",options,null);
-		
-	}
+	
 	
 	/**
 	 * Abre el diálogo para actualizar en recurso seleccionado

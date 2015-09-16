@@ -180,11 +180,26 @@
 							<div class="collapse mar-top5" id="collapse-#{rsrcItem.id}">
   								<div class="well well-sm">
     								<p><strong>#{rsrcItem.name}</strong></p>
-    								<p>#{msgs['reservations.availability']}: #{rsrcItem.availableFromTime} - #{rsrcItem.availableToTime}<br/>
-    								#{msgs['reservations.beforehand']}: #{rsrcItem.beforehand} #{rsrcItem.beforehandTU}<br/>
+    								
+    								<p>
+    								Horario: #{rsrcItem.availableFromTime} - #{rsrcItem.availableToTime}<br/>
+    								#{msgs['reservations.availability']}: 
+    								<h:outputText value="#{msgs['editresource.monday']} " rendered="#{rsrcItem.availableOnMonday}"/>    								
+    								<h:outputText value="#{msgs['editresource.tuesday']} " rendered="#{rsrcItem.availableOnTuesday}"/>
+    								<h:outputText value="#{msgs['editresource.wednesday']} " rendered="#{rsrcItem.availableOnWednesday}"/>
+    								<h:outputText value="#{msgs['editresource.thursday']} " rendered="#{rsrcItem.availableOnThursday}"/>
+    								<h:outputText value="#{msgs['editresource.friday']} " rendered="#{rsrcItem.availableOnFriday}"/>
+    								<h:outputText value="#{msgs['editresource.saturday']} " rendered="#{rsrcItem.availableOnSaturday}"/>
+    								<h:outputText value="#{msgs['editresource.sunday']} " rendered="#{rsrcItem.availableOnSunday}"/>
+    								<br/>#{msgs['reservations.beforehand']}: #{rsrcItem.beforehand} #{rsrcItem.beforehandTU}<br/>
     								#{msgs['reservations.unit']}: #{rsrcItem.mintime} #{rsrcItem.timeunit}<br/>
     								#{msgs['reservations.min']}: #{rsrcItem.mintime} #{rsrcItem.timeunit}<br/> 
-    								#{msgs['reservations.max']}: #{rsrcItem.maxtime} #{rsrcItem.timeunit}<br/></p>
+    								#{msgs['reservations.max']}: #{rsrcItem.maxtime} #{rsrcItem.timeunit}<br/>
+    								</p>
+    								 
+    								
+    								
+    								
     								<p><em>#{rsrcItem.description}</em></p>
   								</div>
 							</div>

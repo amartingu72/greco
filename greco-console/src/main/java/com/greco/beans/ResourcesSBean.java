@@ -49,7 +49,33 @@ public class ResourcesSBean implements Serializable {
 			myResources.set(i, resourceItem);
 		}
 		selectedResource=resourceItem;
-	}	
+	}
+	/**
+	 * Marca como eliminado el recurso en la lista de recursos.
+	 * @param resourceItem Identifica el recurso actualizado por el ID (el ID no cambia), y contiene los cambios.
+	 */
+	public void remove(ResourceItem resourceItem){
+		
+		boolean found=false;
+		int i=0;
+		ResourceItem currentResourceItem;
+		while ( !found && i<myResources.size())
+		{
+			currentResourceItem=myResources.get(i);
+			if ( currentResourceItem.getId() == resourceItem.getId() )
+				found=true;
+			else i++;
+		}
+		if (found) {
+			
+			resourceItem.setDeleted();
+			myResources.set(i, resourceItem);
+		}
+		selectedResource=resourceItem;
+	}
+	
+	
+	
 	/**
 	 * Añade un nuevo recurso a la lsita de recursos
 	 * @param resourceItem nuevo recurso.

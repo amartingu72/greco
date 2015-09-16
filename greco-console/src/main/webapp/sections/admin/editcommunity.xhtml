@@ -10,6 +10,54 @@
 <h:body>
 	<ui:composition template="../../templates/admin2_layout.xhtml">
 		<ui:define name="content">
+			<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				
+  				<div class="modal-dialog modal-sm">
+    				<div class="modal-content">
+    				 <h:form id="modalForm">
+      					<div class="modal-header">
+        					<h5 class="modal-title">Eliminar recurso</h5>
+        				</div>
+       					<div class="modal-body">
+     							
+     							<input style="display:none;" type="text" name="resource_id" id="resource_id" value=""/>	    							
+     							<p><input type="text" class="form-control" name="resource" id="resource" value="" readonly="true"/></p>
+     									
+     							<p>¿Seguro que deseas eliminar este recurso?</p>
+     							
+								<ul class="social-network">
+									<li>Recuerda que la eliminación solo será efectiva cuando pulses
+										<i class="fa fa-hand-o-right"></i>
+									</li>
+									<li>
+										
+											<span class="fa-stack fa-1x">
+											<i class="fa fa-circle fa-stack-2x"></i>
+											<i class="fa fa-save fa-stack-1x fa-inverse"></i>
+											</span>
+											 
+										
+									</li>
+								</ul>
+								
+     							
+     						</div>
+     						<div class="modal-footer">
+       						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+       						
+       						<h:commandLink class="btn btn-default" value="Si" onclick="$('#myModal').modal('hide');"        						
+       							action="#{editCommunityCBean.removeResource}">
+       							<f:ajax render=":editCommForm:resourcesTable"/>
+       						</h:commandLink> 
+     						</div>
+      				</h:form>
+      					
+      					
+    				</div>
+  				</div>
+	  			
+			</div> <!-- modal -->
+		
 			<h:form id="editCommForm">
 			
 			<div class="row">
@@ -105,26 +153,43 @@
 						<div class="col-md-12">
 							
 							<h:dataTable class="table table-condensed table-hover" id="resourcesTable" value="#{editCommunityBBean.myResources}" 
-								var="rsrc">                        	
+								var="rsrc" columnClasses="none,none,none, text-center">                        	
 								
 								<h:column id="status" styleClass="rscrColumn4">
-	        						<h:outputText styleClass="ui-icon ui-icon-newwin" title="#{msgs['editcommunity.new']}" rendered="#{rsrc.added}"/>
+	        						<h:outputText styleClass="ui-icon ui-icon-circle-plus" title="#{msgs['editcommunity.new']}" rendered="#{rsrc.added}"/>
 	        						<h:outputText styleClass="ui-icon ui-icon-circle-check" title="#{msgs['editcommunity.updated']}" rendered="#{rsrc.updated}"/>
+	        						<h:outputText styleClass="ui-icon ui-icon-circle-close" title="Eliminado" rendered="#{rsrc.deleted}"/>
+	        						
 								</h:column>
 								<h:column>
-									#{rsrc.name}
+									<div style="#{rsrc.deleted?'text-decoration:line-through;':'none'}">
+										#{rsrc.name}
+									</div>
 								</h:column>
 								<h:column>   
-									#{rsrc.type}
+									<div style="#{rsrc.deleted?'text-decoration:line-through;':'none'}">
+										#{rsrc.type}
+									</div>
 								</h:column>
 								<h:column>
-									
-	            					<h:commandLink action="#{editCommunityCBean.editResource(rsrc)}"  title="#{msgs['editresource.title']}">
-										<span class="fa-stack fa-1x">
-										<i class="fa fa-circle fa-stack-2x"></i>
-										<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-										</span>
-									</h:commandLink>
+									<h:panelGroup rendered="#{!rsrc.deleted}">
+		            					<h:commandLink action="#{editCommunityCBean.editResource(rsrc)}"  title="#{msgs['editresource.title']}">
+											<span class="fa-stack fa-1x">
+											<i class="fa fa-circle fa-stack-2x"></i>
+											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+											</span>
+										</h:commandLink>
+										
+										<h:commandLink
+										  onclick="$('#myModal').appendTo('body').modal('show'); $('.modal-body #resource').val( '#{rsrc.name}' ); $('.modal-body #resource_id').val(#{rsrc.id});  return false;"	
+										  title="Eliminar recurso.">
+											<span class="fa-stack fa-1x">
+											<i class="fa fa-circle fa-stack-2x" style="color: red;"></i>
+											<i class="fa fa-remove fa-stack-1x fa-inverse"></i>
+											</span>
+										</h:commandLink>
+									</h:panelGroup>
+									<h:outputText style="font-style: italic;" rendered="#{rsrc.deleted}" value="A eliminar."/>
 									
 								</h:column>
 	        					

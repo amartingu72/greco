@@ -1,11 +1,12 @@
 package com.greco.beans;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ResourceItem;
 
@@ -61,6 +62,17 @@ public class EditCommunityBBean implements Serializable{
 		
 		//Botón 'Guardar' visible.
 		this.saveBtnVisible=true;
+	}
+	
+	public ResourceItem getResourceItem(int resourceId){
+		boolean bFound=false;
+		ResourceItem resourceItem=null;
+		Iterator<ResourceItem> it=this.myResources.iterator();
+		while (it.hasNext() && !bFound){
+			resourceItem=it.next();
+			bFound=(resourceItem.getId()==resourceId);
+		}
+		return resourceItem;
 	}
 	
 	//GETTERs y SETTERs	
