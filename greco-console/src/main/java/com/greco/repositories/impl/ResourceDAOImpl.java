@@ -91,4 +91,10 @@ public class ResourceDAOImpl implements ResourceDAO {
 		List<Resource> result= query.getResultList();
 		return result;
 	}
+
+
+	@Override
+	public void removeResource(int resourceId) {
+		em.remove(loadSelected(resourceId));
+	}
 }

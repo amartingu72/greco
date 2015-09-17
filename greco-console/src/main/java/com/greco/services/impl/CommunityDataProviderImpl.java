@@ -11,6 +11,8 @@ import javax.annotation.Resource;
 
 
 
+
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,9 +22,11 @@ import com.greco.entities.Resourcetype;
 import com.greco.repositories.CommunityDAO;
 import com.greco.repositories.CountryDAO;
 import com.greco.repositories.ProfileDAO;
+import com.greco.repositories.ReservationDAO;
 import com.greco.repositories.ResourceDAO;
 import com.greco.repositories.ResourceTypeDAO;
 import com.greco.repositories.TimeUnitDAO;
+
 import com.greco.repositories.UserDAO;
 import com.greco.services.CommunityDataProvider;
 import com.greco.services.ResourceDataProvider;
@@ -58,6 +62,10 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 	@Resource(name="ProfilesRepository")
 	private ProfileDAO profileDAO;
 	
+	@Resource(name="ReservationRepository")
+	private ReservationDAO reservationDAO;
+	
+	
 	/* (non-Javadoc)
 	 * @see com.greco.services.CommunityDataProvider#getCommunityById(int)
 	 */
@@ -77,7 +85,8 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 	 */
 	@Override
 	@Transactional
-	public void save(CommunityItem communityItem, List<ResourceItem> resourceItemList){
+	public List<ResourceItem> save(CommunityItem communityItem, List<ResourceItem> resourceItemList){
+		List<ResourceItem> failures=new ArrayList<ResourceItem>();
 		//Guardamos los cambios en la comunidad
 		Community community=communityDAO.loadSelectedCommunity(communityItem.getId());
 		//Guardamos los cambios modificables desde el formulario.
@@ -93,11 +102,12 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 		Iterator<ResourceItem> it=resourceItemList.iterator();
 		ResourceItem resourceItem;
 		com.greco.entities.Resource resource=null;
+		
+		
 		while ( it.hasNext() ) {
 			resourceItem=it.next();
 			
 			if ( resourceItem.isAdded() || resourceItem.isUpdated() ){
-				
 				//Añadimos un nuevo recurso
 				resource=new com.greco.entities.Resource();
 				resource.setAvailableFromTime(resourceItem.getAvailableFromTime());
@@ -112,23 +122,40 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 				resource.setTimeunit1(timeUnitDAO.loadSelected(resourceItem.getTimeunit()));
 				resource.setTimeunit2(timeUnitDAO.loadSelected(resourceItem.getBeforehandTU()));
 				resource.setWeeklyAvailability(resourceItem.getWeeklyAvailabilityString());
-							} 
+			} 
 			if ( resourceItem.isUpdated() ) {
 				//Modificamos el recurso
 				resource.setId(resourceItem.getId());
 				resourceDAO.saveResource(resource);
 				//Quitamos la marca de pendiente de actualizar.
 				resourceItem.clearStatus();
+				
 			}
 			else if ( resourceItem.isAdded()) {
 				//Añadimos recurso.
 				resourceDAO.addResource(resource);
 				//Quitamos la marca de pendiente de actualizar.
 				resourceItem.clearStatus();
+				
+			}
+			else if ( resourceItem.isDeleted() ) {
+				//Comprobamos que no haya ninguna reserva realizada.
+				if (!reservationDAO.hasReservations(resourceItem.getId()) ){
+					//Borramos de la base de datos.
+					resourceDAO.removeResource(resourceItem.getId());
+					//y de la lista.
+					it.remove();
+				}
+				else
+					failures.add(resourceItem);  //Añadimos a la lista de fallidos.
+				
 			}
 			
 			
+			
 		}
+		
+		return failures;
 	}
 	
 	/* (non-Javadoc)

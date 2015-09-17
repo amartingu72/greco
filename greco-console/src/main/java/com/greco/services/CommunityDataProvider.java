@@ -29,8 +29,9 @@ public interface CommunityDataProvider {
 	 * Actualiza en BD la comunidad indicada y sus recursos asociados.
 	 * @param communityItem
 	 * @param resourceItemList
+	 * @return Lista de recursos cuya actualización no ha podido realizarse.
 	 */
-	public abstract void save(CommunityItem communityItem, List<ResourceItem> resourceItemList);
+	public abstract List<ResourceItem> save(CommunityItem communityItem, List<ResourceItem> resourceItemList);
 	
 	/**
 	 * Devuelve el item de comunidad asociado al id de usuario. 

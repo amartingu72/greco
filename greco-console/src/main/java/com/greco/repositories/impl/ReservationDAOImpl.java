@@ -122,6 +122,15 @@ public class ReservationDAOImpl implements ReservationDAO {
 		Reservation r=em.find(Reservation.class, reservationId);
 		return r;
 	}
+	@Override
+	public boolean hasReservations(int resourceId) {
+		Query query=em.createQuery( "select count(r) from Reservation as r where r.resource.id=:resource_id", Reservation.class );
+		
+		query.setParameter("resource_id", resourceId);		
+		
+		int count = ( (Long)query.getSingleResult() ).intValue();
+		return count>0;
+	}
 	
 
 }

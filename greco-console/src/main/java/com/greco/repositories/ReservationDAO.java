@@ -6,6 +6,7 @@ import java.util.List;
 import com.greco.entities.Reservation;
 
 
+
 public interface ReservationDAO {
 	/**
 	 * Añade una reserva.
@@ -77,4 +78,11 @@ public interface ReservationDAO {
 	 * @return Reserva o null, si no existe.
 	 */
 	public Reservation load(int reservationId);
+	
+	/**
+	 * Indica si se ha realizado alguna reserva sobre el recurso indicado.
+	 * @param resourceId
+	 * @return
+	 */
+	public boolean hasReservations(int resourceId);
 }

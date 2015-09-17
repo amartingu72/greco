@@ -2,6 +2,7 @@ package com.greco.beans;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -114,6 +115,8 @@ public class ResourcesSBean implements Serializable {
 		ResourceItem resourceItem=new ResourceItem(id, name, type, null);
 		return this.myResources.contains(resourceItem);
 	}
+	
+	
 	
 	
 	

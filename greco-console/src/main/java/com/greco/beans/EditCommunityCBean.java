@@ -1,17 +1,12 @@
 package com.greco.beans;
 
 
-import java.util.HashMap;
-import java.util.Map;
 
+import java.util.Iterator;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.TabChangeEvent;
-
 import com.greco.services.CommunityDataProvider;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ResourceItem;
@@ -44,50 +39,17 @@ public class EditCommunityCBean {
         ResourceItem resourceItem=this.editCommunityBBean.getResourceItem(resourceId);
         this.resourcesSBean.remove(resourceItem);
         
+        //Grabamos log
+        String msg="RESOURCE_ID(" + resourceItem.getId() + ")";
+        log.log("002001",msg);//INFO|Recurso pre-eliminado:
+        
+    
+        
 		return null;
 	}
 	
 	
-	/**
-	 * Guardar comunidad gestionado desde páginas Prime Faces (PF).
-	 * @return
-	 */
-	public String savePF() {
-		String msg; //Monta un mensaje para el log.
-				
-		CommunityItem communityItem=new CommunityItem(
-				communitiesSBean.getSelectedItem().getId(),
-				editCommunityBBean.isAvailable() , 
-				editCommunityBBean.getName(),
-				editCommunityBBean.getZipcode(),
-				editCommunityBBean.getMydata(),
-				editCommunityBBean.getCountry());
-			
-		communityDataProvider.save(communityItem,resourcesSBean.getMyResources());
 	
-		//Montamos el mensaje indicando valores actuales y anteriores.
-		msg="ID(" + communitiesSBean.getSelectedItem().getId() + "), ";
-		msg+="AVAILABLE(" + communitiesSBean.getSelectedItem().isAvailable() + " > " + communityItem.isAvailable() + "), ";
-		msg+="MYDATA(" + communitiesSBean.getSelectedItem().getMyData()  + " > " + communityItem.getMyData() + ")"; 
-		
-		//Actualizamos la el contenido de la comunidad seleccionada (communitiesSBean), con los cambios
-		communitiesSBean.getSelectedItem().setAvailable(editCommunityBBean.isAvailable());
-		communitiesSBean.getSelectedItem().setMyData(communitiesSBean.getSelectedItem().getMyData());
-		
-		//Actualizamos la lista de comunidades. Es necesario porque el backing bean de comunidades 
-		//(CommunitiesSBean), es de sesión. 
-		communitiesSBean.initialize();
-		
-		//	Mostramos el mensaje de la página
-		FacesMessage fm = new FacesMessage(Warnings.getString("editcommunity.updated"));
-		FacesContext.getCurrentInstance().addMessage("Comunidad", fm);
-		
-		// Grabamos en el log con mensaje montado.
-		log.log("002000", msg );//002000=INFO|Datos comunidad modificados:
-		
-			
-		return null;
-	}
 	public String save() {
 		String msg; //Monta un mensaje para el log.
 				
@@ -99,7 +61,30 @@ public class EditCommunityCBean {
 				editCommunityBBean.getMydata(),
 				editCommunityBBean.getCountry());
 		
-		communityDataProvider.save(communityItem,resourcesSBean.getMyResources());
+		List<ResourceItem> failures=communityDataProvider.save(communityItem,resourcesSBean.getMyResources());
+		if ( !failures.isEmpty()) {
+			//Muestro un mensaje de error con aquellos que no se hayan podido actualizar (eliminar en este caso), inicializo su estado.
+			//Mostramos el mensaje de la página.
+			
+			String sDeletedItems="";
+			Iterator<ResourceItem> it=failures.iterator();
+			ResourceItem myResourceItem=null;
+			while (it.hasNext()){
+				myResourceItem=it.next();
+				if ( myResourceItem.isDeleted() ){
+					if (sDeletedItems.equals("")) sDeletedItems=myResourceItem.getName();
+					else sDeletedItems+=", " + myResourceItem.getName();
+				}
+				
+			}
+						
+			
+			FacesMessage message = new FacesMessage();
+	        message.setDetail(sDeletedItems+ " " + Warnings.getString("editcommunity.updated_error_detail"));
+	        message.setSummary(Warnings.getString("editcommunity.updated_error"));
+	        message.setSeverity(FacesMessage.SEVERITY_INFO);
+			FacesContext.getCurrentInstance().addMessage("editCommForm:messages", message);
+		}
 	
 		//Montamos el mensaje indicando valores actuales y anteriores.
 		msg="ID(" + communitiesSBean.getSelectedItem().getId() + "), ";
@@ -119,7 +104,7 @@ public class EditCommunityCBean {
         message.setDetail(Warnings.getString("editcommunity.updated_detail"));
         message.setSummary(Warnings.getString("editcommunity.updated"));
         message.setSeverity(FacesMessage.SEVERITY_INFO);
-		FacesContext.getCurrentInstance().addMessage("Comunidad", message);
+		FacesContext.getCurrentInstance().addMessage("editCommForm:growl", message);
 		
 		// Grabamos en el log con mensaje montado.
 		log.log("002000", msg );//002000=INFO|Datos comunidad modificados:
@@ -150,52 +135,6 @@ public class EditCommunityCBean {
 		return "editResource";
 	}
 	
-	/**
-	 * Abre el diálogo para actualizar en recurso seleccionado (con PrimeFaces)
-	 */
-	public void editResourcePF() {
-		
-		Map<String,Object> options = new HashMap<String, Object>();
-		options.put("modal", true);
-        options.put("draggable", false);
-        options.put("resizable", false);
-        
-                
-		RequestContext.getCurrentInstance().openDialog("/sections/admin/editresource",options,null);
-		
-	}
-	
-	/**
-	 * Este método se invoca al cerrar los diálogos de edición/creación de recurso.
-	 * Su objetivo es actualizar el mensaje de confirmación.
-	 */
-	public void onResourceUpdatedPF(SelectEvent event) {
-		if ( ( (String)event.getObject() ).equals("saved") ) {
-			//Mostramos el mensaje de la página
-			FacesMessage message = new FacesMessage();
-	        message.setDetail(Warnings.getString("editcommunity.resource_updated_detail"));
-	        message.setSummary(Warnings.getString("editcommunity.resource_updated"));
-	        message.setSeverity(FacesMessage.SEVERITY_INFO);
-			
-			FacesContext.getCurrentInstance().addMessage("Comunidad", message);
-		}
-	}
-	
-	/**
-	 * Este método se invoca al cerrar los diálogos de edición/creación de recurso.
-	 * Su objetivo es actualizar el mensaje de confirmación.
-	 */
-	public void onResourceAddedPF(SelectEvent event) {
-		if ( ( (String)event.getObject() ).equals("added") ) {
-			//Mostramos el mensaje de la página
-			FacesMessage message = new FacesMessage();
-	        message.setDetail(Warnings.getString("editcommunity.resource_added_detail"));
-	        message.setSummary(Warnings.getString("editcommunity.resource_added"));
-	        message.setSeverity(FacesMessage.SEVERITY_INFO);
-			
-			FacesContext.getCurrentInstance().addMessage("Comunidad", message);
-		}
-	}
 	
 		
 	/**
@@ -207,21 +146,7 @@ public class EditCommunityCBean {
 		return "cancel";
 	}
 	
-	/**
-	 * El cambio en el tabview dispara este método.
-	 * Si estamos en la pestaña "Miembros", desactiva el botón guardar y muestra el mensaje de cambios inmediatos.
-	 * @param event
-	 */
-	public void onTabChange(TabChangeEvent event) {
-		if ( event.getTab().getId().equals(MEMBERS_TAB) ){
-			//Aviso de que los cambios en esta pestaña tiene efecto inmediato.
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("editcommunity.members_inmmediate_update"), "");
-			FacesContext.getCurrentInstance().addMessage(":editCommForm:membership_messages", msg);
-			//Botón 'Guardar' no visible.
-			this.editCommunityBBean.setSaveBtnVisible(false);
-		}
-		else this.editCommunityBBean.setSaveBtnVisible(true);
-    }
+	
 	
 	
 	

@@ -64,7 +64,8 @@
 				<div class="col-md-offset-1 col-md-4">
 					<div class="row">		
 						<div class=" col-md-12">
-							<p:growl id="messages" showSummary="true" showDetail="true"/>
+							<p:growl id="growl" showSummary="true" showDetail="true"/>
+							<h:message id="messages" showSummary="true" showDetail="true"/>
 							<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
 							<div class="form-group">
 								<label for="name">#{msgs['editcommunity.name']}</label>
@@ -137,14 +138,20 @@
 						</div>
 					 </div>
 					<div class="row">
-						<div class="col-md-2 col-xs-10">
+						<div class="col-md-2 col-xs-8">
 							<label>#{msgs['editcommunity.resources_tab']}</label>
 						</div>
-						<div class="col-md-offset-8 col-md-2 col-xs-2">	
-							<h:commandLink action="#{editCommunityCBean.addResource}">
+						<div class="col-md-offset-7 col-md-3 col-xs-4">	
+							<h:commandLink title="Crear recurso." action="#{editCommunityCBean.addResource}">
 								<span class="fa-stack fa-1x">
 								<i class="fa fa-circle fa-stack-2x"></i>
 								<i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+								</span>
+							</h:commandLink>
+							<h:commandLink  title="Deshacer cambios en los recursos." action="#">
+								<span class="fa-stack fa-1x">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-undo fa-stack-1x fa-inverse"></i>
 								</span>
 							</h:commandLink>
 						</div>

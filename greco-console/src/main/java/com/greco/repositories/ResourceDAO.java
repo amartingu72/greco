@@ -53,4 +53,10 @@ public interface ResourceDAO {
 	 * @return 
 	 */
 	public List<Resource> loadResources(int communityId, int resourceTypeId);
+	
+	/**
+	 * Eliminar recurso.
+	 * @param resourceId
+	 */
+	public void removeResource(int resourceId);
 }
