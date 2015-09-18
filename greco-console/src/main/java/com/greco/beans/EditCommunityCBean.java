@@ -47,7 +47,14 @@ public class EditCommunityCBean {
         
 		return null;
 	}
-	
+	/**
+	 * Deshace todos los cambios realizados.
+	 */
+	public String undoChanges(){
+		this.resourcesSBean.reload(); 
+		this.getEditCommunityBBean().setMyResources(resourcesSBean.getMyResources());
+		return null;
+	}
 	
 	
 	public String save() {

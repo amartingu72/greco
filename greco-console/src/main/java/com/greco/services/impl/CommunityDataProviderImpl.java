@@ -133,28 +133,30 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 			}
 			else if ( resourceItem.isAdded()) {
 				//Añadimos recurso.
-				resourceDAO.addResource(resource);
+				int id=resourceDAO.addResource(resource);
+				resourceItem.setId(id);
 				//Quitamos la marca de pendiente de actualizar.
 				resourceItem.clearStatus();
 				
 			}
 			else if ( resourceItem.isDeleted() ) {
-				//Comprobamos que no haya ninguna reserva realizada.
-				if (!reservationDAO.hasReservations(resourceItem.getId()) ){
-					//Borramos de la base de datos.
-					resourceDAO.removeResource(resourceItem.getId());
-					//y de la lista.
+				//Si es un recurso sin id es que lo ha creado y borrado ahora, a antes de dar a guardar y, por tanto, no tiene persistencia en BD
+				int i=resourceItem.getId();
+				if ( i <= 0) 
 					it.remove();
+				else { //El item tenía persistencia en base de datos.
+					//Comprobamos que no haya ninguna reserva realizada.
+					if (!reservationDAO.hasReservations(resourceItem.getId()) ){
+						//Borramos de la base de datos.
+						resourceDAO.removeResource(resourceItem.getId());
+						//y de la lista.
+						it.remove();
+					}
+					else
+						failures.add(resourceItem);  //Añadimos a la lista de fallidos.
 				}
-				else
-					failures.add(resourceItem);  //Añadimos a la lista de fallidos.
-				
-			}
-			
-			
-			
+			}			
 		}
-		
 		return failures;
 	}
 	

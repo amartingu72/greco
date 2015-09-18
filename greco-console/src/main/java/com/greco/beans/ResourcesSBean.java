@@ -2,7 +2,6 @@ package com.greco.beans;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -116,7 +115,13 @@ public class ResourcesSBean implements Serializable {
 		return this.myResources.contains(resourceItem);
 	}
 	
-	
+	/**
+	 * Vuelve a cargar la lista de recursos desde base de datos.
+	 * Implica perder el estado de los cambios. 
+	 */
+	public void reload(){
+		this.myResources=Arrays.asList(this.resourceDataProvider.getResources(this.communityItem));
+	}
 	
 	
 	

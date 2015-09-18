@@ -165,9 +165,12 @@
 						<ui:repeat value="#{rsrcItemGroup.resourceItems}" var="rsrcItem">
 							
 							<a class="btn btn-link btn-xs mar-top5" data-toggle="collapse" href="#collapse-#{rsrcItem.id}" aria-expanded="false" aria-controls="collapseExample">
-  									#{rsrcItem.name}
-  									<span class="caret"></span>
-							</a>
+  										<h:outputText  style="#{!rsrcItem.availableAnyDay?'color: red;':'none'}"
+  											value="#{rsrcItem.name}"
+  											/>
+  											
+  										<span class="caret"></span>
+							</a> 
 							
 							
 							
@@ -184,6 +187,7 @@
     								<p>
     								Horario: #{rsrcItem.availableFromTime} - #{rsrcItem.availableToTime}<br/>
     								#{msgs['reservations.availability']}: 
+    								<strong><h:outputText value="No disponible." rendered="#{!rsrcItem.availableAnyDay}"/></strong>
     								<h:outputText value="#{msgs['editresource.monday']} " rendered="#{rsrcItem.availableOnMonday}"/>    								
     								<h:outputText value="#{msgs['editresource.tuesday']} " rendered="#{rsrcItem.availableOnTuesday}"/>
     								<h:outputText value="#{msgs['editresource.wednesday']} " rendered="#{rsrcItem.availableOnWednesday}"/>

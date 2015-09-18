@@ -102,6 +102,19 @@ public class ResourceItem implements Serializable {
 		
 		return !this.weeklyAvailability[index];
 	}
+	/**
+	 * Devuelve true si el recursos está disponible algún día de la semana.
+	 * @return
+	 */
+	public boolean isAvailableAnyDay() {
+		return (isAvailableOnMonday() ||
+				isAvailableOnTuesday() ||
+				isAvailableOnWednesday() ||
+				isAvailableOnThursday() ||
+				isAvailableOnFriday() ||
+				isAvailableOnSaturday() ||
+				isAvailableOnSunday());
+	}
 	
 	//GETTER's y SETTER's
 	public int getId() {
