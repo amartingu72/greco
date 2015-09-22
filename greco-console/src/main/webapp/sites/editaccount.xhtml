@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -11,58 +10,92 @@
    <body>
       <ui:composition template="../templates/sites_layout.xhtml">
          <ui:define name="content">
-            <h:form style="min-height: 550px;">
+         	<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">	
+  				<div class="modal-dialog modal-sm">
+    				<div class="modal-content">
+    				 <h:form id="modalForm">
+      					<div class="modal-header">
+        					<h5 class="modal-title">Baja de la comunidad</h5>
+        				</div>
+       					<div class="modal-body">
+     							
+     							<p>¿Seguro que quiere darse de baja de la comunidad?</p>								
+     						</div>
+     						<div class="modal-footer">
+       						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+       						
+       						<h:commandLink class="btn btn-default" value="Si" onclick="$('#myModal').modal('hide');"        						
+       							action="#{editAccountCBean.unsubscribe}">
+       							
+       						</h:commandLink> 
+     						</div>
+      				</h:form>
+    				</div>
+  				</div>
+	  			
+			</div> <!-- modal -->
+         
+         
+            <h:form id="editAccountForm" style="min-height: 550px;">
+				            
             	<p:growl id="messages" showDetail="false" autoUpdate="true" />
             	<div class="row">
-            	<div class="col-md-offset-1 col-md-4">      	
-                	<div class="row form-group">
-            			<label for="nickname">#{msgs['editaccount.user']}</label>
-						<p:inputText id="nickname" class="form-control" value="#{editAccountBBean.nickname}" 
-							size="32" 
-							label="#{msgs['editaccount.nickname_label']}"
-							required="true"
-							requiredMessage="#{msgs['editaccount.required_msg']}"/>
+	            	<div class="col-md-offset-1 col-md-4">      	
+	                	<div class="row form-group">
+	            			<label for="nickname">#{msgs['editaccount.user']}</label>
+							<p:inputText id="nickname" class="form-control" value="#{editAccountBBean.nickname}" 
+								size="32" 
+								label="#{msgs['editaccount.nickname_label']}"
+								required="true"
+								requiredMessage="#{msgs['editaccount.required_msg']}"/>
+						</div>
+						<div class="row form-group">
+							<label for="email">#{msgs['editaccount.email']}</label>
+							<p:inputText id="email" class="form-control" value="#{editAccountBBean.email}" 
+								required="true"
+								label="#{msgs['editaccount.email_label']}"
+								requiredMessage="#{msgs['editaccount.required_msg']}" 
+								size="64">
+								<f:validator validatorId="com.greco.validators.EmailValidator" />
+							</p:inputText>
+						</div>
+						<div class="row form-group">
+							<label for="password">#{msgs['editaccount.pwd']}</label>>
+							<p:password id="password" class="form-control" value="#{editAccountBBean.password}"  
+								redisplay="true" 
+								match="passwordConfirm"
+								label="#{msgs['editaccount.pwd_label']}"
+								promptLabel="#{msgs['editaccount.pwd_promt_label']}"
+								weakLabel="#{msgs['editaccount.pwd_weak_label']}"
+								goodLabel="#{msgs['editaccount.pwd_good_label']}"
+								strongLabel="#{msgs['editaccount.pwd_strong_label']}"
+								validatorMessage="#{msgs['editaccount.pwd_validator_msg']}"			
+								maxlength="16"	
+								onchange="#{editAccountBBean.pwdUpdated}"	 
+								feedback="true"/>
+						</div>
+						<div class="row form-group">
+							<label for="passwordConfirm">#{msgs['editaccount.pwdConfirm']}</label>
+							<p:password  id="passwordConfirm" class="form-control" value="#{editAccountBBean.password}"
+								redisplay="true" 
+								maxlength="16"
+								label="#{msgs['editaccount.pwdConfirm_label']}"/>
+						</div>				
 					</div>
-					<div class="row form-group">
-						<label for="email">#{msgs['editaccount.email']}</label>
-						<p:inputText id="email" class="form-control" value="#{editAccountBBean.email}" 
-							required="true"
-							label="#{msgs['editaccount.email_label']}"
-							requiredMessage="#{msgs['editaccount.required_msg']}" 
-							size="64">
-							<f:validator validatorId="com.greco.validators.EmailValidator" />
-						</p:inputText>
-					</div>
-					<div class="row form-group">
-						<label for="password">#{msgs['editaccount.pwd']}</label>>
-						<p:password id="password" class="form-control" value="#{editAccountBBean.password}"  
-							redisplay="true" 
-							match="passwordConfirm"
-							label="#{msgs['editaccount.pwd_label']}"
-							promptLabel="#{msgs['editaccount.pwd_promt_label']}"
-							weakLabel="#{msgs['editaccount.pwd_weak_label']}"
-							goodLabel="#{msgs['editaccount.pwd_good_label']}"
-							strongLabel="#{msgs['editaccount.pwd_strong_label']}"
-							validatorMessage="#{msgs['editaccount.pwd_validator_msg']}"			
-							maxlength="16"	
-							onchange="#{editAccountBBean.pwdUpdated}"	 
-							feedback="true"/>
-					</div>
-					<div class="row form-group">
-						<label for="passwordConfirm">#{msgs['editaccount.pwdConfirm']}</label>
-						<p:password  id="passwordConfirm" class="form-control" value="#{editAccountBBean.password}"
-							redisplay="true" 
-							maxlength="16"
-							label="#{msgs['editaccount.pwdConfirm_label']}"/>
-					</div>				
-				</div>
-				<div class="col-md-offset-1 col-md-5">
-					<div class="row form-group">
-						<label for="myData">#{msgs['editaccount.my_data']}</label>
-						<p:inputTextarea id="myData" disabled="true" class="form-control" value="#{editAccountBBean.application}"/>
+					<div class="col-md-offset-1 col-md-5">
+						<div class="row form-group">
+							<label for="myData">#{msgs['editaccount.my_data']}</label>
+							<h:inputTextarea id="myData" readonly="true" class="form-control" value="#{editAccountBBean.application}"/>
+						</div>
+						<div class="row form-group">
+							<h:commandLink value="Darme de baja." 
+								onclick="$('#myModal').appendTo('body').modal('show'); return false;"/>
+						</div>
+						<div class="row form-group">
+							<h:message id="unsubscribeMsgs" showDetail="true" />
+						</div>
 						
 					</div>
-				</div>
 				</div>
 				<div class="row">
 					<div class="col-md-offset-10 col-md-1">

@@ -86,6 +86,14 @@ public interface UserCommunityDataProvider{
 	 */
 	public abstract int getMembers(CommunityItem communityItem);
 	
+	/**
+	 * Obtiene el item de miembro de un usuario en una comunidad concreta.
+	 * @param userItem Item de usuario.
+	 * @param communityId Id de comunidad.
+	 * @return Item de miembro.
+	 */
+	public abstract MemberItem find(UserItem userItem, int communityId);
+	
 	
 	/**
 	 * Recurpera el miembro por su clave en user-communities.

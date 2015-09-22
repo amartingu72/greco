@@ -5,7 +5,11 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.UserDataProvider;
+import com.greco.services.except.user.NoCommunityAdminException;
+import com.greco.services.except.user.NoMemberException;
+import com.greco.services.helpers.MemberItem;
 import com.greco.services.helpers.UserItem;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
@@ -18,8 +22,18 @@ public class EditAccountCBean implements Serializable{
 	private UserSBean userSBean; //Inyectado 
 	private EditAccountBBean editAccountBBean; //Inyectado
 	private UserDataProvider userDataProvider; //Inyectado
+	private UserCommunityDataProvider userCommunityDataProvider; //Inyectado
 
-	 public String save() {
+	 public UserCommunityDataProvider getUserCommunityDataProvider() {
+		return userCommunityDataProvider;
+	}
+
+	public void setUserCommunityDataProvider(
+			UserCommunityDataProvider userCommunityDataProvider) {
+		this.userCommunityDataProvider = userCommunityDataProvider;
+	}
+
+	public String save() {
 		UserItem userItem=new UserItem();
 		userItem.setId(userSBean.getId());
 		
@@ -48,6 +62,39 @@ public class EditAccountCBean implements Serializable{
         
 		return null;
 	
+	}
+	 
+	public String unsubscribe(){
+		MemberItem memberItem=userCommunityDataProvider.find(userSBean.getItem(), userSBean.getCommunityId());
+		
+        if (memberItem!=null) {
+			try {
+				userCommunityDataProvider.removeMember(memberItem);
+				
+				//Grabamos el log
+				String msg="userID (" + memberItem.getId() + ") COMMUNITYID(" + memberItem.getCommunityId() + ")";
+				logger.log("007003", msg ); //007003=INFO|Baja de miembro:
+				
+			} catch (NoCommunityAdminException e) {
+				//Generamos mensaje para el usuario.
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage("editAccountForm:unsubscribeMsgs",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("editcommunity.nocommunityadmin_del_msg"),  
+	    				Warnings.getString("editcommunity.nocommunityadmin_del_detail" ) ) );
+			} catch (NoMemberException e) {
+				FacesContext context = FacesContext.getCurrentInstance();
+		         
+		        context.addMessage("editAccountForm:unsubscribeMsgs",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("editmembership.removed"),  
+		        				Warnings.getString("editmembership.removed_details" ) ) );
+			}
+        }
+        else {
+        	FacesContext context = FacesContext.getCurrentInstance();
+	         
+	        context.addMessage("editAccountForm:unsubscribeMsgs",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("editmembership.removed"),  
+	        				Warnings.getString("editmembership.removed_details" ) ) );
+        }
+		
+		return "unsubscribed";
 	}
 	
 	

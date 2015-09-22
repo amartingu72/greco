@@ -2,12 +2,11 @@
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14271136091620" configfile="/greco-console/src/main/webapp/WEB-INF/faces-config.xml">
   <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="228" id="pf14289161984610" referenceLink="//@navigationRule.11/@fromViewId|" outlinks="pf14289161984611 pf14289161984613 pf14289161984614 pf14315878339661" inlinks="pf14289161984618" path="/sections/login/login.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="/sections/admin/newaccount.xhtml" x="216" y="36" id="pf142891619846110" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf14289161984618 pf142891619846111" inlinks="pf14289161984611" path="/sections/admin/newaccount.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="sites/reservations.xhtml" x="576" y="773" id="pf142891619846135" referenceLink="//@navigationRule.20/@fromViewId|" outlinks="pf142891619846137 pf14340073197350" path="/sites/reservations.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sites/reservations.xhtml" x="576" y="773" id="pf142891619846135" referenceLink="//@navigationRule.20/@fromViewId|" outlinks="pf14340073197350" path="/sites/reservations.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/admin/welcome.xhtml" x="468" y="36" id="pf142891619846143" referenceLink="//@navigationRule.12/@fromViewId|" outlinks="pf14323041523440" inlinks="pf142891619846111" path="/sections/admin/welcome.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/subscriptioncomplete.xhtml" x="635" y="528" id="pf142891619846146" referenceLink="//@navigationRule.23/@navigationCase.0/@toViewId|" inlinks="pf142891619846145 pf142891619846147" path="/sections/subscriptioncomplete.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/login/pwdforgotten.xhtml" x="353" y="293" id="pf142891619846148" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf142891619846149" inlinks="pf14289161984614" path="/sections/login/pwdforgotten.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/login/pwdsent.xhtml" x="576" y="293" id="pf142891619846150" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" inlinks="pf142891619846149" path="/sections/login/pwdsent.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="sections/editaccount.xhtml" x="792" y="773" id="pf142891619846151" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf142891619846137" path="/sections/editaccount.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/login/nomember.xhtml" x="383" y="480" id="pf142891619846152" referenceLink="//@navigationRule.22/@navigationCase.0/@toViewId|" outlinks="pf142891619846147" inlinks="pf14289161984617" path="/sections/login/nomember.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/admin/selectcom.xhtml" x="481" y="132" id="pf14290087771591" referenceLink="//@navigationRule.13/@fromViewId|" outlinks="pf14290087771590 pf14323041523441" inlinks="pf14289161984613" path="/sections/admin/selectcom.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/admin/editcommunity.xhtml" x="654" y="228" id="pf14296925047010" referenceLink="//@navigationRule.17/@navigationCase.0/@toViewId|" outlinks="pf14303806948810 pf14326282733610" inlinks="pf14290087771590 pf14303806948811 pf14315878339661 pf14325479018290 pf14326282733611" path="/sections/admin/editcommunity.xhtml"/>
@@ -19,6 +18,8 @@
   <nodes xsi:type="pageflow:PFPage" name="sites/comnotfound.xhtml" x="389" y="684" id="pf14331508263332" referenceLink="//@navigationRule.18/@navigationCase.0/@toViewId|" inlinks="pf14331508263331" path="/sites/comnotfound.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sites/myreservations.xhtml" x="375" y="773" id="pf14340073197351" referenceLink="//@navigationRule.20/@navigationCase.0/@toViewId|" inlinks="pf14332425122360 pf14340073197350" path="/sites/myreservations.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sites/subscribeme.xhtml" x="405" y="588" id="pf14389375133773" referenceLink="//@navigationRule.23/@fromViewId|" outlinks="pf142891619846145" inlinks="pf14389375133772" path="/sites/subscribeme.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sites/editaccount.xhtml" x="53" y="804" id="pf14429190577530" outlinks="pf14429190577531" path="/sites/editaccount.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sites/bye_page.xhtml" x="243" y="804" id="pf14429190577532" inlinks="pf14429190577531" path="/sites/bye_page.xhtml"/>
   <links id="pf14289161984611" target="pf142891619846110" source="pf14289161984610" outcome="register" redirect="true"/>
   <links id="pf14289161984618" target="pf14289161984610" source="pf142891619846110" outcome="cancel" redirect="true"/>
   <links id="pf14289161984613" target="pf14290087771591" source="pf14289161984610" outcome="select" redirect="true"/>
@@ -26,7 +27,6 @@
   <links id="pf142891619846111" target="pf142891619846143" source="pf142891619846110" outcome="success" redirect="true"/>
   <links id="pf14289161984614" target="pf142891619846148" source="pf14289161984610" outcome="pwd_forgotten"/>
   <links id="pf142891619846149" target="pf142891619846150" source="pf142891619846148" outcome="sent"/>
-  <links id="pf142891619846137" target="pf142891619846151" source="pf142891619846135" outcome="editAccount"/>
   <links id="pf14289161984617" target="pf142891619846152" source="pf14331508263320" outcome="nomember"/>
   <links id="pf142891619846147" target="pf142891619846146" source="pf142891619846152" outcome="completed"/>
   <links id="pf14290087771590" target="pf14296925047010" source="pf14290087771591" outcome="edit"/>
@@ -43,4 +43,5 @@
   <links id="pf14332425122360" target="pf14340073197351" source="pf14331508263320" outcome="login"/>
   <links id="pf14340073197350" target="pf14340073197351" source="pf142891619846135" outcome="confirm"/>
   <links id="pf14389375133772" target="pf14389375133773" source="pf14331508263320" outcome="subscribeme"/>
+  <links id="pf14429190577531" target="pf14429190577532" source="pf14429190577530" outcome="unsubscribed"/>
 </pageflow:Pageflow>

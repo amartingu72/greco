@@ -315,6 +315,11 @@
 			<property-class>com.greco.services.UserDataProvider</property-class>
 			<value>#{userDataProvider}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>userCommunityDataProvider</property-name>
+			<property-class>com.greco.services.UserCommunityDataProvider</property-class>
+			<value>#{userCommunityDataProvider}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<description>Validador de recurso único. Lo incorporamos como managed bean porque no podemos inyectar objetos Spring en los validadores.</description>
@@ -709,14 +714,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>sites/reservations.xhtml</display-name>
-		<from-view-id>/sites/reservations.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>editAccount</from-outcome>
-			<to-view-id>/sections/editaccount.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
 		<display-name>sections/login/nomember.xhtml</display-name>
 		<from-view-id>/sections/login/nomember.xhtml</from-view-id>
 		<navigation-case>
@@ -859,6 +856,14 @@
 		<navigation-case>
 			<from-outcome>completed</from-outcome>
 			<to-view-id>/sections/subscriptioncomplete.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sites/editaccount.xhtml</display-name>
+		<from-view-id>/sites/editaccount.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>unsubscribed</from-outcome>
+			<to-view-id>/sites/bye_page.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<validator>

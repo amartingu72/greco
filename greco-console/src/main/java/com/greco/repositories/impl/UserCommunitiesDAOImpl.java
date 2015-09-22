@@ -260,6 +260,17 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 	}
 
 
+	@Override
+	public UsersCommunity getSubscription(int userId, int communityId){
+		String sql = "SELECT uc FROM UsersCommunity AS uc WHERE uc.user.id=:user_id AND uc.community.id=:community_id"; 
+		Query q = em.createQuery(sql);
+		q.setParameter("user_id", userId);
+		q.setParameter("community_id", communityId);
+		
+		return (UsersCommunity)q.getSingleResult();
+	}
+
+
 	
 	
 	

@@ -178,6 +178,14 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
         return communities;
 		
 	}
+
+	@Override
+	public MemberItem find(UserItem userItem, int communityId) {
+		UsersCommunity uc=userCommunitiesDAO.getSubscription(userItem.getId(), communityId);
+		MemberItem memberItem=null;
+		if (uc != null) memberItem=convert(uc);
+		return memberItem;
+	}
 	
 	
 }

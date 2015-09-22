@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.primefaces.model.SortOrder;
-
 import com.greco.entities.Profile;
 import com.greco.entities.UsersCommunity;
 import com.greco.services.except.user.NoCommunityAdminException;
@@ -94,6 +93,16 @@ public interface UserCommunitiesDAO {
 	 * @throws NoMemberException El usuario no es miembro ni ha solicitado suscribirse a esta comunidad.
 	 */
 	public int getSubscriptionStatus(int userId, int communityId)  throws NoMemberException ;
+	
+	
+	/**
+	 * Devuelve la subscripción asociada.
+	 * @param userId Identificado del usuario que realiza la suscripción.
+	 * @param communityId Identificador de la comunidad por cuya suscripción pregunta.
+	 * @return Subscripción o null si no coincide ninguna.
+	 
+	 */
+	public UsersCommunity getSubscription(int userId, int communityId);
 	
 	/**
 	 * Indica el número usuarios administradores para una comunidad dada.

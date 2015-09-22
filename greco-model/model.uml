@@ -312,4 +312,11 @@
     </nestedClassifier>
     <packagedElement xmi:type="uml:UseCase" xmi:id="_5-dYcDaaEeWnW8OSAdDaOg" name="Eliminar pre-reservas expiradas" subject="_0PxXUDaaEeWnW8OSAdDaOg"/>
   </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_JK8NEGBFEeWu_J2FYnvegg" name="Baja">
+    <include xmi:id="_SpwQ4GBFEeWu_J2FYnvegg" addition="_wd0GgDXHEeWU78UardWkpQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_O6KZsGBFEeWu_J2FYnvegg" memberEnd="_O6KZsWBFEeWu_J2FYnvegg _O6KZsmBFEeWu_J2FYnvegg">
+    <ownedEnd xmi:id="_O6KZsWBFEeWu_J2FYnvegg" type="_-vYkYDUnEeWCVeIgiFSA1A" association="_O6KZsGBFEeWu_J2FYnvegg"/>
+    <ownedEnd xmi:id="_O6KZsmBFEeWu_J2FYnvegg" type="_JK8NEGBFEeWu_J2FYnvegg" association="_O6KZsGBFEeWu_J2FYnvegg"/>
+  </packagedElement>
 </uml:Model>
