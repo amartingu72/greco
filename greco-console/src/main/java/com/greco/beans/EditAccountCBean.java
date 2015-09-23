@@ -66,14 +66,17 @@ public class EditAccountCBean implements Serializable{
 	 
 	public String unsubscribe(){
 		MemberItem memberItem=userCommunityDataProvider.find(userSBean.getItem(), userSBean.getCommunityId());
-		
+		String ret=null;
         if (memberItem!=null) {
 			try {
 				userCommunityDataProvider.removeMember(memberItem);
-				
+				ret="unsubscribed";
 				//Grabamos el log
 				String msg="userID (" + memberItem.getId() + ") COMMUNITYID(" + memberItem.getCommunityId() + ")";
 				logger.log("007003", msg ); //007003=INFO|Baja de miembro:
+				
+				//Invalidamos la sesión.
+				FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 				
 			} catch (NoCommunityAdminException e) {
 				//Generamos mensaje para el usuario.
@@ -94,7 +97,7 @@ public class EditAccountCBean implements Serializable{
 	        				Warnings.getString("editmembership.removed_details" ) ) );
         }
 		
-		return "unsubscribed";
+		return ret;
 	}
 	
 	

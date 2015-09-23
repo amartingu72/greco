@@ -15,18 +15,18 @@
     				<div class="modal-content">
     				 <h:form id="modalForm">
       					<div class="modal-header">
-        					<h5 class="modal-title">Baja de la comunidad</h5>
+        					<h5 class="modal-title">#{msgs['editaccount.unsubscribe']}</h5>
         				</div>
        					<div class="modal-body">
      							
-     							<p>¿Seguro que quiere darse de baja de la comunidad?</p>								
+     							<p>#{msgs['editaccount.unsubscribe_confirm']}</p>								
      						</div>
      						<div class="modal-footer">
-       						<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+       						<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['editaccount.no']}</button>
        						
-       						<h:commandLink class="btn btn-default" value="Si" onclick="$('#myModal').modal('hide');"        						
+       						<h:commandLink class="btn btn-default" value="#{msgs['editaccount.yes']}" onclick="$('#myModal').modal('hide');"        						
        							action="#{editAccountCBean.unsubscribe}">
-       							
+       							<f:ajax update=":editAccountForm:unsubscribeMsgs"/>
        						</h:commandLink> 
      						</div>
       				</h:form>
@@ -36,12 +36,13 @@
 			</div> <!-- modal -->
          
          
-            <h:form id="editAccountForm" style="min-height: 550px;">
+            <h:form id="editAccountForm" class="mar-top20" style="min-height: 550px;">
 				            
-            	<p:growl id="messages" showDetail="false" autoUpdate="true" />
+            	<p:growl id="messages" showDetail="true" autoUpdate="true" />
             	<div class="row">
 	            	<div class="col-md-offset-1 col-md-4">      	
-	                	<div class="row form-group">
+	                	
+               			<div class="form-group">
 	            			<label for="nickname">#{msgs['editaccount.user']}</label>
 							<p:inputText id="nickname" class="form-control" value="#{editAccountBBean.nickname}" 
 								size="32" 
@@ -49,7 +50,7 @@
 								required="true"
 								requiredMessage="#{msgs['editaccount.required_msg']}"/>
 						</div>
-						<div class="row form-group">
+						<div class="form-group">
 							<label for="email">#{msgs['editaccount.email']}</label>
 							<p:inputText id="email" class="form-control" value="#{editAccountBBean.email}" 
 								required="true"
@@ -59,7 +60,7 @@
 								<f:validator validatorId="com.greco.validators.EmailValidator" />
 							</p:inputText>
 						</div>
-						<div class="row form-group">
+						<div class="form-group">
 							<label for="password">#{msgs['editaccount.pwd']}</label>>
 							<p:password id="password" class="form-control" value="#{editAccountBBean.password}"  
 								redisplay="true" 
@@ -74,7 +75,7 @@
 								onchange="#{editAccountBBean.pwdUpdated}"	 
 								feedback="true"/>
 						</div>
-						<div class="row form-group">
+						<div class="form-group">
 							<label for="passwordConfirm">#{msgs['editaccount.pwdConfirm']}</label>
 							<p:password  id="passwordConfirm" class="form-control" value="#{editAccountBBean.password}"
 								redisplay="true" 
@@ -83,32 +84,24 @@
 						</div>				
 					</div>
 					<div class="col-md-offset-1 col-md-5">
-						<div class="row form-group">
+						<div class="form-group">
 							<label for="myData">#{msgs['editaccount.my_data']}</label>
 							<h:inputTextarea id="myData" readonly="true" class="form-control" value="#{editAccountBBean.application}"/>
 						</div>
-						<div class="row form-group">
-							<h:commandLink value="Darme de baja." 
+						<div class="form-group text-right">
+							<h:commandLink value="#{msgs['editaccount.unsubscribeme']}" 
 								onclick="$('#myModal').appendTo('body').modal('show'); return false;"/>
-						</div>
-						<div class="row form-group">
-							<h:message id="unsubscribeMsgs" showDetail="true" />
-						</div>
-						
+						</div>						
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-offset-10 col-md-1">
-						<ul class="social-network">
-							<li>
-								<h:commandLink update="messages" action="#{editAccountCBean.save}">
-								<span class="fa-stack fa-2x">
-								<i class="fa fa-circle fa-stack-2x"></i>
-								<i class="fa fa-save fa-stack-1x fa-inverse"></i>
-								</span>
-								</h:commandLink>
-							</li>
-						</ul>
+					<div class="col-md-offset-10 col-md-1 col-xs-offset-8 col-xs-3">
+						<h:commandLink update="messages" action="#{editAccountCBean.save}">
+							<span class="fa-stack fa-2x">
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-save fa-stack-1x fa-inverse"></i>
+							</span>
+						</h:commandLink>
 					</div>
 				</div>
 			</h:form>
