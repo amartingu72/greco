@@ -52,8 +52,10 @@
 					  	<ul class="nav nav-tabs" role="tablist">
 						    <li role="presentation" class="active"><a href="#default"  aria-controls="default" role="tab" data-toggle="tab">#{msgs['editmembership.subscriptions_tab']}</a></li>
 						    <li  class="hidden-xs" role="presentation"> <a href="#advanced" aria-controls="advanced" role="tab" data-toggle="tab">#{msgs['editmembership.search_tab']}</a></li>
+						   	
 					  	</ul>
 					</div>
+					
 					<!-- <SCRIPT type="text/javascript">
 						$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 							$('#searchResult').collapse('hide');
@@ -64,9 +66,9 @@
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="default">
 					
-						<div class="row row mar-top20">
+						<div class="row mar-top10">
 							<div class="col-md-offset-1 col-md-3">
-								
+								<strong>#{communitiesSBean.selectedItem.name}(<small>#{communitiesSBean.selectedItem.zipcode}</small>)</strong>
 								<h:panelGroup id="counters">
 									<ul class="list-group">
 	  									<li class="list-group-item">
@@ -90,6 +92,7 @@
 								
 							</div>
 							<div class="col-md-offset-1 col-md-6">
+								
 								#{msgs['editmembership.pendings_title']} 
 								<h:commandLink title="#{msgs['editmembership.refresh']} " onclick="window.location.reload();return false;">
 										<span class="fa-stack fa-1x">
@@ -97,8 +100,9 @@
 											<i class="fa fa-refresh fa-stack-1x fa-inverse"></i>
 										</span>
 								</h:commandLink>
+								
 								<p:messages id="membership_msgs" showSummary="true" showDetail="true"/>
-								<h:outputLabel class="well" id="noPendingsMsg" rendered="#{editMembershipBBean.pendingsCounter==0?'true':'false'}" value="#{msgs['editmembership.no_pendings']}" />
+								<h:outputLabel style="color:red;" class="mar-top30" id="noPendingsMsg" rendered="#{editMembershipBBean.pendingsCounter==0?'true':'false'}" value="#{msgs['editmembership.no_pendings']}" />
 								<c:forEach items="#{editMembershipBBean.pendings}" var="pending" varStatus="status">							
 									<div id="m#{pending.memberId}" class="collapse in">
 										<div class="panel panel-default">
@@ -153,14 +157,14 @@
 								
 							</div> <!-- de md -->
 						</div> <!-- de row -->
-					</div> <!--  de tabpanel -->
+					</div> <!--  de tabpanel --> 
 
 					<div role="tabpanel" class="tab-pane" id="advanced">
 						
-						<div class="row mar-top20">
+						<div class="row mar-top10">
 							<div class="col-md-offset-1 col-md-3">
-								
-							    	<p:inputText id="filter" class="form-control" placeholder="#{msgs['editmembership.text_search']}" value="#{editMembershipBBean.textCriterion}"/>
+								<strong>#{communitiesSBean.selectedItem.name}(<small>#{communitiesSBean.selectedItem.zipcode}</small>)</strong>
+							    <p:inputText id="filter" class="form-control" placeholder="#{msgs['editmembership.text_search']}" value="#{editMembershipBBean.textCriterion}"/>
 							    	
 							    	
 							</div>

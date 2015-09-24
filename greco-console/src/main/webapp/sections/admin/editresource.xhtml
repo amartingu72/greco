@@ -25,7 +25,7 @@
             	<h:inputHidden id="id" value="#{editResourceBBean.id}"/>	
             	<div class="row">
             		<div class="col-md-offset-1 col-md-11">
-            			<h5>#{communitiesSBean.selectedItem.name}(#{msgs['editresource.edit']})</h5>
+            			<strong>#{communitiesSBean.selectedItem.name}(<small>#{msgs['editresource.edit']}</small>)</strong>
             		</div>
             	</div>
             	<div class="row">		
@@ -70,13 +70,13 @@
 						</div>
 					</div>	
 					<div class="col-md-5">
-		            	<div class="row">
+		            	<!-- <div class="row">
 		            		<div class="col-md-12">
 								<div class="form-group">
 		            				<p><span>#{msgs['editresource.time_constraints']}</span></p>
 		            			</div>
 		            		</div>
-		            	</div>
+		            	</div> -->
 		            	<div class="row">
 		            		<div class="col-md-12">
 			            		<label>#{msgs['editresource.weekly_availability']}</label>
@@ -121,7 +121,7 @@
 				            	</div>
 				            </div>
 		            	</div>
-		            	<div class="row">
+		            	<div class="row mar-top20">
 		            		<div class="col-md-6">
 		           				<div class="form-group">
 		           					<label for="availableFromTime">#{msgs['editresource.available_from']}</label>
