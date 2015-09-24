@@ -26,7 +26,7 @@ public class NewCommunityBBean implements Serializable{
 	@PostConstruct
 	public void initialize() {
 		
-		
+		available=true;
 		/*//Obtengo la comunidad seleccionada de Communities
 		CommunitiesSBean comms = (CommunitiesSBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("communitiesSBean");
 		CommunityItem item=comms.getSelectedItem();

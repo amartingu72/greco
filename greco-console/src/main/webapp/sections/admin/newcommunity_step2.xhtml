@@ -16,83 +16,37 @@
 				<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
 				<div class="row">
             		<div class="col-md-offset-1 col-md-10">
-						<div class="brand">		
+								
 							<p>
-								<span> #{msgs['newcommunity_step2_msg1']} <strong>#{editCommunityBBean.name}</strong></span>
+								 #{msgs['newcommunity_step2_msg1']} <strong>#{editCommunityBBean.name}</strong>
 								
 							</p>
 							<p>
-								<span> #{msgs['newcommunity_step2_msg11']} 
+								 #{msgs['newcommunity_step2_msg11']} 
 									<strong><h:outputLink id="site" target="_blank" value="#{editCommunityBBean.site}">#{editCommunityBBean.site}</h:outputLink></strong>
-								</span>
+								
 							</p>
-						</div>
+					
 					</div>
 				</div>
 				
 				<div class="row">
-            		<div class="col-md-offset-1 col-md-4">
-						<div class="brand test-justify">		
+            		<div class="col-md-offset-1 col-md-8">
+							
 							<p>
-								<span>#{msgs['newcommunity_step2_msg2']}</span>
+								#{msgs['newcommunity_step2_msg2']}
 							</p>
-							<p>
-								<span>#{msgs['newcommunity_step2_msg3']}</span>
-							</p>
-						</div>
 					</div>
-					<div class="col-md-offset-1 col-md-5">
-						<!-- <div class="row">
-							<div class="col-md-12 mar-top30">
-								<ul class="social-network">
-									<li>
-										<label>#{msgs['editcommunity.resources_tab']}</label>
-									</li>
-									<li>
-										<h:commandLink action="#{editcommunity.editResourcePF}">
-											<span class="fa-stack fa-1x">
-											<i class="fa fa-circle fa-stack-2x"></i>
-											<i class="fa fa-plus fa-stack-1x fa-inverse"></i>
-											</span>
-										</h:commandLink>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<h:dataTable class="table table-condensed table-hover" id="resourceTable" value="#{editCommunityBBean.myResources}" 
-									var="rsrc"
-									rows="8">                        	
-									<h:column headerText="#{msgs['editcommunity.resources']}">
-										
-		            					<h:commandLink action="#{editCommunityCBean.editResource(rsrc)}"  title="#{msgs['editresource.title']}">
-											<span class="fa-stack fa-1x">
-											<i class="fa fa-circle fa-stack-2x"></i>
-											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-											</span>
-										</h:commandLink>
-										#{rsrc.name}
-									</h:column>
-									<h:column headerText="#{msgs['editcommunity.resource_type']}">   
-										#{rsrc.type}
-									</h:column>
-									
-		        					<h:column id="status" styleClass="rscrColumn4">
-		        						<h:outputText styleClass="ui-icon ui-icon-newwin" title="#{msgs['editcommunity.new']}" rendered="#{rsrc.added}"/>
-		        						<h:outputText styleClass="ui-icon ui-icon-circle-check" title="#{msgs['editcommunity.updated']}" rendered="#{rsrc.updated}"/>
-									</h:column>
-								</h:dataTable>
-							</div>
-						</div> -->
-						<div class="row">
-							<div class="col-md-4 col-xs-12 btn-lg text-right mar-top40">
-								<h:commandButton class="btn btn-primary" value="#{msgs['newcommunity.finish']}" 
-									action="#{newCommunityCBean.finish}"	/>
-							</div>
-						</div>
-					</div>
+					
 				</div>	
+				<div class="row">
+					<div class="col-md-offset-1 col-md-10">
+						<div class="text-right mar-top40">
+							<h:commandButton class="btn btn-primary" value="#{msgs['newcommunity.finish']}" 
+								action="#{newCommunityCBean.finish}"	/>
+						</div>
+					</div>
+				</div>
 			</h:form>
 		</ui:define>
 	</ui:composition>
