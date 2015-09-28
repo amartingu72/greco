@@ -118,6 +118,12 @@ public class MyReservationsBBean {
 			ReservationDataProvider reservationDataProvider) {
 		this.reservationDataProvider = reservationDataProvider;
 	}
+	public CommunityItem getCommunityItem() {
+		return communityItem;
+	}
+	public void setCommunityItem(CommunityItem communityItem) {
+		this.communityItem = communityItem;
+	}
 
 	
 	 

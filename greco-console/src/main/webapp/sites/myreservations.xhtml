@@ -18,6 +18,7 @@
       					<div class="modal-header">
         					
         					<h5 class="modal-title">#{msgs['reservations.cancel_confirm_header']}</h5>
+        					
       					</div>
       					<div class="modal-body">
       							<input style="display:none;" name="reservid" id="reservid" value=""/>
@@ -30,7 +31,7 @@
         						
         					</h:commandButton>
       					</div>
-    				</div>
+    				</div> 
   				</div>
 			</div>
          	
@@ -40,6 +41,15 @@
          		
 				<div class="col-md-offset-1  col-md-5" >
         			<div class="mar-top20">
+        				<div class="row">
+        					<div class="col-md-8" >
+        						<h5>#{myReservationsBBean.communityItem.name}</h5>
+        						
+        					</div>
+        					<div class="col-md-4 text-right" >
+        						<p>#{myReservationsBBean.communityItem.zipcode}</p>
+        					</div>
+        				</div>
         				<div class="row">
         					<div class="col-md-2" >
         						
