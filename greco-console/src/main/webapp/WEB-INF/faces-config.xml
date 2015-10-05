@@ -434,6 +434,11 @@
 			<property-class>com.greco.beans.EditMembershipBBean</property-class>
 			<value>#{editMembershipBBean}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>mailProvider</property-name>
+			<property-class>com.greco.services.MailProvider</property-class>
+			<value>#{mailProvider}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<description>Bean controlador para crear una nueva cuenta.</description>

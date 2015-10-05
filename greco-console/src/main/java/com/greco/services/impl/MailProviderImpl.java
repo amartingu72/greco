@@ -22,13 +22,14 @@ import com.greco.entities.Community;
 import com.greco.entities.User;
 import com.greco.repositories.UserDAO;
 import com.greco.services.MailProvider;
+import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.UserItem;
 
 @Service("mailProvider")
 public class MailProviderImpl implements MailProvider {
 	
-	private final String JNDI_NAME="java:jboss/mail/Default";  //Para JBOSS
-	//private final String JNDI_NAME="mail/gmailAccount";  //Para Glassfish
+	//private final String JNDI_NAME="java:jboss/mail/Default";  //Para JBOSS
+	private final String JNDI_NAME="mail/gmailAccount";  //Para Glassfish
 	
 	@Resource(name="UsersRepository")
 	private UserDAO usersRepository;
@@ -48,7 +49,7 @@ public class MailProviderImpl implements MailProvider {
 			ctx = new InitialContext();
 			 mailSession =(Session) ctx.lookup(JNDI_NAME);
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
        
@@ -57,7 +58,7 @@ public class MailProviderImpl implements MailProvider {
 	
 	@Override
 	public void sendNewPassword(UserItem userItem, String newPwd)  throws MessagingException{
-		// TODO Auto-generated method stub
+		
 		MimeMessage message = new MimeMessage(mailSession);
 		
 		Address toAddress = new InternetAddress(userItem.getEmail());
@@ -76,7 +77,7 @@ public class MailProviderImpl implements MailProvider {
 			content+="- " + community.getName() +" ("+ getString("pwdforgotten.text4") + community.getId() +")\n";	
 		}
 		
-		content+=getString("pwdforgotten.text5") + "\n\n";
+		content+=getString("signature.admin") + "\n\n";
 		message.setText(content);
 		message.saveChanges();
 		Transport tr = mailSession.getTransport();
@@ -98,6 +99,32 @@ public class MailProviderImpl implements MailProvider {
 		} catch (MissingResourceException e) {
 			return '!' + key + '!';
 		}
+	}
+
+
+	@Override
+	public void sendUnsubscribed(UserItem userItem, CommunityItem communityItem)
+			throws MessagingException {
+		MimeMessage message = new MimeMessage(mailSession);
+		
+		Address toAddress = new InternetAddress(userItem.getEmail());
+		message.setRecipient(RecipientType.TO, toAddress);
+		message.setSubject(communityItem.getName()+". "+getString("unsubscribed.subject"));
+		
+		//Contenido
+		String content=getString("unsubscribed.text1") + " " + userItem.getNickname();
+		content+=getString("unsubscribed.text2");
+		content+=getString("signature.locale_admin");
+		content+=getString("signature.locale_reference" + communityItem.getId()); //URL de la comunidad.
+		
+		message.setText(content);
+		message.saveChanges();
+		Transport tr = mailSession.getTransport();
+		String serverPassword = mailSession.getProperty("mail.password");
+		tr.connect(null, serverPassword);
+		tr.sendMessage(message, message.getAllRecipients());
+		tr.close();
+		
 	}
 
 }

@@ -5,11 +5,13 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.model.SortOrder;
 
 import com.greco.repositories.UserCommunitiesDAO;
+import com.greco.services.MailProvider;
 import com.greco.services.except.user.NoCommunityAdminException;
 import com.greco.services.except.user.NoMemberException;
 import com.greco.services.helpers.CommunityItem;
@@ -25,6 +27,7 @@ public class EditMembershipCBean {
 	
 	
 	EditMembershipBBean editMembershipBBean; //Inyectado
+	MailProvider mailProvider; //Inyectado
 	
 	
 	/**
@@ -200,8 +203,9 @@ public class EditMembershipCBean {
 				//Eliminamos del resultado de la consulta actual.
 				editMembershipBBean.updateMembersList(memberItem, true);
 				
-				//Enviamos correo.
-					
+				//Enviamos correo al miembro dado de baja.
+				mailProvider.sendUnsubscribed(memberItem, memberItem.getCommunityItem());
+							
 		
 				//Grabamos el log
 				String msg="userID (" + memberItem.getId() + ") COMMUNITYID(" + memberItem.getCommunityId() + ")";
@@ -217,6 +221,13 @@ public class EditMembershipCBean {
 		         
 		        context.addMessage("editMembersForm:search_msgs",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("editmembership.removed"),  
 		        				Warnings.getString("editmembership.removed_details" ) ) );
+			} catch (MessagingException e) {
+				e.printStackTrace();
+				//Generamos mensaje para logger
+				log.log("013001");//013000=INFO|Error al enviar mail.
+						        
+		        String msg="userID (" + memberItem.getId() + ") COMMUNITYID(" + memberItem.getCommunityId() + ")";
+				log.log("007003", msg ); //007003=INFO|Baja de miembro:
 			}
         }
         else {
@@ -296,6 +307,16 @@ public class EditMembershipCBean {
 
 	public void setEditMembershipBBean(EditMembershipBBean editMembershipBBean) {
 		this.editMembershipBBean = editMembershipBBean;
+	}
+
+
+	public MailProvider getMailProvider() {
+		return mailProvider;
+	}
+
+
+	public void setMailProvider(MailProvider mailProvider) {
+		this.mailProvider = mailProvider;
 	}
 	
 	
