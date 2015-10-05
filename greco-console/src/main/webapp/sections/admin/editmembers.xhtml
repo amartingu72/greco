@@ -146,7 +146,7 @@
 														</h:commandLink>
 														
 			    										<h:commandLink  class="btn btn-default btn-sm" onclick="$('#m#{pending.memberId}').collapse('hide');" value="#{msgs['editmembership.send_btn']}" action="#{editMembershipCBean.reject(pending)}">
-			    												<f:ajax render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg"/>											
+			    												<f:ajax execute="@form" render=":editMembersForm:counters :editMembersForm:membership_msgs :editMembersForm:noPendingsMsg"/>											
 														</h:commandLink> 
 			    									</div>
 		    									</div>

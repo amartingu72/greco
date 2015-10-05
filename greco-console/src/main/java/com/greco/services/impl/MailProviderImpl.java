@@ -23,6 +23,7 @@ import com.greco.entities.User;
 import com.greco.repositories.UserDAO;
 import com.greco.services.MailProvider;
 import com.greco.services.helpers.CommunityItem;
+import com.greco.services.helpers.MemberItem;
 import com.greco.services.helpers.UserItem;
 
 @Service("mailProvider")
@@ -130,25 +131,31 @@ public class MailProviderImpl implements MailProvider {
 
 
 	@Override
-	public void sendSubscriptionRejected(UserItem userItem,
+	public void sendSubscriptionRejected(MemberItem memberItem,
 			CommunityItem communityItem, String rejectionMsg)
 			throws MessagingException {
 		MimeMessage message = new MimeMessage(mailSession);
-		
-		Address toAddress = new InternetAddress(userItem.getEmail());
+		 
+		Address toAddress = new InternetAddress(memberItem.getEmail());
 		message.setRecipient(RecipientType.TO, toAddress);
 		String subject=communityItem.getName()+". "+getString("rejected.subject");
 		message.setSubject(subject);
 		
 		//Contenido
-		String content=getString("rejected.text1") + " " + userItem.getNickname() + ":";
+		String content=getString("rejected.text1") + " " + memberItem.getNickname() + ":";
 		content+=getString("rejected.text2");
 		//Si el adminsitrador indicó alguna causa, lo incluimos.
-		if ( rejectionMsg.trim().equals("") || (rejectionMsg==null)){
+		if ( (rejectionMsg!=null) && !rejectionMsg.trim().equals("") ){
 			content+=getString("rejected.text3");
 			content+="\n\n" + rejectionMsg + "\n\n";
 		}
-		content+=getString("rejected.text4");
+		
+		if ( (memberItem.getApplication()!=null) && !memberItem.getApplication().trim().equals("") ){
+			content+="\n" + getString("rejected.text4");
+			content+="\n\n" + memberItem.getApplication() + "\n";
+		}
+		
+		content+=getString("rejected.text5");
 		
 			
 		content+=getString("signature.locale_admin");
