@@ -28,8 +28,8 @@ import com.greco.services.helpers.UserItem;
 @Service("mailProvider")
 public class MailProviderImpl implements MailProvider {
 	
-	//private final String JNDI_NAME="java:jboss/mail/Default";  //Para JBOSS
-	private final String JNDI_NAME="mail/gmailAccount";  //Para Glassfish
+	private final String JNDI_NAME="java:jboss/mail/Default";  //Para JBOSS
+	//private final String JNDI_NAME="mail/gmailAccount";  //Para Glassfish
 	
 	@Resource(name="UsersRepository")
 	private UserDAO usersRepository;
@@ -109,7 +109,8 @@ public class MailProviderImpl implements MailProvider {
 		
 		Address toAddress = new InternetAddress(userItem.getEmail());
 		message.setRecipient(RecipientType.TO, toAddress);
-		message.setSubject(communityItem.getName()+". "+getString("unsubscribed.subject"));
+		String subject=communityItem.getName()+". "+getString("unsubscribed.subject");
+		message.setSubject(subject);
 		
 		//Contenido
 		String content=getString("unsubscribed.text1") + " " + userItem.getNickname();

@@ -45,8 +45,8 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
     	
     	CommunityItem communityItem=new CommunityItem(uc.getCommunity().getId(),
     			uc.getCommunity().getAvailable()!=0,
-    			uc.getCommunity().getZipcode(),
     			uc.getCommunity().getName(),
+    			uc.getCommunity().getZipcode(),
     			uc.getCommunity().getNotes(),
     			uc.getCommunity().getCountry().getName()
     			);
