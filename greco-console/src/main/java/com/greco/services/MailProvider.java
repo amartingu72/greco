@@ -23,4 +23,13 @@ public interface MailProvider {
 	 * @throws MessagingException
 	 */
 	public abstract void sendUnsubscribed(UserItem userItem, CommunityItem communityItem) throws MessagingException;
+	
+	/**
+	 * Envía un correo de suscripción rechazada indicando, si el administrador lo ha indicado, el motivo de rechazo.
+	 * @param userItem Usuario rechazado.
+	 * @param communityItem Comunidad de la que se rechaza.
+	 * @param rejectionMsg Mensaje de rechazo indicado por el administrador.
+	 * @throws MessagingException
+	 */
+	public abstract void sendSubscriptionRejected(UserItem userItem, CommunityItem communityItem, String rejectionMsg) throws MessagingException;
 }

@@ -117,11 +117,13 @@ public class EditMembershipCBean {
 			
 			
 			//Enviamos correo al suscriptor rechazado.
-			
+			mailProvider.sendSubscriptionRejected(memberItem, memberItem.getCommunityItem(), memberItem.getRejectionReason());
+
 			//Mostramos mensaje de suscripción rechazada.
 			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO,  
 					memberItem.getNickname(),Warnings.getString("editmembership.rejected_detail")); 
 			FacesContext.getCurrentInstance().addMessage("editMembersForm:membership_msgs", fm);
+			
 			
 		} catch (NoCommunityAdminException e) {
 			//Generamos mensaje para el usuario.
@@ -132,6 +134,15 @@ public class EditMembershipCBean {
 			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_WARN,  
 					Warnings.getString("editmembership.removed")
 					,Warnings.getString("editmembership.removed_details")); 
+			FacesContext.getCurrentInstance().addMessage("editMembersForm:membership_msgs", fm);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			//Generamos mensaje para logger
+			log.log("013001");//013000=INFO|Error al enviar mail.
+					        
+			//Mostramos mensaje de suscripción rechazada.
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO,  
+					memberItem.getNickname(),Warnings.getString("editmembership.rejected_detail")); 
 			FacesContext.getCurrentInstance().addMessage("editMembersForm:membership_msgs", fm);
 		}
 	

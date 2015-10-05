@@ -128,4 +128,40 @@ public class MailProviderImpl implements MailProvider {
 		
 	}
 
+
+	@Override
+	public void sendSubscriptionRejected(UserItem userItem,
+			CommunityItem communityItem, String rejectionMsg)
+			throws MessagingException {
+		MimeMessage message = new MimeMessage(mailSession);
+		
+		Address toAddress = new InternetAddress(userItem.getEmail());
+		message.setRecipient(RecipientType.TO, toAddress);
+		String subject=communityItem.getName()+". "+getString("rejected.subject");
+		message.setSubject(subject);
+		
+		//Contenido
+		String content=getString("rejected.text1") + " " + userItem.getNickname() + ":";
+		content+=getString("rejected.text2");
+		//Si el adminsitrador indicó alguna causa, lo incluimos.
+		if ( rejectionMsg.trim().equals("") || (rejectionMsg==null)){
+			content+=getString("rejected.text3");
+			content+="\n\n" + rejectionMsg + "\n\n";
+		}
+		content+=getString("rejected.text4");
+		
+			
+		content+=getString("signature.locale_admin");
+		content+=getString("signature.locale_reference") + communityItem.getId(); //URL de la comunidad.
+		
+		message.setText(content);
+		message.saveChanges();
+		Transport tr = mailSession.getTransport();
+		String serverPassword = mailSession.getProperty("mail.password");
+		tr.connect(null, serverPassword);
+		tr.sendMessage(message, message.getAllRecipients());
+		tr.close();
+		
+	}
+
 }
