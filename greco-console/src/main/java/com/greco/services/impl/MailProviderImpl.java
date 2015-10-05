@@ -113,10 +113,10 @@ public class MailProviderImpl implements MailProvider {
 		message.setSubject(subject);
 		
 		//Contenido
-		String content=getString("unsubscribed.text1") + " " + userItem.getNickname();
+		String content=getString("unsubscribed.text1") + " " + userItem.getNickname() + ":";
 		content+=getString("unsubscribed.text2");
 		content+=getString("signature.locale_admin");
-		content+=getString("signature.locale_reference" + communityItem.getId()); //URL de la comunidad.
+		content+=getString("signature.locale_reference") + communityItem.getId(); //URL de la comunidad.
 		
 		message.setText(content);
 		message.saveChanges();
