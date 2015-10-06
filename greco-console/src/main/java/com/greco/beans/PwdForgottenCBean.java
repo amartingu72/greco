@@ -72,12 +72,18 @@ public class PwdForgottenCBean {
 	}
 	
 	public String cancel() {
-		String ret="/sections/login/login?communityid="+ this.pwdForgottenBBean.getCommunityId() +"&faces-redirect=true";
+		String ret;
+		if (this.pwdForgottenBBean.getCommunityId() == 0)
+			//Volvemos a la consola
+			ret="/sections/login/login?communityid="+ this.pwdForgottenBBean.getCommunityId() +"&faces-redirect=true";
+		else
+			//Volvemos al site de origen.
+			ret="/sites/welcome?communityid="+ this.pwdForgottenBBean.getCommunityId() +"&faces-redirect=true";
 		return ret;
 	}
 	
 	//GETTERs y SETTERs
-	public PwdForgottenBBean getPwdForgottenBBean() {
+	public PwdForgottenBBean getPwdForgottenBBean() { 
 		return pwdForgottenBBean;
 	}
 

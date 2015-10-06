@@ -871,6 +871,14 @@
 			<to-view-id>/sites/bye_page.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>sites/welcome.xhtml</display-name>
+		<from-view-id>/sites/welcome.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>pwd_forgotten</from-outcome>
+			<to-view-id>/sections/login/pwdforgotten.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 	<validator>
 		<description>Valida el formato de email</description>
 		<validator-id>com.greco.validators.EmailValidator</validator-id>
