@@ -103,7 +103,7 @@ public class MemberItem extends UserItem{
 	
 	
 	public String getJoinningDate() {
-		DateTime jodatime = new DateTime(joinningDate);
+		DateTime jodatime = new DateTime(joinningDate,communityItem.getDateTimeZone());
 		DateTimeFormatter dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
 		return dtfOut.print(jodatime);
 	}
