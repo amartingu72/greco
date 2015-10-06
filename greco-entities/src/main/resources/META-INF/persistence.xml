@@ -19,11 +19,11 @@
 		<class>com.greco.entities.UsersCommunity</class> 
 		
 		
-		<!-- Solo para JBOSS.
+		<!-- Solo para JBOSS.-->
 		<properties>
 			<property name="eclipselink.weaving" value="static"/>
 			<property name="eclipselink.target-server" value="JBoss"/>
-		</properties> -->
+		</properties>
 		
 
 	</persistence-unit>
