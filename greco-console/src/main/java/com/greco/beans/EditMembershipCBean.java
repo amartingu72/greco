@@ -42,12 +42,23 @@ public class EditMembershipCBean {
 			//Ha pasado a estar pendiente.
 			editMembershipBBean.setMembersCounter(editMembershipBBean.getMembersCounter()-1);
 			editMembershipBBean.setPendingsCounter(editMembershipBBean.getPendingsCounter()+1);
-			
+			try {
+				mailProvider.sendSubscriptionPending(memberItem, memberItem.getCommunityItem());
+			} catch (MessagingException e) {
+				e.printStackTrace();
+				log.log("013001");//013000=INFO|Error al enviar mail.
+			}
 			
 		} 
 		else { //Ha pasado a ser miembro activo
 			editMembershipBBean.setMembersCounter(editMembershipBBean.getMembersCounter()+1);
 			editMembershipBBean.setPendingsCounter(editMembershipBBean.getPendingsCounter()-1);
+			try {
+				mailProvider.sendSubscriptionApproved(memberItem, memberItem.getCommunityItem());
+			} catch (MessagingException e) {
+				e.printStackTrace();
+				log.log("013001");//013000=INFO|Error al enviar mail.
+			}
 		}
 			
 		
@@ -161,10 +172,12 @@ public class EditMembershipCBean {
 				//Ha pasado a ser administrador.
 				editMembershipBBean.setAdminCounter(editMembershipBBean.getAdminCounter()+1);
 				editMembershipBBean.setMembersCounter(editMembershipBBean.getMembersCounter()-1);
+				mailProvider.sendYouAreAdmin(memberItem, memberItem.getCommunityItem());
 			} 
 			else { //Ha dejado de ser administrador..
 				editMembershipBBean.setAdminCounter(editMembershipBBean.getAdminCounter()-1);
 				editMembershipBBean.setMembersCounter(editMembershipBBean.getMembersCounter()+1);
+				mailProvider.sendYouAreNotAdmin(memberItem, memberItem.getCommunityItem());
 			}
 			//Generamos mensaje para el log.
 			String msg="UserCommunityID (" + memberItem.getMemberId() + ") ";
@@ -189,6 +202,15 @@ public class EditMembershipCBean {
 	         
 	        context.addMessage("editMembersForm:search_msgs",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("editmembership.removed"),  
 	        				Warnings.getString("editmembership.removed_details" ) ) );
+		} catch (MessagingException e) {
+			
+			e.printStackTrace();
+			//Generamos mensaje para logger
+			log.log("013001");//013000=INFO|Error al enviar mail.
+			//Generamos mensaje para el log.
+			String msg="UserCommunityID (" + memberItem.getMemberId() + ") ";
+			msg += "New profile ("+ memberItem.getMemberProfile().getName() + ")";
+			log.log("007001", msg ); //007002=INFO|Cambio de perfil:
 		}
 		
 	}

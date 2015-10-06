@@ -33,4 +33,36 @@ public interface MailProvider {
 	 * @throws MessagingException
 	 */
 	public abstract void sendSubscriptionRejected(MemberItem memberItem, CommunityItem communityItem, String rejectionMsg) throws MessagingException;
+	
+	/**
+	 * Envía un correo de suscripción aprobada por el administrador.
+	 * @param userItem Subscripción aprobada
+	 * @param communityItem Comunidad donde se aprueba.
+	 * @throws MessagingException
+	 */
+	public abstract void sendSubscriptionApproved(UserItem userItem, CommunityItem communityItem) throws MessagingException;
+	
+	/**
+	 * Envía un correo indicando que la suscripción ha sido puesta en espera.
+	 * @param userItem Subscripció.
+	 * @param communityItem Comunidad.
+	 * @throws MessagingException
+	 */
+	public abstract void sendSubscriptionPending(UserItem userItem, CommunityItem communityItem) throws MessagingException;
+	
+	/**
+	 * Envía un correo indicando que el miembro es, desde ahora, adminsitrador de la comunidad.
+	 * @param userItem Subscripción.
+	 * @param communityItem Comunidad.
+	 * @throws MessagingException
+	 */
+	public abstract void sendYouAreAdmin(UserItem userItem, CommunityItem communityItem) throws MessagingException;
+	
+	/**
+	 * Envía un correo indicando que ha dejado de ser administrador de la comunidad.
+	 * @param userItem Subscripción.
+	 * @param communityItem Comunidad.
+	 * @throws MessagingException
+	 */
+	public abstract void sendYouAreNotAdmin(UserItem userItem, CommunityItem communityItem) throws MessagingException;
 }
