@@ -95,10 +95,10 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 			query.setParameter("status_id", (int)status_id);
 		}
 		if (fromDate!=null){ 
-			query.setParameter("fromDate", (Date)fromDate, TemporalType.DATE);
+			query.setParameter("fromDate", (Date)fromDate, TemporalType.TIMESTAMP);
 		}
 		if (toDate!=null){ 
-			query.setParameter("toDate", (Date)toDate, TemporalType.DATE);
+			query.setParameter("toDate", (Date)toDate, TemporalType.TIMESTAMP);
 		}
 		
 		query.setMaxResults(max);

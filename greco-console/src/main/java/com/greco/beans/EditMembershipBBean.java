@@ -12,6 +12,8 @@ import javax.faces.context.FacesContext;
 
 
 
+
+import org.joda.time.DateTime;
 import org.primefaces.model.SortOrder;
 
 import com.greco.services.UserCommunityDataProvider;
@@ -78,7 +80,10 @@ public class EditMembershipBBean {
 		pendingsSelectCriterion=true;
 		
 		fromDateCriterion=null;
-		toDateCriterion=item.getLocalTime().plusDays(1).toDate(); //Ponemos el día siguiente para que, por defecto, salgan todos. 
+		
+		
+		toDateCriterion=new Date();
+		 
 		orderedByCriterion="registerdate";
 		sortOrderCriterion=0;
 		
@@ -215,7 +220,19 @@ public class EditMembershipBBean {
 	}
 
 	public Date getFromDateCriterion() {
-		return fromDateCriterion;
+		Date myDate=null;
+		if (fromDateCriterion != null) {
+			//Obtengo la comunidad seleccionada de Communities
+			CommunitiesSBean comms = (CommunitiesSBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("communitiesSBean");
+			CommunityItem item=comms.getSelectedItem();
+				
+			//La fecha fin es hasta las 23:59.
+			DateTime dateTime=new DateTime(fromDateCriterion, item.getDateTimeZone());
+			dateTime=new DateTime(dateTime.getYear(), dateTime.getMonthOfYear(), dateTime.getDayOfMonth(), 0,0,item.getDateTimeZone());
+			myDate=dateTime.toDate();
+		}
+		return myDate;
+
 	}
 
 
@@ -227,7 +244,16 @@ public class EditMembershipBBean {
 
 
 	public Date getToDateCriterion() {
-		return toDateCriterion;
+		
+		//Obtengo la comunidad seleccionada de Communities
+		CommunitiesSBean comms = (CommunitiesSBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("communitiesSBean");
+		CommunityItem item=comms.getSelectedItem();
+		
+		//La fecha fin es hasta las 23:59.
+		DateTime dateTime=new DateTime(toDateCriterion, item.getDateTimeZone());
+		dateTime=new DateTime(dateTime.getYear(), dateTime.getMonthOfYear(), dateTime.getDayOfMonth(), 23,59,item.getDateTimeZone());
+		
+		return dateTime.toDate();
 	}
 
 
