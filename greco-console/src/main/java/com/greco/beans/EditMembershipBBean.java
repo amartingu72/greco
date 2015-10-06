@@ -252,11 +252,11 @@ public class EditMembershipBBean {
 		CommunityItem item=comms.getSelectedItem();
 		
 		//La fecha fin es hasta las 23:59.
-<<<<<<< HEAD
+
 		DateTime dateTime=new DateTime(toDateCriterion, item.getDateTimeZone());
-=======
-		DateTime dateTime=new DateTime(toDateCriterion);
->>>>>>> refs/remotes/origin/master
+
+		
+
 		dateTime=new DateTime(dateTime.getYear(), dateTime.getMonthOfYear(), dateTime.getDayOfMonth(), 23,59,item.getDateTimeZone());
 		
 		return dateTime.toDate();
