@@ -29,8 +29,8 @@ import com.greco.services.helpers.UserItem;
 @Service("mailProvider")
 public class MailProviderImpl implements MailProvider {
 	
-	//private final String JNDI_NAME="java:jboss/mail/Default";  //Para JBOSS
-	private final String JNDI_NAME="mail/gmailAccount";  //Para Glassfish
+	private final String JNDI_NAME="java:jboss/mail/Default";  //Para JBOSS
+	//private final String JNDI_NAME="mail/gmailAccount";  //Para Glassfish
 	
 	@Resource(name="UsersRepository")
 	private UserDAO usersRepository;
