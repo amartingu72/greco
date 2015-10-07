@@ -1,6 +1,7 @@
 package com.greco.services.impl;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -24,6 +25,7 @@ import com.greco.repositories.UserDAO;
 import com.greco.services.MailProvider;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.MemberItem;
+import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.UserItem;
 
 @Service("mailProvider")
@@ -247,6 +249,34 @@ public class MailProviderImpl implements MailProvider {
 		send(userItem.getEmail(),subject, content);
 		
 	}
+
+
+
+
+	@Override
+	public void sendReservConfirmation(UserItem userItem,
+			CommunityItem communityItem, List<ReservationItem> reservations)
+			throws MessagingException {
+		String subject=communityItem.getName() + ". " + getString("reservation.subject");
+		String content=getString("content.greeting") + userItem.getNickname() + ":";
+		content+=getString("reservation.text1") + "\n";
+		
+		//Incluimos las reservas confirmadas.
+		Iterator<ReservationItem> it=reservations.iterator();
+		ReservationItem reservationItem=null;
+		while (it.hasNext()){
+			reservationItem=it.next();
+			content+="\n- " + reservationItem.getDate() + " - " +reservationItem.getName() + " (" + reservationItem.getType() + ") ";
+			content+=reservationItem.getFromTime() + " - " + reservationItem.getToTime(); 
+		}
+		
+		content+=getString("signature.locale_admin");
+		content+=getString("signature.locale_reference") + communityItem.getId(); //URL de la comunidad.
+		
+		send(userItem.getEmail(),subject, content);
+	}
+	
+
 	
 	
 

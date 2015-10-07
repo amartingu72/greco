@@ -1,10 +1,13 @@
 package com.greco.services;
 
 
+import java.util.List;
+
 import javax.mail.MessagingException;
 
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.MemberItem;
+import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.UserItem;
 
 
@@ -65,4 +68,13 @@ public interface MailProvider {
 	 * @throws MessagingException
 	 */
 	public abstract void sendYouAreNotAdmin(UserItem userItem, CommunityItem communityItem) throws MessagingException;
+	
+	/**
+	 * Envía un correo de confirmación de reserva con las reservas confirmadas.
+	 * @param userItem Usuario
+	 * @param communityItem Comunidad
+	 * @param reservations Lista de reservas
+	 * @throws MessagingException
+	 */
+	public abstract void sendReservConfirmation(UserItem userItem, CommunityItem communityItem, List<ReservationItem> reservations) throws MessagingException;
 }

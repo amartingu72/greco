@@ -5,8 +5,10 @@ import java.util.Iterator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
+import com.greco.services.MailProvider;
 import com.greco.services.ReservationDataProvider;
 import com.greco.services.except.reservation.NotOwnerException;
 import com.greco.services.except.reservation.ReservationMissingException;
@@ -24,6 +26,7 @@ public class MyReservationsCBean  implements Serializable{
 	private ReservationsBBean reservationsBBean; //Inyectado
 	private MyReservationsBBean myReservationsBBean; //Inyectado
 	private ReservationDataProvider reservationDataProvider; //Inyectado
+	private MailProvider mailProvider; //Inyectado.
 	
 	/**
      * Cancela la reserva indicada en el BBEan en el campo selectedItem.
@@ -73,6 +76,7 @@ public class MyReservationsCBean  implements Serializable{
 				reservationItem=(ReservationItem)it.next();
 				reservationDataProvider.confirmReservation(myReservationsBBean.getUserSBean().getItem(), 
 						reservationItem);
+				
 			} catch (ReservationMissingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -84,9 +88,18 @@ public class MyReservationsCBean  implements Serializable{
 			
 			//Grabamos log.
 			logger.log("012003",reservationItem.toString());//INFO|Reserva confirmada:
-
 			
     	}
+    	//Enviamos correo de confirmación.
+		try {
+			mailProvider.sendReservConfirmation(this.myReservationsBBean.getUserSBean().getItem(), 
+					this.myReservationsBBean.getCommunityItem(), 
+					this.reservationsBBean.getActiveReservations());
+		} catch (MessagingException e) {
+			
+			e.printStackTrace();
+			logger.log("013001");//013000=INFO|Error al enviar mail.
+		}
     	//Mostramos mensaje de éxito.
 		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("reservations.successful"),
 				Warnings.getString("reservations.successful_detail") + this.reservationsBBean.getActiveReservationsNumber()); 
@@ -124,6 +137,16 @@ public class MyReservationsCBean  implements Serializable{
 	public void setReservationDataProvider(
 			ReservationDataProvider reservationDataProvider) {
 		this.reservationDataProvider = reservationDataProvider;
+	}
+
+
+	public MailProvider getMailProvider() {
+		return mailProvider;
+	}
+
+
+	public void setMailProvider(MailProvider mailProvider) {
+		this.mailProvider = mailProvider;
 	}
 
     

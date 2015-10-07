@@ -663,6 +663,11 @@
 			<property-class>com.greco.beans.ReservationsBBean</property-class>
 			<value>#{reservationsBBean}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>mailProvider</property-name>
+			<property-class>com.greco.services.MailProvider</property-class>
+			<value>#{mailProvider}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<description>Backing bean para la página de administración de miembros de una comunidad.</description>
