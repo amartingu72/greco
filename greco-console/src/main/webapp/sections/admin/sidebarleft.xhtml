@@ -8,57 +8,55 @@
 	
 <body>    
 	<ui:composition>  	
-	<h:form>
+		
 	  <div class="menu-area">
+	  	
 		<div id="dl-menu" class="dl-menuwrapper">
-			<button class="dl-trigger">Open Menu</button>
 			
+				<button class="dl-trigger">Open Menu</button>
+				
 				<ul class="dl-menu">
-					<li style="display: #{menuBBean.showMembers ? 'list-item' : 'none'};">
-						<h:commandLink action="#{menuCBean.navigateCommunity}">
-							#{msgs['sidebarleft.home']}
-						</h:commandLink>
-					</li>
+					<h:form>
+						<li style="display: #{menuBBean.showMembers ? 'list-item' : 'none'};">
+							<h:commandLink action="#{menuCBean.navigateCommunity}">
+								#{msgs['sidebarleft.home']}
+							</h:commandLink>
+						</li>
 					
-					<li style="display: #{menuBBean.showMembers ? 'list-item' : 'none'};">
-						<h:commandLink action="#{menuCBean.navigateMembers}">
-							#{msgs['sidebarleft.members']}
-						</h:commandLink>
+						<li style="display: #{menuBBean.showMembers ? 'list-item' : 'none'};">
+							<h:commandLink action="#{menuCBean.navigateMembers}">
+								#{msgs['sidebarleft.members']}
+							</h:commandLink>
+							
+						</li>
+						<li style="display: #{menuBBean.showSelectCommunity ? 'list-item' : 'none'};">
+							<h:commandLink action="#{menuCBean.navigateSelectCommunity}">
+								#{msgs['sidebarleft.sel_community']}
+							</h:commandLink>
+						</li>
+						<li>
+							<h:commandLink action="#{menuCBean.navigateNewCommunity}">
+								#{msgs['sidebarleft.new']}
+							</h:commandLink>
+						</li>
 						
-					</li>
-					<li style="display: #{menuBBean.showSelectCommunity ? 'list-item' : 'none'};">
-						<h:commandLink action="#{menuCBean.navigateSelectCommunity}">
-							#{msgs['sidebarleft.sel_community']}
-						</h:commandLink>
-					</li>
-					<li>
-						<h:commandLink action="#{menuCBean.navigateNewCommunity}">
-							#{msgs['sidebarleft.new']}
-						</h:commandLink>
-					</li>
-					
-					<li>
-						<h:commandLink action="#{menuCBean.navigateEditAccount}">
-							#{msgs['sidebarleft.editaccount']}
-						</h:commandLink>
-					</li>
-					<li>
-						<h:commandLink action="#{menuCBean.navigateLogout}">
-							#{msgs['sidebarleft.logout']}
-						</h:commandLink>
-					</li>
+						<li>
+							<h:commandLink action="#{menuCBean.navigateEditAccount}">
+								#{msgs['sidebarleft.editaccount']}
+							</h:commandLink>
+						</li>
+						<li>
+							<h:commandLink action="#{menuCBean.navigateLogout}">
+								#{msgs['sidebarleft.logout']}
+							</h:commandLink>
+						</li>
+					</h:form>
 				</ul>
-			
+				
 		</div>
 		
 	  <!-- /dl-menuwrapper -->
-	  </div>
-	</h:form>
-	
-	
-	
-
-				
+	  </div>				
 	</ui:composition>
 </body>
 </html>

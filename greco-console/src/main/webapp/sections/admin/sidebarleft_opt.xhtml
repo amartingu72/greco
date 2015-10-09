@@ -8,30 +8,22 @@
 	
 <body>    
 	<ui:composition>  	
-	<h:form>
 	  	<div class="menu-area">
 				<!-- <h:commandButton class="btn btn-default" outcome="back" value="Back"></h:commandButton>
 			<button class="dl-trigger">Open Menu</button> -->
 			<ul class="social-network">
-				<li>
-				<h:commandLink action="#{editResourceCBean.cancel}">
-					<span class="fa-stack fa-2x">
-						<i class="fa fa-circle fa-stack-2x"></i>
-						<i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>
-					</span>
-				</h:commandLink>
-				</li>
-				
-		 		
+				<h:form>
+					<li>
+						<h:commandLink action="#{editResourceCBean.cancel}">
+							<span class="fa-stack fa-2x">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>
+							</span>
+						</h:commandLink>
+					</li>
+				</h:form>
 		 	</ul>
-		</div>
-	
-	</h:form>
-	
-	
-	
-
-				
+		</div>		
 	</ui:composition>
 </body>
 </html>
