@@ -28,7 +28,7 @@ public class TimeTableCBean {
 	 * @param dailySchedule Calendario del recurso para un día.
 	 * @param scheduleUnit Hora a reservar.
 	 */
-	public String reserve(DailySchedule dailySchedule, ScheduleUnit scheduleUnit){
+	public void reserve(DailySchedule dailySchedule, ScheduleUnit scheduleUnit){
 		
 		if (scheduleUnit.isLocked()) {
 			scheduleUnit.setFree();
@@ -69,7 +69,6 @@ public class TimeTableCBean {
 			
 		}
 		
-		return null;
 	}
 	/**
 	 * Carga la tabla de disponibilidad para la fecha y el tipo de recurso indicado.

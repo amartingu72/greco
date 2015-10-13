@@ -18,12 +18,14 @@
          		</div>   
          		<div class="row">
          			<div class="col-md-offset-4 col-md-3" >	
+         				<h:panelGroup id="myCart">
        					<div class="dropdown">
-	  						<button id="miBtn" type="button" class="btn btn-primary btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	    						<span class="fa fa-shopping-cart" aria-hidden="true"><span class="badge">#{reservationsBBean.activeReservationsNumber}</span></span>
-	    						<span class="caret"></span>
-	  						</button>
-  							
+       						
+		  					<button  type="button" class="btn btn-primary btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    					<span class="fa fa-shopping-cart" aria-hidden="true"><span class="badge">#{reservationsBBean.activeReservationsNumber}</span></span>
+		    					<span class="caret"></span>
+		  					</button>
+  						
   							<ul class="dropdown-menu list-group" role="menu" aria-labelledby="dLabel">
     							<ui:repeat var="reservation" value="#{reservationsBBean.activeReservations}">
     								<li class="list-group-item"><span class="label label-info">#{reservation.name}</span> #{reservation.date} #{reservation.fromTime} #{reservation.toTime}</li>
@@ -35,6 +37,7 @@
      							</li>
   							</ul>
 						</div>
+						</h:panelGroup>
 					</div>
 					<div class="col-md-4 text-right" > 
 						<h:panelGroup id="timetabledesc">  
@@ -91,8 +94,10 @@
 									<h:panelGroup id="timetable">	
 						    			<ui:repeat value="#{rsrc.dailySchedule}" var="scheduleUnit">
 											<h:commandLink class="btn #{scheduleUnit.icon} btn-xs #{scheduleUnit.editable?'none':'disabled'}" 
-						    					actionListener="#{timeTableCBean.reserve(rsrc,scheduleUnit)}"
-				  								value="#{scheduleUnit.output}" />
+						    					action="#{timeTableCBean.reserve(rsrc,scheduleUnit)}"
+				  								value="#{scheduleUnit.output}">
+				  								<f:ajax render="@this reservationsForm:myCart"/>
+				  							</h:commandLink>
 					    				</ui:repeat>
 					    			</h:panelGroup>
 				    			</div>
