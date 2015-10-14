@@ -2,7 +2,10 @@ package com.greco.services.helpers;
 import java.io.Serializable;
 
 
+
+
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 
 
 public class ResourceItem implements Serializable {
@@ -101,6 +104,22 @@ public class ResourceItem implements Serializable {
 		int index=date.getDayOfWeek() -1; //Nuestra lista empieza en 0.
 		
 		return !this.weeklyAvailability[index];
+	}
+	
+	public Duration getBeforehandDuration(){
+		Duration duration=null;
+		int timeunitId=TimeUnitItem.toID(beforehandTU);
+		switch ( timeunitId ) {
+		case TimeUnitItem.MINUTE:
+			duration=Duration.standardMinutes(beforehand);
+			break;
+		case TimeUnitItem.HOUR: 
+			duration=Duration.standardHours(beforehand);
+			break;
+		case TimeUnitItem.DAY: 
+			duration=Duration.standardDays(beforehand);
+	}
+		return duration;
 	}
 	/**
 	 * Devuelve true si el recursos está disponible algún día de la semana.

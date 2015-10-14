@@ -98,6 +98,8 @@ public class UserDataProviderImpl implements UserDataProvider{
 			
 		//Comprobamos que la suscripción está activa.
 		UsersCommunity uc=userCommunitiesDAO.getSubscription(user.getId(), communityId);
+		if (uc==null)
+			throw new NoMemberException();
 		if ( uc.getStatus()== UserCommunitiesDAO.PENDING_STATUS)
 			throw new PendingException();
 		

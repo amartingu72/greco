@@ -267,7 +267,12 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 		q.setParameter("user_id", userId);
 		q.setParameter("community_id", communityId);
 		
-		return (UsersCommunity)q.getSingleResult();
+		@SuppressWarnings("unchecked")	
+		List<UsersCommunity> ucList=q.getResultList();
+		UsersCommunity ret=null;
+		if (!ucList.isEmpty() ) ret=ucList.get(0);
+		
+		return ret;
 	}
 
 

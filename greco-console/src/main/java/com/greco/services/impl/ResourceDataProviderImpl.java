@@ -41,6 +41,7 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 		rsrcItem.setBeforehand(rsrc.getBeforehand());
 		rsrcItem.setBeforehandTU(rsrc.getTimeunit2().getName());
 		rsrcItem.setTimeunit(rsrc.getTimeunit1().getName());
+		rsrcItem.setType(rsrc.getResourcetype().getName());
 		rsrcItem.setWeeklyAvailability(rsrc.getWeeklyAvailability());
 		return rsrcItem;
 	}
@@ -144,8 +145,14 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 				else if (comm.getLocalTime().isAfter(fromDate) && (comm.getLocalTime().isBefore(toDate)) )
 					//Bloqueamos solo el intervalo desde el inicio hasta la hora actual.
 					dailySchedule.add(new ReservationUnit(userId,fromDate, comm.getLocalTime()), IReservationStatus.BLOCKED);
-				//En otro caso, no bloqueamos nada.
 				
+				//Consideramos la antelación: ahora + tiempo antelación en adelante se bloquea.
+				DateTime limit=comm.getLocalTime().plus(resourceItem.getBeforehandDuration());
+				if ( limit.isAfter(fromDate) && limit.isBefore(toDate))  //Bloqueamos la parte del día que corresponda.
+					dailySchedule.add(new ReservationUnit(userId,limit, toDate), IReservationStatus.BLOCKED); 
+				else if ( limit.isBefore(fromDate) ) //Bloqueamos todo el día. 
+					dailySchedule.add(new ReservationUnit(userId,fromDate, toDate), IReservationStatus.BLOCKED); 
+								
 				//Asigna el estado a cada item de reserva.
 				//-Recupero todas las reservas realizadas sobre ese recurso en la fecha indicada.
 				List<Reservation> rList=reservationRepository.loadReservations(resourceItem.getId(),
@@ -167,10 +174,10 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 				timeTable[i]=dailySchedule;
 				i++;
 			} catch (InvalidTimeUnitException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			} catch (DailyScheduleException e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
 			}
 			
