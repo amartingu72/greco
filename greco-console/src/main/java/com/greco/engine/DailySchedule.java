@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 
 
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
@@ -16,6 +17,7 @@ import org.joda.time.format.DateTimeFormat;
 
 import com.greco.entities.Resource;
 import com.greco.services.helpers.ResourceItem;
+import com.greco.services.helpers.TimeUnitItem;
 /**
  * Gestion el uso de uno recurso en un día concreto.
  * @author AMG
@@ -33,6 +35,26 @@ public class DailySchedule implements ITimeUnits {
 	private LocalTime availableFrom;
 	private LocalTime availableTo;
 	private int beforehand;
+	private int timeunit; //Unidad de tiempo para máximo y mínimo.
+	private String type;  //Tipo de recurso.
+	
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public int getTimeunit() {
+		return timeunit;
+	}
+
+	public void setTimeunit(int timeunit) {
+		this.timeunit = timeunit;
+	}
+
 	private int beforehandTU;
 	private DateTimeZone dateTimeZone;
 
@@ -51,10 +73,11 @@ public class DailySchedule implements ITimeUnits {
 		this.dateTimeZone=dateTimeZone;
 		//mintime, maxtime
 		setMintime(rsrc.getMinTime(), rsrc.getTimeunit1().getId());
-		setMaxtime(rsrc.getMinTime(), rsrc.getTimeunit1().getId());
+		setMaxtime(rsrc.getMaxTime(), rsrc.getTimeunit1().getId());
 		setAvailableFrom(rsrc.getAvailableFromTime());
 		setAvailableTo(rsrc.getAvailableToTime());
 		setBeforehand(rsrc.getBeforehand(),rsrc.getTimeunit2().getId());
+		this.type=rsrc.getResourcetype().getName();
 	}
 	
 	public DailySchedule() {
@@ -116,6 +139,7 @@ public class DailySchedule implements ITimeUnits {
 		default:
 			throw new InvalidTimeUnitException(timeUnit);
 		}
+		this.timeunit=timeUnit;
 		//Inicializamos el calendario para que la próxima consulta de disponibilidad (isAvailable), genere uno nuevo con esta unidad.
 		this.dailySchedule=null;
 		
@@ -352,9 +376,31 @@ public class DailySchedule implements ITimeUnits {
 		ResourceItem item=new ResourceItem(
 				this.rsrcId,
 				this.name,
-				this.description,
-				""
+				this.type,
+				this.description
 				);
+		item.setAvailableFromTime(this.availableFrom.toString());
+		item.setAvailableToTime(this.availableTo.toString());
+		item.setBeforehand(beforehand);
+		item.setBeforehandTU(TimeUnitItem.toString(beforehandTU));
+		item.setTimeunit(TimeUnitItem.toString(this.timeunit));
+		switch (timeunit){
+		case TimeUnitItem.DAY:
+			item.setMintime((int)mintime.getStandardDays());
+			item.setMaxtime((int)maxtime.getStandardDays());
+			break;
+		case TimeUnitItem.HOUR:
+			item.setMintime((int)mintime.getStandardHours());
+			item.setMaxtime((int)maxtime.getStandardHours());
+			break;
+		case TimeUnitItem.MINUTE:
+			item.setMintime((int)mintime.getStandardMinutes());
+			item.setMaxtime((int)maxtime.getStandardMinutes());
+			break;
+		}
+	
+		
+		
 		return item;
 	}
 

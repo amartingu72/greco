@@ -9,6 +9,7 @@ import com.greco.engine.ScheduleUnit;
 import com.greco.services.ReservationDataProvider;
 import com.greco.services.except.reservation.AlreadyLockedException;
 import com.greco.services.except.reservation.NotOwnerException;
+import com.greco.services.except.reservation.ReservationTimeExceededException;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
 
@@ -21,6 +22,7 @@ public class TimeTableCBean {
 	private UserSBean userSBean; //Inyectado
 	
 	
+	
 	/**
 	 * Realiza una prereserva (bloquea el recurso en la hora indicado hasta que se confirme la reserva).
 	 * O la cancela. 
@@ -31,12 +33,13 @@ public class TimeTableCBean {
 	public void reserve(DailySchedule dailySchedule, ScheduleUnit scheduleUnit){
 		
 		if (scheduleUnit.isLocked()) {
-			scheduleUnit.setFree();
+			
 			//Eliminamos de la lista de reservas activas y de la base de datos
 			try {
 				reservationDataProvider.cancelReservation(userSBean.getItem(), dailySchedule.getResourceItem(), scheduleUnit);
 				//Actualizamos la tabla de "Mis reservas en curso"
 				this.reservationsBBean.loadMyReservationsTable();
+				scheduleUnit.setFree();
 			} catch (NotOwnerException e) {
 				//Mostramos mensaje
 				FacesContext.getCurrentInstance().addMessage("Sorry!", new FacesMessage(Warnings.getString("reservations.notowner")));
@@ -46,15 +49,17 @@ public class TimeTableCBean {
 							+ " " +scheduleUnit.getOutput();
 				log.log("012002", msg );//INFO|Este usuario ha intentado cancelar una reserva que no ha hecho.
 			}
+			//FALTA UN CATCH DE RESERVATION EXCEEDED.
 			
 		}
 		else {
-			scheduleUnit.setLocked();
+			
 			//Actualizamos estado en base de datos.
 			try {
 				reservationDataProvider.add(userSBean.getItem(),dailySchedule.getResourceItem(), scheduleUnit,IReservationStatus.LOCKED);
 				//Actualizamos la tabla de "Mis reservas en curso"
 				this.reservationsBBean.loadMyReservationsTable();
+				scheduleUnit.setLocked();
 			} catch (AlreadyLockedException e) {
 				//Mostramos mensaje
 				FacesContext.getCurrentInstance().addMessage("Sorry!", new FacesMessage(Warnings.getString("reservations.alreadylocked")));
@@ -65,6 +70,10 @@ public class TimeTableCBean {
 				log.log("012001", msg );//INFO|Reserva bloqueada por otro usuario:
 				//Ponemos el botón en el estado de bloqueado por otro usuario.
 				scheduleUnit.setLockedByOther();
+			} catch (ReservationTimeExceededException e) {
+				//Mostramos mensaje
+				FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(Warnings.getString("reservations.timeexceeded"),
+						Warnings.getString("reservations.timeexceeded_details") + dailySchedule.getResourceItem().getMaxtime()));
 			}
 			
 		}

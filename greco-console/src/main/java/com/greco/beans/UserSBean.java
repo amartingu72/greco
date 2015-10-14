@@ -18,6 +18,9 @@ public class UserSBean implements Serializable{
 	private String nickname;
 	private String email;
 	private String mydata;
+	
+	//Perfil en la comunidad que hizo login
+	private String profile;
 	/**
 	 * Identificador de sesión donde se hizo la validación de usuario.
 	 */
@@ -36,6 +39,7 @@ public class UserSBean implements Serializable{
 		userItem.setId(id);
 		userItem.setMydata(mydata);
 		userItem.setNickname(nickname);
+		userItem.setProfile(profile);
 		return userItem;
 	}
 	
@@ -93,6 +97,7 @@ public class UserSBean implements Serializable{
 			this.id=obj.getId();
 			this.mydata=obj.getMydata();
 			this.nickname=obj.getNickname();
+			this.profile=obj.getProfile();
 		} 
 		 
 	}
@@ -113,6 +118,17 @@ public class UserSBean implements Serializable{
 	public boolean isMe(MemberItem memberItem){
 		return memberItem.getId()==this.id;		
 	}
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+	
+	
+	
 
 
 	

@@ -97,8 +97,8 @@ public class UserDataProviderImpl implements UserDataProvider{
 		User user=usersRepository.loadSelectedUserByMail(email);
 			
 		//Comprobamos que la suscripción está activa.
-		int status=userCommunitiesDAO.getSubscriptionStatus(user.getId(), communityId);  //Si el usuario no fuera miembro, lanzarría excepción NoMemberException.
-		if ( status== UserCommunitiesDAO.PENDING_STATUS)
+		UsersCommunity uc=userCommunitiesDAO.getSubscription(user.getId(), communityId);
+		if ( uc.getStatus()== UserCommunitiesDAO.PENDING_STATUS)
 			throw new PendingException();
 		
 		
@@ -111,6 +111,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userbean.setEmail(user.getEmail());
 			userbean.setMydata(user.getMydata());
 			userbean.setCommunityId(communityId);
+			userbean.setProfile(uc.getProfile().getProfile());
 			
 		}
 		

@@ -4,11 +4,13 @@ package com.greco.services;
 import java.util.List;
 
 
+
 import com.greco.engine.ScheduleUnit;
 import com.greco.entities.Reservation;
 import com.greco.services.except.reservation.AlreadyLockedException;
 import com.greco.services.except.reservation.NotOwnerException;
 import com.greco.services.except.reservation.ReservationMissingException;
+import com.greco.services.except.reservation.ReservationTimeExceededException;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.ResourceItem;
@@ -24,9 +26,10 @@ public interface ReservationDataProvider {
 	 * @param userItem Usuario que realiza la reserva.
 	 * @param status Estado en el que se crea la reserva. Debe ser un valor IReservationStatus
 	 * @throws AlreadyLockedException Indica que esa reserva ya fue iniciada por un usuario distinto.
+	 * @throws ReservationTimeExceededException Se ha excedido el número de horas configuradas que un usuario puede reservar un mismo recurso. LOS ADMINISTRADORES PUEDEN RESERVAR TANTAS HORAS COMO DESEEN.
 	 * 
 	 */
-	public void add(UserItem userItem, ResourceItem rsrc, ScheduleUnit scheduleUnit, int status) throws AlreadyLockedException;
+	public void add(UserItem userItem, ResourceItem rsrc, ScheduleUnit scheduleUnit, int status) throws AlreadyLockedException, ReservationTimeExceededException;
 	
 	public abstract void add(Reservation reservation);
 	

@@ -11,4 +11,8 @@ public interface ITimeUnits {
 	public static final int HOUR=1;
 	public static final int MINUTE=2;
 	public static final int DAY=3;
+	
+	public static final String SHOUR="Horas";
+	public static final String SMINUTE="Minutos";
+	public static final String SDAY="Días";
 }

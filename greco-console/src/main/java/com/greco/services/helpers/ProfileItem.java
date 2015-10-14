@@ -3,6 +3,8 @@ package com.greco.services.helpers;
 public class ProfileItem {
 	public static final int ADMIN=1; //Id en BBDD del usuario administrador.
 	public static final int USER=2; //Id en BBDD del usuario miembro.
+	public static final String ADMIN_STR="ROLE_ADMIN";
+	public static final String USER_STR="ROLE_USER";		
 	private int id;
 	private String name;
 	private String description;

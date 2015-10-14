@@ -11,32 +11,29 @@
       <ui:composition template="../templates/sites_layout.xhtml">
          <ui:define name="content">
          	<h:form id="reservationsForm" style="min-height: 635px;">
-         		<div class="row">
-         			<div class="col-md-offset-1 col-md-10" >
-         				<p:messages id="messages" showSummary="true" showDetail="false"/>     
-         			</div>
-         		</div>   
+         		
          		<div class="row">
          			<div class="col-md-offset-4 col-md-3" >	
          				<h:panelGroup id="myCart">
-       					<div class="dropdown">
-       						
-		  					<button  type="button" class="btn btn-primary btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		    					<span class="fa fa-shopping-cart" aria-hidden="true"><span class="badge">#{reservationsBBean.activeReservationsNumber}</span></span>
-		    					<span class="caret"></span>
-		  					</button>
-  						
-  							<ul class="dropdown-menu list-group" role="menu" aria-labelledby="dLabel">
-    							<ui:repeat var="reservation" value="#{reservationsBBean.activeReservations}">
-    								<li class="list-group-item"><span class="label label-info">#{reservation.name}</span> #{reservation.date} #{reservation.fromTime} #{reservation.toTime}</li>
-     							</ui:repeat>
-     							<li class="list-group-item">
-     								
-     									<h:commandLink  action="./myreservations.xhtml" class="bg-info text-center"  value="Ver cesta"/>
-     								
-     							</li>
-  							</ul>
-						</div>
+	       					<div class="dropdown">
+	       						
+			  					<button  type="button" class="btn btn-primary btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    					<span class="fa fa-shopping-cart" aria-hidden="true"><span class="badge">#{reservationsBBean.activeReservationsNumber}</span></span>
+			    					<span class="caret"></span>
+			  					</button>
+	  						
+	  							<ul class="dropdown-menu list-group" role="menu" aria-labelledby="dLabel">
+	    							<ui:repeat var="reservation" value="#{reservationsBBean.activeReservations}">
+	    								<li class="list-group-item"><span class="label label-info">#{reservation.name}</span> #{reservation.date} #{reservation.fromTime} #{reservation.toTime}</li>
+	     							</ui:repeat>
+	     							<li class="list-group-item">
+	     								
+	     									<h:commandLink  action="./myreservations.xhtml" class="bg-info text-center"  value="Ver cesta"/>
+	    
+	     							</li>
+	  							</ul>
+							</div>
+							 
 						</h:panelGroup>
 					</div>
 					<div class="col-md-4 text-right" > 
@@ -45,6 +42,11 @@
 				    	</h:panelGroup>
 				   	</div>
          		</div>	
+         		<div class="row">
+         			<div class="col-md-offset-4 col-md-7" >
+         				<p:messages id="messages" showSummary="true" showDetail="true"/>
+         			</div>
+         		</div>
          		<div class="row">
          			<div class="col-md-offset-1 col-md-3" >					
 						
@@ -96,7 +98,7 @@
 											<h:commandLink class="btn #{scheduleUnit.icon} btn-xs #{scheduleUnit.editable?'none':'disabled'}" 
 						    					action="#{timeTableCBean.reserve(rsrc,scheduleUnit)}"
 				  								value="#{scheduleUnit.output}">
-				  								<f:ajax render="@this reservationsForm:myCart"/>
+				  								<f:ajax render="@this reservationsForm:myCart reservationsForm:messages"/>
 				  							</h:commandLink>
 					    				</ui:repeat>
 					    			</h:panelGroup>

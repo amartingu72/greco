@@ -4,7 +4,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
 import com.greco.entities.Timeunit;
 import com.greco.repositories.TimeUnitDAO;
 import com.greco.services.TimeUnitDataProvider;
@@ -33,4 +35,15 @@ public class TimeUnitDataProviderImpl implements TimeUnitDataProvider {
 		return timeUnits;
 		
 	}
+
+
+	@Override
+	public TimeUnitItem loadItem(String name) {
+		TimeUnitItem timeUnitItem=null;
+		Timeunit timeunit=timeUnitRepository.loadSelected(name);
+		if (timeunit != null) timeUnitItem=new TimeUnitItem(timeunit.getId(), timeunit.getName());
+		return timeUnitItem;
+	}
+	
+	
 }

@@ -91,12 +91,19 @@ public class ReservationDAOImpl implements ReservationDAO {
 	@Override
 	public List<Reservation> loadReservations(int userId, int resourceId,
 			Date fromDate, Date toDate) {
-		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and and r.resource.id=:rsrcId and r.fromDate>=:fromDate r.toDate>=:toDate", Reservation.class );
 		
+		
+		Query query=null;
+		String squery="select r from Reservation as r where r.user.id=:userId and r.resource.id=:rsrcId";
+		
+		if (fromDate != null) squery+=" and r.fromDate>=:fromDate";
+		if (toDate != null) squery+=" and r.toDate>=:toDate";
+		query=em.createQuery( squery, Reservation.class );
+			
+		if (fromDate != null) query.setParameter("fromDate",fromDate,TemporalType.DATE);
+		if (toDate != null)	query.setParameter("toDate",toDate,TemporalType.DATE);			
 		query.setParameter("userId", userId);
 		query.setParameter("rsrcId", resourceId);
-		query.setParameter("fromDate",fromDate,TemporalType.DATE);
-		query.setParameter("toDate",toDate,TemporalType.DATE);
 			
 		@SuppressWarnings("unchecked")	
 		List<Reservation> result= query.getResultList();

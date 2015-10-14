@@ -8,6 +8,11 @@ public class UserItem {
 	private String mydata;
 	private String password;
 	
+	public boolean isAdmin(){
+		
+		return profile.equals(ProfileItem.ADMIN_STR);
+	}
+	
 	//GETTERs y SETTERs.
 	
 	public int getId() {

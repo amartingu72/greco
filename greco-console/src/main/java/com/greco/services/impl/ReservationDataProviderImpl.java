@@ -4,27 +4,34 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.greco.engine.IReservationStatus;
 
+import com.greco.engine.IReservationStatus;
 import com.greco.engine.ScheduleUnit;
 import com.greco.entities.Reservation;
 import com.greco.entities.User;
 import com.greco.repositories.ReservationDAO;
 import com.greco.repositories.ResourceDAO;
+
 import com.greco.repositories.UserDAO;
 import com.greco.services.ReservationDataProvider;
+import com.greco.services.TimeUnitDataProvider;
 import com.greco.services.except.reservation.AlreadyLockedException;
 import com.greco.services.except.reservation.NotOwnerException;
 import com.greco.services.except.reservation.ReservationMissingException;
+import com.greco.services.except.reservation.ReservationTimeExceededException;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.ResourceItem;
+import com.greco.services.helpers.TimeUnitItem;
 import com.greco.services.helpers.UserItem;
 
 
@@ -38,7 +45,9 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 	
 	@Resource(name="UsersRepository")
 	private UserDAO userRepository;
-
+	
+	@Resource(name="timeUnitDataProvider")
+	private TimeUnitDataProvider timeUnitDataProvider;
 		
 	@Override
 	@Transactional
@@ -71,9 +80,47 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 		
 	}
 	
+	private void checkTimeExceeded(UserItem userItem, ResourceItem rsrcItem, ScheduleUnit scheduleUnit) throws ReservationTimeExceededException{
+		//Comprobamos que el número de reservas realiza por el usuario sobre ese recurso no excede las configuradas.
+		List<Reservation> reservationsList=reservationRepository.loadReservations(userItem.getId(),rsrcItem.getId(), 
+						new Date(), //Desde este momento.
+						null);		
+		if ( (reservationsList!= null) && (!reservationsList.isEmpty())) {
+			//Sumamos los tiempos de todas las reservas no vencidas de usuario.
+			Iterator<Reservation> it=reservationsList.iterator();
+			Reservation myReservation=null;
+			Duration duration=new Duration(0);
+			Duration myDuration=null;
+			while ( it.hasNext() ) {
+				myReservation=it.next();
+				myDuration=new Duration(new DateTime(myReservation.getFromDate()), new DateTime(myReservation.getToDate()));
+				duration=duration.plus(myDuration);
+			}
+			//
+			int timeUnitId=TimeUnitItem.toID(rsrcItem.getTimeunit());
+			long timeUnits=0;
+			switch ( timeUnitId ) {
+				case TimeUnitItem.MINUTE:
+					timeUnits=duration.getStandardMinutes();
+					break;
+				case TimeUnitItem.HOUR: 
+					timeUnits=duration.getStandardHours();
+					break;
+				case TimeUnitItem.DAY: 
+					timeUnits=duration.getStandardDays();
+			}
+			if ( timeUnits>=Long.valueOf(rsrcItem.getMaxtime() ) ){
+				throw new ReservationTimeExceededException();
+			} 	
+			
+			
+		}
+		
+	}
+	
 	@Override
 	@Transactional
-	public void add(UserItem userItem, ResourceItem rsrcItem, ScheduleUnit scheduleUnit, int status) throws AlreadyLockedException {
+	public void add(UserItem userItem, ResourceItem rsrcItem, ScheduleUnit scheduleUnit, int status) throws AlreadyLockedException, ReservationTimeExceededException {
 		Reservation reservation=new Reservation();
 		com.greco.entities.Resource rsrc=resourceRepository.loadSelected(rsrcItem.getId());
 		reservation.setResource(rsrc);
@@ -89,9 +136,16 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 		//Si alguien ha reservado ya, lanzamos excepción.
 		if (!reservationsList.isEmpty()) 
 			throw new AlreadyLockedException();
-		else
+		
+		//Si el usuario no es admin, hay que chequear el que no excede el tiempo máximo configurado en el recurso.
+		if ( !userItem.isAdmin() ) {
+			checkTimeExceeded(userItem, rsrcItem, scheduleUnit);
+			//CHEQUEAR QUE LA ANTELACIÓN ES LA PERMITIDA.
+		}
+		
+		
 		//Realizamos nuestra reserva.
-			reservationRepository.addReservation(reservation);
+		reservationRepository.addReservation(reservation);
 		
 	}
 
