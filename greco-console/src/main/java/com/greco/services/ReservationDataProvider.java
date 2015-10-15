@@ -18,6 +18,12 @@ import com.greco.services.helpers.UserItem;
 
 
 public interface ReservationDataProvider {
+	
+	
+	//Criterios de búsqueda.
+    public static final int LAST_30=1; //Últimas 30 reservas.
+    public static final int THIS_MONTH=2; //Reservas realizadas en el mes en curso.
+    public static final int LAST_MONTH=3; //Reservas realizadas el mes anterior.
 
 	/**
 	 * Bloquea una reserva hasta su confirmación.
@@ -31,7 +37,20 @@ public interface ReservationDataProvider {
 	 */
 	public void add(UserItem userItem, ResourceItem rsrc, ScheduleUnit scheduleUnit, int status) throws AlreadyLockedException, ReservationTimeExceededException;
 	
+	/**
+	 * Crea una nueva reserva sobre un recurso.
+	 * @param reservation
+	 */
 	public abstract void add(Reservation reservation);
+	
+	/**
+	 * Obtiene todas las reservas con fecha de vencimiento anterior a ahora mismo, con un máximo de 30 reservas.
+	 * @param userId Identificador de usuario.
+	 * @param communityItem Item de comunidad.
+	 * @return Lista de reservas.
+	 */
+	public abstract List<ReservationItem> getOldReservations(int userId, CommunityItem communityItem);
+	
 	
 	
 	

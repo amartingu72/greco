@@ -29,6 +29,18 @@ public interface ReservationDAO {
 	 */
 	public List<Reservation> loadReservations(int communityId, int rsrcTypeId);
 	
+	
+	/**
+	 * Devuelve una lista de reservas realizadas sobre una comunidad en un rango de fechas.
+	 * @param userId Identificador de usuario.
+	 * @param commnityId Identificador de comunidad.
+	 * @param fromDate Fecha y hora de inicio.
+	 * @param toDate Fecha y hora de fin.
+	 * @param max Número máximo de reservas a recuperar. Indicar -1 si no se quiere establecer límite.
+	 * @return
+	 */
+	public List<Reservation> loadReservations(int userId, int communityId, Date fromDate, Date toDate, int max);
+	
 	/**
 	 * Carga las reservas realizadas del recurso indicado en la franja de tiempo indicada.
 	 * @param resourceId Identificador del recurso.

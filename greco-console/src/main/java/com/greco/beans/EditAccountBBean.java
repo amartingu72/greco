@@ -6,13 +6,16 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import com.greco.services.ReservationDataProvider;
 import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.helpers.MemberItem;
+import com.greco.services.helpers.ReservationItem;
 
 public class EditAccountBBean implements Serializable{
 
 	private static final long serialVersionUID = 2324897865750418614L;
     private static final String FAKE_PASSWORD="_:lp_.*[";
+    
 	
 	
 	private int id;
@@ -27,6 +30,8 @@ public class EditAccountBBean implements Serializable{
 	
 	private UserSBean userBean; //Inyectado
 	private UserCommunityDataProvider userCommunityDataProvider; //Inyectado
+	private List<ReservationItem> oldReservations;
+	private int searchCriteria;
 
 		
 	@PostConstruct
@@ -39,9 +44,17 @@ public class EditAccountBBean implements Serializable{
         this.password=FAKE_PASSWORD;  //Hacemos esto para salvaguardar la PWD del usuario. 
         this.pwdUpdated=false;
         this.subscriptions=userCommunityDataProvider.getMyCommunities(userBean.getItem());
-        
+        this.searchCriteria=ReservationDataProvider.LAST_30;
 	}
 	
+	public List<ReservationItem> getOldReservations() {
+		return oldReservations;
+	}
+
+	public void setOldReservations(List<ReservationItem> oldReservations) {
+		this.oldReservations = oldReservations;
+	}
+
 	/**
 	 * En el caso de que se invoque desde un site, devuelve el mensaje de suscripción. Si se invoca desde la consola, devolverá null.
 	 * @return
@@ -159,6 +172,14 @@ public class EditAccountBBean implements Serializable{
 	public void setUserCommunityDataProvider(
 			UserCommunityDataProvider userCommunityDataProvider) {
 		this.userCommunityDataProvider = userCommunityDataProvider;
+	}
+
+	public int getSearchCriteria() {
+		return searchCriteria;
+	}
+
+	public void setSearchCriteria(int searchCriteria) {
+		this.searchCriteria = searchCriteria;
 	}
 	
 	

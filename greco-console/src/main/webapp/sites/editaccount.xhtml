@@ -81,17 +81,52 @@
 								redisplay="true" 
 								maxlength="16"
 								label="#{msgs['editaccount.pwdConfirm_label']}"/>
-						</div>				
-					</div>
-					<div class="col-md-offset-1 col-md-5">
+						</div>	
 						<div class="form-group">
 							<label for="myData">#{msgs['editaccount.my_data']}</label>
-							<h:inputTextarea id="myData" readonly="true" class="form-control" value="#{editAccountBBean.application}"/>
+							<h:outputText id="myData" readonly="true" class="form-control" value="#{editAccountBBean.application}"/>
 						</div>
 						<div class="form-group text-right">
 							<h:commandLink value="#{msgs['editaccount.unsubscribeme']}" 
 								onclick="$('#myModal').appendTo('body').modal('show'); return false;"/>
-						</div>						
+						</div>			
+					</div>
+					<div class="col-md-offset-1 col-md-5">		
+						<div class="form-group">
+							<label for="panel">Histórico de reservas</label>
+							<div id="panel" class="form-inline">
+								<h:selectOneMenu class="form-control" value="#{editAccountBBean.searchCriteria}" required="true">
+									<f:selectItem id="item1" itemLabel="Últimas 30 reservas" itemValue="1" />
+        							<f:selectItem id="item2" itemLabel="Reservas realizadas este mes" itemValue="2" />
+        							<f:selectItem id="item3" itemLabel="Reservas realizadas el mes anterior" itemValue="3" />
+								</h:selectOneMenu>
+								<h:commandButton		
+									class="btn btn-primary"
+									style="margin-left:10px"
+									action="#{editAccountCBean.searchLocalReservations}"
+									value="Buscar">
+									<f:ajax update=":editAccountForm:activeReservationsTable"/>
+								</h:commandButton>			
+							</div>
+							<h:dataTable class="table table-condensed table-hover mar-top30" id="oldReservationsTable" var="reservation"
+								value="#{editAccountBBean.oldReservations}">
+								
+								<h:column>
+									<h:outputText title="#{reservation.type}" value="#{reservation.name}" />				
+								</h:column>
+								<h:column>
+									#{reservation.date}
+								</h:column>
+								<h:column> 
+									#{reservation.fromTime}
+								</h:column>
+								<h:column>
+									#{reservation.toTime}
+								</h:column>
+								
+							</h:dataTable>
+						</div>
+												
 					</div>
 				</div>
 				<div class="row">

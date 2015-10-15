@@ -27,6 +27,7 @@ public class ReservationDAOImpl implements ReservationDAO {
     public void setEntityManager(EntityManager em) {
         this.em = em;
     }
+    
     @Override
     public void save(Reservation reservation){
     	em.merge(reservation);
@@ -81,7 +82,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 		List<Reservation> result= query.getResultList();
 		return result;
 	}
-
+	
 	public void remove(int reservationID){
 		Reservation reservation=em.getReference(Reservation.class, reservationID);
 		Reservation r=em.merge(reservation);
@@ -97,7 +98,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 		String squery="select r from Reservation as r where r.user.id=:userId and r.resource.id=:rsrcId";
 		
 		if (fromDate != null) squery+=" and r.fromDate>=:fromDate";
-		if (toDate != null) squery+=" and r.toDate>=:toDate";
+		if (toDate != null) squery+=" and r.toDate<=:toDate";
 		query=em.createQuery( squery, Reservation.class );
 			
 		if (fromDate != null) query.setParameter("fromDate",fromDate,TemporalType.DATE);
@@ -124,11 +125,15 @@ public class ReservationDAOImpl implements ReservationDAO {
 		List<Reservation> result= query.getResultList();
 		return result;
 	}
+	
+	
 	@Override
 	public Reservation load(int reservationId) {
 		Reservation r=em.find(Reservation.class, reservationId);
 		return r;
 	}
+	
+	
 	@Override
 	public boolean hasReservations(int resourceId) {
 		Query query=em.createQuery( "select count(r) from Reservation as r where r.resource.id=:resource_id", Reservation.class );
@@ -137,6 +142,31 @@ public class ReservationDAOImpl implements ReservationDAO {
 		
 		int count = ( (Long)query.getSingleResult() ).intValue();
 		return count>0;
+	}
+	
+	
+	@Override
+	public List<Reservation> loadReservations(int userId, int communityId,
+			Date fromDate, Date toDate, int max) {
+		Query query=null;
+		String squery="select r from Reservation as r where r.user.id=:userId and r.community.id=:commId";
+		
+		if (fromDate != null) squery+=" and r.fromDate>=:fromDate";
+		if (toDate != null) squery+=" and r.toDate<=:toDate";
+		squery+=" order by r.fromDate desc";
+		query=em.createQuery( squery, Reservation.class );
+			
+		if (fromDate != null) query.setParameter("fromDate",fromDate,TemporalType.DATE);
+		if (toDate != null)	query.setParameter("toDate",toDate,TemporalType.DATE);			
+		query.setParameter("userId", userId);
+		query.setParameter("commId", communityId);
+		
+		if ( max!= -1) query.setMaxResults(max);
+		
+		@SuppressWarnings("unchecked")	
+		List<Reservation> result= query.getResultList();
+		return result;
+		
 	}
 	
 

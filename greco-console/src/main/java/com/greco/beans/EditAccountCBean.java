@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import com.greco.services.CommunityDataProvider;
+import com.greco.services.ReservationDataProvider;
 import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.UserDataProvider;
 import com.greco.services.except.user.NoCommunityAdminException;
@@ -23,6 +25,8 @@ public class EditAccountCBean implements Serializable{
 	private EditAccountBBean editAccountBBean; //Inyectado
 	private UserDataProvider userDataProvider; //Inyectado
 	private UserCommunityDataProvider userCommunityDataProvider; //Inyectado
+	private ReservationDataProvider rerservationDataProvider; //Inyectado
+	private CommunityDataProvider communityDataProvider; //Inyectado
 
 	 public UserCommunityDataProvider getUserCommunityDataProvider() {
 		return userCommunityDataProvider;
@@ -100,6 +104,23 @@ public class EditAccountCBean implements Serializable{
 		return ret;
 	}
 	
+	/**
+	 * Búsqueda de reservas según criterio (página de site)
+	 */
+	public String searchLocalReservations(){
+		switch (editAccountBBean.getSearchCriteria()) {
+		case ReservationDataProvider.LAST_30:
+			editAccountBBean.setOldReservations(this.rerservationDataProvider.getOldReservations(
+						editAccountBBean.getId(), 
+						communityDataProvider.getCommunityById(userSBean.getCommunityId())));
+			break;
+		case ReservationDataProvider.THIS_MONTH:
+			break;
+		case ReservationDataProvider.LAST_MONTH:
+				
+		}
+		return null;
+	}
 	
 	//GETTERs y SETTERs
 	public UserSBean getUserSBean() {
@@ -129,6 +150,26 @@ public class EditAccountCBean implements Serializable{
 	public void setUserDataProvider(UserDataProvider userDataProvider) {
 		this.userDataProvider = userDataProvider;
 	}	
+	
+	
+	
+	public ReservationDataProvider getRerservationDataProvider() {
+		return rerservationDataProvider;
+	}
+
+	public void setRerservationDataProvider(
+			ReservationDataProvider rerservationDataProvider) {
+		this.rerservationDataProvider = rerservationDataProvider;
+	}
+
+	public CommunityDataProvider getCommunityDataProvider() {
+		return communityDataProvider;
+	}
+
+	public void setCommunityDataProvider(CommunityDataProvider communityDataProvider) {
+		this.communityDataProvider = communityDataProvider;
+	}
+
 	
 
 	

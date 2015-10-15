@@ -56,6 +56,8 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 		reservationRepository.addReservation(reservation);
 	}
 	
+	
+	
 	@Override
 	@Transactional
 	public void cancelReservation(UserItem userItem, ResourceItem rsrcItem, ScheduleUnit scheduleUnit) throws NotOwnerException {
@@ -140,7 +142,7 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 		//Si el usuario no es admin, hay que chequear el que no excede el tiempo máximo configurado en el recurso.
 		if ( !userItem.isAdmin() ) {
 			checkTimeExceeded(userItem, rsrcItem, scheduleUnit);
-			//CHEQUEAR QUE LA ANTELACIÓN ES LA PERMITIDA.
+			
 		}
 		
 		
@@ -148,8 +150,44 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 		reservationRepository.addReservation(reservation);
 		
 	}
-
 	
+	@Override
+	public List<ReservationItem> getOldReservations(int userId, CommunityItem communityItem){
+		
+		List<ReservationItem> oldReservationItems=new ArrayList<ReservationItem>();
+		List<Reservation> oldReservations=reservationRepository.loadReservations(userId, communityItem.getId(), null, new Date(), 30);
+				
+		Iterator<Reservation> it=oldReservations.iterator();
+		ReservationItem reservationItem;
+		Reservation reservation;
+		
+		while ( it.hasNext() ) {
+			reservation=it.next();
+			reservationItem=new ReservationItem();
+			reservationItem.setId(reservation.getId());
+			reservationItem.setType(reservation.getResource().getResourcetype().getName());
+			reservationItem.setName(reservation.getResource().getName());
+			
+			DateTime dateTime=new DateTime(reservation.getFromDate(),communityItem.getDateTimeZone());
+					
+			DateTimeFormatter fmt=DateTimeFormat.forPattern("d MMM. Y");
+			String date=fmt.print(dateTime);
+			reservationItem.setDate(date);
+			String time=dateTime.getHourOfDay() + ":" + String.format("%02d",dateTime.getMinuteOfHour());
+			reservationItem.setFromTime(time);
+			//Será cancelable si el inicio es anterior a ahora mismo (hora local de la comunidad).
+			reservationItem.setCancelable(dateTime.isAfter(communityItem.getLocalTime()));
+			
+			dateTime=new DateTime(reservation.getToDate(),communityItem.getDateTimeZone());
+			date=fmt.print(dateTime);
+			reservationItem.setDate(date);
+			time=dateTime.getHourOfDay() + ":" + String.format("%02d",dateTime.getMinuteOfHour());
+			reservationItem.setToTime(time);		
+			oldReservationItems.add(reservationItem);
+		}
+		
+		return oldReservationItems;
+	}
 
 
 	

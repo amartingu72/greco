@@ -320,6 +320,16 @@
 			<property-class>com.greco.services.UserCommunityDataProvider</property-class>
 			<value>#{userCommunityDataProvider}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>rerservationDataProvider</property-name>
+			<property-class>com.greco.services.ReservationDataProvider</property-class>
+			<value>#{reservationDataProvider}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>communityDataProvider</property-name>
+			<property-class>com.greco.services.CommunityDataProvider</property-class>
+			<value>#{communityDataProvider}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<description>Validador de recurso único. Lo incorporamos como managed bean porque no podemos inyectar objetos Spring en los validadores.</description>
