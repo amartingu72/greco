@@ -12,24 +12,25 @@ import com.greco.services.TimeUnitDataProvider;
 import com.greco.services.helpers.TimeUnitItem;
 
 public class TimeUnitsSBean {
-	/**
-	 * Colección de países en en un formato válido para un combo.
-	 */
-	private Collection<SelectItem> timeUnits;
+	
+	private Collection<SelectItem> timeUnits; //Unidades de tiempo de reserva.
+	private Collection<SelectItem> beforehandTimeUnits; //Unidades de tiempo de antelación.
 	TimeUnitDataProvider timeUnitsDataProvider; //Inyectado.
 	
 	@PostConstruct
 	public void initialize() {
 		
 		//Obtengo la lista de países.
-		timeUnits = new ArrayList<SelectItem>();
+		/*timeUnits = new ArrayList<SelectItem>();
 		List<TimeUnitItem> timeUnitList=Arrays.asList(timeUnitsDataProvider.getTimeUnitsArray());
 		Iterator<TimeUnitItem> it=timeUnitList.iterator();
 		TimeUnitItem timeUnitItem;
 		while ( it.hasNext() ) {
 			timeUnitItem=it.next();
 			timeUnits.add(new SelectItem(timeUnitItem, timeUnitItem.getName()));
-		}
+		}*/
+		timeUnits=TimeUnitItem.getTimeUnits();
+		beforehandTimeUnits=TimeUnitItem.getBeforehandTimeUnits();
 	}
 	
 	
@@ -49,6 +50,18 @@ public class TimeUnitsSBean {
 
 	public void setTimeUnits(Collection<SelectItem> timeUnits) {
 		this.timeUnits = timeUnits;
+	}
+
+
+
+	public Collection<SelectItem> getBeforehandTimeUnits() {
+		return beforehandTimeUnits;
+	}
+
+
+
+	public void setBeforehandTimeUnits(Collection<SelectItem> beforehandTimeUnits) {
+		this.beforehandTimeUnits = beforehandTimeUnits;
 	}
 
 }
