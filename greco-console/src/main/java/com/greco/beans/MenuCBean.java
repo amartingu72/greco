@@ -35,6 +35,13 @@ public class MenuCBean {
 		return "/sections/admin/editmembers.xhtml?faces-redirect=true";
 	}
 	
+	public String navigateReservations(){
+		return "/sections/admin/reservations.xhtml?faces-redirect=true";
+	}
+	
+	
+	
+	
 	/**
 	 * Edita la comunidad seleccionada.
 	 * @param communityItem

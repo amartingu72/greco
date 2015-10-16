@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_nWp2UDUaEeWCVeIgiFSA1A" name="UCD Gestión de backoffice">
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_nWp2UDUaEeWCVeIgiFSA1A" name="UCD Gestión de reservas de comunidad">
   <packagedElement xmi:type="uml:Actor" xmi:id="_-vYkYDUnEeWCVeIgiFSA1A" name="Usuario"/>
   <packagedElement xmi:type="uml:Actor" xmi:id="__f0i0DUnEeWCVeIgiFSA1A" name="Administrador">
     <ownedComment xmi:id="_PV8uADUoEeWCVeIgiFSA1A" annotatedElement="__f0i0DUnEeWCVeIgiFSA1A">
@@ -232,7 +232,7 @@
     </nestedClassifier>
     <packagedElement xmi:type="uml:UseCase" xmi:id="_9X9lkDXDEeWU78UardWkpQ" name="Crear una cuenta" subject="_0UGYYDXDEeWU78UardWkpQ"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Component" xmi:id="_Q7w8YDXEEeWU78UardWkpQ" name="Sitio de comunidad" useCase="_ZGGgkDXEEeWU78UardWkpQ _g5PFsDXEEeWU78UardWkpQ _bRfvYDXrEeWU78UardWkpQ _-u9REDXsEeWU78UardWkpQ">
+  <packagedElement xmi:type="uml:Component" xmi:id="_Q7w8YDXEEeWU78UardWkpQ" name="Sitio de comunidad" useCase="_ZGGgkDXEEeWU78UardWkpQ _g5PFsDXEEeWU78UardWkpQ _bRfvYDXrEeWU78UardWkpQ _-u9REDXsEeWU78UardWkpQ _JK8NEGBFEeWu_J2FYnvegg">
     <ownedUseCase xmi:id="_nWDdgDXXEeWU78UardWkpQ" name="Seleccionar reserva candidata (cesta)">
       <extend xmi:id="_9zulUDdUEeWh9sDiop90Mg" extendedCase="_plFhwDdUEeWh9sDiop90Mg"/>
     </ownedUseCase>
@@ -312,7 +312,7 @@
     </nestedClassifier>
     <packagedElement xmi:type="uml:UseCase" xmi:id="_5-dYcDaaEeWnW8OSAdDaOg" name="Eliminar pre-reservas expiradas" subject="_0PxXUDaaEeWnW8OSAdDaOg"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:UseCase" xmi:id="_JK8NEGBFEeWu_J2FYnvegg" name="Baja">
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_JK8NEGBFEeWu_J2FYnvegg" name="Baja" subject="_Q7w8YDXEEeWU78UardWkpQ">
     <include xmi:id="_SpwQ4GBFEeWu_J2FYnvegg" addition="_wd0GgDXHEeWU78UardWkpQ"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Association" xmi:id="_O6KZsGBFEeWu_J2FYnvegg" memberEnd="_O6KZsWBFEeWu_J2FYnvegg _O6KZsmBFEeWu_J2FYnvegg">

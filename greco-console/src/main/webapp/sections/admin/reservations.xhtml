@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"> 
+
+
+<h:head>IGNORED</h:head>
+<h:body>
+	<ui:composition template="../../templates/admin2_layout.xhtml">
+		<ui:define name="content">
+			<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				
+	  				<div class="modal-dialog modal-sm">
+	    				<div class="modal-content">
+	    				
+	    				 <h:form id="modalForm">
+	      					<div class="modal-header">
+	        					<h5 class="modal-title">#{msgs['editmembership.unsubscribe_confirm_header']}</h5>
+	        				</div>
+        					<div class="modal-body">
+      							
+      							<input style="display:none;" type="text" name="selected" id="selected" value=""/>	    							
+      							<p><input type="text" class="form-control" name="member" id="member" value="" readonly="true"/></p>
+      							<h:outputText value="#{editMembershipBBean.selectedMember.nickname}" />		
+      							<p>#{msgs['editmembership.unsubscribe_confirm_detail']}</p>
+      						</div>
+      						<div class="modal-footer">
+        						<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['editcommunity.unsubscribe_no']}</button>
+        						
+        						<h:commandLink class="btn btn-default" value="#{msgs['editcommunity.unsubscribe_yes']}" onclick="$('#myModal').modal('hide');"        						
+        							action="#{editMembershipCBean.unsubscribe}">
+        							<f:ajax render=":editMembersForm:membersTable :editMembersForm:search_msgs"/>
+        						</h:commandLink> 
+      						</div>
+	      				</h:form>
+	      					
+	      					
+	    				</div>
+	  				</div>
+	  			
+			</div>
+			<h:form id="editMembersForm">	
+				
+				<h:inputHidden id="id" value="#{communitiesSBean.selectedItem.id}"/>
+				
+						
+						<div class="row mar-top10">
+							<div class="col-md-offset-1 col-md-3">
+								<strong>#{communitiesSBean.selectedItem.name}(<small>#{communitiesSBean.selectedItem.zipcode}</small>)</strong>
+							    <p:inputText id="filter" class="form-control" placeholder="#{msgs['editmembership.text_search']}" value="#{editMembershipBBean.textCriterion}"/>
+							    	
+							    	
+							</div>
+							<div class="col-md-5">
+								<p:messages id="search_msgs" showSummary="true" showDetail="true"/>
+							</div>
+							<div class="col-md-2 text-right">			
+									<a data-toggle="collapse" href="#searchCriteria">#{msgs['editmembership.advanced_search']}<span class="caret"></span></a>
+									
+							</div>
+							
+							
+						</div>
+						<div id="searchCriteria" class="row collapse mar-top20">
+							<div class="col-md-offset-1 col-md-3">
+								<label>#{msgs['editmembership.state_profile_filter']}:</label>
+								<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+							 		<h:outputText value="#{msgs['editmembership.admins_filter']}: " />
+							        <p:selectBooleanCheckbox value="#{editMembershipBBean.adminsSelectCriterion}" />
+							     							        
+							        <h:outputText value="#{msgs['editmembership.pendings_filter']}: " />
+							        <p:selectBooleanCheckbox value="#{editMembershipBBean.pendingsSelectCriterion}" />
+							    </h:panelGrid>								
+							</div>
+							<div class="col-md-7">	
+								<div class="row">
+									<div class="col-md-12">					
+											<label>#{msgs['editmembership.dates_range']}:</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">								
+										Desde
+										<div class="input-group date">
+			            					<h:inputText id="fromDate" type="text" class="form-control" value="#{editMembershipBBean.fromDateCriterion}">
+			            						<f:convertDateTime pattern="dd/MM/yyyy" />
+			            					</h:inputText>
+			            					<span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+			        					</div>
+		        					</div>
+		        					<div class="col-md-4">
+		        						Hasta
+									 	<div class="input-group date">
+			            					<h:inputText id="toDate" type="text" class="form-control" value="#{editMembershipBBean.toDateCriterion}">
+			            						<f:convertDateTime pattern="dd/MM/yyyy" />
+			            					</h:inputText>
+			            					<span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+			        					</div>
+		        					</div>
+									<script>
+							    		$('.input-group.date').datepicker({
+							    		language: "es",
+							    		format: "dd/mm/yyyy",
+							    		todayBtn: "linked",
+							    		autoclose: true,
+							    		todayHighlight: true
+							    		});					  
+						    		</script>
+							    </div>	
+							    <div class="row">
+							    
+								    <div class="col-md-4">	
+										<div class="form-group">
+									 		<label for="orderedBy">#{msgs['editmembership.order_by']}</label>	
+									 		<h:selectOneMenu id="orderedBy" class="form-control" value="#{editMembershipBBean.orderedByCriterion}">
+					        					<f:selectItem itemLabel="#{msgs['editmembership.alias']}" itemValue="nickname" />
+					       						<f:selectItem itemLabel="#{msgs['editmembership.subscription_date']}" itemValue="registerdate" />
+					   						</h:selectOneMenu>
+							 			</div>
+							 		</div>
+							 		<div class="col-md-4">
+							 			<div class="form-group">
+									 		<label for="sortOrder">Criterio</label>	
+									 		<h:selectOneMenu id="sortOrder" class="form-control" value="#{editMembershipBBean.sortOrderCriterion}">
+					        					<f:selectItem itemLabel="#{msgs['editmembership.asc']}" itemValue="0" />
+					       						<f:selectItem itemLabel="#{msgs['editmembership.desc']}" itemValue="1" />
+					   						</h:selectOneMenu>
+							 			</div>
+								    
+								    </div>
+								    
+								</div>
+							
+							</div>
+		
+						</div>
+						<div class="row">
+							<div class="col-md-11 text-right">				 		
+								<h:commandButton class="btn btn-primary" value="Buscar" action="#{editMembershipCBean.search}" >
+									
+									  <f:ajax execute="@form" render=":editMembersForm:membersTable"/>  	
+								</h:commandButton>
+							</div>
+						</div>
+						<div id="searchResult" class="row"> <!-- collapse -->
+							<div class="col-md-offset-1 col-md-10">
+									
+								<h:dataTable class="table table-condensed table-hover" id="membersTable" var="member"
+									value="#{editMembershipBBean.members}">
+									<h:column>
+										<f:facet name="header">#{msgs['editcommunity.member_alias']}</f:facet>
+										<h:outputText value="#{member.nickname}" />				
+									</h:column>
+									<h:column>
+										<f:facet name="header">#{msgs['editcommunity.member_subscription']}</f:facet>
+										<h:outputText value="#{member.joinningDate}" />		
+									</h:column>
+									<h:column>
+										<f:facet name="header">#{msgs['editcommunity.member_profile']}</f:facet>
+										<p:selectBooleanCheckbox value="#{member.admin}">
+			            					<p:ajax update=":editMembersForm:membersTable :editMembersForm:search_msgs" listener="#{editMembershipCBean.saveMemberProfile(member)}" />
+			        					</p:selectBooleanCheckbox>									
+									</h:column>
+									<h:column>
+										<f:facet name="header">#{msgs['editcommunity.member_status']}</f:facet>
+										<p:selectBooleanCheckbox value="#{member.pendingMembership}" onchange="if(this.checked){$('#m#{member.memberId}').collapse('show');}else{$('#m#{member.memberId}').collapse('hide');}">
+			            					<p:ajax update=":editMembersForm:search_msgs" listener="#{editMembershipCBean.changeMembershipStatus(member)}" />
+			            					
+			        					</p:selectBooleanCheckbox>	
+									</h:column>
+									<h:column>
+										<f:facet name="header">#{msgs['editmembership.application']}</f:facet>
+										<h:outputText value="#{member.application}" />		
+									</h:column>
+									<h:column>
+										<ul class="social-network">
+											<li>
+												<h:commandLink 
+														title="#{msgs['editcommunity.unsubscribe']}" 
+														onclick="$('#myModal').appendTo('body').modal('show'); $('.modal-body #member').val( '#{member.nickname}' ); $('.modal-body #selected').val(#{member.memberId});  return false;"
+														>
+													
+													
+													<span class="fa-stack fa-1x">
+													<i class="fa fa-circle fa-stack-2x"></i>
+													<i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>
+													</span>
+													
+												</h:commandLink>
+												
+												
+											</li>
+										</ul>
+									</h:column>
+									
+								</h:dataTable>
+							</div>
+						</div> 
+						<div class="row">
+							<div class="col-md-offset-1 col-md-10">
+								<p><em>#{msgs['editmembership.search_limit']}</em></p>
+							</div>
+						</div>
+					
+				
+				
+			
+			
+				
+				
+			</h:form>
+			
+		</ui:define>
+	</ui:composition>
+	
+</h:body>
+</html>

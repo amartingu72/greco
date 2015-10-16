@@ -22,6 +22,12 @@
 								#{msgs['sidebarleft.home']}
 							</h:commandLink>
 						</li>
+						
+						<li style="display: #{menuBBean.showMembers ? 'list-item' : 'none'};">
+							<h:commandLink action="#{menuCBean.navigateReservations}">
+								#{msgs['sidebarleft.reservations']}
+							</h:commandLink>
+						</li>
 					
 						<li style="display: #{menuBBean.showMembers ? 'list-item' : 'none'};">
 							<h:commandLink action="#{menuCBean.navigateMembers}">
