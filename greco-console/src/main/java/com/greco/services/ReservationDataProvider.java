@@ -20,10 +20,7 @@ import com.greco.services.helpers.UserItem;
 public interface ReservationDataProvider {
 	
 	
-	//Criterios de búsqueda.
-    public static final int LAST_30=1; //Últimas 30 reservas.
-    public static final int THIS_MONTH=2; //Reservas realizadas en el mes en curso.
-    public static final int LAST_MONTH=3; //Reservas realizadas el mes anterior.
+	
 
 	/**
 	 * Bloquea una reserva hasta su confirmación.
@@ -51,6 +48,21 @@ public interface ReservationDataProvider {
 	 */
 	public abstract List<ReservationItem> getOldReservations(int userId, CommunityItem communityItem);
 	
+	/**
+	 * Obtiene todas las reservas con fecha de vencimiento anterior a ahora mismo pero solo las del mes en curso..
+	 * @param userId Identificador de usuario.
+	 * @param communityItem Item de comunidad.
+	 * @return Lista de reservas.
+	 */
+	public abstract List<ReservationItem> getThisMonthReservations(int userId, CommunityItem communityItem);
+	
+	/**
+	 * Obtiene todas las reservas con fecha de vencimiento anterior a ahora mismo pero solo las del mes anterior.
+	 * @param userId Identificador de usuario.
+	 * @param communityItem Item de comunidad.
+	 * @return Lista de reservas.
+	 */
+	public abstract List<ReservationItem> getLastMonthReservations(int userId, CommunityItem communityItem);
 	
 	
 	

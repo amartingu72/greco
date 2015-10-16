@@ -149,7 +149,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 	public List<Reservation> loadReservations(int userId, int communityId,
 			Date fromDate, Date toDate, int max) {
 		Query query=null;
-		String squery="select r from Reservation as r where r.user.id=:userId and r.community.id=:commId";
+		String squery="select r from Reservation as r where r.user.id=:userId and r.resource.community.id=:commId";
 		
 		if (fromDate != null) squery+=" and r.fromDate>=:fromDate";
 		if (toDate != null) squery+=" and r.toDate<=:toDate";

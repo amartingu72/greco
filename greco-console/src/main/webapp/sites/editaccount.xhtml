@@ -61,7 +61,7 @@
 							</p:inputText>
 						</div>
 						<div class="form-group">
-							<label for="password">#{msgs['editaccount.pwd']}</label>>
+							<label for="password">#{msgs['editaccount.pwd']}</label>
 							<p:password id="password" class="form-control" value="#{editAccountBBean.password}"  
 								redisplay="true" 
 								match="passwordConfirm"
@@ -101,27 +101,28 @@
         							<f:selectItem id="item3" itemLabel="Reservas realizadas el mes anterior" itemValue="3" />
 								</h:selectOneMenu>
 								<h:commandButton		
+									inmmediate="true"
 									class="btn btn-primary"
 									style="margin-left:10px"
 									action="#{editAccountCBean.searchLocalReservations}"
 									value="Buscar">
-									<f:ajax update=":editAccountForm:activeReservationsTable"/>
+									
 								</h:commandButton>			
 							</div>
 							<h:dataTable class="table table-condensed table-hover mar-top30" id="oldReservationsTable" var="reservation"
 								value="#{editAccountBBean.oldReservations}">
 								
 								<h:column>
-									<h:outputText title="#{reservation.type}" value="#{reservation.name}" />				
+									#{reservation.date}				
 								</h:column>
 								<h:column>
-									#{reservation.date}
+									#{reservation.name}
 								</h:column>
 								<h:column> 
-									#{reservation.fromTime}
+									#{reservation.type}
 								</h:column>
 								<h:column>
-									#{reservation.toTime}
+									#{reservation.fromTime}-#{reservation.toTime}
 								</h:column>
 								
 							</h:dataTable>

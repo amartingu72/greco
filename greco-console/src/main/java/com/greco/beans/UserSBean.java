@@ -18,6 +18,7 @@ public class UserSBean implements Serializable{
 	private String nickname;
 	private String email;
 	private String mydata;
+	private String password;
 	
 	//Perfil en la comunidad que hizo login
 	private String profile;
@@ -125,6 +126,14 @@ public class UserSBean implements Serializable{
 
 	public void setProfile(String profile) {
 		this.profile = profile;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	

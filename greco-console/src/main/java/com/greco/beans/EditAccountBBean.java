@@ -3,10 +3,7 @@ package com.greco.beans;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
-
-import com.greco.services.ReservationDataProvider;
 import com.greco.services.UserCommunityDataProvider;
 import com.greco.services.helpers.MemberItem;
 import com.greco.services.helpers.ReservationItem;
@@ -32,6 +29,7 @@ public class EditAccountBBean implements Serializable{
 	private UserCommunityDataProvider userCommunityDataProvider; //Inyectado
 	private List<ReservationItem> oldReservations;
 	private int searchCriteria;
+	
 
 		
 	@PostConstruct
@@ -41,10 +39,12 @@ public class EditAccountBBean implements Serializable{
         this.email=userBean.getEmail();
         this.mydata=userBean.getMydata();
         //Así simulo que la contraseña se ha recuperado.
-        this.password=FAKE_PASSWORD;  //Hacemos esto para salvaguardar la PWD del usuario. 
+        this.password=userBean.getPassword();
         this.pwdUpdated=false;
         this.subscriptions=userCommunityDataProvider.getMyCommunities(userBean.getItem());
-        this.searchCriteria=ReservationDataProvider.LAST_30;
+        this.searchCriteria=EditAccountCBean.LAST_30;
+        
+        
 	}
 	
 	public List<ReservationItem> getOldReservations() {

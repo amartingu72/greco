@@ -18,6 +18,11 @@ import com.greco.utils.Warnings;
 
 
 public class EditAccountCBean implements Serializable{
+	//Criterios de búsqueda.
+    public static final int LAST_30=1; //Últimas 30 reservas.
+    public static final int THIS_MONTH=2; //Reservas realizadas en el mes en curso.
+    public static final int LAST_MONTH=3; //Reservas realizadas el mes anterior.
+    
 	private static final long serialVersionUID = -7168931307619229978L;
 	private static final MyLogger logger = MyLogger.getLogger(EditAccountCBean.class.getName());
 	
@@ -109,17 +114,24 @@ public class EditAccountCBean implements Serializable{
 	 */
 	public String searchLocalReservations(){
 		switch (editAccountBBean.getSearchCriteria()) {
-		case ReservationDataProvider.LAST_30:
+		case LAST_30:
 			editAccountBBean.setOldReservations(this.rerservationDataProvider.getOldReservations(
 						editAccountBBean.getId(), 
 						communityDataProvider.getCommunityById(userSBean.getCommunityId())));
 			break;
-		case ReservationDataProvider.THIS_MONTH:
+		case THIS_MONTH:
+			editAccountBBean.setOldReservations(this.rerservationDataProvider.getThisMonthReservations(
+					editAccountBBean.getId(), 
+					communityDataProvider.getCommunityById(userSBean.getCommunityId())));
 			break;
-		case ReservationDataProvider.LAST_MONTH:
+		case LAST_MONTH:
+			editAccountBBean.setOldReservations(this.rerservationDataProvider.getLastMonthReservations(
+					editAccountBBean.getId(), 
+					communityDataProvider.getCommunityById(userSBean.getCommunityId())));
 				
 		}
 		return null;
+		
 	}
 	
 	//GETTERs y SETTERs

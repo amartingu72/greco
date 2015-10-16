@@ -114,6 +114,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userbean.setMydata(user.getMydata());
 			userbean.setCommunityId(communityId);
 			userbean.setProfile(uc.getProfile().getProfile());
+			userbean.setPassword(user.getPassword());
 			
 		}
 		
@@ -141,6 +142,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userbean.setEmail(user.getEmail());
 			userbean.setMydata(user.getMydata());		
 			userbean.setCommunityId(UserSBean.UNDEFINED_COMMUNITY);
+			userbean.setPassword(user.getPassword());
 		}
 		return userbean;
 	}

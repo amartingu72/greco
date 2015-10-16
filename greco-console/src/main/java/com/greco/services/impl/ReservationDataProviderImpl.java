@@ -151,13 +151,9 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 		
 	}
 	
-	@Override
-	public List<ReservationItem> getOldReservations(int userId, CommunityItem communityItem){
-		
-		List<ReservationItem> oldReservationItems=new ArrayList<ReservationItem>();
-		List<Reservation> oldReservations=reservationRepository.loadReservations(userId, communityItem.getId(), null, new Date(), 30);
-				
-		Iterator<Reservation> it=oldReservations.iterator();
+	private List<ReservationItem> convertList(List<Reservation> reservations, CommunityItem communityItem){
+		List<ReservationItem> reservationItems=new ArrayList<ReservationItem>();		
+		Iterator<Reservation> it=reservations.iterator();
 		ReservationItem reservationItem;
 		Reservation reservation;
 		
@@ -165,7 +161,7 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 			reservation=it.next();
 			reservationItem=new ReservationItem();
 			reservationItem.setId(reservation.getId());
-			reservationItem.setType(reservation.getResource().getResourcetype().getName());
+			reservationItem.setType(reservation.getResource().getResourcetype().getDescription());
 			reservationItem.setName(reservation.getResource().getName());
 			
 			DateTime dateTime=new DateTime(reservation.getFromDate(),communityItem.getDateTimeZone());
@@ -183,13 +179,49 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 			reservationItem.setDate(date);
 			time=dateTime.getHourOfDay() + ":" + String.format("%02d",dateTime.getMinuteOfHour());
 			reservationItem.setToTime(time);		
-			oldReservationItems.add(reservationItem);
+			reservationItems.add(reservationItem);
 		}
 		
-		return oldReservationItems;
+		return reservationItems;
+	}
+	
+	@Override
+	public List<ReservationItem> getOldReservations(int userId, CommunityItem communityItem){
+		DateTime now=DateTime.now(communityItem.getDateTimeZone());
+		List<Reservation> reservations=reservationRepository.loadReservations(userId, communityItem.getId(), null, now.toDate(), 30);
+		return this.convertList(reservations, communityItem);
+	}
+
+	@Override
+	public List<ReservationItem> getThisMonthReservations(int userId,
+			CommunityItem communityItem) {
+		
+		DateTime now=DateTime.now(communityItem.getDateTimeZone());
+		DateTime dt=new DateTime(now.getYear(),
+				now.getMonthOfYear(),
+				1, 0,0, communityItem.getDateTimeZone());
+		List<Reservation> reservations=reservationRepository.loadReservations(userId, communityItem.getId(), dt.toDate(), now.toDate(), 30);
+		return this.convertList(reservations, communityItem);
 	}
 
 
+
+	@Override
+	public List<ReservationItem> getLastMonthReservations(int userId,
+			CommunityItem communityItem) {
+		
+		DateTime now=DateTime.now(communityItem.getDateTimeZone());
+		DateTime dt1=new DateTime(now.getYear(),
+				now.getMonthOfYear()-1,
+				1, 0,0, communityItem.getDateTimeZone());
+		DateTime last_month=(DateTime.now(communityItem.getDateTimeZone())).minusMonths(1);
+		DateTime dt2=new DateTime(last_month.getYear(),
+				last_month.getMonthOfYear(),
+				last_month.dayOfMonth().getMaximumValue(), 23,59, communityItem.getDateTimeZone());
+		List<Reservation> reservations=reservationRepository.loadReservations(userId, communityItem.getId(), dt1.toDate(), dt2.toDate(), 30);
+		return this.convertList(reservations, communityItem);
+	
+	}
 	
 
 
@@ -294,4 +326,8 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 		reservation.setStatus(IReservationStatus.TAKEN);
 		reservationRepository.save(reservation);
 	}
+
+
+
+	
 }
