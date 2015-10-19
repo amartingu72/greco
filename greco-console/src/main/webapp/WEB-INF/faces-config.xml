@@ -690,6 +690,22 @@
 			<value>#{userCommunityDataProvider}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+		<description>Bean de soporte para la administración de reservas desde consola.</description>
+		<managed-bean-name>admReservationBBean</managed-bean-name>
+		<managed-bean-class>com.greco.beans.AdmReservationBBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+		<managed-property>
+			<property-name>resourceTypesSBean</property-name>
+			<property-class>com.greco.beans.ResourceTypesSBean</property-class>
+			<value>#{resourceTypesSBean}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>resourcesSBean</property-name>
+			<property-class>com.greco.beans.ResourcesSBean</property-class>
+			<value>#{resourcesSBean}</value>
+		</managed-property>
+	</managed-bean>
 	<navigation-rule>
 		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>

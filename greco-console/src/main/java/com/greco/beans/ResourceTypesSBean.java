@@ -49,7 +49,7 @@ public class ResourceTypesSBean {
 		boolean found=false;
 		while ( it.hasNext() && !found ) {
 			selectItem=it.next();
-			if ( selectItem.getLabel().equals(name) ) {
+			if ( selectItem.getLabel().equals(name) || ((ResourceTypeItem)selectItem.getValue()).getName().equals(name) ) {
 				resourceTypeItem=(ResourceTypeItem)selectItem.getValue();
 				found=true;
 			}

@@ -36,7 +36,7 @@ public class MenuCBean {
 	}
 	
 	public String navigateReservations(){
-		return "/sections/admin/reservations.xhtml?faces-redirect=true";
+		return "/sections/admin/adm_reservations.xhtml?faces-redirect=true";
 	}
 	
 	

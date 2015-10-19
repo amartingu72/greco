@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"> 
+
+
+<h:head>IGNORED</h:head>
+<h:body>
+	<ui:composition template="../../templates/admin2_layout.xhtml">
+		<ui:define name="content">
+			<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				
+	  				<div class="modal-dialog modal-sm">
+	    				<div class="modal-content">
+	    				
+	    				 <h:form id="modalForm">
+	      					<div class="modal-header">
+	        					<h5 class="modal-title">#{msgs['editmembership.unsubscribe_confirm_header']}</h5>
+	        				</div>
+        					<div class="modal-body">
+      							
+      							<input style="display:none;" type="text" name="selected" id="selected" value=""/>	    							
+      							<p><input type="text" class="form-control" name="member" id="member" value="" readonly="true"/></p>
+      							<h:outputText value="XXXX" />		
+      							<p>#{msgs['editmembership.unsubscribe_confirm_detail']}</p>
+      						</div>
+      						<div class="modal-footer">
+        						<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['editcommunity.unsubscribe_no']}</button>
+        						
+        						<h:commandLink class="btn btn-default" value="#{msgs['editcommunity.unsubscribe_yes']}" onclick="$('#myModal').modal('hide');"        						
+        							action="#">
+        							<f:ajax render=":reservationsForm:reservationsTable "/>
+        						</h:commandLink> 
+      						</div>
+	      				</h:form>
+	      					
+	      					
+	    				</div>
+	  				</div>
+	  			
+			</div>
+			<h:form id="reservationsForm">	
+				
+				<h:inputHidden id="id" value="#{communitiesSBean.selectedItem.id}"/>
+				<div class="row">
+					<div class="col-md-offset-1 col-md-10">
+							<strong>#{communitiesSBean.selectedItem.name}(<small>#{communitiesSBean.selectedItem.zipcode}</small>)</strong>
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="col-md-offset-1 col-md-4">
+						<div class="form-group">
+							<label for="user">Usuario</label>	
+						 	<p:inputText id="user" class="form-control" placeholder="Patrón de búsqueda" value="#{admReservationBBean.userPattern}"/>
+						</div>	    	
+													
+						<div class="row">
+							
+							<div class="col-md-6">
+								<label>Desde:</label>
+								<div class="input-group date">
+									
+		            				<h:inputText id="fromDate" type="text" class="form-control" value="#{admReservationBBean.fromDate}">
+		            					<f:convertDateTime pattern="dd/MM/yyyy" />
+		            				</h:inputText>
+		            				<span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+		        				</div>
+			        		</div>
+			        		<div class="col-md-6">
+			        			<label>Hasta:</label>
+								<div class="input-group date">
+									
+					            	<h:inputText id="toDate" type="text" class="form-control" value="#{admReservationBBean.toDate}">
+					            		<f:convertDateTime pattern="dd/MM/yyyy" />
+					            	</h:inputText>
+					            		<span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+					        	</div>
+				        	</div>
+		        		</div>
+						<script>
+							$('.input-group.date').datepicker({
+						   		language: "es",
+						   		format: "dd/mm/yyyy",
+						   		todayBtn: "linked",
+						   		autoclose: true,
+						   		todayHighlight: true
+						  		});					  
+						</script>
+						<div class="form-group mar-top10">
+							<label>Selección de recurso</label>
+							<p:multiSelectListbox value="#{admReservationBBean.resourceSelected}" effect="slide" >
+        						<f:selectItems value="#{admReservationBBean.resources}" />
+    						</p:multiSelectListbox>
+    					</div>
+						
+						
+						<div class="text-right mar-top10">				 		
+							<h:commandButton class="btn btn-primary" value="Buscar" action="#" >
+								<f:ajax execute="@form" render=":reservationsForm:reservationsTable"/>  	
+								</h:commandButton>
+						</div>
+					
+					</div>
+					<div class="col-md-offset-1 col-md-4">	
+						<h:dataTable class="table table-condensed table-hover mar-top30" id="reservationsTable" var="reservation"
+								value="#{admReservationBBean.reservations}">
+								
+								<h:column>
+									#{reservation.date}				
+								</h:column>
+								<h:column>
+									#{reservation.name}
+								</h:column>
+								<h:column> 
+									#{reservation.type}
+								</h:column>
+								<h:column>
+									#{reservation.fromTime}-#{reservation.toTime}
+								</h:column>
+								
+							</h:dataTable>
+					</div>		
+				</div>
+			</h:form>
+			
+		</ui:define>
+	</ui:composition>
+	
+</h:body>
+</html>

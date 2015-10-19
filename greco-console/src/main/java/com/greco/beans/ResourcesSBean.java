@@ -1,13 +1,16 @@
 package com.greco.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.greco.services.ResourceDataProvider;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ResourceItem;
+
 /**
  * Bean de soporte.
  * @author Alberto Martín
@@ -74,6 +77,36 @@ public class ResourcesSBean implements Serializable {
 		selectedResource=resourceItem;
 	}
 	
+	/**
+	 * Devuelve una lita de tipos de recursos existentes. 
+	 * @return
+	 */
+	public List<String> getTypes(){
+		Iterator<ResourceItem> it=this.myResources.iterator();
+		List<String> types=new LinkedList<String>();
+		String myType;
+		while ( it.hasNext()){
+			myType=it.next().getType();
+			if ( !types.contains(myType) ) types.add(myType);
+		}
+		return types;
+	}
+	/**
+	 * Devuelve una lista de recursos para nombre de tipo indicado.
+	 * @param type
+	 * @return
+	 */
+	public List<ResourceItem> getResources(String type){
+		List<ResourceItem> resources=new ArrayList<>();
+		ResourceItem resourceItem;
+		Iterator<ResourceItem> it=this.myResources.iterator();
+		while ( it.hasNext() ) {
+			resourceItem=it.next();
+			if ( resourceItem.getType().equals(type))
+				resources.add(resourceItem);
+		}
+		return resources;
+	}
 	
 	
 	/**
