@@ -51,6 +51,15 @@ public interface ReservationDAO {
 	public List<Reservation> loadReservations(int resourceId, Date fromDate, Date toDate);
 	
 	/**
+	 * Carga las reservas realizadas del recurso indicado en la franja de tiempo indicada.
+	 * @param resourceId Identificador del recurso.
+	 * @param fromDate Fecha "desde".
+	 * @para toDate Fecha "hasta".
+	 * @return Lista de reservas.
+	 */
+	public List<Reservation> loadReservations(int[] resourceIds, Date fromDate, Date toDate);
+	
+	/**
 	 * Carga las reservas realizadas por el usuario indicado cuya fecha/hora de fin sea igual o posterior a 
 	 * el momento de invocación. No incluya las que estén en estado IReservationStatus.LOCKED.
 	 * @param userId Identificador de usuario.
@@ -97,4 +106,6 @@ public interface ReservationDAO {
 	 * @return
 	 */
 	public boolean hasReservations(int resourceId);
+	
+	
 }

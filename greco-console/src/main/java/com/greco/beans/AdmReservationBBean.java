@@ -23,9 +23,11 @@ public class AdmReservationBBean {
 	private Date toDate;
 	private List<ReservationItem> reservations;
 	private List<SelectItem> resources;    
-    private String resourceSelected;
+    private ResourceItem resourceSelected;
     private ResourceTypesSBean resourceTypesSBean; //Inyectado
     private ResourcesSBean resourcesSBean; //Inyectado
+    private CommunityItem communityItem;
+    
 	
     
     private void loadResources(){
@@ -36,17 +38,16 @@ public class AdmReservationBBean {
     	Iterator<String> it=types.iterator();
     	String type;
     	SelectItemGroup group=null;
+    	ResourceItem wildCard=new ResourceItem(0, "all", "all", "");
     	
-    	resources.add(new SelectItem("Todos"));
+    	resources.add(new SelectItem(wildCard, "Todos")); //Por defecto, se buscan todos los tipos de recurso.
+    	resourceSelected=wildCard;
     	
     	List<ResourceItem> resourceItems;
     	ResourceItem resourceItem;
     	Iterator<ResourceItem> resourceIt;
     	
-    	
-    	
     	SelectItem[] selectItems;
-    	
     	
     	while (it.hasNext()){ //Por cada tipo.
     		type=it.next();
@@ -56,9 +57,10 @@ public class AdmReservationBBean {
     		//Recursos de ese tipo
     		resourceItems=resourcesSBean.getResources(type);
     		resourceIt=resourceItems.iterator();
-    		selectItems=new SelectItem[resourceItems.size()+1];
-    		selectItems[0]=new SelectItem("all", "Todos");
-    		int i=1;
+    		
+    		
+    		int i=0;
+    		selectItems=new SelectItem[resourceItems.size()];
     		
     		while ( resourceIt.hasNext() ){
     			resourceItem=resourceIt.next();
@@ -80,9 +82,9 @@ public class AdmReservationBBean {
 	public void initialize() {
 		
 		CommunitiesSBean communitiesSBean= (CommunitiesSBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("communitiesSBean");
-		CommunityItem item=communitiesSBean.getSelectedItem();
+		communityItem=communitiesSBean.getSelectedItem();
 		userPattern="";
-		fromDate=(new DateTime(item.getDateTimeZone())).toDate();
+		fromDate=(new DateTime(communityItem.getDateTimeZone())).toDate();
 		toDate=fromDate;
 		loadResources();
 		
@@ -139,11 +141,17 @@ public class AdmReservationBBean {
 		this.resources = resources;
 	}
 
-	public String getResourceSelected() {
+	
+
+
+
+	public ResourceItem getResourceSelected() {
 		return resourceSelected;
 	}
 
-	public void setResourceSelected(String resourceSelected) {
+
+
+	public void setResourceSelected(ResourceItem resourceSelected) {
 		this.resourceSelected = resourceSelected;
 	}
 
@@ -169,6 +177,18 @@ public class AdmReservationBBean {
 
 	public void setResourcesSBean(ResourcesSBean resourcesSBean) {
 		this.resourcesSBean = resourcesSBean;
+	}
+
+
+
+	public CommunityItem getCommunityItem() {
+		return communityItem;
+	}
+
+
+
+	public void setCommunityItem(CommunityItem communityItem) {
+		this.communityItem = communityItem;
 	}
 	
 	

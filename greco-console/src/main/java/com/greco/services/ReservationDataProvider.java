@@ -1,7 +1,10 @@
 package com.greco.services;
 
 
+import java.util.Date;
 import java.util.List;
+
+
 
 
 
@@ -63,6 +66,27 @@ public interface ReservationDataProvider {
 	 * @return Lista de reservas.
 	 */
 	public abstract List<ReservationItem> getLastMonthReservations(int userId, CommunityItem communityItem);
+	
+	/**
+	 * Recupera todos las reservas realizadas sobre la comunidad, en el rango de fecha indicado
+	 * @param communityItem Comunidad
+	 * @param fromDate Desde
+	 * @param toDate Hasta
+	 * @return Lista de reservas.
+	 **/
+	public abstract List<ReservationItem> getAllReservations(CommunityItem communityItem, Date fromDate, Date toDate);
+	
+	
+	
+	/**
+	 * Recupera todos las reservas realizadas sobre la comunidad, en el rango de fecha indicado, pero solo sobre los recursos indicasdos
+	 * @param communityItem Comunidad.
+	 * @param resourceItem Lista de recursos.
+	 * @param fromDate FEcha desde.
+	 * @param toDate Fecha hasta.
+	 * @return Lista de reservas.
+	 */
+	public abstract List<ReservationItem> getAllReservations(CommunityItem communityItem, ResourceItem[] resourceItem, Date fromDate, Date toDate);
 	
 	
 	

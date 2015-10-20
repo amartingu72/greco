@@ -113,7 +113,7 @@ insert into resourcetypes values (DEFAULT, 'tenis', 'Pista de tenis');
 insert into resourcetypes values (DEFAULT, 'pingpong', 'Tenis de mesa');
 insert into resourcetypes values (DEFAULT, 'padel', 'Pista de pádel');
 insert into resourcetypes values (DEFAULT, 'sala', 'Sala de reunión');
-insert into resourcetypes values (DEFAULT, 'parking', 'Plaza de aparcamiento');
+insert into resourcetypes values (DEFAULT, 'parking', 'Parking');
 insert into resourcetypes values (DEFAULT, 'citas', 'Concertación cita');
 insert into resourcetypes values (DEFAULT, 'espacio', 'Espacio multiusos');
 

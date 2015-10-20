@@ -20,7 +20,6 @@ import com.greco.entities.Reservation;
 import com.greco.entities.User;
 import com.greco.repositories.ReservationDAO;
 import com.greco.repositories.ResourceDAO;
-
 import com.greco.repositories.UserDAO;
 import com.greco.services.ReservationDataProvider;
 import com.greco.services.TimeUnitDataProvider;
@@ -223,7 +222,50 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 	
 	}
 	
+	@Override
+	public List<ReservationItem> getAllReservations(
+			CommunityItem communityItem, Date fromDate, Date toDate) {
+		
+		List<ReservationItem> reservationItems=null;
+		
+		//Recupero todos los recursos de la comunidad.
+		List<com.greco.entities.Resource> resources=resourceRepository.loadResources(communityItem.getId());
+		if ( resources!=null){
+			int[] ids=new int[resources.size()];
+			Iterator<com.greco.entities.Resource> it=resources.iterator();
+			int i=0;
+			//Genero un array de ids de recurso.
+			while ( it.hasNext() ){
+				ids[i]=it.next().getId();
+				i++;
+			}
+			List<Reservation> reservations=reservationRepository.loadReservations(ids, fromDate, toDate);
+			reservationItems=this.convertList(reservations, communityItem);
+				
+		}
+		
+		return reservationItems;
+	}
 
+	@Override
+	public List<ReservationItem> getAllReservations(
+			CommunityItem communityItem,
+			ResourceItem[] resourceItems,
+			Date fromDate, Date toDate) {
+		List<ReservationItem> reservationItems=null;
+		
+		if ( resourceItems.length > 0) {
+			int[] ids=new int[resourceItems.length];
+			for (int i=0;i<resourceItems.length;i++)
+				ids[i]=resourceItems[i].getId();
+			List<Reservation> reservations=reservationRepository.loadReservations(ids, fromDate, toDate);
+			reservationItems=this.convertList(reservations, communityItem);
+		}
+		
+		return reservationItems;
+	}
+
+	
 
 	@Override
 	public List<ReservationItem> getActiveReservations(int userId, CommunityItem communityItem) {
@@ -326,8 +368,5 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 		reservation.setStatus(IReservationStatus.TAKEN);
 		reservationRepository.save(reservation);
 	}
-
-
-
 	
 }

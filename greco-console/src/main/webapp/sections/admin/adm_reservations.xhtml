@@ -51,13 +51,10 @@
 					</div>
 					
 				</div>
-				<div class="row">
+				
+				<div class="row mar-top10">
 					<div class="col-md-offset-1 col-md-4">
-						<div class="form-group">
-							<label for="user">Usuario</label>	
-						 	<p:inputText id="user" class="form-control" placeholder="Patrón de búsqueda" value="#{admReservationBBean.userPattern}"/>
-						</div>	    	
-													
+						<p><span>Búsqueda de reservas</span></p>							
 						<div class="row">
 							
 							<div class="col-md-6">
@@ -81,6 +78,7 @@
 					        	</div>
 				        	</div>
 		        		</div>
+		        		<p:messages id="messages" showSummary="true" showDetail="true"/>
 						<script>
 							$('.input-group.date').datepicker({
 						   		language: "es",
@@ -99,8 +97,8 @@
 						
 						
 						<div class="text-right mar-top10">				 		
-							<h:commandButton class="btn btn-primary" value="Buscar" action="#" >
-								<f:ajax execute="@form" render=":reservationsForm:reservationsTable"/>  	
+							<h:commandButton class="btn btn-primary" value="Buscar" action="#{admReservationCBean.search}" >
+								<f:ajax execute="@form" render=":reservationsForm:reservationsTable :reservationsForm:messages"/>  	
 								</h:commandButton>
 						</div>
 					

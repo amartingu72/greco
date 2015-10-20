@@ -168,6 +168,35 @@ public class ReservationDAOImpl implements ReservationDAO {
 		return result;
 		
 	}
+
+	@Override
+	public List<Reservation> loadReservations(int[] resourceIds,
+			Date fromDate, Date toDate) {
+		Query query=null;
+		String squery="select r from Reservation as r where";
+		
+		
+		if ( resourceIds!=null){
+			squery+=" r.resource.id in (";
+			for (int i=0;i<resourceIds.length;i++)
+				if ( i==0 ) squery+=resourceIds[i];
+					else squery+=" ," + resourceIds[i];
+			squery+=")";
+			
+		}
+					
+		if (fromDate != null) squery+=" and r.fromDate>=:fromDate";
+		if (toDate != null) squery+=" and r.toDate<=:toDate";
+		squery+=" order by r.fromDate desc";
+		query=em.createQuery( squery, Reservation.class );
+			
+		if (fromDate != null) query.setParameter("fromDate",fromDate,TemporalType.DATE);
+		if (toDate != null)	query.setParameter("toDate",toDate,TemporalType.DATE);			
+			
+		@SuppressWarnings("unchecked")	
+		List<Reservation> result= query.getResultList();
+		return result;
+	}
 	
 
 }
