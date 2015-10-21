@@ -190,8 +190,8 @@ public class ReservationDAOImpl implements ReservationDAO {
 		squery+=" order by r.fromDate desc";
 		query=em.createQuery( squery, Reservation.class );
 			
-		if (fromDate != null) query.setParameter("fromDate",fromDate,TemporalType.DATE);
-		if (toDate != null)	query.setParameter("toDate",toDate,TemporalType.DATE);			
+		if (fromDate != null) query.setParameter("fromDate",fromDate,TemporalType.TIMESTAMP);
+		if (toDate != null)	query.setParameter("toDate",toDate,TemporalType.TIMESTAMP);			
 			
 		@SuppressWarnings("unchecked")	
 		List<Reservation> result= query.getResultList();

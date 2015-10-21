@@ -108,6 +108,27 @@ public class ResourcesSBean implements Serializable {
 		return resources;
 	}
 	
+	/**
+	 * Devuelve el recurso con el identificador indicado
+	 * @param 
+	 * @return
+	 */
+	public ResourceItem getResource(int resourceId){
+		ResourceItem ret=null;
+		boolean found=false;
+		Iterator<ResourceItem> it=this.myResources.iterator();
+		ResourceItem resourceItem;
+		while ( it.hasNext() && !found){
+			resourceItem=it.next();
+			if ( resourceItem.getId() == resourceId) {
+				found=true;
+				ret=resourceItem;
+			}
+		}
+		return ret;
+		
+	}
+	
 	
 	/**
 	 * Añade un nuevo recurso a la lsita de recursos

@@ -53,7 +53,7 @@
 				</div>
 				
 				<div class="row mar-top10">
-					<div class="col-md-offset-1 col-md-4">
+					<div id="search" class="col-md-offset-1 col-md-4">
 						<p><span>Búsqueda de reservas</span></p>							
 						<div class="row">
 							
@@ -78,7 +78,7 @@
 					        	</div>
 				        	</div>
 		        		</div>
-		        		<p:messages id="messages" showSummary="true" showDetail="true"/>
+		        		<p:messages id="dateMessages" showSummary="true" showDetail="true"/>
 						<script>
 							$('.input-group.date').datepicker({
 						   		language: "es",
@@ -98,31 +98,54 @@
 						
 						<div class="text-right mar-top10">				 		
 							<h:commandButton class="btn btn-primary" value="Buscar" action="#{admReservationCBean.search}" >
-								<f:ajax execute="@form" render=":reservationsForm:reservationsTable :reservationsForm:messages"/>  	
+								<f:ajax execute="@form" render=":reservationsForm:reservationsTable :reservationsForm:dateMessages :reservationsForm:resourceSelMessages reservationsForm:noRecords"/>  	
 								</h:commandButton>
 						</div>
 					
 					</div>
-					<div class="col-md-offset-1 col-md-4">	
+					<div class="col-md-6">	
 						<h:dataTable class="table table-condensed table-hover mar-top30" id="reservationsTable" var="reservation"
 								value="#{admReservationBBean.reservations}">
 								
 								<h:column>
+									<f:facet name="header">Fecha</f:facet>
 									#{reservation.date}				
 								</h:column>
 								<h:column>
+									<f:facet name="header">Miembro</f:facet>
+									#{reservation.memberAlias}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Recurso</f:facet>
 									#{reservation.name}
 								</h:column>
 								<h:column> 
+									<f:facet name="header">Tipo</f:facet>
 									#{reservation.type}
 								</h:column>
 								<h:column>
+									<f:facet name="header">Reserva</f:facet>
 									#{reservation.fromTime}-#{reservation.toTime}
 								</h:column>
-								
+								<h:column> 	
+									<i title="En carrito. Reserva aún no confirmada." style="display:#{reservation.inShoppingCart?'block':'none'}" class="fa fa-shopping-cart"></i>
+								</h:column>
+								<h:column>
+									<h:commandLink rendered="#{reservation.cancelable}" title="#{msgs['reservations.cancel']}"
+												onclick="$('#myModal').modal('show'); $('.modal-body #reserv').val( '#{reservation.name} #{reservation.date} #{reservation.fromTime}-#{reservation.toTime}' ); $('.modal-body #reservid').val(#{reservation.id});  return false;" >
+											
+											<span class="fa-stack fa-1x">
+											<i class="fa fa-circle fa-stack-2x"></i>
+											<i class="fa fa-close fa-stack-1x fa-inverse"></i>
+											</span>
+											
+										</h:commandLink> 
+								</h:column>
 							</h:dataTable>
+							<h:outputLabel id="noRecords" style="display:#{admReservationBBean.reservationsEmpty?'block':'none'}">Ninguna reserva cumple el criterio</h:outputLabel>
 					</div>		
 				</div>
+				
 			</h:form>
 			
 		</ui:define>

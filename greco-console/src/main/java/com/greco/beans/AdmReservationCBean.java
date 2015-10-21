@@ -35,32 +35,41 @@ public class AdmReservationCBean {
 			Duration duration=new Duration(dtFrom,dtTo);
 			if ( duration.getStandardDays() > 31){ //Más de 31 días en la consulta.
 				FacesContext context = FacesContext.getCurrentInstance();
-		        context.addMessage("reservationsForm:messages",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("admreservations.search_exceeded"),  
+		        context.addMessage("reservationsForm:dateMessages",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("admreservations.search_exceeded"),  
 		        				Warnings.getString("admreservations.search_exceeded_details" ) ) );
 			} 
 			else {
-				ResourceItem resourceITemSelected=this.admReservationBBean.getResourceSelected();
-				if ( resourceITemSelected.getType().equals("all") ) {
-					//Seleccionó todos los recursos de la comunidad.
-					admReservationBBean.setReservations(this.reservationDataProvider.getAllReservations(communityItem,dtFrom.toDate(), dtTo.toDate()));
-				} 
-				else if ( resourceITemSelected.getName().equals("all") ) {
-					//Seleccionó todos los recursos del tipo indicado.
-					List<ResourceItem> riList=admReservationBBean.getResourcesSBean().getResources(resourceITemSelected.getType());
-					admReservationBBean.setReservations(this.reservationDataProvider.getAllReservations(
-							communityItem,riList.toArray(new ResourceItem[riList.size()]), dtFrom.toDate(), dtTo.toDate()));
+				String resourceITemSelectedId=this.admReservationBBean.getResourceSelected();
+				if ( (resourceITemSelectedId==null) || resourceITemSelectedId.equals("0") ){
+					FacesContext context = FacesContext.getCurrentInstance();
+			        context.addMessage("reservationsForm:resourceSelMessages",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("admreservations.resource_sel_failed"),  
+			        				Warnings.getString("admreservations.resource_sel_failed_details" ) ) );
 				}
 				else {
-					//Seleccionó un recurso concreto.
-					ResourceItem[] myItem={resourceITemSelected};
-					admReservationBBean.setReservations(this.reservationDataProvider.getAllReservations(
-							communityItem,myItem, dtFrom.toDate(), dtTo.toDate()));
+					String prefix=resourceITemSelectedId.substring(0, 5);  //type_ o rsrc_
+					String value=resourceITemSelectedId.substring(5);
+					if ( resourceITemSelectedId.equals("type_all") ) {
+						//Seleccionó todos los recursos de la comunidad.
+						admReservationBBean.setReservations(this.reservationDataProvider.getAllReservations(communityItem,dtFrom.toDate(), dtTo.toDate()));
+					} 
+					else if ( prefix.equals("type_") ) {
+						//Seleccionó todos los recursos del tipo indicado.
+						List<ResourceItem> riList=admReservationBBean.getResourcesSBean().getResources(value);
+						admReservationBBean.setReservations(this.reservationDataProvider.getAllReservations(
+								communityItem,riList.toArray(new ResourceItem[riList.size()]), dtFrom.toDate(), dtTo.toDate()));
+					}
+					else {
+						//Seleccionó un recurso concreto.
+						ResourceItem[] myItem={this.admReservationBBean.getResourcesSBean().getResource(Integer.parseInt(value))};
+						admReservationBBean.setReservations(this.reservationDataProvider.getAllReservations(
+								communityItem,myItem, dtFrom.toDate(), dtTo.toDate()));
+					}
 				}
 			}
 		}
 		else {	//Fecha desde > fecha hasta
 			FacesContext context = FacesContext.getCurrentInstance();
-	        context.addMessage("reservationsForm:messages",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("admreservations.wrong_date_range"),  
+	        context.addMessage("reservationsForm:dateMessages",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("admreservations.wrong_date_range"),  
 	        				Warnings.getString("admreservations.wrong_date_range_details" ) ) );
 		}
 		

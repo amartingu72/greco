@@ -1,17 +1,56 @@
 package com.greco.services.helpers;
 
-public class ReservationItem {
+import com.greco.engine.IReservationStatus;
+import com.greco.utils.Warnings;
+
+public class ReservationItem implements IReservationStatus {
 	int id; //Indentificador en tabla Reservations.
+	String memberAlias; //Alias del miembro que realizó la reserva.
 	String type; //Tipo de recurso
 	String name; //Nombre del recurso.
 	String date; //Fecha de reserva (día y mes)
 	String fromTime; //Hora desde HH:mm
 	String toTime; //Hora hasta HH:mm
+	int status; //Un valor de IReservationStatus.
 	boolean cancelable;  //Indica si la reserva puede cancelarse o no.
 	
 	public ReservationItem() {
 		super();
 	}
+	
+	
+	public boolean isInShoppingCart(){
+		return ( (status==LOCKED)||(status==LOCKED_BY_OTHER) );
+	}
+	
+	/**
+	 * Devuelve un String conrrespondiente al estado:En carrito, confirmada, bloqueada.
+	 * @return
+	 */
+	public String getStatusString(){
+		
+		
+		String ret;
+		switch (status){
+		case LOCKED:
+		case LOCKED_BY_OTHER:
+			//En carrito.
+			ret=Warnings.getString("reservation_status.locked");
+			break;
+		case TAKEN:
+			ret=Warnings.getString("reservation_status.taken");
+			break;
+		case BLOCKED:
+			ret=Warnings.getString("reservation_status.blocked");
+			break;
+		default:
+			//Desconocido
+			ret=Warnings.getString("reservation_status.unknown");
+		}
+		
+		return ret;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		return id==((ReservationItem)obj).getId();
@@ -67,6 +106,18 @@ public class ReservationItem {
 
 	public void setCancelable(boolean cancelable) {
 		this.cancelable = cancelable;
+	}
+	public String getMemberAlias() {
+		return memberAlias;
+	}
+	public void setMemberAlias(String memberAlias) {
+		this.memberAlias = memberAlias;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 	

@@ -23,7 +23,7 @@ public class AdmReservationBBean {
 	private Date toDate;
 	private List<ReservationItem> reservations;
 	private List<SelectItem> resources;    
-    private ResourceItem resourceSelected;
+    private String resourceSelected;
     private ResourceTypesSBean resourceTypesSBean; //Inyectado
     private ResourcesSBean resourcesSBean; //Inyectado
     private CommunityItem communityItem;
@@ -38,10 +38,10 @@ public class AdmReservationBBean {
     	Iterator<String> it=types.iterator();
     	String type;
     	SelectItemGroup group=null;
-    	ResourceItem wildCard=new ResourceItem(0, "all", "all", "");
+    	//ResourceItem wildCard=new ResourceItem(0, "all", "all", "");
     	
-    	resources.add(new SelectItem(wildCard, "Todos")); //Por defecto, se buscan todos los tipos de recurso.
-    	resourceSelected=wildCard;
+    	resources.add(new SelectItem("type_all", "Todos")); //Por defecto, se buscan todos los tipos de recurso.
+    	resourceSelected="type_all";
     	
     	List<ResourceItem> resourceItems;
     	ResourceItem resourceItem;
@@ -60,11 +60,16 @@ public class AdmReservationBBean {
     		
     		
     		int i=0;
-    		selectItems=new SelectItem[resourceItems.size()];
+    		
+    		if ( resourceItems.size()>1 ){
+    			selectItems=new SelectItem[resourceItems.size()+1];
+    			selectItems[i]=new SelectItem("type_"+type, "Todos");
+    			i++;
+    		} else selectItems=new SelectItem[resourceItems.size()];
     		
     		while ( resourceIt.hasNext() ){
     			resourceItem=resourceIt.next();
-    			selectItems[i]=new SelectItem(resourceItem, resourceItem.getName());
+    			selectItems[i]=new SelectItem("rsrc_"+resourceItem.getId(), resourceItem.getName());
     			i++;
     		}
     		group.setSelectItems(selectItems);
@@ -87,12 +92,16 @@ public class AdmReservationBBean {
 		fromDate=(new DateTime(communityItem.getDateTimeZone())).toDate();
 		toDate=fromDate;
 		loadResources();
+		reservations=null;
 		
 		
 		
 	}
 
-	
+	public boolean isReservationsEmpty() {
+		//Si es null es que nunca he pulsado buscar y no que esté vacío.
+		return (this.reservations != null && this.reservations.isEmpty()); 
+	}
 	
 	//GETTERs y SETTERs
 	public String getUserPattern() {
@@ -145,13 +154,13 @@ public class AdmReservationBBean {
 
 
 
-	public ResourceItem getResourceSelected() {
+	public String getResourceSelected() {
 		return resourceSelected;
 	}
 
 
 
-	public void setResourceSelected(ResourceItem resourceSelected) {
+	public void setResourceSelected(String resourceSelected) {
 		this.resourceSelected = resourceSelected;
 	}
 
