@@ -69,4 +69,12 @@ public interface UserDataProvider {
 	 * @return Lista de Comunidades.
 	 */
 	public abstract CommunityItem[] getMyComunities(UserSBean userBean); 
+	
+	/**
+	 * Devuelve el ítem asocidado al email.
+	 * @param email
+	 * @return Item de usuario.
+	 */
+	public abstract UserItem getUserItem(String email);
+	
 }

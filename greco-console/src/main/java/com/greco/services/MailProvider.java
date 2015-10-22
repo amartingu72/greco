@@ -77,4 +77,13 @@ public interface MailProvider {
 	 * @throws MessagingException
 	 */
 	public abstract void sendReservConfirmation(UserItem userItem, CommunityItem communityItem, List<ReservationItem> reservations) throws MessagingException;
+	
+	/**
+	 * Envía un correo indicando que una de sus reservas han sido canceladas por un administrador de su comunidad.
+	 * @param userItem Usuario
+	 * @param communityItem Comunidad
+	 * @param reservations Reserva
+	 * @throws MessagingException
+	 */
+	public abstract void sendCancelReservation(UserItem userItem, CommunityItem communityItem, ReservationItem reservation) throws MessagingException;
 }

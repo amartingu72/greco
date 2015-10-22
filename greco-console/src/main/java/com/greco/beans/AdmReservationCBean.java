@@ -4,15 +4,19 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
+import com.greco.services.MailProvider;
 import com.greco.services.ReservationDataProvider;
+import com.greco.services.UserDataProvider;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.ResourceItem;
+import com.greco.services.helpers.UserItem;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
 
@@ -22,6 +26,8 @@ public class AdmReservationCBean {
 	
 	private AdmReservationBBean admReservationBBean; //Inyectado.
 	private ReservationDataProvider reservationDataProvider; //Inyectado
+	private MailProvider mailProvider; //Inyectado
+	private UserDataProvider userDataProvider; //Inyectado
 
 	public String search(){
 		CommunityItem communityItem=admReservationBBean.getCommunityItem();
@@ -104,6 +110,15 @@ public class AdmReservationCBean {
     	//y de lista.
     	admReservationBBean.removeReservationItem(reservationItem);
     	
+    	//Envío correo al usuario indicando la cancelación.
+    	UserItem userItem=this.userDataProvider.getUserItem(reservationItem.getMemberEmail());
+    	try {
+			mailProvider.sendCancelReservation(userItem, this.admReservationBBean.getCommunityItem(), reservationItem);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			logger.log("013001");//013000=INFO|Error al enviar mail.
+		}
+    	
     	String msg;
     	//Mostramos mensaje de éxito.
     	msg=reservationItem.getName() + "(" + reservationItem.getType() +") "
@@ -111,9 +126,7 @@ public class AdmReservationCBean {
 		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("reservations.canceled"),msg); 
 		FacesContext.getCurrentInstance().addMessage("reservationsForm:tableMessages", fm);
     	
-    	//Grabamos el log.
-    	
-    	
+    	//Grabamos el log.    	
     	logger.log("014000", reservationItem.toString()); //INFO|Reserva anulada por el administrador:
     	
     	return null;
@@ -138,5 +151,27 @@ public class AdmReservationCBean {
 			ReservationDataProvider reservationDataProvider) {
 		this.reservationDataProvider = reservationDataProvider;
 	}
+
+
+	public MailProvider getMailProvider() {
+		return mailProvider;
+	}
+
+
+	public void setMailProvider(MailProvider mailProvider) {
+		this.mailProvider = mailProvider;
+	}
+
+
+	public UserDataProvider getUserDataProvider() {
+		return userDataProvider;
+	}
+
+
+	public void setUserDataProvider(UserDataProvider userDataProvider) {
+		this.userDataProvider = userDataProvider;
+	}
+	
+	
 
 }

@@ -6,6 +6,7 @@ import com.greco.utils.Warnings;
 public class ReservationItem implements IReservationStatus {
 	int id; //Indentificador en tabla Reservations.
 	String memberAlias; //Alias del miembro que realizó la reserva.
+	String memberEmail; //email del miembro.
 	String type; //Tipo de recurso
 	String name; //Nombre del recurso.
 	String date; //Fecha de reserva (día y mes)
@@ -118,6 +119,16 @@ public class ReservationItem implements IReservationStatus {
 	}
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+
+	public String getMemberEmail() {
+		return memberEmail;
+	}
+
+
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
 	}
 	
 	

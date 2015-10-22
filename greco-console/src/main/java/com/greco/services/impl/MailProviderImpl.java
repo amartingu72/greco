@@ -275,6 +275,30 @@ public class MailProviderImpl implements MailProvider {
 		
 		send(userItem.getEmail(),subject, content);
 	}
+
+
+
+
+	@Override
+	public void sendCancelReservation(UserItem userItem,
+			CommunityItem communityItem, ReservationItem reservationItem)
+			throws MessagingException {
+		String subject=communityItem.getName() + ". " + getString("cancelation.subject");
+		String content=getString("content.greeting") + userItem.getNickname() + ":";
+		content+=getString("cancelation.text1") + "\n";
+		
+		
+		
+		content+="\n- " + reservationItem.getDate() + " - " +reservationItem.getName() + " (" + reservationItem.getType() + ") ";
+		content+=reservationItem.getFromTime() + " - " + reservationItem.getToTime(); 
+		
+		
+		content+=getString("signature.locale_admin");
+		content+=getString("signature.locale_reference") + communityItem.getId(); //URL de la comunidad.
+		
+		send(userItem.getEmail(),subject, content);
+		
+	}
 	
 
 	

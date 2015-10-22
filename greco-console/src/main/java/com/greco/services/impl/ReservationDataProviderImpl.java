@@ -161,8 +161,10 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 			reservationItem=new ReservationItem();
 			reservationItem.setId(reservation.getId());
 			reservationItem.setMemberAlias(reservation.getUser().getNickname());
+			reservationItem.setMemberEmail(reservation.getUser().getEmail());
 			reservationItem.setType(reservation.getResource().getResourcetype().getDescription());
 			reservationItem.setName(reservation.getResource().getName());
+			
 			reservationItem.setStatus(reservation.getStatus());
 			
 			DateTime dateTime=new DateTime(reservation.getFromDate(),communityItem.getDateTimeZone());
