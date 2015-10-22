@@ -11,38 +11,34 @@
 <h:body>
 	<ui:composition template="../../templates/admin2_layout.xhtml">
 		<ui:define name="content">
+			
 			<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-				
-	  				<div class="modal-dialog modal-sm">
-	    				<div class="modal-content">
-	    				
-	    				 <h:form id="modalForm">
+  				<div class="modal-dialog modal-sm">
+    				<div class="modal-content">
+    					<h:form id="modalForm">
 	      					<div class="modal-header">
-	        					<h5 class="modal-title">#{msgs['editmembership.unsubscribe_confirm_header']}</h5>
-	        				</div>
-        					<div class="modal-body">
-      							
-      							<input style="display:none;" type="text" name="selected" id="selected" value=""/>	    							
-      							<p><input type="text" class="form-control" name="member" id="member" value="" readonly="true"/></p>
-      							<h:outputText value="XXXX" />		
-      							<p>#{msgs['editmembership.unsubscribe_confirm_detail']}</p>
-      						</div>
-      						<div class="modal-footer">
-        						<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['editcommunity.unsubscribe_no']}</button>
-        						
-        						<h:commandLink class="btn btn-default" value="#{msgs['editcommunity.unsubscribe_yes']}" onclick="$('#myModal').modal('hide');"        						
-        							action="#">
-        							<f:ajax render=":reservationsForm:reservationsTable "/>
-        						</h:commandLink> 
-      						</div>
-	      				</h:form>
-	      					
-	      					
-	    				</div>
-	  				</div>
-	  			
+	        					
+	        					<h5 class="modal-title">#{msgs['reservations.cancel_confirm_header']}</h5>
+	        					
+	      					</div>
+	      					<div class="modal-body">
+	      							<input style="display:none;" name="reservid" id="reservid" value=""/>
+	      							<p><input type="text" class="form-control" name="reserv" id="reserv" value="" readonly="true"/></p>
+	      							<p>#{msgs['reservations.cancel_confirm_msg']}</p>
+	      					</div>
+	      					<div class="modal-footer">
+	        					<button type="button" class="btn btn-default" data-dismiss="modal">#{msgs['reservations.no']}</button>
+	        					<h:commandButton class="btn btn-primary" value="#{msgs['reservations.yes']}" onclick="$('#myModal').modal('hide');" action="#{admReservationCBean.cancelReservation}">
+	        						<f:ajax render=":reservationsForm:tableMessages :reservationsForm:reservationsTable :reservationsForm:reservationsTable2"></f:ajax>
+	        					</h:commandButton>
+	      					</div>
+      					</h:form>
+    				</div> 
+  				</div>
 			</div>
+			
 			<h:form id="reservationsForm">	
+				
 				
 				<h:inputHidden id="id" value="#{communitiesSBean.selectedItem.id}"/>
 				<div class="row">
@@ -54,11 +50,11 @@
 				
 				<div class="row mar-top10">
 					<div id="search" class="col-md-offset-1 col-md-4">
-						<p><span>Búsqueda de reservas</span></p>							
+						<p><span>#{msgs['admreservations.title']}</span></p>							
 						<div class="row">
 							
 							<div class="col-md-6">
-								<label>Desde:</label>
+								<label>#{msgs['admreservations.from']}</label>
 								<div class="input-group date">
 									
 		            				<h:inputText id="fromDate" type="text" class="form-control" value="#{admReservationBBean.fromDate}">
@@ -68,7 +64,7 @@
 		        				</div>
 			        		</div>
 			        		<div class="col-md-6">
-			        			<label>Hasta:</label>
+			        			<label>#{msgs['admreservations.to']}</label>
 								<div class="input-group date">
 									
 					            	<h:inputText id="toDate" type="text" class="form-control" value="#{admReservationBBean.toDate}">
@@ -89,7 +85,7 @@
 						  		});					  
 						</script>
 						<div class="form-group mar-top10">
-							<label>Selección de recurso</label>
+							<label>#{msgs['admreservations.resource_selection']}</label>
 							<p:multiSelectListbox value="#{admReservationBBean.resourceSelected}" effect="slide" >
         						<f:selectItems value="#{admReservationBBean.resources}" />
     						</p:multiSelectListbox>
@@ -97,53 +93,97 @@
 						
 						
 						<div class="text-right mar-top10">				 		
-							<h:commandButton class="btn btn-primary" value="Buscar" action="#{admReservationCBean.search}" >
-								<f:ajax execute="@form" render=":reservationsForm:reservationsTable :reservationsForm:dateMessages :reservationsForm:resourceSelMessages reservationsForm:noRecords"/>  	
+							<h:commandButton class="btn btn-primary" value="#{msgs['admreservations.search']}" action="#{admReservationCBean.search}" >
+								<f:ajax execute="@form" render=":reservationsForm:reservationsTable :reservationsForm:reservationsTable2 :reservationsForm:dateMessages :reservationsForm:resourceSelMessages reservationsForm:noRecords"/>  	
 								</h:commandButton>
 						</div>
 					
 					</div>
-					<div class="col-md-6">	
-						<h:dataTable class="table table-condensed table-hover mar-top30" id="reservationsTable" var="reservation"
-								value="#{admReservationBBean.reservations}">
-								
-								<h:column>
-									<f:facet name="header">Fecha</f:facet>
-									#{reservation.date}				
-								</h:column>
-								<h:column>
-									<f:facet name="header">Miembro</f:facet>
-									#{reservation.memberAlias}
-								</h:column>
-								<h:column>
-									<f:facet name="header">Recurso</f:facet>
-									#{reservation.name}
-								</h:column>
-								<h:column> 
-									<f:facet name="header">Tipo</f:facet>
-									#{reservation.type}
-								</h:column>
-								<h:column>
-									<f:facet name="header">Reserva</f:facet>
-									#{reservation.fromTime}-#{reservation.toTime}
-								</h:column>
-								<h:column> 	
-									<i title="En carrito. Reserva aún no confirmada." style="display:#{reservation.inShoppingCart?'block':'none'}" class="fa fa-shopping-cart"></i>
-								</h:column>
-								<h:column>
-									<h:commandLink rendered="#{reservation.cancelable}" title="#{msgs['reservations.cancel']}"
-												onclick="$('#myModal').modal('show'); $('.modal-body #reserv').val( '#{reservation.name} #{reservation.date} #{reservation.fromTime}-#{reservation.toTime}' ); $('.modal-body #reservid').val(#{reservation.id});  return false;" >
-											
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-12">
+								<p:messages id="tableMessages" showSummary="true" showDetail="true"/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="hidden-xs col-md-12">
+								<h:dataTable class="table table-condensed table-hover mar-top30" id="reservationsTable" var="reservation"
+										value="#{admReservationBBean.reservations}">
+										
+									<h:column>
+										<f:facet name="header">#{msgs['admreservations.date']}</f:facet>
+										#{reservation.date}				
+									</h:column>
+									<h:column>
+										<f:facet name="header">#{msgs['admreservations.member']}</f:facet>
+										#{reservation.memberAlias}
+									</h:column>
+									<h:column>
+										<f:facet name="header">#{msgs['admreservations.resource']}</f:facet>
+										#{reservation.name}
+									</h:column>
+									<h:column> 
+										<f:facet name="header">#{msgs['admreservations.type']}</f:facet>
+										#{reservation.type}
+									</h:column>
+									<h:column>
+										<f:facet name="header">#{msgs['admreservations.reservation']}</f:facet>
+										#{reservation.fromTime} - #{reservation.toTime}
+									</h:column>
+									<h:column> 	
+										<i title="#{msgs['admreservations.in_shopping_cart']}" style="display:#{reservation.inShoppingCart?'block':'none'}" class="fa fa-shopping-cart mar-top5"></i>
+									</h:column>
+									<h:column>
+										<h:commandLink rendered="#{reservation.cancelable || reservation.inShoppingCart}" title="#{msgs['reservations.cancel']}"
+												onclick="$('#myModal').appendTo('body').modal('show'); $('.modal-body #reserv').val( '#{reservation.name} #{reservation.date} #{reservation.fromTime}-#{reservation.toTime}' ); $('.modal-body #reservid').val(#{reservation.id});  return false;" >
 											<span class="fa-stack fa-1x">
-											<i class="fa fa-circle fa-stack-2x"></i>
-											<i class="fa fa-close fa-stack-1x fa-inverse"></i>
+												<i class="fa fa-circle fa-stack-2x" style="color: red;"></i>
+												<i class="fa fa-close fa-stack-1x fa-inverse"></i>
 											</span>
-											
 										</h:commandLink> 
-								</h:column>
-							</h:dataTable>
-							<h:outputLabel id="noRecords" style="display:#{admReservationBBean.reservationsEmpty?'block':'none'}">Ninguna reserva cumple el criterio</h:outputLabel>
+									</h:column>
+								</h:dataTable>
+							</div>
+							<div class="hidden-sm hidden-md hidden-lg col-md-12">
+								<h:dataTable class="table table-condensed table-hover mar-top30" id="reservationsTable2" var="reservation"
+										value="#{admReservationBBean.reservations}">
+										
+									<h:column>
+										<f:facet name="header">#{msgs['admreservations.date']}</f:facet>
+										<h:outputText title="#{reservation.memberAlias}" value="#{reservation.date}"/>				
+									</h:column>
+									
+									<h:column>
+										<f:facet name="header">#{msgs['admreservations.resource']}</f:facet>
+										<h:outputText title="#{reservation.type}" value="#{reservation.name}"/>	
+										
+									</h:column>
+									<h:column>
+										<f:facet name="header">#{msgs['admreservations.reservation']}</f:facet>
+										#{reservation.fromTime} - #{reservation.toTime}
+									</h:column>
+									<h:column> 	
+										<i title="#{msgs['admreservations.in_shopping_cart']}" style="display:#{reservation.inShoppingCart?'block':'none'}" class="fa fa-shopping-cart mar-top5"></i>
+									</h:column>
+									<h:column>
+										<h:commandLink rendered="#{reservation.cancelable || reservation.inShoppingCart}" title="#{msgs['reservations.cancel']}"
+												onclick="$('#myModal').appendTo('body').modal('show'); $('.modal-body #reserv').val( '#{reservation.name} #{reservation.date} #{reservation.fromTime}-#{reservation.toTime}' ); $('.modal-body #reservid').val(#{reservation.id});  return false;" >
+											<span class="fa-stack fa-1x">
+												<i class="fa fa-circle fa-stack-2x" style="color: red;"></i>
+												<i class="fa fa-close fa-stack-1x fa-inverse"></i>
+											</span>
+										</h:commandLink> 
+									</h:column>
+								</h:dataTable>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<h:outputLabel id="noRecords" style="display:#{admReservationBBean.reservationsEmpty?'block':'none'}">#{msgs['admreservations.no_reservation']}</h:outputLabel>
+							</div>
+						</div>
 					</div>		
+					
 				</div>
 				
 			</h:form>

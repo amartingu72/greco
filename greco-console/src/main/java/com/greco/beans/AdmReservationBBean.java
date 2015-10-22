@@ -102,6 +102,33 @@ public class AdmReservationBBean {
 		//Si es null es que nunca he pulsado buscar y no que esté vacío.
 		return (this.reservations != null && this.reservations.isEmpty()); 
 	}
+	/**
+	 * Devuelve el item de reserva correspondiente al identificador, si está en la consulta o null si no lo encuentra.
+	 * @param reservationId Identificador de reserva
+	 * @return Item de reserva.
+	 */
+	public ReservationItem getReservationItem(int reservationId){
+		ReservationItem reservationItem=null;
+		boolean found=false;
+		Iterator<ReservationItem> it=reservations.iterator();
+		while ( it.hasNext() && !found ){
+			reservationItem=it.next();
+			found=(reservationItem.getId()==reservationId);
+		}
+		if (!found) reservationItem=null;
+		return reservationItem;
+	}
+	
+	/**
+	 * Elimina un item de reserva de la lista de reservas.
+	 * @param item
+	 */
+	public void removeReservationItem(ReservationItem item){
+		int i=this.reservations.indexOf(item);
+		if ( i>=0) this.reservations.remove(i);  //Borro si lo encuentro.
+	}
+	
+	
 	
 	//GETTERs y SETTERs
 	public String getUserPattern() {

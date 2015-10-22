@@ -4,15 +4,22 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
 import com.greco.services.ReservationDataProvider;
 import com.greco.services.helpers.CommunityItem;
+import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.ResourceItem;
+import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
 
 public class AdmReservationCBean {
+	
+	private static final MyLogger logger = MyLogger.getLogger(MyReservationsCBean.class.getName());
+	
 	private AdmReservationBBean admReservationBBean; //Inyectado.
 	private ReservationDataProvider reservationDataProvider; //Inyectado
 
@@ -78,6 +85,40 @@ public class AdmReservationCBean {
 		
 		return null;
 	}
+	
+	
+	/**
+     * Cancela la reserva indicada en el BBEan en el campo selectedItem.
+     */
+    public String cancelReservation(){
+    	
+    	HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String txtProperty = request.getParameter("reservid");
+        int reservationId=Integer.parseInt(txtProperty);
+    	//Obtenemos la reserva a cancelar.
+         
+    	ReservationItem reservationItem=admReservationBBean.getReservationItem(reservationId);
+    	
+    	//Eliminamos de base de datos.
+    	reservationDataProvider.cancelReservation(reservationItem);
+    	//y de lista.
+    	admReservationBBean.removeReservationItem(reservationItem);
+    	
+    	String msg;
+    	//Mostramos mensaje de éxito.
+    	msg=reservationItem.getName() + "(" + reservationItem.getType() +") "
+    			+ reservationItem.getDate() + " " +reservationItem.getFromTime()+ "-" +reservationItem.getToTime();
+		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("reservations.canceled"),msg); 
+		FacesContext.getCurrentInstance().addMessage("reservationsForm:tableMessages", fm);
+    	
+    	//Grabamos el log.
+    	
+    	
+    	logger.log("014000", reservationItem.toString()); //INFO|Reserva anulada por el administrador:
+    	
+    	return null;
+    }
+	
 
 	//GETTERS y SETTERs
 	
