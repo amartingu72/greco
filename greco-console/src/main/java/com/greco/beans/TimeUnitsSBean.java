@@ -1,11 +1,7 @@
 package com.greco.beans;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 
+import java.util.Collection;
 import javax.annotation.PostConstruct;
 import javax.faces.model.SelectItem;
 import com.greco.services.TimeUnitDataProvider;

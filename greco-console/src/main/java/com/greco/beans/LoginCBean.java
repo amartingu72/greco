@@ -117,7 +117,7 @@ public class LoginCBean implements Serializable{
 
 		} catch (AuthenticationException e) {
 			FacesMessage fm = new FacesMessage(Warnings.getString("Login.login_failed")); 
-			FacesContext.getCurrentInstance().addMessage(null, fm);
+			FacesContext.getCurrentInstance().addMessage("mainForm:message", fm);
 			log.log("001005");//INFO|Intento de login fallido. Usuario o contraseña incorrectos.
 			return null;
 		}
@@ -138,7 +138,7 @@ public class LoginCBean implements Serializable{
 			}
 			else {
 				FacesMessage fm = new FacesMessage(Warnings.getString("Login.login_failed")); 
-				FacesContext.getCurrentInstance().addMessage(null, fm);
+				FacesContext.getCurrentInstance().addMessage("mainForm:message", fm);
 				log.log("001005");//INFO|Intento de login fallido. Usuario o contraseña incorrectos.
 			}
 		} catch (NoMemberException e) {
@@ -154,15 +154,15 @@ public class LoginCBean implements Serializable{
 			log.log("001004"); //WARNING|Intento de login fallido. El usuario no es miembro de la comunidad.
 		} catch (UnknownCommunityException e) {
 			FacesMessage fm = new FacesMessage(Warnings.getString("ComLogin.unknown_community")); 
-			FacesContext.getCurrentInstance().addMessage(null, fm);
+			FacesContext.getCurrentInstance().addMessage("mainForm:message", fm);
 			log.log("001003"); //INFO|Intento de login como usuario fallido. La comunidad no existe."
 		} catch (UnavailableCommunity e) {
 			FacesMessage fm = new FacesMessage(Warnings.getString("ComLogin.community_not_available")); 
-			FacesContext.getCurrentInstance().addMessage(null, fm);
+			FacesContext.getCurrentInstance().addMessage("mainForm:message", fm);
 			log.log("001006"); //INFO|Intento de login como usuario fallido. La comunidad no está disponible en este momento.
 		} catch (PendingException e) {
 			FacesMessage fm = new FacesMessage(Warnings.getString("ComLogin.subscription_pending")); 
-			FacesContext.getCurrentInstance().addMessage(null, fm);
+			FacesContext.getCurrentInstance().addMessage("mainForm:message", fm);
 			String msg="USER_EMAIL(" + loginBBean.getEmail() + ") ";
 			msg="COMMUNITY_ID(" + loginBBean.getCommunityId() + ") ";
 			log.log("001007",msg); //INFO|Intento de login fallido. La suscripción fue cursada pero no aprobada para la comunidad indicada.

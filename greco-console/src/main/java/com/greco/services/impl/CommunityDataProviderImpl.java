@@ -119,8 +119,8 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 				resource.setMinTime(resourceItem.getMintime());
 				resource.setName(resourceItem.getName());
 				resource.setResourcetype(resourceTypeDAO.loadSelected(resourceItem.getType()));
-				resource.setTimeunit1(timeUnitDAO.loadSelected(resourceItem.getTimeunit()));
-				resource.setTimeunit2(timeUnitDAO.loadSelected(resourceItem.getBeforehandTU()));
+				resource.setTimeunit1(timeUnitDAO.loadSelected(Integer.parseInt(resourceItem.getTimeunit())));
+				resource.setTimeunit2(timeUnitDAO.loadSelected(Integer.parseInt(resourceItem.getBeforehandTU())));
 				resource.setWeeklyAvailability(resourceItem.getWeeklyAvailabilityString());
 			} 
 			if ( resourceItem.isUpdated() ) {
@@ -209,8 +209,8 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 					resource.setMinTime(resourceItem.getMintime());
 					resource.setName(resourceItem.getName());
 					resource.setResourcetype(resourceTypeDAO.loadSelected(resourceItem.getType()));
-					resource.setTimeunit1(timeUnitDAO.loadSelected(resourceItem.getTimeunit()));
-					resource.setTimeunit2(timeUnitDAO.loadSelected(resourceItem.getBeforehandTU()));
+					resource.setTimeunit1(timeUnitDAO.loadSelected(Integer.parseInt(resourceItem.getTimeunit())));
+					resource.setTimeunit2(timeUnitDAO.loadSelected(Integer.parseInt(resourceItem.getBeforehandTU())));
 					resource.setWeeklyAvailability(resourceItem.getWeeklyAvailabilityString());
 				} 
 				if ( resourceItem.isUpdated() ) {

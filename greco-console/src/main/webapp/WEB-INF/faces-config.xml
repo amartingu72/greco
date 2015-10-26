@@ -732,6 +732,23 @@
 			<value>#{userDataProvider}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+		<description>Bean de soporte para formulario de contacto de la página de welcome de site.</description>
+		<managed-bean-name>contactBBean</managed-bean-name>
+		<managed-bean-class>com.greco.beans.ContactBBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<description>Bear controlador del formulario de contacto de la página de welcome de site.</description>
+		<managed-bean-name>contactCBean</managed-bean-name>
+		<managed-bean-class>com.greco.beans.ContactCBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>contactBBean</property-name>
+			<property-class>com.greco.beans.ContactBBean</property-class>
+			<value>#{contactBBean}</value>
+		</managed-property>
+	</managed-bean>
 	<navigation-rule>
 		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>

@@ -22,16 +22,20 @@ public class EMail {
 	public boolean isOk(){
 		
 		boolean bIsOk;
-		bIsOk=email.length()<=MAXLENGTH;
-		if ( bIsOk ) {
-	        //Set the email pattern string
-	        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
-	        
-	        //Match the given string with the pattern
-	        Matcher m = p.matcher(email);
-	        
-	        //Check whether match is found
-	        bIsOk=m.matches();
+		if ( email == null || email.trim().equals("") )
+			bIsOk=false;
+		else {
+			bIsOk=email.length()<=MAXLENGTH;
+			if ( bIsOk ) {
+		        //Set the email pattern string
+		        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+		        
+		        //Match the given string with the pattern
+		        Matcher m = p.matcher(email);
+		        
+		        //Check whether match is found
+		        bIsOk=m.matches();
+			}
 		}
 		return bIsOk;
         

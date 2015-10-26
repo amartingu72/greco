@@ -3,7 +3,6 @@ package com.greco.beans;
 import org.primefaces.context.RequestContext;
 
 import com.greco.services.helpers.ResourceItem;
-import com.greco.services.helpers.TimeUnitItem;
 import com.greco.utils.MyLogger;
 
 public class EditResourceCBean {
@@ -39,8 +38,8 @@ public class EditResourceCBean {
 		resourceItem.setBeforehand(editResourceBBean.getBeforehand());
 		resourceItem.setMaxtime(editResourceBBean.getMaxtime());
 		resourceItem.setMintime(editResourceBBean.getMintime());
-		resourceItem.setTimeunit(TimeUnitItem.toString(Integer.parseInt(editResourceBBean.getTimeunit())));;
-		resourceItem.setBeforehandTU(TimeUnitItem.toString(Integer.parseInt(editResourceBBean.getBeforehandTU())));
+		resourceItem.setTimeunit(editResourceBBean.getTimeunit());;
+		resourceItem.setBeforehandTU(editResourceBBean.getBeforehandTU());
 		boolean[] weelyAvailability={this.editResourceBBean.isMondayAvailable(),
 								this.editResourceBBean.isTuesdayAvailable(),
 								this.editResourceBBean.isWednesdayAvailable(),

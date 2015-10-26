@@ -54,7 +54,7 @@
 						<f:convertNumber integerOnly="true"/>
 					</h:inputText>
             		<h:selectOneMenu value="#{newResourceBBean.beforehandTU}"  >
-						<f:selectItems value="#{timeUnitsSBean.timeUnits}"/>
+						<f:selectItems value="#{timeUnitsSBean.getBeforehandTimeUnits}"/>
 					</h:selectOneMenu>
             	</h:panelGrid>     	
             	<p:outputLabel for="notes" value="#{msgs.resource_description}"/><br/>
