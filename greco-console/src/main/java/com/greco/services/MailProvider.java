@@ -9,6 +9,7 @@ import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.MemberItem;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.UserItem;
+import com.greco.utils.EMail;
 
 
 public interface MailProvider {
@@ -86,4 +87,15 @@ public interface MailProvider {
 	 * @throws MessagingException
 	 */
 	public abstract void sendCancelReservation(UserItem userItem, CommunityItem communityItem, ReservationItem reservation) throws MessagingException;
+	
+	/**
+	 * Envía un mensaje a todos los administradores de comunidad.
+	 * @param admins Lista de adminstradores a los que enviar el mensaje.
+	 * @param email Mail de la persona que envía el mensaje (no tiene que ser miembro o estar registrado).
+	 * @param communityItem Comunidad
+	 * @param message Mensaje
+	 * @throws MessagingException
+	 */
+	public abstract void sendMessageToAdmin(List<MemberItem> admins, EMail email, CommunityItem communityItem, String message) throws MessagingException;
+	
 }

@@ -80,6 +80,13 @@ public interface UserCommunityDataProvider{
 	public abstract int getAdmins(CommunityItem communityItem);
 	
 	/**
+	 * Devuelve la lista de adminitradores de la comunidad. 
+	 * @param communityItem Comunidad.
+	 * @return Lista de administradores.
+	 */
+	public abstract List<MemberItem> getAdmindList(CommunityItem communityItem);
+	
+	/**
 	 * Devuelve el número de miembros suscritos a una comunidad (¡Ojo! No incluye a los pendientes de suscripción).
 	 * @param communityItem Comunidad.
 	 * @return Número de miembros de una comunidad.

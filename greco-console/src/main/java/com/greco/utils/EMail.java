@@ -15,10 +15,21 @@ import java.util.regex.Pattern;
 public class EMail {
 	private String email;
 	public static int MAXLENGTH=64;
+	
 	public EMail(String email){
 		this.email=email;	
 	}
 	
+	
+	
+	@Override
+	public String toString() {
+		
+		return email;
+	}
+
+
+
 	public boolean isOk(){
 		
 		boolean bIsOk;

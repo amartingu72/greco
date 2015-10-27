@@ -276,6 +276,20 @@ public class UserCommunitiesDAOImpl implements UserCommunitiesDAO {
 	}
 
 
+	@Override
+	public List<UsersCommunity> getAdmins(int communityId) {
+		String sql = "SELECT uc FROM UsersCommunity AS uc WHERE uc.profile.id=:profile_id AND uc.community.id=:community_id";
+		Query q = em.createQuery(sql);
+		
+		q.setParameter("profile_id", ProfileItem.ADMIN);
+		q.setParameter("community_id", communityId);
+		
+		@SuppressWarnings("unchecked")	
+		List<UsersCommunity> results= q.getResultList();
+		return results;
+	}
+
+
 	
 	
 	

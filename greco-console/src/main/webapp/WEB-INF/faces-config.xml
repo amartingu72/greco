@@ -748,6 +748,21 @@
 			<property-class>com.greco.beans.ContactBBean</property-class>
 			<value>#{contactBBean}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>mailProvider</property-name>
+			<property-class>com.greco.services.MailProvider</property-class>
+			<value>#{mailProvider}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>loginBBean</property-name>
+			<property-class>com.greco.beans.LoginBBean</property-class>
+			<value>#{loginBBean}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>userCommunityDataProvider</property-name>
+			<property-class>com.greco.services.UserCommunityDataProvider</property-class>
+			<value>#{userCommunityDataProvider}</value>
+		</managed-property>
 	</managed-bean>
 	<navigation-rule>
 		<display-name>index.xhtml</display-name>

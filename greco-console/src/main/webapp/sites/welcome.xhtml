@@ -91,19 +91,23 @@
 			<div class="row">
 				<div class="col-md-offset-2 col-md-8" >
 					<a data-toggle="collapse" style="color:#666666;" href="#searchCriteria">Contacta al administrador<span class="caret"></span></a>
-					<p:messages id="contactMessage" showSummary="true" showDetail="true"/>
+					
 					<h:panelGroup id="contactPanel">
+						
+						<p:message for="mainForm:contactEmail" id="contactMessage" showSummary="true" showDetail="true"/>
 						<div id="searchCriteria" class="#{contactBBean.collapsed?'collapse':'collapse.in'} mar-top20">
 		         		
 			         		<div class="form-group">
 			         			<label for="contactEmail">eMail</label>
 			         			<p:inputText id="contactEmail" class="form-control" value="#{contactBBean.email}"
 			         				placeholder="Introduce tu email"
+			         			
 									label="#{msgs['editaccount.email']}"
 									maxlength="64">
 								</p:inputText>
 								
 			         		</div>
+			         		
 			         		<div class="form-group">
 			         			<label for="notes">Mensaje</label>
 								<p:inputTextarea class="form-control" id="notes" value="#{contactBBean.message}"

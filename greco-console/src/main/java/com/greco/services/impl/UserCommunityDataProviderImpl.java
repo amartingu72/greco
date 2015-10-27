@@ -126,6 +126,23 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
 	public int getAdmins(CommunityItem communityItem) {		
 		return this.userCommunitiesDAO.adminCount(communityItem.getId());
 	}
+	
+	@Override
+	public List<MemberItem> getAdmindList(CommunityItem communityItem){
+		
+	 List<UsersCommunity> ucList=this.userCommunitiesDAO.getAdmins(communityItem.getId());
+	 List<MemberItem> memberItemList=new ArrayList<MemberItem>();
+	 Iterator<UsersCommunity> it=ucList.iterator();
+	 UsersCommunity uc=null;
+	
+	 while ( it.hasNext() ){
+		 uc=it.next();
+		 memberItemList.add(convert(uc));
+	 }
+	 
+	 return memberItemList;
+	 
+	}
 
 	@Override
 	public int getMembers(CommunityItem communityItem) {	

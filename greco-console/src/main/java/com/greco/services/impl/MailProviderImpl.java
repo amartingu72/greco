@@ -27,6 +27,7 @@ import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.MemberItem;
 import com.greco.services.helpers.ReservationItem;
 import com.greco.services.helpers.UserItem;
+import com.greco.utils.EMail;
 
 @Service("mailProvider")
 public class MailProviderImpl implements MailProvider {
@@ -299,9 +300,33 @@ public class MailProviderImpl implements MailProvider {
 		send(userItem.getEmail(),subject, content);
 		
 	}
-	
 
-	
+
+
+
+	@Override
+	public void sendMessageToAdmin(List<MemberItem> admins, EMail email, CommunityItem communityItem,
+			String message) throws MessagingException {
+		//Subject
+		String subject=communityItem.getName() + ". " + getString("adminmsg.subject");
+		Iterator<MemberItem> it=admins.iterator();
+		MemberItem admin;
+		while ( it.hasNext()){
+			admin=it.next();
+			String content=getString("content.greeting") + admin.getNickname() + ":";
+			content+=getString("adminmsg.text1");
+			
+			
+			
+			content+=message + "\n\n";
+			
+			
+			content+=getString("signature.admin");
+			content+=getString("signature.locale_reference") + communityItem.getId(); //URL de la comunidad.
+			
+			send(admin.getEmail(),subject, content);		
+		}
+	}
 	
 
 }

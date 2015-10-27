@@ -112,6 +112,13 @@ public interface UserCommunitiesDAO {
 	public int adminCount(int communityId);
 	
 	/**
+	 * Devuelve la lista de administradores de una comunidad
+	 * @param communityId Identificador de comunidad.
+	 * @return Lista de miembros.
+	 */
+	public List<UsersCommunity> getAdmins(int communityId);
+	
+	/**
 	 * Devuelve el número de miembros suscritos a una comunidad: status=SUBSCRIBED_STATUS
 	 * @param communityID
 	 * @return Número de miembros.
