@@ -20,6 +20,7 @@ public class EditCommunityBBean implements Serializable{
 	private String zipcode;
 	private String mydata;
 	private boolean available;
+	private boolean membercheck;
 	private String joiningDate;
 	private String profiles;
 	private String site;  //URL del la comunidad.
@@ -52,6 +53,7 @@ public class EditCommunityBBean implements Serializable{
 		this.zipcode=item.getZipcode();
 		this.mydata=item.getMyData();
 		this.available=item.isAvailable();
+		this.membercheck=item.isMembercheck();
 		this.joiningDate=item.getJoiningDate();
 		this.profiles=item.getProfiles();
 		
@@ -171,5 +173,15 @@ public class EditCommunityBBean implements Serializable{
 	public String getSite() {
 		return site;
 	}
+
+	public boolean isMembercheck() {
+		return membercheck;
+	}
+
+	public void setMembercheck(boolean membercheck) {
+		this.membercheck = membercheck;
+	}
+	
+	
 	
 }

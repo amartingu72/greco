@@ -17,6 +17,7 @@ public class CommunityItem implements Serializable{
 	private static final long serialVersionUID = 6255690091388852962L;
 	private int id;
 	private boolean available;
+	private boolean membercheck;
 	private String name;
 	private String zipcode;
 	private String joiningDate;
@@ -38,6 +39,7 @@ public class CommunityItem implements Serializable{
 		this.country=country;
 		this.zipcode=zipcode;
 		this.name=name;
+		this.membercheck=false;
 		
 		locale=new Locale("es", "ES");
 		dateTimeZone=DateTimeZone.forID("Europe/Madrid");
@@ -55,6 +57,7 @@ public class CommunityItem implements Serializable{
 		this.id=id;
 		this.available=status;
 		this.myData=myData;
+		this.membercheck=false;
 		
 		locale=new Locale("es", "ES");
 		dateTimeZone=DateTimeZone.forID("Europe/Madrid");
@@ -78,6 +81,7 @@ public class CommunityItem implements Serializable{
 		//this.profiles=profiles;
 		this.myData=myData;
 		this.country=country;
+		this.membercheck=false;
 		
 		locale=new Locale("es", "ES");
 		dateTimeZone=DateTimeZone.forID("Europe/Madrid");
@@ -106,6 +110,7 @@ public class CommunityItem implements Serializable{
 		this.profiles=profiles;
 		this.myData=myData;
 		this.country=country;
+		this.membercheck=false;
 		
 		locale=new Locale("es", "ES");
 		dateTimeZone=DateTimeZone.forID("Europe/Madrid");
@@ -223,5 +228,16 @@ public class CommunityItem implements Serializable{
 	public void setDateTimeZone(DateTimeZone dateTimeZone) {
 		this.dateTimeZone = dateTimeZone;
 	}
+
+
+	public boolean isMembercheck() {
+		return membercheck;
+	}
+
+
+	public void setMembercheck(boolean membercheck) {
+		this.membercheck = membercheck;
+	}
+	
 	
 }

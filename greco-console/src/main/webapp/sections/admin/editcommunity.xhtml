@@ -95,8 +95,7 @@
 			
 			<div class="row">
 				<div class="col-md-offset-1 col-md-4">
-					<div class="row">		
-						<div class=" col-md-12">
+					
 							<p:growl id="growl" showSummary="true" showDetail="true"/>
 							<h:message id="messages" showSummary="true" showDetail="true"/>
 							<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
@@ -106,24 +105,25 @@
 									<f:validator binding="#{duplicatedCommunityValidator}" />
 								</h:inputText>
 							</div>
-						</div>					
-					 </div>
-					 <div class="row">
-					 	<div class="col-md-12">
-					 		<p>#{msgs['editcommunity.subscription']}:
-							#{editCommunityBBean.joiningDate}</p>
-						</div>
-					 </div>
+						
 					 
-					 <div class="row">
-					 	<div class="form-group col-md-12">
+					 	<div class="form-group">
+					 		<label for="enabled">#{msgs['editcommunity.susbcription_type']}</label>	
+					 		 <h:selectOneMenu class="form-control" value="#{editCommunityBBean.membercheck}"> 
+	        					<f:selectItem itemLabel="#{msgs['editcommunity.susbcription_check']}" itemValue="true" />
+	       						<f:selectItem itemLabel="#{msgs['editcommunity.susbcription_nocheck']}" itemValue="false" />
+	   						 </h:selectOneMenu>
+					 	</div>
+					 
+					 
+					 	<div class="form-group">
 					 		<label for="enabled">#{msgs['editcommunity.status']}</label>	
 					 		 <h:selectOneMenu id="enabled" class="form-control" value="#{editCommunityBBean.available}">
 	        					<f:selectItem id="item1" itemLabel="#{msgs['editcommunity.available']}" itemValue="true" />
 	       						<f:selectItem id="item2" itemLabel="#{msgs['editcommunity.unavailable']}" itemValue="false" />
 	   						 </h:selectOneMenu>
 					 	</div>
-					 </div>
+					 
 					 <div class="row">
 						<div class="form-group col-md-6">
 							<label for="zipcode"> 
@@ -145,8 +145,7 @@
 						
 					 </div>
 					
-					 <div class="row">
-						<div class="col-md-12">
+					 
 							<div class="form-group">
 								<label for="notes">#{msgs['editcommunity.notes']} </label>
 								<p:inputTextarea class="form-control" id="notes" value="#{editCommunityBBean.mydata}"
@@ -154,8 +153,7 @@
 									counterTemplate="#{msgs['editaccount.remaining_chars']}" />
 								<p:outputLabel id="display" />
 					 	 	</div>
-					 	 </div>
-					</div>
+					 
 				
 				</div>
 				
@@ -181,7 +179,7 @@
 								<i class="fa fa-plus fa-stack-1x fa-inverse"></i>
 								</span>
 							</h:commandLink>
-							<h:commandLink  title="{msgs['editcommunity.undo']}"
+							<h:commandLink  title="#{msgs['editcommunity.undo']}"
 								onclick="$('#myModal2').appendTo('body').modal('show'); return false">
 								
 								<span class="fa-stack fa-1x">
@@ -240,15 +238,8 @@
 						</div>
 						
 					</div>
-					
-				
-				</div>
-			
-				
-				</div>
-				<div class="row">
-					<div class="text-right">
-						
+					<div class="row">
+						<div class="text-right">
 							<ul class="social-network">
 								<li>#{msgs['newcommunity.msg_save_btn']}
 									<i class="fa fa-hand-o-right"></i>
@@ -258,14 +249,18 @@
 										<span class="fa-stack fa-2x">
 										<i class="fa fa-circle fa-stack-2x"></i>
 										<i class="fa fa-save fa-stack-1x fa-inverse"></i>
-										</span>
-										 
+										</span>				 
 									</h:commandLink>
 								</li>
 							</ul>
-						
+						</div>
 					</div>
+				
 				</div>
+			
+				
+				</div>
+				
 			</h:form>
 		</ui:define>
 	</ui:composition>

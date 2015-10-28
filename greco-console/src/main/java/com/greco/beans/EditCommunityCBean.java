@@ -67,6 +67,7 @@ public class EditCommunityCBean {
 				editCommunityBBean.getZipcode(),
 				editCommunityBBean.getMydata(),
 				editCommunityBBean.getCountry());
+		communityItem.setMembercheck(editCommunityBBean.isMembercheck());
 		
 		List<ResourceItem> failures=communityDataProvider.save(communityItem,resourcesSBean.getMyResources());
 		if ( !failures.isEmpty()) {
@@ -97,7 +98,8 @@ public class EditCommunityCBean {
 		msg="ID(" + communitiesSBean.getSelectedItem().getId() + "), ";
 		msg+="NAME(" + communitiesSBean.getSelectedItem().getName() + " > " + communityItem.getName() + "), ";
 		msg+="AVAILABLE(" + communitiesSBean.getSelectedItem().isAvailable() + " > " + communityItem.isAvailable() + "), ";
-		msg+="MYDATA(" + communitiesSBean.getSelectedItem().getMyData()  + " > " + communityItem.getMyData() + ")"; 
+		msg+="MYDATA(" + communitiesSBean.getSelectedItem().getMyData()  + " > " + communityItem.getMyData() + "), ";
+		msg+="MEMBERCHECK(" + communitiesSBean.getSelectedItem().isMembercheck() + " > " + communityItem.isMembercheck() + ")";
 		
 		//Actualizamos la el contenido de la comunidad seleccionada (communitiesSBean), con los cambios
 		communitiesSBean.setSelectedItem(communityItem);

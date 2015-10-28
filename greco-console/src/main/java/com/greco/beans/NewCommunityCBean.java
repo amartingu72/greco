@@ -35,7 +35,8 @@ public class NewCommunityCBean {
 		msg+="COUNTRY(" + communityItem.getCountry() + "),";
 		msg+="ZIPCODE(" + communityItem.getZipcode() + "),";
 		msg+="AVAILABLE(" + communityItem.isAvailable() + "), ";
-		msg+="MYDATA(" + communityItem.getMyData() + ")"; 
+		msg+="MYDATA(" + communityItem.getMyData() + ") "; 
+		msg+="MEMBERCHECK(" + communityItem.isMembercheck() + ")";
 		
 		//Actualizamos la el contenido de la comunidad seleccionada (communitiesSBean), con los cambios
 		communityItem.setId(id);
@@ -61,115 +62,6 @@ public class NewCommunityCBean {
 		return "done";
 	}
 	
-	/*public String addPF() {
-		String msg; //Monta un mensaje para el log.
-				
-		CommunityItem communityItem=getCommunityValues();
-		
-		//TODO crear este método en el provider. 
-		int id=communityDataProvider.add(userSBean.getItem(),communityItem,resourcesSBean.getMyResources());
-	
-		//Montamos el mensaje indicando valores actuales y anteriores.
-		msg="ID(" + id + "), ";
-		msg+="NAME(" + communityItem.getName()  + "),";
-		msg+="COUNTRY(" + communityItem.getCountry() + "),";
-		msg+="ZIPCODE(" + communityItem.getZipcode() + "),";
-		msg+="AVAILABLE(" + communityItem.isAvailable() + "), ";
-		msg+="MYDATA(" + communitiesSBean.getSelectedItem().getMyData()  + " > " + communityItem.getMyData() + ")"; 
-		
-		//Actualizamos la el contenido de la comunidad seleccionada (communitiesSBean), con los cambios
-		communityItem.setId(id);
-		communitiesSBean.setSelectedItem(communityItem);
-		
-		//Actualizamos la lista de comunidades. Es necesario porque el backing bean de comunidades 
-		//(CommunitiesSBean), es de sesión. 
-		communitiesSBean.initialize();
-		
-		//	Mostramos el mensaje de la página
-		FacesMessage fm = new FacesMessage(Warnings.getString("editcommunity.updated"));
-		FacesContext.getCurrentInstance().addMessage("Comunidad", fm);
-		
-		// Grabamos en el log con mensaje montado.
-		log.log("006000", msg );//006000=INFO|Comunidad creada (ver recursos pre-actualizados/creados):
-			
-		return null;
-	}
-	
-	*//**
-	 * Abre el diálogo para crear un nuevo recurso (con PrimeFaces)
-	 *//*
-	public void addResourcePF() {
-		
-		Map<String,Object> options = new HashMap<String, Object>();
-		options.put("modal", true);
-        options.put("draggable", false);
-        options.put("resizable", false);
-        
-                
-		RequestContext.getCurrentInstance().openDialog("/sections/admin/newresource",options,null);
-		
-	}
-	
-	*//**
-	 * Abre el diálogo para actualizar en recurso seleccionado (con PrimeFaces)
-	 *//*
-	public void editResourcePF() {
-		
-		Map<String,Object> options = new HashMap<String, Object>();
-		options.put("modal", true);
-        options.put("draggable", false);
-        options.put("resizable", false);
-        
-                
-		RequestContext.getCurrentInstance().openDialog("/sections/admin/editresource",options,null);
-		
-	}
-	
-	*//**
-	 * Este método se invoca al cerrar los diálogos de edición/creación de recurso.
-	 * Su objetivo es actualizar el mensaje de confirmación.
-	 *//*
-	public void onResourceUpdatedPF(SelectEvent event) {
-		if ( ( (String)event.getObject() ).equals("saved") ) {
-			//Mostramos el mensaje de la página
-			FacesMessage message = new FacesMessage();
-	        message.setDetail(Warnings.getString("editcommunity.resource_updated_detail"));
-	        message.setSummary(Warnings.getString("editcommunity.resource_updated"));
-	        message.setSeverity(FacesMessage.SEVERITY_INFO);
-			
-			FacesContext.getCurrentInstance().addMessage("Comunidad", message);
-		}
-	}
-	
-	*//**
-	 * Este método se invoca al cerrar los diálogos de edición/creación de recurso.
-	 * Su objetivo es actualizar el mensaje de confirmación.
-	 *//*
-	public void onResourceAddedPF(SelectEvent event) {
-		if ( ( (String)event.getObject() ).equals("added") ) {
-			//Mostramos el mensaje de la página
-			FacesMessage message = new FacesMessage();
-	        message.setDetail(Warnings.getString("editcommunity.resource_added_detail"));
-	        message.setSummary(Warnings.getString("editcommunity.resource_added"));
-	        message.setSeverity(FacesMessage.SEVERITY_INFO);
-			
-			FacesContext.getCurrentInstance().addMessage("Comunidad", message);
-		}
-	}
-	
-	
-	*//**
-	 * Abre el dialogo para crear un nuevo recurso.
-	 * @return Resultado para navegación.
-	 *//*
-	public String addResource() 
-	{
-		//Guardamos los valores actuales.
-		CommunityItem communityItem=getCommunityValues();
-		this.communitiesSBean.setSelectedItem(communityItem);
-		String result="addResource";		
-		return result;
-	}*/
 	/**
 	 * Devuelve un objeto CommunityItem con todos los valores recogidos del formulario.
 	 */
@@ -182,33 +74,12 @@ public class NewCommunityCBean {
 			this.newCommunityBBean.getZipcode(),
 			this.newCommunityBBean.getMydata(),
 			this.newCommunityBBean.getCountry());
-		
+		communityItem.setMembercheck(this.newCommunityBBean.isMembercheck());
 		return communityItem;
 		
 	}
 	
-	/**
-	 * Abre el diálogo para actualizar en recurso seleccionado
-	 * @param rsrc Recursos seleccionado.
-	 * @return Resultado para navegación.
-	 *//*
-	public String editResource(ResourceItem rsrc) {
-		//Guardamos los valores actuales.
-		CommunityItem communityItem=getCommunityValues();
-		this.communitiesSBean.setSelectedItem(communityItem);
-		this.resourcesSBean.setSelectedResource(rsrc);
-		return "editResource";
-	}
 	
-	*//**
-	 * Cancelar diálogo descartando los cambios realizados sobre la comunidad y sus recursos.
-	 * @return
-	 *//*
-	public String cancel(){
-		communitiesSBean.setSelectedItem(null);
-		return "cancel";
-	}
-	*/
 	
 	//GETTERs y SETTERs
 	public CommunityDataProvider getCommunityDataProvider() {

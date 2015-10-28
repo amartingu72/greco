@@ -50,9 +50,8 @@ public class UserDataProviderImpl implements UserDataProvider{
 	@Resource(name="ProfilesRepository")
 	private ProfileDAO profileDAO;
 	
-	/*@Resource(name = "mail/gmailAccount")
-	private Session mailSession;*/
-		
+	
+	
 	@SuppressWarnings("unused")
 	private final String SUPERUSER_PROFILE="SUPERUSER";
 	private final String USER_PROFILE="USER";
@@ -193,6 +192,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 			//Recordar: available en BBDD es un TINYINT y hay que convertir a boolean.
 			myCommunities[i]=new CommunityItem(com.getId(),(com.getAvailable()!=0), com.getName(),
 					com.getZipcode(),joiningDate,profiles,com.getNotes(), com.getCountry().getName());
+			myCommunities[i].setMembercheck((com.getMembercheck()!=0));
 			i++;
 		}
 		
@@ -235,10 +235,19 @@ public class UserDataProviderImpl implements UserDataProvider{
 		UsersCommunity usersCommunity=new UsersCommunity();
 		usersCommunity.setCommunity(community);
 		usersCommunity.setProfile(profile);
-		usersCommunity.setStatus(StatusItem.PENDING);
+		
+		//Comprobamos si la comunidad está configurada con aprobación automática de 
+		//suscripción o no. En caso de estarlo, se aprueba y se envía correo.
+		boolean membercheck=community.getMembercheck()!=0;
+		if (membercheck)
+			usersCommunity.setStatus(StatusItem.PENDING);
+		else
+			usersCommunity.setStatus(StatusItem.MEMBER);
+		
 		usersCommunity.setUser(user);
 		usersCommunity.setApplication(application);
-		this.userCommunitiesDAO.add(usersCommunity);
+		this.userCommunitiesDAO.add(usersCommunity);	
+		
 		
 	}
 

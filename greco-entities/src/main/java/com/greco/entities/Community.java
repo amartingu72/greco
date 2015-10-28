@@ -20,6 +20,8 @@ public class Community implements Serializable {
 
 	private byte available;
 
+	private byte membercheck;
+
 	private String name;
 
 	private String notes;
@@ -60,6 +62,14 @@ public class Community implements Serializable {
 
 	public void setAvailable(byte available) {
 		this.available = available;
+	}
+
+	public byte getMembercheck() {
+		return this.membercheck;
+	}
+
+	public void setMembercheck(byte membercheck) {
+		this.membercheck = membercheck;
 	}
 
 	public String getName() {

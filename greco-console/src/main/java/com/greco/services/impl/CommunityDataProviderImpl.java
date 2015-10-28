@@ -72,9 +72,11 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 	public CommunityItem getCommunityById(int id){
 		CommunityItem communityItem=null;
 		Community community=communityDAO.loadSelectedCommunity(id);
-		if (community!=null)
+		if (community!=null){
 			communityItem=new CommunityItem(community.getId(),(community.getAvailable()!=0), community.getName(),
 				community.getZipcode(),null,null,community.getNotes(), community.getCountry().getName());
+			communityItem.setMembercheck(community.getMembercheck()!=0);
+		}
 		return communityItem;
 	}
 	
@@ -95,6 +97,7 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 		community.setCountry(this.countryDAO.loadSelected(communityItem.getCountry()));
 		community.setAvailable((byte)(communityItem.isAvailable()?1:0));
 		community.setNotes(communityItem.getMyData());
+		community.setMembercheck((byte)(communityItem.isMembercheck()?1:0));
 		communityDAO.saveCommunity(community);
 		
 		
@@ -176,6 +179,7 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 		community.setZipcode(communityItem.getZipcode());
 		community.setAvailable((byte)(communityItem.isAvailable()?1:0));
 		community.setNotes(communityItem.getMyData());
+		community.setMembercheck((byte)(communityItem.isMembercheck()?1:0));
 
 		communityDAO.addCommunity(community);
 		

@@ -15,6 +15,7 @@ public class NewCommunityBBean implements Serializable{
 	private String zipcode;
 	private String mydata;
 	private boolean available;
+	private boolean membercheck;
 	
 	
 	
@@ -27,6 +28,7 @@ public class NewCommunityBBean implements Serializable{
 	public void initialize() {
 		
 		available=true;
+		membercheck=false;
 		/*//Obtengo la comunidad seleccionada de Communities
 		CommunitiesSBean comms = (CommunitiesSBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("communitiesSBean");
 		CommunityItem item=comms.getSelectedItem();
@@ -93,6 +95,14 @@ public class NewCommunityBBean implements Serializable{
 
 	public void setSelectedItem(ResourceItem selectedItem) {
 		this.selectedItem = selectedItem;
+	}
+
+	public boolean isMembercheck() {
+		return membercheck;
+	}
+
+	public void setMembercheck(boolean membercheck) {
+		this.membercheck = membercheck;
 	}
 	
 	

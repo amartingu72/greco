@@ -21,6 +21,7 @@ create table communities (
 	zipcode varchar(5) not null,
 	countrie_id int not null,
 	available TINYINT not null,
+	membercheck tinyint not null default 0 comment '(1) Requiere que un administrador valide para ser miembro (0) no lo requiere.',
 	FOREIGN KEY (countrie_id) REFERENCES countries(id)
 );
 
