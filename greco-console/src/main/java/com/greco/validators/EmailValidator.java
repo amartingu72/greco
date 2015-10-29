@@ -20,7 +20,7 @@ public class EmailValidator implements Validator{
             FacesMessage message = new FacesMessage();
             message.setDetail(Warnings.getString("editaccount.invalid_email_details"));
             message.setSummary(Warnings.getString("editaccount.invalid_email"));
-            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            message.setSeverity(FacesMessage.SEVERITY_INFO);
             throw new ValidatorException(message);
         }
     }

@@ -998,5 +998,10 @@
 		<validator-id>com.greco.validators.AvailabilityValidator</validator-id>
 		<validator-class>com.greco.validators.AvailabilityValidator</validator-class>
 	</validator>
+	<validator>
+		<description>Valida que el código postal no pertenezca a Canarias (38xxx o 35xxx)</description>
+		<validator-id>com.greco.validators.ZipcodeValidator</validator-id>
+		<validator-class>com.greco.validators.ZipcodeValidator</validator-class>
+	</validator>
 
 </faces-config>

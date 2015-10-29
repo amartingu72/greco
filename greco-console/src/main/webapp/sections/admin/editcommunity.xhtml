@@ -96,42 +96,45 @@
 			<div class="row">
 				<div class="col-md-offset-1 col-md-4">
 					
-							<p:growl id="growl" showSummary="true" showDetail="true"/>
-							<h:message id="messages" showSummary="true" showDetail="true"/>
-							<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
-							<div class="form-group">
-								<label for="name">#{msgs['editcommunity.name']}</label>
-								<h:inputText class="form-control" id="name" value="#{editCommunityBBean.name}"  maxlength="32" required="true">
-									<f:validator binding="#{duplicatedCommunityValidator}" />
-								</h:inputText>
-							</div>
+					<p:growl id="growl" showSummary="true" showDetail="true"/>
+					
+					<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
+					<div class="form-group">
+						<label for="name">#{msgs['editcommunity.name']}</label>
+						<h:inputText class="form-control" id="name" value="#{editCommunityBBean.name}"  maxlength="32" required="true">
+							<f:validator binding="#{duplicatedCommunityValidator}" />
+						</h:inputText>
+					</div>
 						
 					 
-					 	<div class="form-group">
-					 		<label for="enabled">#{msgs['editcommunity.susbcription_type']}</label>	
-					 		 <h:selectOneMenu class="form-control" value="#{editCommunityBBean.membercheck}"> 
-	        					<f:selectItem itemLabel="#{msgs['editcommunity.susbcription_check']}" itemValue="true" />
-	       						<f:selectItem itemLabel="#{msgs['editcommunity.susbcription_nocheck']}" itemValue="false" />
-	   						 </h:selectOneMenu>
-					 	</div>
+				 	<div class="form-group">
+				 		<label for="enabled">#{msgs['editcommunity.susbcription_type']}</label>	
+				 		 <h:selectOneMenu class="form-control" value="#{editCommunityBBean.membercheck}"> 
+        					<f:selectItem itemLabel="#{msgs['editcommunity.susbcription_check']}" itemValue="true" />
+       						<f:selectItem itemLabel="#{msgs['editcommunity.susbcription_nocheck']}" itemValue="false" />
+   						 </h:selectOneMenu>
+				 	</div>
+				 
+				 
+				 	<div class="form-group">
+				 		<label for="enabled">#{msgs['editcommunity.status']}</label>	
+				 		 <h:selectOneMenu id="enabled" class="form-control" value="#{editCommunityBBean.available}">
+        					<f:selectItem id="item1" itemLabel="#{msgs['editcommunity.available']}" itemValue="true" />
+       						<f:selectItem id="item2" itemLabel="#{msgs['editcommunity.unavailable']}" itemValue="false" />
+   						 </h:selectOneMenu>
+				 	</div>
 					 
-					 
-					 	<div class="form-group">
-					 		<label for="enabled">#{msgs['editcommunity.status']}</label>	
-					 		 <h:selectOneMenu id="enabled" class="form-control" value="#{editCommunityBBean.available}">
-	        					<f:selectItem id="item1" itemLabel="#{msgs['editcommunity.available']}" itemValue="true" />
-	       						<f:selectItem id="item2" itemLabel="#{msgs['editcommunity.unavailable']}" itemValue="false" />
-	   						 </h:selectOneMenu>
-					 	</div>
-					 
-					 <div class="row">
+					 <div class="row"> 
 						<div class="form-group col-md-6">
 							<label for="zipcode"> 
 								#{msgs['editcommunity.zipcode']}</label>:  
-							<p:inputMask class="form-control" id="zipcode" value="#{editCommunityBBean.zipcode}" mask="99999"
+							<h:inputText class="form-control" id="zipcode" value="#{editCommunityBBean.zipcode}"
 								size="5"
 								maxlength="5"
-								required="true" />			
+								required="true">
+								<f:validator validatorId="com.greco.validators.ZipcodeValidator" />
+							</h:inputText>	
+							
 						</div>
 						<div class="form-group col-md-6">
 							<label for="country"> 
@@ -141,18 +144,15 @@
 								<f:selectItems value="#{countriesSBean.countries}" /> 
 							</h:selectOneMenu>
 						</div>	
-							
-						
-					 </div>
-					
-					 
-							<div class="form-group">
-								<label for="notes">#{msgs['editcommunity.notes']} </label>
-								<p:inputTextarea class="form-control" id="notes" value="#{editCommunityBBean.mydata}"
-									rows="5" cols="58" maxlength="255" counter="display"
-									counterTemplate="#{msgs['editaccount.remaining_chars']}" />
-								<p:outputLabel id="display" />
-					 	 	</div>
+					</div>
+					<p:message id="zipmsg" for="zipcode" showSummary="true" showDetail="true"/>		 
+					<div class="form-group">
+						<label for="notes">#{msgs['editcommunity.notes']} </label>
+						<p:inputTextarea class="form-control" id="notes" value="#{editCommunityBBean.mydata}"
+							rows="5" cols="58" maxlength="255" counter="display"
+							counterTemplate="#{msgs['editaccount.remaining_chars']}" />
+						<p:outputLabel id="display" />
+			 	 	</div>
 					 
 				
 				</div>
