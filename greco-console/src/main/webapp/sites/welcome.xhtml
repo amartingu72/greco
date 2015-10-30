@@ -44,8 +44,12 @@
 						<div class="carousel-inner" role="listbox">
 							<ui:repeat value="#{loginBBean.resourceTypeList}" var="resourceType" varStatus="myVarStatus">
 						 		<div class="item #{myVarStatus.index==0?'active':'none'}">
-						 			<h:graphicImage library="img" name="rtype_#{resourceType.id}.jpg" />		 										
+						 			<h:graphicImage library="img" name="rtype_#{resourceType.id}.jpg" />
+						 			<div class="carousel-caption">
+    									<p>#{resourceType.description}</p>
+  									</div>		 										
 						    	</div>
+						    	
 						    </ui:repeat>
 						 </div>
 					</div>
