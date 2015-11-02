@@ -61,7 +61,7 @@ public class EditAccountCBean implements Serializable{
 		//Preparamos el mensaje para el log.
 		String msg="NICKNAME(" + userSBean.getNickname() + " > " + editAccountBBean.getNickname() + ") ";
 		msg+="EMAIL(" + userSBean.getEmail() + " > " + editAccountBBean.getEmail() + ") ";
-		msg+="MYDATA("+ userSBean.getMydata() + " > " + editAccountBBean.getMydata() +")";
+		msg+="MYDATA("+ userSBean.getMydata() + " > " + editAccountBBean.getMydata() +") PWD_UPATED(" + editAccountBBean.isPwdUpdated() + ")";
 		//Grabamos log
 		logger.log("005000",msg);//INFO|Cuenta modificada:
 		

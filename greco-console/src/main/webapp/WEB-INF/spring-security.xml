@@ -24,6 +24,8 @@
      </security:http>
      
     <security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider user-service-ref="myUserDetailService"/>
+        <security:authentication-provider user-service-ref="myUserDetailService">
+        	<security:password-encoder hash="bcrypt" />	
+        </security:authentication-provider>
     </security:authentication-manager>
 </beans:beans>

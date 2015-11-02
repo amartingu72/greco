@@ -53,6 +53,7 @@
 						<div class="form-group">
 							<label for="email">#{msgs['editaccount.email']}</label>
 							<p:inputText id="email" class="form-control" value="#{editAccountBBean.email}" 
+								autocomplete="off" 
 								required="true"
 								label="#{msgs['editaccount.email_label']}"
 								requiredMessage="#{msgs['editaccount.required_msg']}" 
@@ -62,7 +63,8 @@
 						</div>
 						<div class="form-group">
 							<label for="password">#{msgs['editaccount.pwd']}</label>
-							<p:password id="password" class="form-control" value="#{editAccountBBean.password}"  
+							<p:password id="password" class="form-control" value="#{editAccountBBean.password}"
+								autocomplete="off"  
 								redisplay="true" 
 								match="passwordConfirm"
 								label="#{msgs['editaccount.pwd_label']}"
@@ -78,6 +80,7 @@
 						<div class="form-group">
 							<label for="passwordConfirm">#{msgs['editaccount.pwdConfirm']}</label>
 							<p:password  id="passwordConfirm" class="form-control" value="#{editAccountBBean.password}"
+								autocomplete="off" 
 								redisplay="true" 
 								maxlength="16"
 								label="#{msgs['editaccount.pwdConfirm_label']}"/>

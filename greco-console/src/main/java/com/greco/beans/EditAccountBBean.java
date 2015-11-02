@@ -39,7 +39,7 @@ public class EditAccountBBean implements Serializable{
         this.email=userBean.getEmail();
         this.mydata=userBean.getMydata();
         //Así simulo que la contraseña se ha recuperado.
-        this.password=userBean.getPassword();
+        this.password=FAKE_PASSWORD;
         this.pwdUpdated=false;
         this.subscriptions=userCommunityDataProvider.getMyCommunities(userBean.getItem());
         this.searchCriteria=EditAccountCBean.LAST_30;

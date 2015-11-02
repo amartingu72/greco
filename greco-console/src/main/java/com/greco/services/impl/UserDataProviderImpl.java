@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,7 +65,12 @@ public class UserDataProviderImpl implements UserDataProvider{
 		user.setEmail(userItem.getEmail());
 		user.setMydata(userItem.getMydata());
 		user.setNickname(userItem.getNickname());
-		if (pwdUpdated) user.setPassword(userItem.getPassword());
+		if (pwdUpdated) {
+			//Generamos hash
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String hashedPassword = passwordEncoder.encode(userItem.getPassword());
+			user.setPassword(hashedPassword);
+		}
 		
 		usersRepository.saveUser(user);
 	}
@@ -75,7 +81,12 @@ public class UserDataProviderImpl implements UserDataProvider{
 		//Generamos una nueva contraseña aleatoria.
 		String pwd=RandomStringUtils.randomAlphanumeric(8);
 		User user=usersRepository.loadSelectedUser(userId);
-		user.setPassword(pwd);
+		//Encriptamos
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(pwd);
+		user.setPassword(hashedPassword);
+		
+		
 		usersRepository.saveUser(user);
 		
 		return pwd;
@@ -212,7 +223,12 @@ public class UserDataProviderImpl implements UserDataProvider{
 		user.setEmail(userItem.getEmail());
 		user.setMydata(userItem.getMydata());
 		user.setNickname(userItem.getNickname());
-		user.setPassword(userItem.getPassword());
+		
+		//Encriptamos
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String hashedPassword = passwordEncoder.encode(userItem.getPassword());
+		user.setPassword(hashedPassword);
+		
 		user.setProfile(USER_PROFILE);
 				
 		User newUser=this.usersRepository.newUser(user);
