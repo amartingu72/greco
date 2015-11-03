@@ -17,6 +17,7 @@
 	<h:outputStylesheet library="css" name="style.css" media="screen"/>
 	<h:outputStylesheet library="color" name="default.css" media="screen"/>
     <h:outputScript library="javascript" name="modernizr.custom.js"/> 
+    <h:outputStylesheet library="css" name="lssi.css" media="screen"/>
 	<link rel="icon" type="img" href="#{request.contextPath}/resources/img/head_icon_16x16.png" sizes="16x16" />
 	<link rel="icon" type="img" href="#{request.contextPath}/resources/img/head_icon_32x32.png" sizes="32x32" />
 </h:head>
@@ -40,7 +41,54 @@
 	  
 			<div class="intro-text">
 				<div class="container">
-					
+					<!-- BLOQUE DE COOKIES -->
+         <div id="barraaceptacion" style="display: block;">
+		   <h:form>
+		    	<p class="credit">
+		        Solicitamos su permiso para obtener datos estadísticos de su navegación en esta web, en cumplimiento del Real 
+		        Decreto-ley 13/2012. Si continúa navegando consideramos que acepta el uso de cookies.
+		        <a href="javascript:void(0);" class="ok" onclick="PonerCookie();"><b>OK</b></a> | 
+		        <h:commandLink action="cookies" class="info">Más información</h:commandLink>
+		        </p>
+		    </h:form>
+		</div>
+		 
+		<script>
+		function getCookie(c_name){
+		    var c_value = document.cookie;
+		    var c_start = c_value.indexOf(" " + c_name + "=");
+		    if (c_start == -1){
+		        c_start = c_value.indexOf(c_name + "=");
+		    }
+		    if (c_start == -1){
+		        c_value = null;
+		    }else{
+		        c_start = c_value.indexOf("=", c_start) + 1;
+		        var c_end = c_value.indexOf(";", c_start);
+		        if (c_end == -1){
+		            c_end = c_value.length;
+		        }
+		        c_value = unescape(c_value.substring(c_start,c_end));
+		    }
+		    return c_value;
+		}
+		 
+		function setCookie(c_name,value,exdays){
+		    var exdate=new Date();
+		    exdate.setDate(exdate.getDate() + exdays);
+		    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+		    document.cookie=c_name + "=" + c_value;
+		}
+		 
+		if(getCookie('consolaaviso')!="1"){
+		    document.getElementById("barraaceptacion").style.display="block";
+		}
+		function PonerCookie(){
+		    setCookie('consolaaviso','1',365);
+		    document.getElementById("barraaceptacion").style.display="none";
+		}
+		</script>
+		<!--//FIN BLOQUE COOKIES--> 
 					<div class="row">					
 						<div class="col-md-offset-1 col-md-8" >
 							<div class="text-right">

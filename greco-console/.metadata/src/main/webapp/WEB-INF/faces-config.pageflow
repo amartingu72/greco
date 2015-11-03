@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14271136091620" configfile="/greco-console/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="228" id="pf14289161984610" referenceLink="//@navigationRule.10/@fromViewId|" outlinks="pf14289161984611 pf14289161984613 pf14289161984614 pf14315878339661" inlinks="pf14289161984618" path="/sections/login/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="228" id="pf14289161984610" referenceLink="//@navigationRule.10/@fromViewId|" outlinks="pf14289161984611 pf14289161984613 pf14289161984614 pf14315878339661 pf14465622428202" inlinks="pf14289161984618" path="/sections/login/login.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="/sections/admin/newaccount.xhtml" x="216" y="36" id="pf142891619846110" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf14289161984618 pf142891619846111" inlinks="pf14289161984611" path="/sections/admin/newaccount.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sites/reservations.xhtml" x="576" y="773" id="pf142891619846135" referenceLink="//@navigationRule.19/@fromViewId|" outlinks="pf14340073197350" path="/sites/reservations.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/admin/welcome.xhtml" x="468" y="36" id="pf142891619846143" referenceLink="//@navigationRule.11/@fromViewId|" outlinks="pf14323041523440" inlinks="pf142891619846111" path="/sections/admin/welcome.xhtml"/>
@@ -14,12 +14,13 @@
   <nodes xsi:type="pageflow:PFPage" name="sections/admin/newcommunity.xhtml" x="653" y="36" id="pf14323041523442" referenceLink="//@navigationRule.13/@fromViewId|" outlinks="pf14325479018291" inlinks="pf14323041523440 pf14323041523441" path="/sections/admin/newcommunity.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/admin/newcommunity_step2.xhtml" x="876" y="96" id="pf14325479018292" referenceLink="//@navigationRule.14/@fromViewId|" outlinks="pf14325479018290" inlinks="pf14325479018291" path="/sections/admin/newcommunity_step2.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sections/admin/newresource.xhtml" x="888" y="336" id="pf14326282733612" referenceLink="//@navigationRule.16/@fromViewId|" outlinks="pf14326282733611" inlinks="pf14326282733610" path="/sections/admin/newresource.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="sites/welcome.xhtml" x="60" y="564" id="pf14331508263320" referenceLink="//@navigationRule.24/@fromViewId|" outlinks="pf14331508263331 pf14332425122360 pf14389375133772 pf14289161984617 pf14441349573570" path="/sites/welcome.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sites/welcome.xhtml" x="98" y="564" id="pf14331508263320" referenceLink="//@navigationRule.24/@fromViewId|" outlinks="pf14331508263331 pf14332425122360 pf14389375133772 pf14289161984617 pf14441349573570 pf14465491473290" path="/sites/welcome.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sites/comnotfound.xhtml" x="389" y="684" id="pf14331508263332" referenceLink="//@navigationRule.17/@navigationCase.0/@toViewId|" inlinks="pf14331508263331" path="/sites/comnotfound.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sites/myreservations.xhtml" x="375" y="773" id="pf14340073197351" referenceLink="//@navigationRule.19/@navigationCase.0/@toViewId|" inlinks="pf14332425122360 pf14340073197350" path="/sites/myreservations.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sites/subscribeme.xhtml" x="405" y="588" id="pf14389375133773" referenceLink="//@navigationRule.22/@fromViewId|" outlinks="pf142891619846145" inlinks="pf14389375133772" path="/sites/subscribeme.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sites/editaccount.xhtml" x="53" y="804" id="pf14429190577530" referenceLink="//@navigationRule.23/@fromViewId|" outlinks="pf14429190577531" path="/sites/editaccount.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="sites/bye_page.xhtml" x="243" y="804" id="pf14429190577532" referenceLink="//@navigationRule.23/@navigationCase.0/@toViewId|" inlinks="pf14429190577531" path="/sites/bye_page.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="sections/cookies_policy.xhtml" x="74" y="401" id="pf14465491473291" inlinks="pf14465491473290 pf14465622428202" path="/sections/cookies_policy.xhtml"/>
   <links id="pf14289161984611" target="pf142891619846110" source="pf14289161984610" outcome="register" redirect="true"/>
   <links id="pf14289161984618" target="pf14289161984610" source="pf142891619846110" outcome="cancel" redirect="true"/>
   <links id="pf14289161984613" target="pf14290087771591" source="pf14289161984610" outcome="select" redirect="true"/>
@@ -45,4 +46,6 @@
   <links id="pf14389375133772" target="pf14389375133773" source="pf14331508263320" outcome="subscribeme"/>
   <links id="pf14429190577531" target="pf14429190577532" source="pf14429190577530" outcome="unsubscribed"/>
   <links id="pf14441349573570" target="pf142891619846148" source="pf14331508263320" outcome="pwd_forgotten"/>
+  <links id="pf14465491473290" target="pf14465491473291" source="pf14331508263320" outcome="cookies" redirect="true"/>
+  <links id="pf14465622428202" target="pf14465491473291" source="pf14289161984610" outcome="cookies" redirect="true"/>
 </pageflow:Pageflow>
