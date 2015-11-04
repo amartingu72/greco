@@ -89,6 +89,10 @@
 							<label for="myData">#{msgs['editaccount.my_data']}</label>
 							<h:outputText id="myData" readonly="true" class="form-control" value="#{editAccountBBean.application}"/>
 						</div>
+						<div class="form-group">
+				        	<p:selectBooleanCheckbox id="addsAccepted" value="#{editAccountBBean.adds}" />
+				        	<label for="addsAccepted">#{msgs['editaccount.add_accepted']}</label>
+				    	</div>
 						<div class="form-group text-right">
 							<h:commandLink value="#{msgs['editaccount.unsubscribeme']}" 
 								onclick="$('#myModal').appendTo('body').modal('show'); return false;"/>

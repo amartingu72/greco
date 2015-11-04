@@ -19,6 +19,7 @@ public class UserSBean implements Serializable{
 	private String email;
 	private String mydata;
 	private String password;
+	private boolean adds; //Indica si el usuario acepta o no el envío de consejos publicitarios.
 	
 	//Perfil en la comunidad que hizo login
 	private String profile;
@@ -41,6 +42,7 @@ public class UserSBean implements Serializable{
 		userItem.setMydata(mydata);
 		userItem.setNickname(nickname);
 		userItem.setProfile(profile);
+		userItem.setAdds(adds);
 		return userItem;
 	}
 	
@@ -99,6 +101,7 @@ public class UserSBean implements Serializable{
 			this.mydata=obj.getMydata();
 			this.nickname=obj.getNickname();
 			this.profile=obj.getProfile();
+			this.adds=obj.isAdds();
 		} 
 		 
 	}
@@ -134,6 +137,14 @@ public class UserSBean implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isAdds() {
+		return adds;
+	}
+
+	public void setAdds(boolean adds) {
+		this.adds = adds;
 	}
 	
 	

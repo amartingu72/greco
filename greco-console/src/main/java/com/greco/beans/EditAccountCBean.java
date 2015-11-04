@@ -50,6 +50,7 @@ public class EditAccountCBean implements Serializable{
 		userItem.setMydata(editAccountBBean.getMydata());
 		userItem.setNickname(editAccountBBean.getNickname());
 		userItem.setPassword(editAccountBBean.getPassword());
+		userItem.setAdds(editAccountBBean.isAdds());
 		
 		userDataProvider.save(userItem, editAccountBBean.isPwdUpdated());
 		
@@ -57,11 +58,12 @@ public class EditAccountCBean implements Serializable{
 		userSBean.setEmail(editAccountBBean.getEmail());
 		userSBean.setMydata(editAccountBBean.getMydata());
 		userSBean.setNickname(editAccountBBean.getNickname());
+		userSBean.setAdds(editAccountBBean.isAdds());
 				
 		//Preparamos el mensaje para el log.
 		String msg="NICKNAME(" + userSBean.getNickname() + " > " + editAccountBBean.getNickname() + ") ";
 		msg+="EMAIL(" + userSBean.getEmail() + " > " + editAccountBBean.getEmail() + ") ";
-		msg+="MYDATA("+ userSBean.getMydata() + " > " + editAccountBBean.getMydata() +") PWD_UPATED(" + editAccountBBean.isPwdUpdated() + ")";
+		msg+="MYDATA("+ userSBean.getMydata() + " > " + editAccountBBean.getMydata() +") PWD_UPATED(" + editAccountBBean.isPwdUpdated() + ") ADDS(" + userSBean.isAdds()+ " > " + editAccountBBean.isAdds()+ ")";
 		//Grabamos log
 		logger.log("005000",msg);//INFO|Cuenta modificada:
 		

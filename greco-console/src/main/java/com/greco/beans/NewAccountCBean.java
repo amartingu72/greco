@@ -38,12 +38,13 @@ public class NewAccountCBean {
 		userItem.setMydata(newAccountBBean.getMydata());
 		userItem.setNickname(newAccountBBean.getNickname());
 		userItem.setPassword(newAccountBBean.getPassword());
+		userItem.setAdds(newAccountBBean.isAdds());
 		//Creamos usuario
 		int userId=userDataProvider.addUser(userItem);
 				
 		//Creamos mensaje para log
 		//Preparamos el mensaje para el log.
-		String msg="ID(" + userId + "), NICK(" + userItem.getNickname() +"), EMAIL(" + userItem.getEmail() + ")"  ;
+		String msg="ID(" + userId + "), NICK(" + userItem.getNickname() +"), EMAIL(" + userItem.getEmail() + ") ADDS (" + userItem.isAdds() +")"  ;
 		//Grabamos log
 		logger.log("009000",msg);//INFO|Nuevo usuario (sin comunidad)
 				

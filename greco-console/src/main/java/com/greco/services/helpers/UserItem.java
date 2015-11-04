@@ -7,6 +7,7 @@ public class UserItem {
 	private String profile;
 	private String mydata;
 	private String password;
+	private boolean adds; //Aceptación de publicidad.
 	
 	public boolean isAdmin(){
 		
@@ -50,6 +51,14 @@ public class UserItem {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isAdds() {
+		return adds;
+	}
+
+	public void setAdds(boolean adds) {
+		this.adds = adds;
 	}
 	
 	

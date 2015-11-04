@@ -65,12 +65,14 @@ public class UserDataProviderImpl implements UserDataProvider{
 		user.setEmail(userItem.getEmail());
 		user.setMydata(userItem.getMydata());
 		user.setNickname(userItem.getNickname());
+		
 		if (pwdUpdated) {
 			//Generamos hash
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String hashedPassword = passwordEncoder.encode(userItem.getPassword());
 			user.setPassword(hashedPassword);
 		}
+		user.setAdds((byte) (userItem.isAdds() ? 1 : 0 ));
 		
 		usersRepository.saveUser(user);
 	}
@@ -125,6 +127,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userbean.setCommunityId(communityId);
 			userbean.setProfile(uc.getProfile().getProfile());
 			userbean.setPassword(user.getPassword());
+			userbean.setAdds(user.getAdds()!=0);
 			
 		}
 		
@@ -153,6 +156,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userbean.setMydata(user.getMydata());		
 			userbean.setCommunityId(UserSBean.UNDEFINED_COMMUNITY);
 			userbean.setPassword(user.getPassword());
+			userbean.setAdds(user.getAdds()!=0);
 		}
 		return userbean;
 	}
@@ -223,6 +227,8 @@ public class UserDataProviderImpl implements UserDataProvider{
 		user.setEmail(userItem.getEmail());
 		user.setMydata(userItem.getMydata());
 		user.setNickname(userItem.getNickname());
+		user.setAdds((byte) (userItem.isAdds() ? 1 : 0 ));
+		
 		
 		//Encriptamos
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -279,6 +285,8 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userItem.setNickname(user.getNickname());
 			userItem.setPassword(user.getPassword());
 			userItem.setProfile(USER_PROFILE);
+			userItem.setAdds(user.getAdds()!=0);
+			
 		}
 		return userItem;
 	}

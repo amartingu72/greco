@@ -60,6 +60,7 @@ public class UserCommunityDataProviderImpl implements UserCommunityDataProvider{
     	memberItem.setMydata(uc.getUser().getMydata());
     	memberItem.setNickname(uc.getUser().getNickname());
     	memberItem.setProfile(uc.getUser().getProfile());
+    	memberItem.setAdds(uc.getUser().getAdds()!=0);
     	
     	memberItem.setStatus(new StatusItem(uc.getStatus()));
     	

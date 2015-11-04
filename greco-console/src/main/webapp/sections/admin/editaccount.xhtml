@@ -55,7 +55,11 @@
 							redisplay="true" 
 							maxlength="16"
 							label="#{msgs['editaccount.pwdConfirm_label']}"/>
-					</div>				
+					</div>		
+					<div class="row form-group">
+				        <p:selectBooleanCheckbox id="addsAccepted" value="#{editAccountBBean.adds}" />
+				        <label for="addsAccepted">#{msgs['editaccount.add_accepted']}</label>
+				    </div>
 				</div>
 				<div class="col-md-offset-1 col-md-5">
 					<div class="row form-group">

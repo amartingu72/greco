@@ -24,7 +24,16 @@ public class EditAccountBBean implements Serializable{
 	private String dni;
 	private List<MemberItem> subscriptions;
 	private boolean pwdUpdated;
+	private boolean adds;
 	
+	public boolean isAdds() {
+		return adds;
+	}
+
+	public void setAdds(boolean adds) {
+		this.adds = adds;
+	}
+
 	private UserSBean userBean; //Inyectado
 	private UserCommunityDataProvider userCommunityDataProvider; //Inyectado
 	private List<ReservationItem> oldReservations;
@@ -43,6 +52,7 @@ public class EditAccountBBean implements Serializable{
         this.pwdUpdated=false;
         this.subscriptions=userCommunityDataProvider.getMyCommunities(userBean.getItem());
         this.searchCriteria=EditAccountCBean.LAST_30;
+        this.adds=userBean.isAdds(); 
         
         
 	}
