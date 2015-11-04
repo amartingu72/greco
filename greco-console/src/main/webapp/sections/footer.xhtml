@@ -8,10 +8,13 @@
 	<div class="col-md-12">
 		
 			<p>
-				#{msgs['footer.copyright']}<a
-				href="http://bootstraptaste.com">Bootstraptaste</a>
+				#{msgs['footer.copyright']}
 			</p>
-		
+			<div class="text-right">
+				<h:form>
+					<a href="#{request.contextPath}/faces/sections/legal_notice.xhtml">#{msgs['footer.legal_notice']}</a>
+				</h:form>
+			</div>
 	</div>
 </h:body>
 </html>
