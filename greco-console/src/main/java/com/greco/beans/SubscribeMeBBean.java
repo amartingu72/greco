@@ -19,6 +19,7 @@ public class SubscribeMeBBean {
 	private String mydata;
 	private String application;
 	int step; //Indica el paso en que nos encontramos
+	private boolean adds;
 	
 	
 	
@@ -29,6 +30,7 @@ public class SubscribeMeBBean {
 		communityId=Integer.parseInt(sCom);
 		String sStep=map.get("step");
 		step=Integer.parseInt(sStep); //Situamos al usuario en el primer paso indicado.
+		adds=false;
 	}
 	
 	
@@ -77,6 +79,18 @@ public class SubscribeMeBBean {
 	}
 	public void setApplication(String application) {
 		this.application = application;
+	}
+
+
+
+	public boolean isAdds() {
+		return adds;
+	}
+
+
+
+	public void setAdds(boolean adds) {
+		this.adds = adds;
 	}
 	
 }

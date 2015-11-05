@@ -67,6 +67,7 @@ public class SubscribeMeCBean {
 		userItem.setMydata(subscribeMeBBean.getMydata());
 		userItem.setNickname(subscribeMeBBean.getNickname());
 		userItem.setPassword(subscribeMeBBean.getPassword());
+		userItem.setAdds(subscribeMeBBean.isAdds());
 		//Creamos usuario
 		int userId=userDataProvider.addUser(userItem);
 		//Subscribimos el usuario a la comunidad.
