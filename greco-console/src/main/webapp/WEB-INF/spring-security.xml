@@ -7,13 +7,28 @@
  						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
  	
  	
- 	<security:http pattern="/faces/sections/admin/newaccount.xhtml" security="none"/>
+ 	
+
+ 	
  	<security:http auto-config="true" use-expressions="true">
-        <security:intercept-url pattern="/faces/sections/admin/**" access="hasRole('ROLE_ADMIN')" />      
+       
+        <security:intercept-url pattern="/faces/sections/admin/welcome.xhtml" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/faces/sections/admin/adm_reservations.xhtml" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/faces/sections/admin/editaccount.xhtml" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/faces/sections/admin/editcommunity.xhtml" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/faces/sections/admin/editmembers.xhtml" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/faces/sections/admin/editresource.xhtml" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/faces/sections/admin/newcommunity_step2.xhtml" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/faces/sections/admin/newcommunity.xhtml" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/faces/sections/admin/newresource.xhtml" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/faces/sections/admin/selectcom.xhtml" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/faces/sections/admin/sidebarleft.xhtml" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/faces/sections/admin/sidebarleft_opt.xhtml" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/faces/sections/admin/unsubscribe.xhtml" access="hasRole('ROLE_ADMIN')" />     
         <security:intercept-url pattern="/faces/sites/editaccount.xhtml" access="hasRole('ROLE_USER')" />
         <security:intercept-url pattern="/faces/sites/myreservations.xhtml" access="hasRole('ROLE_USER')" />
         <security:intercept-url pattern="/faces/sites/reservations.xhtml" access="hasRole('ROLE_USER')" />
-        <security:intercept-url pattern="/faces/sites/sidebarleft.xhtm." access="hasRole('ROLE_USER')" />
+        <security:intercept-url pattern="/faces/sites/sidebarleft.xhtml" access="hasRole('ROLE_USER')" />
           
         <security:form-login login-page="/faces/sections/error_page.xhtml"/>
         <security:logout
@@ -22,9 +37,9 @@
             success-handler-ref="customLogoutSuccessHandler" />
      </security:http>
      
-    <security:authentication-manager alias="authenticationManager">
+     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider user-service-ref="myUserDetailService">
         	<security:password-encoder hash="bcrypt" />	
         </security:authentication-provider>
-    </security:authentication-manager>
+     </security:authentication-manager>
 </beans:beans>

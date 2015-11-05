@@ -34,7 +34,7 @@
   <links id="pf14303806948810" target="pf14303806948812" source="pf14296925047010" outcome="editResource"/>
   <links id="pf14303806948811" target="pf14296925047010" source="pf14303806948812" outcome="back"/>
   <links id="pf14315878339661" target="pf14296925047010" source="pf14289161984610" outcome="edit"/>
-  <links id="pf14323041523440" target="pf14323041523442" source="pf142891619846143" outcome="new"/>
+  <links id="pf14323041523440" target="pf14323041523442" source="pf142891619846143" outcome="new" redirect="true"/>
   <links id="pf14323041523441" target="pf14323041523442" source="pf14290087771591" outcome="new"/>
   <links id="pf14325479018291" target="pf14325479018292" source="pf14323041523442" outcome="next"/>
   <links id="pf14325479018290" target="pf14296925047010" source="pf14325479018292" outcome="done"/>

@@ -139,6 +139,15 @@
 					        	<label for="addsAccepted">#{msgs['editaccount.add_accepted']}</label>	
 							</div>
 						</div>	
+						<div class="col-md-6">
+		           			<div class="form-group">	
+								<p:selectBooleanCheckbox id="termsAccepted" value="#{subscribeMeBBean.agree}">
+									<f:ajax execute=":step2Form:termsAccepted" render=":step2Form:nextBtn" event="change" />
+								</p:selectBooleanCheckbox>
+					        	<label for="addsAccepted">#{msgs['editaccount.terms_accepted']}</label>
+					        	<a href="#{request.contextPath}/faces/sections/legal_notice.xhtml" target="_blank">#{msgs['editaccount.terms']}</a> 
+							</div>
+						</div>	
 							
 					</div>
 				</div>
@@ -151,7 +160,7 @@
 					</div>
 					<div class="col-md-offset-6 col-md-2 btn-group">
             			<div class="text-right">
-            				<h:commandButton class="btn btn-lg btn-primary" value="#{msgs['subscribeme.next']}"
+            				<h:commandButton id="nextBtn" class="btn btn-lg btn-primary" value="#{msgs['subscribeme.next']}"
 								action="#{subscribeMeCBean.gotoStep3}"	/>
 						</div>
            			</div>

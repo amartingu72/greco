@@ -20,6 +20,8 @@ public class SubscribeMeBBean {
 	private String application;
 	int step; //Indica el paso en que nos encontramos
 	private boolean adds;
+	private boolean agree; //Acuerdo sobre términos y condiciones.
+	
 	
 	
 	
@@ -31,12 +33,26 @@ public class SubscribeMeBBean {
 		String sStep=map.get("step");
 		step=Integer.parseInt(sStep); //Situamos al usuario en el primer paso indicado.
 		adds=false;
+		agree=false;
+		 
 	}
 	
 	
 	
 	//GETTERs y SETTERs
 	
+	public boolean isAgree() {
+		return agree;
+	}
+
+
+
+	public void setAgree(boolean agree) {
+		this.agree = agree;
+	}
+
+
+
 	public int getCommunityId() {
 		return communityId;
 	}

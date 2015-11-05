@@ -74,7 +74,7 @@ public class NewAccountCBean {
 		userBean=this.userDataProvider.loadAdminCredentials(this.newAccountBBean.getEmail());
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userLogged", userBean);
 		logger.log("001000");//INFO|Intento exitoso de login como administrador.				
-        		
+        
 		
 		return "success";
 	}	

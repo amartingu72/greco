@@ -872,6 +872,7 @@
 		<navigation-case>
 			<from-outcome>new</from-outcome>
 			<to-view-id>/sections/admin/newcommunity.xhtml</to-view-id>
+			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
