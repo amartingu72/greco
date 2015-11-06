@@ -17,7 +17,7 @@ public class CommunitiesSBean implements Serializable{
 	
 	private static final long serialVersionUID = -2492929364241535103L;
 	
-	
+	private final int MAX_PER_USER=20;  //Si un usuario intenta crear una nueva comunidad pero es administrador en MAX_PER_USER comuninidades o más,  no podrá hacerlo.
 	
 	private List<CommunityItem> myCommunities;
 	private CommunityItem selectedItem=null;  //Comunidad seleccionada
@@ -46,6 +46,17 @@ public class CommunitiesSBean implements Serializable{
 		return myCommunities.contains(communityItem);
 		
 		
+	}
+	
+	/**
+	 * Indica si el número de communidaes que admnistra el usuario que inició la sesión supera el número máximo establecido.
+	 * @return
+	 */
+	public boolean isLimitExceeded(){
+		boolean ret=false;
+		if ( myCommunities != null)
+			ret=( myCommunities.size() > MAX_PER_USER);
+		return ret;
 	}
 	
 	/**

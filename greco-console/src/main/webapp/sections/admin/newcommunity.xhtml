@@ -11,7 +11,14 @@
 <h:body>
 	<ui:composition template="../../templates/admin2_layout.xhtml">
 		<ui:define name="content">
-			<h:form id="editCommForm">
+			<div class="row">
+				<div class="col-md-offset-1 col-md-10">
+					<p style="display:#{communitiesSBean.limitExceeded?'block':'none'};">
+						<span>#{msgs['newcommunity.exceeded']}</span>
+					</p>
+				</div>
+			</div>
+			<h:form id="editCommForm" style="display:#{communitiesSBean.limitExceeded?'none':'block'};">
 				
 				<h:inputHidden id="id" value="#{newCommunityBBean.id}"/>
 				<div class="row">
