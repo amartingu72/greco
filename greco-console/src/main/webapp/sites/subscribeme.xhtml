@@ -160,7 +160,7 @@
 					</div>
 					<div class="col-md-offset-6 col-md-2 btn-group">
             			<div class="text-right">
-            				<h:commandButton id="nextBtn" class="btn btn-lg btn-primary" value="#{msgs['subscribeme.next']}"
+            				<h:commandButton id="nextBtn" class="btn btn-lg btn-primary" disabled="#{!subscribeMeBBean.agree}" value="#{msgs['subscribeme.next']}"
 								action="#{subscribeMeCBean.gotoStep3}"	/>
 						</div>
            			</div>

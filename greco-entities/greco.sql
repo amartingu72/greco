@@ -7,7 +7,7 @@ create table users (
 	profile varchar (32) not null DEFAULT 'USER',
 	mydata varchar(256),
 	password varchar(16),
-	adds available TINYINT not null
+	adds TINYINT not null default 0
 );
 
 create table countries (
