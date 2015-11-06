@@ -1022,5 +1022,10 @@
 		<validator-id>com.greco.validators.ZipcodeValidator</validator-id>
 		<validator-class>com.greco.validators.ZipcodeValidator</validator-class>
 	</validator>
+	<validator>
+		<description>Comprueba en un checkbox que, en efecto, se ha marcado el check.</description>
+		<validator-id>com.greco.validators.RequiredCheckboxValidator</validator-id>
+		<validator-class>com.greco.validators.RequiredCheckboxValidator</validator-class>
+	</validator>
 
 </faces-config>

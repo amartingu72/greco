@@ -80,7 +80,18 @@
 						<p:message for="pwd" id="pwdError" />
 					</div>
 				</div>
-				
+				<div class="col-md-6">
+					<div class="form-group">
+            			<p:captcha id="myCapthcha" 
+            				languaje="es"
+            				label="#{msgs['newaccount.nobot']}" 
+            				requiredMessage="#{msgs['newaccount.nobot_retry']}"
+            				validatorMessage="#{msgs['newaccount.nobot_error']}"
+            				/>
+            			<p:message for="myCapthcha" />
+    					
+            		</div>
+            	</div>
 				
 			</div>
 			
@@ -92,6 +103,7 @@
 						<p:message for="passwordConfirm" id="passwordConfirmError" />
 					</div>
             	</div>
+            	
             </div>
             <div class="row">
             	<div class="col-md-offset-1 col-md-4">
@@ -105,11 +117,13 @@
 				<div class="col-md-6">
 		
 	           		<div class="form-group">	
-						<p:selectBooleanCheckbox id="termsAccepted" value="#{newAccountBBean.agree}">
-							<f:ajax execute=":newAccountForm:termsAccepted" render=":newAccountForm:nextBtn" event="change" />
-						</p:selectBooleanCheckbox>
-				        <label for="addsAccepted">#{msgs['editaccount.terms_accepted']}</label>
-				        <a href="#{request.contextPath}/faces/sections/legal_notice.xhtml" target="_blank">#{msgs['editaccount.terms']}</a> 
+						<p:selectBooleanCheckbox id="termsAccepted" value="#{newAccountBBean.agree}"
+							required="true"
+							requiredMessage="#{msgs['newaccount.terms_check_required']}"
+							validator="com.greco.validators.RequiredCheckboxValidator"/>							
+				        <label for="termsAccepted">#{msgs['editaccount.terms_accepted']}</label>
+				        <a href="#{request.contextPath}/faces/sections/legal_notice.xhtml" target="_blank">#{msgs['editaccount.terms']}</a>
+				        <p:message for="termsAccepted"/> 
 				        
 					</div>
 				</div>	
@@ -120,7 +134,7 @@
 			<div class="row">
 				<div class="col-md-offset-1 col-md-10">
 					<div class="text-right">
-							<h:commandButton id="nextBtn" disabled="#{!newAccountBBean.agree}" class="btn btn-primary" value="#{msgs['newaccount.save_btn']}" 
+							<h:commandButton id="nextBtn" class="btn btn-primary" value="#{msgs['newaccount.save_btn']}" 
 								action="#{newAccountCBean.submit}"	/>
 					</div>
 				</div>

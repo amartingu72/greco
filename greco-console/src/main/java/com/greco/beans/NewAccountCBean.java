@@ -31,7 +31,8 @@ public class NewAccountCBean {
 	 * Crea un usuario.
 	 * @return
 	 */
-	public String submit() {
+	public String submit() {		
+		
 		//Creamos el usuario administrador
 		UserItem userItem=new UserItem();
 		userItem.setEmail(newAccountBBean.getEmail());

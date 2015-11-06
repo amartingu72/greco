@@ -130,6 +130,18 @@
 								<p:message for="passwordConfirm" id="passwordConfirmError" />
 							</div>
 						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+            					<p:captcha id="myCapthcha" 
+            						languaje="es"
+            						label="#{msgs['newaccount.nobot']}" 
+            						requiredMessage="#{msgs['newaccount.nobot_retry']}"
+            						validatorMessage="#{msgs['newaccount.nobot_error']}"
+            					/>
+            					<p:message for="myCapthcha" />
+    					
+            				</div>
+            			</div>
 	
 					</div>
 					 <div class="row">
@@ -141,11 +153,14 @@
 						</div>	
 						<div class="col-md-6">
 		           			<div class="form-group">	
-								<p:selectBooleanCheckbox id="termsAccepted" value="#{subscribeMeBBean.agree}">
-									<f:ajax execute=":step2Form:termsAccepted" render=":step2Form:nextBtn" event="change" />
-								</p:selectBooleanCheckbox>
-					        	<label for="addsAccepted">#{msgs['editaccount.terms_accepted']}</label>
+								<p:selectBooleanCheckbox id="termsAccepted" value="#{subscribeMeBBean.agree}"
+									required="true"
+									requiredMessage="#{msgs['newaccount.terms_check_required']}"
+									validator="com.greco.validators.RequiredCheckboxValidator"/>
+								
+					        	<label for="termsAccepted">#{msgs['editaccount.terms_accepted']}</label>
 					        	<a href="#{request.contextPath}/faces/sections/legal_notice.xhtml" target="_blank">#{msgs['editaccount.terms']}</a> 
+					        	<p:message for="termsAccepted"/>
 							</div>
 						</div>	
 							
@@ -160,7 +175,7 @@
 					</div>
 					<div class="col-md-offset-6 col-md-2 btn-group">
             			<div class="text-right">
-            				<h:commandButton id="nextBtn" class="btn btn-lg btn-primary" disabled="#{!subscribeMeBBean.agree}" value="#{msgs['subscribeme.next']}"
+            				<h:commandButton id="nextBtn" class="btn btn-lg btn-primary" value="#{msgs['subscribeme.next']}"
 								action="#{subscribeMeCBean.gotoStep3}"	/>
 						</div>
            			</div>
