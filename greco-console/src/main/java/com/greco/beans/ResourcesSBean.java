@@ -19,7 +19,7 @@ import com.greco.services.helpers.ResourceItem;
 public class ResourcesSBean implements Serializable {
 	
 	private static final long serialVersionUID = 6944498142528394204L;
-	
+	private static final int MAX_RESOURCES=30;
 	
 	private List<ResourceItem> myResources;
 	private ResourceItem selectedResource;
@@ -29,6 +29,14 @@ public class ResourcesSBean implements Serializable {
 	
 	//Creamos este índice para llevar una cuenta de los recursos nuevos sin persistencia aún en BD. Su numeración és negativa: -1, -2 ....
 	private int index;
+	
+	/**
+	 * Indica si el número de recursos por comunidad está en el límite o lo ha excedido.
+	 * @return
+	 */
+	public boolean isLimitExceeded(){
+		return myResources.size()>=MAX_RESOURCES;
+	}
 	
 	/**
 	 * Marca como actualizado el recurso en la lista de recursos.

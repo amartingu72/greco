@@ -123,13 +123,23 @@ public class EditCommunityCBean {
 	}
 	
 	/**
-	 * Abre el dialogo para crear un nuevo recurso.
+	 * Abre el dialogo para crear un nuevo recurso y el número de recursos de la
+	 * comunindad no excede del del máximo previsto.
 	 * @return Resultado para navegación.
 	 */
 	public String addResource() 
 	{
-		String result="add";		
-		return result;
+		String ret=null;
+		if ( resourcesSBean.isLimitExceeded() ) {
+			//Mostramos el mensaje de la página
+			FacesMessage message = new FacesMessage();
+	        message.setDetail(Warnings.getString("editcommunity.resources_exceeded_details"));
+	        message.setSummary(Warnings.getString("editcommunity.resources_exceeded"));
+	        message.setSeverity(FacesMessage.SEVERITY_INFO);
+			FacesContext.getCurrentInstance().addMessage("editCommForm:growl", message);
+		}
+		else ret="add";		
+		return ret;
 	}
 	
 	
