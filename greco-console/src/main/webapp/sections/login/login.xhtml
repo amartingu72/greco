@@ -28,8 +28,7 @@
 			<ul class="dl-menu">
 				<li><a href="#i">Inicio</a></li>
 				<li><a href="#services">Características</a></li>
-				<li><a href="#about">Nosotros</a></li>
-				<li><a href="#works">Casos de uso</a></li>
+				<li><a href="#faqs">FAQs</a></li>
 				<li><a href="#contact">Contacto</a></li>
 				
 			</ul>
@@ -91,70 +90,33 @@
 		<!--//FIN BLOQUE COOKIES--> 
 					<div class="row">					
 						<div class="col-md-offset-1 col-md-8" >
-							<!-- <div class="text-right">
-								<ui:include src="/sections/logo.xhtml"/>
-							</div>
-							<p class="text-center mar-top50"><span>Gestión de reservas de espacios físicos o temporales</span></p>
-							
-							Carrusel	
-							<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-								Indicators
-								<ol class="carousel-indicators">
-									<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-								    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-								    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-								</ol>
-								
-								Wrapper for slides
-								<div class="carousel-inner" role="listbox">
-								 	<div class="item active">
-								 		<h:graphicImage library="img" name="meeting_room.jpg" />								
-								    </div>
-								    <div class="item">
-								      	<h:graphicImage library="img" name="appointment.jpg" />		
-								    </div>
-								    <div class="item">
-								     	<h:graphicImage library="img" name="sports.jpg"/>		
-								    </div>
-								  </div>
-							</div>
-							Fin carrusel
-							<p class="text-center bg-info text-primary"><span>100% gratuito</span></p>
-							<div class="text-center mar-top30 ">
-				
-								
-								<ul class="social-network">
-									<li><a href="#"> <span class="fa-stack fa-2x"> <i
-												class="fa fa-circle fa-stack-2x"></i> <i
-												class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-										</span></a></li>
-									<li><a href="#"> <span class="fa-stack fa-2x"> <i
-												class="fa fa-circle fa-stack-2x"></i> <i
-												class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-										</span></a></li>
-									<li><a href="#"> <span class="fa-stack fa-2x"> <i
-												class="fa fa-circle fa-stack-2x"></i> <i
-												class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-										</span></a></li>
-									
-								</ul>
-							</div> -->
-			
 							<div id="intro">
-	  
-								<div class="intro-text">
-												
-												<div class="brand">	
-													<a href="index.html">
-													<ui:include src="/sections/logo.xhtml"/>
-													</a>
-													<div class="line-spacer"></div>
-													<p><span>Awesome Bootstrap template</span></p>
-												</div>
-											
-									
+								<div class="intro-text">					
+									<div class="brand">	
+										
+										<ui:include src="/sections/logo.xhtml"/>
+										<h5 class=" text-center text-primary">100% gratuito</h5>
+										<p><span>Sistema de gestión de reservas para espacios compartidos.</span></p>
+										<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">				
+											<ol class="carousel-indicators">
+												<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+											    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+											    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+											</ol>
+											<div class="carousel-inner" role="listbox">
+											 	<div class="item active">
+											 		<h:graphicImage library="img" name="meeting_room.jpg" />								
+											    </div>
+											    <div class="item">
+											      	<h:graphicImage library="img" name="appointment.jpg" />		
+											    </div>
+											    <div class="item">
+											     	<h:graphicImage library="img" name="sports.jpg"/>		
+											    </div>
+											  </div>
+										</div>												
+									</div>									
 		 						</div>
-			
 							 </div>
 						</div>
 						<div class="col-md-3" >
@@ -195,16 +157,12 @@
 									<h:commandButton id="newAccountBtn" class="btn btn-theme btn-sm" value="#{msgs['login.new_account']}" action="#{loginCBean.register}">
 										<f:param name="community_id" value="#{loginBBean.communityId}"/>
 									</h:commandButton>
-								
-							</div>
-								
-							</h:form>
-						</div>
+							</div>							
+						</h:form>
 					</div>
-					
-					
-				</div>
-		 	</div>	
+				</div>		
+			</div>
+		 </div>	
 	 </div>
 	 
 		
@@ -226,7 +184,7 @@
 				</div>
 				<div class="col-md-6">
 					<h5 class="text-primary">Crea y administra tus comunidades desde esta misma web</h5>
-					<p><span>Cuando creas tu comunidad se crear una URL específica. Envíasela a quien quieras invitar a tu comunidad. Si embargo la administración de todas tus comunidades accediendo desde <a href="#">www.alnura.es</a></span></p>
+					<p><span>Cuando creas tu comunidad se crear una URL específica. Envíasela a quien quieras invitar a tu comunidad; sin embargo, la administración de todas tus comunidades accediendo desde <a href="#">www.alnura.es</a></span></p>
 					<h5 class="text-primary mar-top40">Suscripción inmediata o con aprobación</h5>
 					<p><span>Elige si prefieres confirmar indidualmente cada suscripción en función de algún dato que te faciliten o permitir que empiecen a reservar tras darse de alta.</span></p>
 				</div>				
@@ -250,10 +208,18 @@
 	
 	<section id="sites" class="home-section bg-white">
 		<div class="row">
+				<div class="col-md-offset-1 col-md-10">
+					<div class="section-heading">
+						<h3 class="text-center text-primary">Cada communidad tiene su propia web</h3>
+						<p class="text-center">Tus miembros podrán hacer reservas, ver los recursos disponibles, sus condiciones de reserva, gestionar su cuenta...<span></span></p>
+					</div>
+				</div>
+		</div>
+		<div class="row">
 			<div class="col-md-offset-1 col-md-5">
-				<h5 class="text-primary">Así queda una web de comunidad</h5>
+				<h5 class="text-primary">Ejemplo de web de comunidad</h5>
 				<ol>
-					<li>Los textos proceden de tu configuración de comunindad.</li>
+					<li>Los textos proceden de tu configuración de comunidad.</li>
 					<li>Las imágenes del carrusel dependen de los recursos que hayas configurado.</li>
 					<li>Los usuarios pueden suscribirse o contactar con los administradores de la comunidad mediante un formulario.</li>	
 				</ol>
@@ -265,7 +231,7 @@
 		<div class="line-spacer"></div>
 		<div class="row">
 			<div class="col-md-offset-1 col-md-5">
-				<h5 class="text-primary">...esta es su página principal</h5>
+				<h5 class="text-primary">Página principal de un miembro</h5>
 				<ol>
 					<li>Las reservas se confirman como un todo, pudiendo permanecer en cesta (pre-reserva), un máximo de 15 minutos.</li>
 					<li>Las reservas confirmadas se pueden cancelar siempre que no hayan iniciado.</li>
@@ -279,7 +245,7 @@
 		<div class="line-spacer"></div>
 		<div class="row">
 			<div class="col-md-offset-1 col-md-5">
-				<h5 class="text-primary">...y así consulta las reservas disponibles. </h5>
+				<h5 class="text-primary">Búsqueda de disponibilidad</h5>
 				<ol>
 					<li>La configuración de cada recurso define el calendario disponible.</li>
 					<li>Cada reserva realizada de uno o varios recursos se acumula en un "carrito".</li>
@@ -293,12 +259,249 @@
 				
 		</div>
 	</section>
+	
+	<!-- spacer 2 -->
+	<section id="spacer1" class="home-section spacer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="color-light">
+						<h2 class="wow bounceInDown" data-wow-delay="1s">Creamos aplicaciones para todos.</h2>
+						<p class="lead wow bounceInUp" data-wow-delay="2s">Nos nutrimos de las ideas de nuestros usuarios.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+  	
+  	<section id="faqs" class="home-section bg-gray">
+  		<div class="row">
+				<div class="col-md-offset-2 col-md-8">
+					<div class="section-heading">
+						<h3 class="text-center text-primary">FAQs</h3>
+						<p class="text-center"><span>Preguntas frecuentes</span></p>
+					</div>
+				</div>
+			</div>
+  		<div class="row">
+  			<div class="col-md-offset-2 col-md-8">
+  	
+			  	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingTwo">
+				      <p class="panel-title">
+				      
+				        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+				          ¿De verdad es 100% gratuito?
+				        </a>
+				      </p>
+				   	</div>
+				    
+				    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+				      <div class="panel-body">
+				        Si. Si alguna vez encuentras alguna limitación a la hora de añadir comunidades o recursos es únicamente por motivos de seguridad (evitar esos malditos ataques de ‘bots’), pero cuéntanos tu caso y te ayudaremos a seguir creciendo. Aún así es difícil que llegues al límite establecido.
+				      </div>
+				    </div>
+				  </div>
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingTwo">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+				          ¿Cómo se sostiene económicamente este sitio?
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+				      <div class="panel-body">
+				        Este sitio no tiene apenas costes ya que está hecho por completo con software libre y aprovecha recursos gratuitos de Internet. Eso sí, tiene horas y horas de programación pero, como "sarna con gusto no pica"...   
+				      </div>
+				    </div>
+				  </div>
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingThree">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+				       		¿Cómo sé que hay alguien que mantiene este sitio?
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+				      <div class="panel-body">
+				        Utilizamos GitHub. Si tienes curiosidad, puedes registrarte y ver en qué estamos trabajando, cuando se salen nuevas versiones, su contenido, etc. Si has contactado con nosotros para pedirnos algo y hemos aceptado tu petición, aunque te mantendremos informado por correo, podrás ver cómo se desarrolla tu petición, interactuar con el equipo de desarrollo, etc.
+				      </div>
+				    </div>
+				  </div>
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingfour">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsefour" aria-expanded="false" aria-controls="collapsefour">
+				       		¿Puedo exportar los datos de mi comunidad y sus miembros?
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapsefour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingfour">
+				      <div class="panel-body">
+				        En este momento no tenemos la opción disponible pero puedes contactar con nosotros y te los remitiremos en un formato de texto que puedas tratar. Lo único que no podemos facilitarte son datos personales de los miembros, es decir ni el email ni la contraseña. Bueno, en el caso de la contraseña, al estar cifrada, tampoco la podemos saber.
+				      </div>
+				    </div>
+				  </div>
+				  <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingfive">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsefive" aria-expanded="false" aria-controls="collapsefive">
+				       		No encuentro en la lista el tipo de recurso que tengo en mi comunidad.
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapsefive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingfive">
+				      <div class="panel-body">
+				        El tipo de recurso tiene una función estadística que nos orienta a la hora de crear nuevas funcionalidades o de dar prioridad de unas sobre otras. Si tienes un tipo nuevo, contacta con nosotros y te lo ponemos de inmediato. Estoy seguro que sois capaces de encontrar muchos más usos que nosotros.  
+				      </div>
+				    </div>
+				   <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingsix">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsesix" aria-expanded="false" aria-controls="collapsesix">
+				       		 ¿Qué pasa si pongo mi comunidad como “no disponible”?
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapsesix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingsix">
+				      <div class="panel-body">
+				        La página de comunidad sigue existiendo pero cuando sus miembros quieran acceder les aparecerá un mensaje indicando que la comunidad ha sido bloqueada temporalmente.  
+				      </div>
+				    </div>
+				   </div>
+				   <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingseven">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseseven" aria-expanded="false" aria-controls="collapseseven">
+				       		Si prefiero aprobar las suscripciones antes de que un miembro pueda reservar, ¿en qué me baso para admitirle o no?
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapseseven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingseven">
+				      <div class="panel-body">
+				        Cuando alguien quiere suscribirse a tu comunidad puede introducir un texto. Pídele que incluya algo que sea significativo para ambos.  
+				      </div>
+				    </div>
+				   </div>
+				   <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingeight">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeight" aria-expanded="false" aria-controls="collapseeight">
+				       		¿Puedo hacer que un miembro no pueda reservar?
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapseeight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeight">
+				      <div class="panel-body">
+				        Siendo administrador de la comunidad, tienes dos opciones:
+				        <ul>
+							<li>Ponle en espera. No podrá reservar pero puedes volver a habilitarlo cuando desees sin que tenga que volver a suscribirse.</li>
+							<li>Dale de baja. En este caso, sí tendrá que volver a suscribirse si quiere reincorporarse.</li>
+						</ul>
+						En ambos casos, enviaremos un correo al “afectado”, para que no le pille por sorpresa.
   
-  	  
+				      </div>
+				    </div>
+				   </div>
+				   <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingnine">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsenine" aria-expanded="false" aria-controls="collapsenine">
+				       		¿Tengo que ser siempre administrador de las comunidades de creo?
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapsenine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingnine">
+				      <div class="panel-body">
+				        No. Es cierto que cuando creas una comunidad, además de único miembro, eres el administrador. Una vez se incorporen nuevos miembros, puedes nombrarles administradores e incluso dejar de serlo tú mismo. La única restricción es que toda comunidad debe tener, al menos, un administrador.  
+				      </div>
+				    </div>
+				   </div>
+				   <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingten">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseten" aria-expanded="false" aria-controls="collapseten">
+				       		¿Quién puede ver mi dirección de correo?
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapseten" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingten">
+				      <div class="panel-body">
+				        Nadie. Las comunicaciones se realizan a través de una cuenta del propio sistema. En el caso de que alguien quiera contactar con el adminsitrador de una comunidad se envía un correo a todos los administradores con los datos de contacto del usuario. Queda a criterio de cada administrador si quiere o no responderle.<br/>
+						Desde Alnura, se podrían enviar comunicaciones publicitarias si nos lo permites. Con esto se financian los costes. De momento, no vamos a hacerlo (12 nov. 2015).
+				      </div>
+				    </div>
+				   </div>
+				   <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingeleven">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseeleven" aria-expanded="false" aria-controls="collapseeleven">
+				       		¿Puedo decido integrar este sistema en mi web?
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapseeleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingeleven">
+				      <div class="panel-body">
+				        Esta es una de nuestras ideas futuras. Cuéntanos tu caso y buscaremos la mejor manera. Si entendemos que tu caso es interesante en el sentido de que pueda beneficiar a un alto número de usuario, los incluiremos en nuestro plan de producto.  
+				      </div>
+				    </div>
+				   </div>
+				   <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingtwelve">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsetwelve" aria-expanded="false" aria-controls="collapsetwelve">
+				       		¿Puedo cobrar las reservas con TPV virtual?
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapsetwelve" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingtwelve">
+				      <div class="panel-body">
+				        No. Esto no haría incurrir en costes que no nos permitiría proporcionar un servicio gratuito. De todas formas, cuéntanos tu caso. Igual tienes una propuesta interesante que no se nos había ocurrido.  
+				      </div>
+				    </div>
+				   </div>
+				   <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingthirteen">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsethirteen" aria-expanded="false" aria-controls="collapsethirteen">
+				       		¿Puedo generar un ticket que justifique la reserva realizada?
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapsethirteen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingthirteen">
+				      <div class="panel-body">
+				        No imprimimos un ticket pero, al confirmar la reserva el sistema envía un correo electrónico de confirmación a quien realizó la reserva.  
+				      </div>
+				    </div>
+				   </div>
+				   <div class="panel panel-default">
+				    <div class="panel-heading" role="tab" id="headingfourteen">
+				      <p class="panel-title">
+				        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsefourteen" aria-expanded="false" aria-controls="collapsefourteen">
+				       		¿Puedo tener más de una comunidad?
+				        </a>
+				      </p>
+				    </div>
+				    <div id="collapsefourteen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingfourteen">
+				      <div class="panel-body">
+				        Puedes crear y ser administrador de tantas como necesites. Al acceder a la consola (<a href="#">www.alnura.es</a>), es sistema se dará cuenta de que tienes más de una y elegirás cual deseas administrar en cada caso.  
+				      </div>
+				    </div>
+				   </div>
+				   
+				  </div>
+				</div>
+  	
+  			</div>
+  		</div>
+  	</section>  <!-- Fin FAQs -->
   
 		
 	<!-- Works -->
-	<section id="works" class="home-section bg-white">
+	<!-- <section id="works" class="home-section bg-white">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-offset-2 col-md-8">
@@ -432,7 +635,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 
 	<!-- spacer 2 -->
 	<section id="spacer2" class="home-section spacer">
