@@ -315,11 +315,9 @@ public class MailProviderImpl implements MailProvider {
 			admin=it.next();
 			String content=getString("content.greeting") + admin.getNickname() + ":";
 			content+=getString("adminmsg.text1");
-			
-			
-			
-			content+=message + "\n\n";
-			
+	
+			content+=message;
+			content+=getString("adminmsg.text2") + email.toString() +"\n\n";
 			
 			content+=getString("signature.admin");
 			content+=getString("signature.locale_reference") + communityItem.getId(); //URL de la comunidad.
