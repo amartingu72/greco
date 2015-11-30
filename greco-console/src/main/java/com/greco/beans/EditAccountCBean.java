@@ -115,6 +115,7 @@ public class EditAccountCBean implements Serializable{
 	 * Búsqueda de reservas según criterio (página de site)
 	 */
 	public String searchLocalReservations(){
+		editAccountBBean.setSearchMessage("");
 		switch (editAccountBBean.getSearchCriteria()) {
 		case LAST_30:
 			editAccountBBean.setOldReservations(this.rerservationDataProvider.getOldReservations(
@@ -132,6 +133,11 @@ public class EditAccountCBean implements Serializable{
 					communityDataProvider.getCommunityById(userSBean.getCommunityId())));
 				
 		}
+		//Si no se recupera ninguna, muestro un mensaje.
+		if ( editAccountBBean.oldReservationsRetrieved() == 0 ){
+			editAccountBBean.setSearchMessage(Warnings.getString("editaccount.no_data_details"));
+		}
+			
 		return null;
 		
 	}

@@ -116,6 +116,7 @@
 									
 								</h:commandButton>			
 							</div>
+			
 							<h:dataTable class="table table-condensed table-hover mar-top30" id="oldReservationsTable" var="reservation"
 								value="#{editAccountBBean.oldReservations}">
 								
@@ -133,6 +134,7 @@
 								</h:column>
 								
 							</h:dataTable>
+							<h:outputText value="#{editAccountBBean.searchMessage}" />
 						</div>
 												
 					</div>

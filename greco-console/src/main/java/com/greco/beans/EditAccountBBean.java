@@ -25,7 +25,16 @@ public class EditAccountBBean implements Serializable{
 	private List<MemberItem> subscriptions;
 	private boolean pwdUpdated;
 	private boolean adds;
+	private String searchMessage;  //Solo sirve para que, en caso de que la búsqueda de reservas no devuelva valor, se muestre un mensaje indicandolo.
 	
+	public String getSearchMessage() {
+		return searchMessage;
+	}
+
+	public void setSearchMessage(String searchMessage) {
+		this.searchMessage = searchMessage;
+	}
+
 	public boolean isAdds() {
 		return adds;
 	}
@@ -55,6 +64,10 @@ public class EditAccountBBean implements Serializable{
         this.adds=userBean.isAdds(); 
         
         
+	}
+	
+	public int oldReservationsRetrieved(){
+		return oldReservations.size();
 	}
 	
 	public List<ReservationItem> getOldReservations() {
