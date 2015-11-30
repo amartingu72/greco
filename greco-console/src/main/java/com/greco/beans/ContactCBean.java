@@ -30,32 +30,41 @@ public class ContactCBean {
 	private MailProvider mailProvider; //Inyectado
 	
 	public String sendMessage(){
-		EMail email=new EMail(contactBBean.getEmail());
+		EMail email=new EMail(contactBBean.getEmail().trim());
 		if ( email.isOk() ) {
-			//Enviar correo
-			contactBBean.setCollapsed(true);		
-			
-			CommunityItem communityItem=loginBBean.getCommunityItem();
-			try {
-				mailProvider.sendMessageToAdmin(userCommunityDataProvider.getAdmindList(communityItem), email, communityItem, contactBBean.getMessage());
+			if ( (contactBBean.getMessage()==null) || contactBBean.getMessage().trim().equals("") ){  //El mensaje no puede ser vacío
+				contactBBean.setCollapsed(false);
+				//Poner mensaje indicando que hay un problema.
 				FacesContext context = FacesContext.getCurrentInstance();
-		        context.addMessage("mainForm:contactEmail",new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("contact.sent"),  
-		        		Warnings.getString("contact.sent_details") ) );
-		        this.contactBBean.clear();  //Vaciamos el contenido.
-		        
-			} catch (MessagingException e) {
-				
-				e.printStackTrace();
-				FacesContext context = FacesContext.getCurrentInstance();
-		        context.addMessage("mainForm:contactEmail",new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("contact.email_error"),  
-		        		Warnings.getString("contact.email_error_details") ) );
-		        		
-		        //Preparamos log
-		        String msg="(EMAIL)" + email.toString() + " (MSG) " + contactBBean.getMessage();		
-		        log.log("015000",msg);//INFO|Error al enviar un mensaje a los adminstradores
+		        context.addMessage("mainForm:contactEmail",new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("contact.empty_msg"),  
+		        		Warnings.getString("contact.empty_msg_details") ) );
 			}
+			else {
 			
-	     
+				//Enviar correo
+				contactBBean.setCollapsed(true);		
+				
+				CommunityItem communityItem=loginBBean.getCommunityItem();
+				try {
+					mailProvider.sendMessageToAdmin(userCommunityDataProvider.getAdmindList(communityItem), email, communityItem, contactBBean.getMessage());
+					FacesContext context = FacesContext.getCurrentInstance();
+			        context.addMessage("mainForm:contactEmail",new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("contact.sent"),  
+			        		Warnings.getString("contact.sent_details") ) );
+			        this.contactBBean.clear();  //Vaciamos el contenido.
+			        
+				} catch (MessagingException e) {
+					
+					e.printStackTrace();
+					FacesContext context = FacesContext.getCurrentInstance();
+			        context.addMessage("mainForm:contactEmail",new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("contact.email_error"),  
+			        		Warnings.getString("contact.email_error_details") ) );
+			        		
+			        //Preparamos log
+			        String msg="(EMAIL)" + email.toString() + " (MSG) " + contactBBean.getMessage();		
+			        log.log("015000",msg);//INFO|Error al enviar un mensaje a los adminstradores
+				}
+			
+			}
 	        
 		}
 		else {

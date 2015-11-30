@@ -153,7 +153,6 @@
 			         			<label for="contactEmail">eMail</label>
 			         			<p:inputText id="contactEmail" class="form-control" value="#{contactBBean.email}"
 			         				placeholder="Introduce tu email"
-			         			
 									label="#{msgs['editaccount.email']}"
 									maxlength="64">
 								</p:inputText>
@@ -163,7 +162,7 @@
 			         		<div class="form-group">
 			         			<label for="notes">Mensaje</label>
 								<p:inputTextarea class="form-control" id="notes" value="#{contactBBean.message}"
-									rows="5" cols="58" maxlength="255" counter="display"
+									rows="5" cols="58" maxlength="255" counter="display" 
 									counterTemplate="#{msgs['editaccount.remaining_chars']}" />
 								<p:outputLabel id="display" />
 								
