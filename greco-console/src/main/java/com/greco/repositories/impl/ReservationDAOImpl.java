@@ -72,8 +72,9 @@ public class ReservationDAOImpl implements ReservationDAO {
 	public List<Reservation> loadTakenReservations(int userId, int commnityId) {
 		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and r.resource.community.id=:commId and r.toDate>=:now and r.status=:status", Reservation.class );
 		
+		
 		query.setParameter("userId", userId);
-		query.setParameter("now",Calendar.getInstance(),TemporalType.TIMESTAMP);
+		query.setParameter("now",Calendar.getInstance().getTime(),TemporalType.TIMESTAMP);
 		query.setParameter("status", IReservationStatus.TAKEN);
 		query.setParameter("commId",commnityId);
 		
@@ -117,7 +118,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 		Query query=em.createQuery( "select r from Reservation as r where r.user.id=:userId and r.resource.community.id=:commId and r.toDate>=:now and r.status=:status", Reservation.class );
 		
 		query.setParameter("userId", userId);
-		query.setParameter("now",Calendar.getInstance(),TemporalType.DATE);
+		query.setParameter("now",Calendar.getInstance().getTime(),TemporalType.TIMESTAMP);
 		query.setParameter("status",IReservationStatus.LOCKED);
 		query.setParameter("commId",commnityId);
 			
