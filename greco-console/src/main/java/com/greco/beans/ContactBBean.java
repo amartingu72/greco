@@ -32,6 +32,10 @@ public class ContactBBean {
 	public void setCollapsed(boolean collapsed) {
 		this.collapsed = collapsed;
 	}
+	public void clear(){
+		email="";
+		message="";
+	}
 	
 	
 	

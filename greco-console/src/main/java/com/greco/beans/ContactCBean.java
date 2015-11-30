@@ -41,6 +41,7 @@ public class ContactCBean {
 				FacesContext context = FacesContext.getCurrentInstance();
 		        context.addMessage("mainForm:contactEmail",new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("contact.sent"),  
 		        		Warnings.getString("contact.sent_details") ) );
+		        this.contactBBean.clear();  //Vaciamos el contenido.
 		        
 			} catch (MessagingException e) {
 				
