@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -77,6 +76,7 @@
 							action="#{timeTableBBean.load}">
 							<span class="fa fa-search">#{msgs['reservations.search']}</span>
 	    				</h:commandLink> 
+	    				
 	    				<!-- <div class="hidden-xs mar-top20"> 	
          						<ui:insert name="adds">
          	   						<ui:include src="/sites/adds.xhtml"/>
@@ -84,7 +84,13 @@
 	    				</div> -->
 					</div>
 					<div class=" col-md-7" >
-						
+						<div class="row mar-top10">
+							<div class="col-md-offset-1 col-md-2" ><button type="button" class="btn btn-info btn-xs text-center" data-toggle="popover" data-content="">#{msgs['reservations.free']}</button></div>
+							<div class="col-md-2" ><button type="button" class="btn btn-primary btn-xs text-center" data-toggle="popover" data-content="" >#{msgs['reservations.locked']}</button></div>
+							<div class="col-md-2" ><h:commandLink class="btn btn-default btn-xs text-center disabled" value="#{msgs['reservations.unavailable']}"/></div>
+							<div class="col-md-2" ><h:commandLink class="btn btn-warning btn-xs text-center disabled" value="#{msgs['reservations.locked_by_other']}"/></div>
+							<div class="col-md-2" ><h:commandLink class="btn btn-danger btn-xs text-center disabled" value="#{msgs['reservations.taken']}"/></div>
+						</div>
 				    	<ui:repeat  value="#{timeTableBBean.timeTable}" var="rsrc">
 					    	<div class="row">       	
 								<div class="col-md-12" >
