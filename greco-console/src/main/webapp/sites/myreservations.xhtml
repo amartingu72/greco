@@ -77,7 +77,10 @@
 									value="#{reservationsBBean.activeReservations}">
 									
 									<h:column>
-										<h:outputText title="#{reservation.type}" value="#{reservation.name}" />				
+										<h:outputText  value="#{reservation.name}" />				
+									</h:column>
+									<h:column>
+										#{reservation.typeDesc}
 									</h:column>
 									<h:column>
 										#{reservation.date}
@@ -135,6 +138,9 @@
 									
 									<h:column>
 										#{reservation.name}				
+									</h:column>
+									<h:column>
+										#{reservation.typeDesc}
 									</h:column>
 									<h:column>
 										#{reservation.date}
