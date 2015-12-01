@@ -63,6 +63,11 @@ public class ReservationItem implements IReservationStatus {
 		return "(RESERVATION_ID)" + id + " (NAME)" + name + "(" + type +") " + date + " "+ fromTime +"-" + toTime;
 	}
 	
+	
+	public String toString2() {
+		return name + "(" + type +") " + date + " "+ fromTime +"-" + toTime;
+	}
+	
 	//GETTERs y SETTERs
 	public int getId() {
 		return id;

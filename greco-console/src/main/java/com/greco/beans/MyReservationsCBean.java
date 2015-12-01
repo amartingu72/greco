@@ -1,7 +1,9 @@
 package com.greco.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -69,6 +71,7 @@ public class MyReservationsCBean  implements Serializable{
      * Graba mensaje en el log con las reservas confirmadas.
      */
     public String confirmReservations(){
+    	List<ReservationItem> confirmedReservations=new ArrayList<ReservationItem>();
     	Iterator<ReservationItem> it=this.reservationsBBean.getActiveReservations().iterator();
     	ReservationItem reservationItem=null;
     	while (it.hasNext()){
@@ -76,25 +79,30 @@ public class MyReservationsCBean  implements Serializable{
 				reservationItem=(ReservationItem)it.next();
 				reservationDataProvider.confirmReservation(myReservationsBBean.getUserSBean().getItem(), 
 						reservationItem);
+				confirmedReservations.add(reservationItem);
+				//Grabamos log.
+				logger.log("012003",reservationItem.toString());//INFO|Reserva confirmada:
+				
 				
 			} catch (ReservationMissingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log("012004",reservationItem.toString());//INFO|Pre-reserva no confirmada debido a que ha caducado o ha sido cancelada por un administrador:
+				FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("reservations.no_confirmed"),
+						reservationItem.toString2()); 
+				FacesContext.getCurrentInstance().addMessage(null, fm);
 			} catch (NotOwnerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			
-			//Grabamos log.
-			logger.log("012003",reservationItem.toString());//INFO|Reserva confirmada:
+			
 			
     	}
     	//Enviamos correo de confirmación.
 		try {
 			mailProvider.sendReservConfirmation(this.myReservationsBBean.getUserSBean().getItem(), 
 					this.myReservationsBBean.getCommunityItem(), 
-					this.reservationsBBean.getActiveReservations());
+					confirmedReservations);
 		} catch (MessagingException e) {
 			
 			e.printStackTrace();
@@ -102,7 +110,7 @@ public class MyReservationsCBean  implements Serializable{
 		}
     	//Mostramos mensaje de éxito.
 		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("reservations.successful"),
-				Warnings.getString("reservations.successful_detail") + this.reservationsBBean.getActiveReservationsNumber()); 
+				Warnings.getString("reservations.successful_detail") + confirmedReservations.size()); 
 		FacesContext.getCurrentInstance().addMessage(null, fm);
     	
     	//Actualizamos las tablas de reservas activas y confirmadas.
