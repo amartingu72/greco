@@ -267,7 +267,7 @@ public class MailProviderImpl implements MailProvider {
 		ReservationItem reservationItem=null;
 		while (it.hasNext()){
 			reservationItem=it.next();
-			content+="\n- " + reservationItem.getDate() + " - " +reservationItem.getName() + " (" + reservationItem.getType() + ") ";
+			content+="\n- " + reservationItem.getDate() + " - " +reservationItem.getName() + " (" + reservationItem.getTypeDesc() + ") ";
 			content+=reservationItem.getFromTime() + " - " + reservationItem.getToTime(); 
 		}
 		

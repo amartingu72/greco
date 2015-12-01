@@ -8,6 +8,7 @@ public class ReservationItem implements IReservationStatus {
 	String memberAlias; //Alias del miembro que realizó la reserva.
 	String memberEmail; //email del miembro.
 	String type; //Tipo de recurso
+	String typeDesc; //Tipo de recurso. Descripción larga.
 	String name; //Nombre del recurso.
 	String date; //Fecha de reserva (día y mes)
 	String fromTime; //Hora desde HH:mm
@@ -134,6 +135,16 @@ public class ReservationItem implements IReservationStatus {
 
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
+	}
+
+
+	public String getTypeDesc() {
+		return typeDesc;
+	}
+
+
+	public void setTypeDesc(String typeDesc) {
+		this.typeDesc = typeDesc;
 	}
 	
 	

@@ -286,6 +286,7 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 			reservationItem.setId(reservation.getId());
 			reservationItem.setType(reservation.getResource().getResourcetype().getName());
 			reservationItem.setName(reservation.getResource().getName());
+			reservationItem.setTypeDesc(reservation.getResource().getResourcetype().getDescription());
 			
 			DateTime dateTime=new DateTime(reservation.getFromDate(),communityItem.getDateTimeZone());
 					
@@ -333,6 +334,7 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 			reservationItem=new ReservationItem();
 			reservationItem.setId(reservation.getId());
 			reservationItem.setType(reservation.getResource().getResourcetype().getName());
+			reservationItem.setTypeDesc(reservation.getResource().getResourcetype().getDescription());
 			reservationItem.setName(reservation.getResource().getName());
 			
 			DateTime dateTime=new DateTime(reservation.getFromDate(),communityItem.getDateTimeZone());
