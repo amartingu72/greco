@@ -35,9 +35,10 @@
 			  				<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
 			  				<p:inputText id="email" value="#{pwdForgottenBBean.email}" required="true"  class="form-control"
 			  					 placeholder="#{msgs['pwdforgotten.email']}"
+			  					 converter="toLowerCaseConverter"
 								label="#{msgs['editaccount.email_label']}"
 								requiredMessage="#{msgs['editaccount.required_msg']}" 
-								size="64">
+								maxlength="64">
 									<f:validator validatorId="com.greco.validators.EmailValidator" />
 							</p:inputText>	
 						</div>				
