@@ -31,6 +31,7 @@
 					<div class="form-group">
 						<label for="email">#{msgs['newaccount.email']}</label>
 						<p:inputText id="email" class="form-control" value="#{newAccountBBean.email}" 
+							converter="toLowerCaseConverter" 
 							required="true"
 							label="#{msgs['editaccount.email']}"
 							requiredMessage="#{msgs['editaccount.required_msg']}" 
@@ -55,6 +56,7 @@
 						<p:inputText id="nickname" class="form-control" value="#{newAccountBBean.nickname}"
 							required="true"
 							maxlength="16"
+							converter="toLowerCaseConverter" 
 							requiredMessage="#{msgs['newaccount.nick_required_msg']}" 
 							validator="#{newAccountCBean.validateName}" 
 							aria-describedby="nickHelpBlock"/>							

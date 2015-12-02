@@ -77,4 +77,11 @@ public interface UserDataProvider {
 	 */
 	public abstract UserItem getUserItem(String email);
 	
+	/**
+	 * Devuelve el ítem asocidado al nickname o alias.
+	 * @param nickname
+	 * @return Item de usuario.
+	 */
+	public abstract UserItem getUserItemByNick(String nickname);
+	
 }

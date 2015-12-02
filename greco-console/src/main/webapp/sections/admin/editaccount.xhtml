@@ -17,18 +17,22 @@
                 	<div class="row form-group">
             			<label for="nickname">#{msgs['editaccount.user']}</label>
 						<p:inputText id="nickname" class="form-control" value="#{editAccountBBean.nickname}" 
-							size="32" 
+							converter="toLowerCaseConverter"
+							maxlength="16" 
 							label="#{msgs['editaccount.nickname_label']}"
+							validator="#{editAccountCBean.validateName}" 
 							required="true"
 							requiredMessage="#{msgs['editaccount.required_msg']}"/>
 					</div>
 					<div class="row form-group">
 						<label for="email">#{msgs['editaccount.email']}</label>
-						<p:inputText id="email" class="form-control" value="#{editAccountBBean.email}" 
+						<p:inputText id="email" class="form-control" value="#{editAccountBBean.email}"
+							converter="toLowerCaseConverter" 
 							required="true"
 							label="#{msgs['editaccount.email_label']}"
+							validator="#{editAccountCBean.validateUniqueEmailAddress}"
 							requiredMessage="#{msgs['editaccount.required_msg']}" 
-							size="64">
+							maxlength="64">
 							<f:validator validatorId="com.greco.validators.EmailValidator" />
 						</p:inputText>
 					</div>

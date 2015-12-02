@@ -45,6 +45,7 @@
 								<label for="email">#{msgs['newaccount.email']}</label>
 								<p:inputText id="email" class="form-control" value="#{subscribeMeBBean.email}" 
 									required="true"
+									converter="toLowerCaseConverter" 
 									label="#{msgs['editaccount.email']}"
 									requiredMessage="#{msgs['editaccount.required_msg']}" 
 									aria-describedby="emailHelpBlock"
@@ -81,6 +82,7 @@
 							<div class="form-group">
 								<label for="nickname">#{msgs['newaccount.nickname']}</label>
 								<p:inputText id="nickname" class="form-control" value="#{subscribeMeBBean.nickname}"
+									converter="toLowerCaseConverter" 
 									required="true"
 									maxlength="16"
 									requiredMessage="#{msgs['newaccount.nick_required_msg']}" 

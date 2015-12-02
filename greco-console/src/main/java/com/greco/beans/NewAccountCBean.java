@@ -35,9 +35,9 @@ public class NewAccountCBean {
 		
 		//Creamos el usuario administrador
 		UserItem userItem=new UserItem();
-		userItem.setEmail(newAccountBBean.getEmail());
+		userItem.setEmail(newAccountBBean.getEmail().trim());
 		userItem.setMydata(newAccountBBean.getMydata());
-		userItem.setNickname(newAccountBBean.getNickname());
+		userItem.setNickname(newAccountBBean.getNickname().trim());
 		userItem.setPassword(newAccountBBean.getPassword());
 		userItem.setAdds(newAccountBBean.isAdds());
 		//Creamos usuario
@@ -45,7 +45,7 @@ public class NewAccountCBean {
 				
 		//Creamos mensaje para log
 		//Preparamos el mensaje para el log.
-		String msg="ID(" + userId + "), NICK(" + userItem.getNickname() +"), EMAIL(" + userItem.getEmail() + ") ADDS (" + userItem.isAdds() +")"  ;
+		String msg="ID(" + userId + "), NICK(" + userItem.getNickname().trim() +"), EMAIL(" + userItem.getEmail().trim() + ") ADDS (" + userItem.isAdds() +")"  ;
 		//Grabamos log
 		logger.log("009000",msg);//INFO|Nuevo usuario (sin comunidad)
 				
@@ -72,7 +72,7 @@ public class NewAccountCBean {
 		
 		//Obtenemos resto de datos para cargar el bean de sesión UserBean.
 		UserSBean userBean=new UserSBean();
-		userBean=this.userDataProvider.loadAdminCredentials(this.newAccountBBean.getEmail());
+		userBean=this.userDataProvider.loadAdminCredentials(this.newAccountBBean.getEmail().trim());
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userLogged", userBean);
 		logger.log("001000");//INFO|Intento exitoso de login como administrador.				
         
@@ -97,12 +97,13 @@ public class NewAccountCBean {
 	 * @param value
 	 */
 	public void validateName(FacesContext fc, UIComponent c, Object value) {
-		if (   ((String)value).trim().isEmpty() )	
+		String nickname=((String)value);
+		if (   nickname.isEmpty() )	
 			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
 															Warnings.getString("newaccount.nick_required"),
 															null) );
 		
-		if (   this.userDataProvider.isDuplicated(((String)value)) )	
+		if (   this.userDataProvider.isDuplicated(nickname) )	
 		throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
 														Warnings.getString("newaccount.duplicated_nick"),
 														null) );
@@ -116,7 +117,7 @@ public class NewAccountCBean {
 	 * @param value
 	 */
 	public void validateUniqueEmailAddress(FacesContext fc, UIComponent c, Object value) {
-		if (   this.userDataProvider.loadAdminCredentials(((String)value))!=null )	
+		if (   this.userDataProvider.loadAdminCredentials( ((String)value))!=null )	
 		throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
 														Warnings.getString("newaccount.duplicated_email"),
 														null) );

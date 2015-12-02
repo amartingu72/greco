@@ -291,6 +291,24 @@ public class UserDataProviderImpl implements UserDataProvider{
 		return userItem;
 	}
 
+	@Override
+	public UserItem getUserItemByNick(String nickname) {
+		UserItem userItem=null;
+		User user=usersRepository.loadSelectedUser(nickname);
+		if ( user!= null){
+			userItem=new UserItem();
+			userItem.setEmail(user.getEmail());
+			userItem.setId(user.getId());
+			userItem.setMydata(user.getMydata());
+			userItem.setNickname(user.getNickname());
+			userItem.setPassword(user.getPassword());
+			userItem.setProfile(USER_PROFILE);
+			userItem.setAdds(user.getAdds()!=0);
+			
+		}
+		return userItem;
+	}
+
 	
 	
 }

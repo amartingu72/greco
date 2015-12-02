@@ -3,7 +3,9 @@ package com.greco.beans;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 import com.greco.services.CommunityDataProvider;
 import com.greco.services.ReservationDataProvider;
@@ -141,6 +143,43 @@ public class EditAccountCBean implements Serializable{
 		return null;
 		
 	}
+	
+	/**
+	 * Comprueba que el nickname no está duplicado.
+	 * @param fc
+	 * @param c
+	 * @param value
+	 */
+	public void validateName(FacesContext fc, UIComponent c, Object value) {
+		String nickname=((String)value);
+		
+		if (   nickname.isEmpty() )	
+			throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+															Warnings.getString("newaccount.nick_required"),
+															null) );
+		UserItem userItem=this.userDataProvider.getUserItemByNick(nickname);
+		if (   (userItem!=null) && (userItem.getId()!=this.userSBean.getId()) ) //Considera que lo encuentre y además no sea él mismo.	
+		throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+														Warnings.getString("newaccount.duplicated_nick"),
+														null) );
+	}
+	
+	
+	/**
+	 * Comprueba que el emaiñl no está duplicado.
+	 * @param fc
+	 * @param c
+	 * @param value
+	 */
+	public void validateUniqueEmailAddress(FacesContext fc, UIComponent c, Object value) {
+		String email=((String)value);
+		UserItem userItem=this.userDataProvider.getUserItem(email);
+		if ( (userItem!=null) && (userItem.getId()!=this.userSBean.getId()) )	//Considera que lo encuentre y además no sea él mismo.
+		throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+														Warnings.getString("editaccount.duplicated_email"),
+														null) );
+	}
+	
 	
 	//GETTERs y SETTERs
 	public UserSBean getUserSBean() {

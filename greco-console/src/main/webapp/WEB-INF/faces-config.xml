@@ -20,6 +20,12 @@
         <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
     	<!-- Fin Para poder abrir dialogos PrimeFaces -->
 	</application>
+	<converter>
+		<description></description>
+		<display-name>toLowerCaseConverter</display-name>
+		<converter-id>toLowerCaseConverter</converter-id>
+		<converter-class>com.greco.converters.ToLowerCaseConverter</converter-class>
+	</converter>
 	<managed-bean>
 		<managed-bean-name>loginBBean</managed-bean-name>
 		<managed-bean-class>com.greco.beans.LoginBBean</managed-bean-class>
