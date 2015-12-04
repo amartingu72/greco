@@ -4,6 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:f="http://java.sun.com/jsf/core">
 
 
@@ -62,12 +63,20 @@
 							<div class="col-md-6">	
 								<div class="form-group">
 									<label for="zipcode">#{msgs['editcommunity.zipcode']}</label>
-									<p:inputMask id="zipcode" class="form-control" value="#{newCommunityBBean.zipcode}"
-										mask="99999"
+									
+								
+									
+									<h:inputText id="zipcode" class="form-control" value="#{newCommunityBBean.zipcode}"
+										onkeypress="if(  (event.which &lt; 48 || event.which &gt; 57) &amp;&amp; (event.which != 8) &amp;&amp; (event.which != 46) ) return false;"
+										maxlength="5"
+										size="5"
 										required="true"
-										requiredMessage="#{msgs['newcommunity.required_msg']}" />
+										requiredMessage="#{msgs['newcommunity.required_msg']}">
+										<f:validator validatorId="com.greco.validators.ZipcodeValidator" />
+									</h:inputText> 
 									
 								</div>
+								
 							</div>
 							<div class="col-md-6">	
 								<div class="form-group">
@@ -81,7 +90,9 @@
 							</div>
 						</div>
 						<div class="row">
-							<p:message for="zipcode" />
+							<div class="col-md-12">	
+								<p:message for="zipcode" />
+							</div>
 						</div>
 					</div>
 					<div class="col-md-6"> 

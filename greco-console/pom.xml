@@ -99,7 +99,8 @@
     	<groupId>org.primefaces.themes</groupId>  
     	<artifactId>bootstrap</artifactId>  
     	<version>1.0.8</version>  
-	</dependency>  
+	</dependency>
+	
     <dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-context</artifactId>

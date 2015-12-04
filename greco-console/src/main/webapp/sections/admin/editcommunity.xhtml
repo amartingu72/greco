@@ -129,6 +129,7 @@
 							<label for="zipcode"> 
 								#{msgs['editcommunity.zipcode']}</label>:  
 							<h:inputText class="form-control" id="zipcode" value="#{editCommunityBBean.zipcode}"
+								onkeypress="if(  (event.which &lt; 48 || event.which &gt; 57) &amp;&amp; (event.which != 8) &amp;&amp; (event.which != 46) ) return false;"
 								size="5"
 								maxlength="5"
 								required="true">
