@@ -101,7 +101,7 @@
 					<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
 					<div class="form-group">
 						<label for="name">#{msgs['editcommunity.name']}</label>
-						<h:inputText class="form-control" id="name" value="#{editCommunityBBean.name}"  maxlength="32" required="true">
+						<h:inputText class="form-control" id="name" value="#{editCommunityBBean.name}"  maxlength="32" required="true" converter="trim" >
 							<f:validator binding="#{duplicatedCommunityValidator}" />
 						</h:inputText>
 					</div>

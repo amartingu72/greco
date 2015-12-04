@@ -26,6 +26,11 @@
 		<converter-id>toLowerCaseConverter</converter-id>
 		<converter-class>com.greco.converters.ToLowerCaseConverter</converter-class>
 	</converter>
+	<converter>
+		<display-name>trim</display-name>
+		<converter-id>trim</converter-id>
+		<converter-class>com.greco.converters.Trim</converter-class>
+	</converter>
 	<managed-bean>
 		<managed-bean-name>loginBBean</managed-bean-name>
 		<managed-bean-class>com.greco.beans.LoginBBean</managed-bean-class>
@@ -391,9 +396,14 @@
 		<managed-bean-class>com.greco.validators.DuplicatedCommunityValidator</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 		<managed-property>
-			<property-name>communitiesSBean</property-name>
-			<property-class>com.greco.beans.CommunitiesSBean</property-class>
-			<value>#{communitiesSBean}</value>
+			<property-name>communityDataProvider</property-name>
+			<property-class>com.greco.services.CommunityDataProvider</property-class>
+			<value>#{communityDataProvider}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>countriesSBean</property-name>
+			<property-class>com.greco.beans.CountriesSBean</property-class>
+			<value>#{countriesSBean}</value>
 		</managed-property>
 	</managed-bean>
 	<managed-bean>

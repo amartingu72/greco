@@ -121,12 +121,12 @@ public class CommunityItem implements Serializable{
 		boolean bEqual;
 		CommunityItem communityItem=(CommunityItem)obj;
 		if ( communityItem.getId() !=0 ) //Es una comunidad modificada de las ya dadas de alta (con persistencia en BD)
-			bEqual=communityItem.getName().equals(name) &&
+			bEqual=communityItem.getName().trim().toLowerCase().equals(name.trim().toLowerCase()) &&
 				communityItem.getCountry().equals(country) &&
 					communityItem.getZipcode().equals(zipcode) &&
 					(id != communityItem.getId() );
 		else //Es una nueva comunidad
-			bEqual=communityItem.getName().equals(name) &&
+			bEqual=communityItem.getName().trim().toLowerCase().equals(name.trim().toLowerCase()) &&
 			communityItem.getCountry().equals(country) &&
 				communityItem.getZipcode().equals(zipcode);		
 		return bEqual;

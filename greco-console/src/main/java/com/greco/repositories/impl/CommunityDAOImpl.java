@@ -54,9 +54,9 @@ public class CommunityDAOImpl implements CommunityDAO {
 	 */
 	@Override
 	public Community loadSelectedCommunity(String communityName, String zipcode, int countryId) {
-		Query query=em.createQuery( "select c from Community as c where c.name=:name and c.zipcode=:zipcode and c.country.id=:country_id" , 
+		Query query=em.createQuery( "select c from Community as c where lower(c.name)=:name and c.zipcode=:zipcode and c.country.id=:country_id" , 
 				User.class );
-		query.setParameter("name", communityName);
+		query.setParameter("name", communityName.toLowerCase());
 		query.setParameter("zipcode", zipcode);
 		query.setParameter("country_id", countryId);
 		@SuppressWarnings("unchecked")

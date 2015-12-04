@@ -34,6 +34,22 @@ public class CountriesSBean {
 			countries.add(new SelectItem(countryItem, countryItem.getName()));
 		}
 	}
+	/**
+	 * Devuelve el ID correspondiente al país pasado como parámetro.
+	 * @param countryName
+	 * @return Id o -1 si no encuentra ningún valor.
+	 */
+	public int getCountryId(String countryName){
+		int ret=-1;
+		Iterator<SelectItem> it=countries.iterator();
+		SelectItem item;
+		while (it.hasNext() && ret==-1) {
+			item=it.next();
+			if (item.getLabel().equals(countryName)) ret=((CountryItem)item.getValue()).getId();
+		}
+		return ret;
+		
+	}
 
 
 	public Collection<SelectItem> getCountries() {

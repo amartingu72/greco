@@ -26,7 +26,8 @@
 					<div class="col-md-offset-1 col-md-4">
 						<div class="form-group">
 							<label for="name">#{msgs['editcommunity.name']}</label>
-							<p:inputText id="name" class="form-control" value="#{newCommunityBBean.name}" 
+							<p:inputText id="name" class="form-control" value="#{newCommunityBBean.name}"
+								converter="trim"   
 								maxlength="32" 
 								required="true"
 								requiredMessage="#{msgs['newcommunity.required_msg']}"

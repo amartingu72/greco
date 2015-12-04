@@ -54,4 +54,14 @@ public interface CommunityDataProvider {
 	 */
 	public abstract ResourceItemGroup[] getResources(CommunityItem communityItem);
 	
+	/**
+	 * Se invoca en caso de alta o actualizaciones de comunidades para saber si los valores introducidos están ducplicados.
+	 * @param myId Id de la comunidad de referencia. Corresponde con el id de la comunidad editada. Si se trata de un alta, es 0.
+	 * @param name Nombre de la comunidad.
+	 * @param zipcode Código postal.
+	 * @param countryId Id de país.
+	 * @return True (duplicada), false (única).
+	 */
+	public abstract boolean isDuplicated(int myId, String name, String zipcode, int countryId);
+	
 }

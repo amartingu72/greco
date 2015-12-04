@@ -13,6 +13,8 @@ import javax.annotation.Resource;
 
 
 
+
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +28,6 @@ import com.greco.repositories.ReservationDAO;
 import com.greco.repositories.ResourceDAO;
 import com.greco.repositories.ResourceTypeDAO;
 import com.greco.repositories.TimeUnitDAO;
-
 import com.greco.repositories.UserDAO;
 import com.greco.services.CommunityDataProvider;
 import com.greco.services.ResourceDataProvider;
@@ -266,6 +267,20 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 			resourceItemGroups[i]=resourceItemGroup;
 		}
 		return resourceItemGroups;
+	}
+
+
+
+	@Override
+	public boolean isDuplicated(int myId, String name, String zipcode, int countryId) {
+		boolean ret=false;
+		
+		Community community=this.communityDAO.loadSelectedCommunity(name, zipcode, countryId);
+		if ( community != null) {
+			ret=community.getId()!=myId;			
+		}
+		
+		return ret;
 	}
 
 
