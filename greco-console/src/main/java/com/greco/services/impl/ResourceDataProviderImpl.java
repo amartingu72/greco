@@ -75,6 +75,17 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 		Resource rsrc=this.resourcesRepository.loadSelected(communityItem.getId(), resourceTypeItem.getId(),name);
 		return rsrc!=null;
 	}
+	
+	@Override
+	public boolean isDuplicated(int rsrcId, String rsrcName, int rsrcTypeId, int communityId){
+		boolean ret=false;
+		Resource rsrc=this.resourcesRepository.loadSelected(communityId, rsrcTypeId,rsrcName);
+		if ( rsrc!=null)
+			ret=( rsrc.getId()!=rsrcId );
+		
+		return ret;
+	}
+	
 
 	@Override
 	public ResourceItem[] getResources(CommunityItem comm,

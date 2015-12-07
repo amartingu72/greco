@@ -31,8 +31,8 @@ public class NewResourceCBean {
 		resourceItem.setBeforehand(newResourceBBean.getBeforehand());
 		resourceItem.setMaxtime(newResourceBBean.getMaxtime());
 		resourceItem.setMintime(newResourceBBean.getMintime());
-		resourceItem.setTimeunit(newResourceBBean.getTimeunit());;
-		resourceItem.setBeforehandTU(newResourceBBean.getBeforehandTU());
+		resourceItem.setTimeunit(newResourceBBean.getTimeunitName());
+		resourceItem.setBeforehandTU(newResourceBBean.getBeforehandTUName());
 		boolean[] weelyAvailability={this.newResourceBBean.isMondayAvailable(),
 				this.newResourceBBean.isTuesdayAvailable(),
 				this.newResourceBBean.isWednesdayAvailable(),

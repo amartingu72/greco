@@ -64,4 +64,5 @@ public interface CommunityDataProvider {
 	 */
 	public abstract boolean isDuplicated(int myId, String name, String zipcode, int countryId);
 	
+		
 }

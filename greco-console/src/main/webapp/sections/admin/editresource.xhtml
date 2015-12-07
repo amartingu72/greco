@@ -21,7 +21,7 @@
 		<ui:define name="content">
 			
             <h:form id="editresourcesForm">
-            	
+            	<h:inputHidden id="commId" value="#{communitiesSBean.selectedItem.id}"/>
             	<h:inputHidden id="id" value="#{editResourceBBean.id}"/>	
             	<div class="row">
             		<div class="col-md-offset-1 col-md-11">
@@ -34,7 +34,7 @@
 							<div class="col-md-12">
 	            				<div class="form-group">
 	            					<label for="resource">#{msgs['editresource.name']}</label>
-									<h:inputText class="form-control" id="resource" value="#{editResourceBBean.name}"  
+									<h:inputText class="form-control" id="resource" value="#{editResourceBBean.name}"  converter="trim"
 										requiredMessage="#{msgs['newresource.name_required']}"
 										title="#{msgs['newresource.name_note']}"
 										maxlength="32" required="true">

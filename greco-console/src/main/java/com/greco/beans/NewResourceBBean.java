@@ -2,6 +2,8 @@ package com.greco.beans;
 
 import javax.annotation.PostConstruct;
 
+import com.greco.services.helpers.TimeUnitItem;
+
 public class NewResourceBBean {
 	
 	private int id;
@@ -256,5 +258,10 @@ public class NewResourceBBean {
 		this.sundayAvailable = sundayAvailable;
 	}
 	
-
+	public String getBeforehandTUName() {
+		return TimeUnitItem.toString(Integer.parseInt(beforehandTU));
+	}
+	public String getTimeunitName(){
+		return TimeUnitItem.toString(Integer.parseInt(timeunit));
+	}
 }

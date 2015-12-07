@@ -56,12 +56,12 @@ public class ResourceItem implements Serializable {
 		ResourceItem resourceItem=(ResourceItem)obj;
 		boolean bReturn;
 		if ( resourceItem.getId() != 0) //Es un recurso modificado de los ya dados de alta (con persistencia en BD).
-			bReturn=name.equals(resourceItem.getName()) && 
+			bReturn=name.toLowerCase().equals(resourceItem.getName().toLowerCase()) && 
 					type.equals(resourceItem.getType()) &&
 					(id != resourceItem.getId() );
 		else //Es un recurso nuevo.
 			bReturn=(
-					name.equals(resourceItem.getName()) && 
+					name.toLowerCase().equals(resourceItem.getName().toLowerCase()) && 
 					type.equals(resourceItem.getType()) ) ;
 		return bReturn;
 	}

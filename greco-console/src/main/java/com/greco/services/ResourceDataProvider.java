@@ -5,6 +5,7 @@ import java.util.Date;
 
 
 
+
 import com.greco.engine.DailySchedule;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ResourceItem;
@@ -22,6 +23,15 @@ public interface ResourceDataProvider {
 				ResourceTypeItem resourceTypeItem, 
 				CommunityItem communityItem);
 	
+	/**
+	 * Indica si un nombre de recurso está duplicado para una comunidad y tipo. Se utiliza en alta y edición de recursos.
+	 * @param rsrcId. Si es modo edición, es el id de recurso editado. Si es nuevo, será 0.
+	 * @param rsrcName Nombre del recurso.
+	 * @param rsrcTypeId Identificador del tipo de recurso.
+	 * @param communityId Identificador de la comunidad.
+	 * @return Devuelve true si el nombre de recurso existe para la comunidad y tipo indicado.
+	 */
+	public abstract boolean isDuplicated(int rsrcId, String rsrcName, int rsrcTypeId, int communityId);
 	
 	/**
 	 * Devuelve los recursos asociados a la comunidad indicada en el parámetros.

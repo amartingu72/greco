@@ -29,7 +29,7 @@
             <h:form id="editresourcesForm">
             	
             	<h:inputHidden id="id" value="#{newResourceBBean.id}"/>
-            	
+            	<h:inputHidden id="commId" value="#{communitiesSBean.selectedItem.id}"/>
             	
             	<div class="row">
             		<div class="col-md-offset-1 col-md-11">
@@ -45,7 +45,7 @@
 									<p:inputText id="resource" 
 										class="form-control" 
 										title="#{msgs['newresource.name_note']}"
-										value="#{newResourceBBean.name}"  maxlength="32" required="true"
+										value="#{newResourceBBean.name}"  maxlength="32" required="true" converter="trim"
 										requiredMessage="#{msgs['newresource.name_required']}">
 										
 										<f:validator binding="#{duplicatedResourceValidator}" />

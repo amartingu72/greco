@@ -6,8 +6,6 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-
-import com.greco.beans.CommunitiesSBean;
 import com.greco.beans.CountriesSBean;
 import com.greco.services.CommunityDataProvider;
 import com.greco.utils.Warnings;

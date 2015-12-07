@@ -348,6 +348,16 @@
 		<managed-bean-class>com.greco.validators.DuplicatedResourceValidator</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 		<managed-property>
+			<property-name>resourceDataProvider</property-name>
+			<property-class>com.greco.services.ResourceDataProvider</property-class>
+			<value>#{resourceDataProvider}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>resourceTypesSBean</property-name>
+			<property-class>com.greco.beans.ResourceTypesSBean</property-class>
+			<value>#{resourceTypesSBean}</value>
+		</managed-property>
+		<managed-property>
 			<property-name>resourcesSBean</property-name>
 			<property-class>com.greco.beans.ResourcesSBean</property-class>
 			<value>#{resourcesSBean}</value>
