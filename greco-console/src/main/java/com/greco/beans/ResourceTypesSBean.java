@@ -38,6 +38,25 @@ public class ResourceTypesSBean {
 	}
 	
 	/**
+	 * Devuelve la descripción asociada al nombre
+	 * @param name nombre del tipo
+	 * @return Descripción.
+	 */
+	public String getDescription(String name){
+		Iterator<SelectItem> it=resourceTypes.iterator();
+		boolean bFound=false;
+		ResourceTypeItem selectItem;
+		String ret="";
+		while (it.hasNext() && !bFound ){
+			selectItem=(ResourceTypeItem)it.next().getValue();
+			bFound=selectItem.getName().equals(name);
+			if (bFound) ret=selectItem.getDescription();
+		}
+		return ret;
+		
+	}
+	
+	/**
 	 * Devuelve el item de tipo recurso asociado al nombre indicado.
 	 * @param name Nombre del tipo de recurso.
 	 * @return Objeto tipo de recurso asociado.

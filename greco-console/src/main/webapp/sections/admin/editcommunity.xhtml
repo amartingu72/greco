@@ -210,7 +210,7 @@
 								</h:column>
 								<h:column>   
 									<div style="#{rsrc.deleted?'text-decoration:line-through;':'none'}">
-										#{rsrc.type}
+										#{resourceTypesSBean.getDescription(rsrc.type)}
 									</div>
 								</h:column>
 								<h:column>
