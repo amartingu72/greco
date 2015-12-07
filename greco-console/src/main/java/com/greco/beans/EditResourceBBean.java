@@ -1,7 +1,9 @@
 package com.greco.beans;
 
 import javax.annotation.PostConstruct;
+
 import com.greco.services.helpers.ResourceItem;
+import com.greco.services.helpers.TimeUnitItem;
 
 public class EditResourceBBean {
 	
@@ -40,8 +42,8 @@ public class EditResourceBBean {
 		this.mintime=resourceItem.getMintime();
 		this.name=resourceItem.getName();
 		this.type=resourceItem.getType();
-		this.timeunit=resourceItem.getTimeunit();
-		this.beforehandTU=resourceItem.getBeforehandTU();
+		this.timeunit=TimeUnitItem.toStringId(resourceItem.getTimeunit());
+		this.beforehandTU=TimeUnitItem.toStringId(resourceItem.getBeforehandTU());
 		this.mondayAvailable=resourceItem.isAvailableOnMonday();
 		this.tuesdayAvailable=resourceItem.isAvailableOnTuesday();
 		this.wednesdayAvailable=resourceItem.isAvailableOnWednesday();
@@ -237,6 +239,10 @@ public class EditResourceBBean {
 	public String getBeforehandTU() {
 		return beforehandTU;
 	}
+	
+	public String getBeforehandTUName() {
+		return TimeUnitItem.toString(Integer.parseInt(beforehandTU));
+	}
 
 
 	public void setBeforehandTU(String beforehandTU) {
@@ -256,6 +262,10 @@ public class EditResourceBBean {
 
 	public String getTimeunit() {
 		return timeunit;
+	}
+	
+	public String getTimeunitName(){
+		return TimeUnitItem.toString(Integer.parseInt(timeunit));
 	}
 
 

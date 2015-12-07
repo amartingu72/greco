@@ -39,8 +39,8 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 		rsrcItem.setAvailableFromTime(rsrc.getAvailableFromTime());
 		rsrcItem.setAvailableToTime(rsrc.getAvailableToTime());
 		rsrcItem.setBeforehand(rsrc.getBeforehand());
-		rsrcItem.setBeforehandTU(rsrc.getTimeunit2().getName());
-		rsrcItem.setTimeunit(rsrc.getTimeunit1().getName());
+		rsrcItem.setBeforehandTU(rsrc.getTimeunit1().getName());
+		rsrcItem.setTimeunit(rsrc.getTimeunit2().getName());
 		rsrcItem.setType(rsrc.getResourcetype().getName());
 		rsrcItem.setWeeklyAvailability(rsrc.getWeeklyAvailability());
 		return rsrcItem;

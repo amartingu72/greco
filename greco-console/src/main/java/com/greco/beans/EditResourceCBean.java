@@ -38,8 +38,8 @@ public class EditResourceCBean {
 		resourceItem.setBeforehand(editResourceBBean.getBeforehand());
 		resourceItem.setMaxtime(editResourceBBean.getMaxtime());
 		resourceItem.setMintime(editResourceBBean.getMintime());
-		resourceItem.setTimeunit(editResourceBBean.getTimeunit());;
-		resourceItem.setBeforehandTU(editResourceBBean.getBeforehandTU());
+		resourceItem.setTimeunit(editResourceBBean.getTimeunitName());
+		resourceItem.setBeforehandTU(editResourceBBean.getBeforehandTUName());
 		boolean[] weelyAvailability={this.editResourceBBean.isMondayAvailable(),
 								this.editResourceBBean.isTuesdayAvailable(),
 								this.editResourceBBean.isWednesdayAvailable(),

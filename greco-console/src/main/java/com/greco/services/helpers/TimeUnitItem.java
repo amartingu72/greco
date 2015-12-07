@@ -80,6 +80,19 @@ public class TimeUnitItem implements ITimeUnits{
 		return ret;
 	}
 	
+	/**
+	 * Devuelve el id correspondiente al nombre de unidad de tiempo.
+	 * @param tu
+	 * @return
+	 */
+	public static String toStringId(String tu){
+		String ret="";
+		if (tu.equals(SDAY)) ret=Integer.toString(DAY);
+		else if (tu.equals(SHOUR)) ret=Integer.toString(HOUR);
+		else if (tu.equals(SMINUTE)) ret=Integer.toString(MINUTE);
+			
+		return ret;
+	}
 	
 	//GETTERs y SETTERs.
 	public int getId() {

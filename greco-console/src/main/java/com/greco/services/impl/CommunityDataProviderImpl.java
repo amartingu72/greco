@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 
 
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,7 @@ import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.ResourceItem;
 import com.greco.services.helpers.ResourceItemGroup;
 import com.greco.services.helpers.ResourceTypeItem;
+import com.greco.services.helpers.TimeUnitItem;
 import com.greco.services.helpers.UserItem;
 
 @Service("communityDataProvider")
@@ -123,8 +125,8 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 				resource.setMinTime(resourceItem.getMintime());
 				resource.setName(resourceItem.getName());
 				resource.setResourcetype(resourceTypeDAO.loadSelected(resourceItem.getType()));
-				resource.setTimeunit1(timeUnitDAO.loadSelected(Integer.parseInt(resourceItem.getTimeunit())));
-				resource.setTimeunit2(timeUnitDAO.loadSelected(Integer.parseInt(resourceItem.getBeforehandTU())));
+				resource.setTimeunit2(timeUnitDAO.loadSelected(TimeUnitItem.toID(resourceItem.getTimeunit())));
+				resource.setTimeunit1(timeUnitDAO.loadSelected(TimeUnitItem.toID(resourceItem.getBeforehandTU())));
 				resource.setWeeklyAvailability(resourceItem.getWeeklyAvailabilityString());
 			} 
 			if ( resourceItem.isUpdated() ) {
