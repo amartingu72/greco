@@ -1053,5 +1053,10 @@
 		<validator-id>com.greco.validators.RequiredCheckboxValidator</validator-id>
 		<validator-class>com.greco.validators.RequiredCheckboxValidator</validator-class>
 	</validator>
+	<validator>
+		<description>Valida que el tiempo mínimo de reserva no se inferior a 10 minutos.</description>
+		<validator-id>com.greco.validators.MintimeValidator</validator-id>
+		<validator-class>com.greco.validators.MintimeValidator</validator-class>
+	</validator>
 
 </faces-config>

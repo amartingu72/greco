@@ -166,6 +166,7 @@
 										required="true"
 										requiredMessage="#{msgs['newresource.mintime_required']}"
 										converterMessage="#{msgs['newresource.mintime_not_integer']}">
+										<f:validator validatorId="com.greco.validators.MintimeValidator"/> 
 										<f:convertNumber integerOnly="true"/>
 									</h:inputText>
 								</div> 	
