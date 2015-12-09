@@ -14,7 +14,7 @@
             	<p:growl id="messages" showDetail="false" autoUpdate="true" />
             	<div class="row">
             	<div class="col-md-offset-1 col-md-4">      	
-                	<div class="row form-group">
+                	<div class="form-group">
             			<label for="nickname">#{msgs['editaccount.user']}</label>
 						<p:inputText id="nickname" class="form-control" value="#{editAccountBBean.nickname}" 
 							converter="toLowerCaseConverter"
@@ -24,7 +24,7 @@
 							required="true"
 							requiredMessage="#{msgs['editaccount.required_msg']}"/>
 					</div>
-					<div class="row form-group">
+					<div class="form-group">
 						<label for="email">#{msgs['editaccount.email']}</label>
 						<p:inputText id="email" class="form-control" value="#{editAccountBBean.email}"
 							converter="toLowerCaseConverter" 
@@ -36,7 +36,7 @@
 							<f:validator validatorId="com.greco.validators.EmailValidator" />
 						</p:inputText>
 					</div>
-					<div class="row form-group">
+					<div class="form-group">
 						<label for="password">#{msgs['editaccount.pwd']}</label>
 						<p:password id="password" class="form-control" value="#{editAccountBBean.password}"
 							autocomplete="off"   
@@ -52,7 +52,7 @@
 							onchange="#{editAccountBBean.pwdUpdated}"	 
 							feedback="true"/>
 					</div>
-					<div class="row form-group">
+					<div class="form-group">
 						<label for="passwordConfirm">#{msgs['editaccount.pwdConfirm']}</label>
 						<p:password  id="passwordConfirm" class="form-control" value="#{editAccountBBean.password}"
 							autocomplete="off" 
@@ -60,13 +60,13 @@
 							maxlength="16"
 							label="#{msgs['editaccount.pwdConfirm_label']}"/>
 					</div>		
-					<div class="row form-group">
+					<div class="form-group">
 				        <p:selectBooleanCheckbox id="addsAccepted" value="#{editAccountBBean.adds}" />
 				        <label for="addsAccepted">#{msgs['editaccount.add_accepted']}</label>
 				    </div>
 				</div>
 				<div class="col-md-offset-1 col-md-5">
-					<div class="row form-group">
+					<div class="form-group">
 						<label>#{msgs['editaccount.my_communities']}</label> 
 						
 						<h:dataTable class="table table-condensed table-striped" id="membersTable" var="member"
