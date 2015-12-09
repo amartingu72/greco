@@ -96,7 +96,7 @@
 			<div class="row">
 				<div class="col-md-offset-1 col-md-4">
 					
-					<p:growl id="growl" showSummary="true" showDetail="true"/>
+					<p:growl id="growl" globalOnly="true" showSummary="true" showDetail="true"/>
 					
 					<h:inputHidden id="id" value="#{editCommunityBBean.id}"/>
 					<div class="form-group">
@@ -193,7 +193,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							
+							<p:message id="datatable_msg" for="resourcesTable" showSummary="true" showDetail="true"/>
 							<h:dataTable class="table table-condensed table-hover" id="resourcesTable" value="#{editCommunityBBean.myResources}" 
 								var="rsrc" columnClasses="none,none,none, text-center">                        	
 								

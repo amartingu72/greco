@@ -91,7 +91,7 @@ public class EditCommunityCBean {
 	        message.setDetail(sDeletedItems+ " " + Warnings.getString("editcommunity.updated_error_detail"));
 	        message.setSummary(Warnings.getString("editcommunity.updated_error"));
 	        message.setSeverity(FacesMessage.SEVERITY_INFO);
-			FacesContext.getCurrentInstance().addMessage("editCommForm:messages", message);
+			FacesContext.getCurrentInstance().addMessage("editCommForm:resourcesTable", message);
 		}
 	
 		//Montamos el mensaje indicando valores actuales y anteriores.
@@ -113,7 +113,7 @@ public class EditCommunityCBean {
         message.setDetail(Warnings.getString("editcommunity.updated_detail"));
         message.setSummary(Warnings.getString("editcommunity.updated"));
         message.setSeverity(FacesMessage.SEVERITY_INFO);
-		FacesContext.getCurrentInstance().addMessage("editCommForm:growl", message);
+		FacesContext.getCurrentInstance().addMessage(null, message);
 		
 		// Grabamos en el log con mensaje montado.
 		log.log("002000", msg );//002000=INFO|Datos comunidad modificados:
@@ -136,7 +136,7 @@ public class EditCommunityCBean {
 	        message.setDetail(Warnings.getString("editcommunity.resources_exceeded_details"));
 	        message.setSummary(Warnings.getString("editcommunity.resources_exceeded"));
 	        message.setSeverity(FacesMessage.SEVERITY_INFO);
-			FacesContext.getCurrentInstance().addMessage("editCommForm:growl", message);
+			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 		else ret="add";		
 		return ret;
