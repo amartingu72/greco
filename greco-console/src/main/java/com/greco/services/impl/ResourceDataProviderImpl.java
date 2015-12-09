@@ -154,13 +154,14 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 					//Bloqueamos todo para la reserva porque es de una fecha anterior.
 					dailySchedule.add(new ReservationUnit(userId,fromDate, toDate), IReservationStatus.BLOCKED);
 				else if (comm.getLocalTime().isAfter(fromDate) && (comm.getLocalTime().isBefore(toDate)) )
-					//Bloqueamos solo el intervalo desde el inicio hasta la hora actual.
-					dailySchedule.add(new ReservationUnit(userId,fromDate, comm.getLocalTime()), IReservationStatus.BLOCKED);
+					//Bloqueamos solo el intervalo desde el inicio hasta la hora actual + el tiempo mínimo de reserva (así puedo reservar un periodo ya iniciado pero no terminado).
+					dailySchedule.add(new ReservationUnit(userId,fromDate, comm.getLocalTime().minus(resourceItem.getMintimeDuration())), IReservationStatus.BLOCKED);
 				
 				//Consideramos la antelación: ahora + tiempo antelación en adelante se bloquea.
 				DateTime limit=comm.getLocalTime().plus(resourceItem.getBeforehandDuration());
+				
 				if ( limit.isAfter(fromDate) && limit.isBefore(toDate))  //Bloqueamos la parte del día que corresponda.
-					dailySchedule.add(new ReservationUnit(userId,limit, toDate), IReservationStatus.BLOCKED); 
+					dailySchedule.add(new ReservationUnit(userId,limit.plus(resourceItem.getMintimeDuration()), toDate), IReservationStatus.BLOCKED);  
 				else if ( limit.isBefore(fromDate) ) //Bloqueamos todo el día. 
 					dailySchedule.add(new ReservationUnit(userId,fromDate, toDate), IReservationStatus.BLOCKED); 
 								

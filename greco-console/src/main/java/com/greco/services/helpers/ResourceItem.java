@@ -121,6 +121,23 @@ public class ResourceItem implements Serializable {
 	}
 		return duration;
 	}
+	
+	public Duration getMintimeDuration(){
+		Duration duration=null;
+		int timeunitId=TimeUnitItem.toID(timeunit);
+		switch ( timeunitId ) {
+		case TimeUnitItem.MINUTE:
+			duration=Duration.standardMinutes(mintime);
+			break;
+		case TimeUnitItem.HOUR: 
+			duration=Duration.standardHours(mintime);
+			break;
+		case TimeUnitItem.DAY: 
+			duration=Duration.standardDays(mintime);
+	}
+		return duration;
+	}
+	
 	/**
 	 * Devuelve true si el recursos está disponible algún día de la semana.
 	 * @return
