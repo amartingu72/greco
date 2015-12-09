@@ -182,7 +182,7 @@ public class ResourcesSBean implements Serializable {
 	 * Implica perder el estado de los cambios. 
 	 */
 	public void reload(){
-		this.myResources=Arrays.asList(this.resourceDataProvider.getResources(this.communityItem));
+		this.myResources=new LinkedList<ResourceItem>(Arrays.asList(this.resourceDataProvider.getResources(this.communityItem)));
 	}
 	
 	
