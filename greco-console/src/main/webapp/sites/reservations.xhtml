@@ -10,7 +10,21 @@
       <ui:composition template="../templates/sites_layout.xhtml">
          <ui:define name="content">
          	<h:form id="reservationsForm" style="min-height: 635px;">
-         		
+         		<div class="menu-area">
+					<p:ajaxStatus class="menu-area" style="display:block;margin-bottom:2em;height:24px;">
+		    		<f:facet name="default">
+		    		</f:facet>
+		    		<f:facet name="start">
+		    			<span class="fa-stack fa-lg">
+									
+									<i class="fa fa-spinner fa-spin fa-stack-1x"></i>
+						</span>
+		        		
+		    		</f:facet>
+				    <f:facet name="complete">
+				    </f:facet>
+					</p:ajaxStatus>			
+				</div>
          		<div class="row">
          			<div class="col-md-offset-4 col-md-3" >	
          				<h:panelGroup id="myCart">
@@ -34,6 +48,9 @@
 							</div>
 							 
 						</h:panelGroup>
+						
+						
+						
 					</div>
 					<div class="col-md-4 text-right" > 
 						<h:panelGroup id="timetabledesc">  
@@ -43,7 +60,7 @@
          		</div>	
          		<div class="row">
          			<div class="col-md-offset-4 col-md-7" >
-         				<p:messages id="messages" showSummary="true" showDetail="true"/>
+         				<p:growl id="messages" showSummary="true" showDetail="true"/>
          			</div>
          		</div>
          		<div class="row">
@@ -85,11 +102,16 @@
 					</div>
 					<div class=" col-md-7" >
 						<div class="row mar-top10">
-							<div class="col-md-offset-1 col-md-2" ><button type="button" class="btn btn-info btn-xs text-center" data-toggle="popover" data-content="">#{msgs['reservations.free']}</button></div>
-							<div class="col-md-2" ><button type="button" class="btn btn-primary btn-xs text-center" data-toggle="popover" data-content="" >#{msgs['reservations.locked']}</button></div>
-							<div class="col-md-2" ><h:commandLink class="btn btn-default btn-xs text-center disabled" value="#{msgs['reservations.unavailable']}"/></div>
-							<div class="col-md-2" ><h:commandLink class="btn btn-warning btn-xs text-center disabled" value="#{msgs['reservations.locked_by_other']}"/></div>
-							<div class="col-md-2" ><h:commandLink class="btn btn-danger btn-xs text-center disabled" value="#{msgs['reservations.taken']}"/></div>
+							
+								<div class="form-inline text-center">
+									<button type="button" class="btn btn-info btn-xs text-center" data-toggle="popover" data-content="">#{msgs['reservations.free']}</button>
+									<button type="button" style="margin-left:5px;" class="btn btn-primary btn-xs text-center" data-toggle="popover" data-content="" >#{msgs['reservations.locked']}</button>
+									<h:commandLink style="margin-left:5px;" class="btn btn-danger btn-xs text-center disabled" value="#{msgs['reservations.taken']}"/>
+									<h:commandLink style="margin-left:5px;" class="btn btn-default btn-xs text-center disabled" value="#{msgs['reservations.unavailable']}"/>
+									<h:commandLink style="margin-left:5px;" class="btn btn-warning btn-xs text-center disabled" value="#{msgs['reservations.locked_by_other']}"/>
+									
+								</div>
+							
 						</div>
 				    	<ui:repeat  value="#{timeTableBBean.timeTable}" var="rsrc">
 					    	<div class="row">       	
@@ -97,11 +119,12 @@
 									<p class="bg-info text-center mar-top10"><strong>#{rsrc.name}</strong></p>
 					    		</div>
 					    	</div>
+					    	
 					    	<div class="row">       	
 								<div class="col-md-12" >	
 									<h:panelGroup id="timetable">	
 						    			<ui:repeat value="#{rsrc.dailySchedule}" var="scheduleUnit">
-											<h:commandLink class="btn #{scheduleUnit.icon} btn-xs #{scheduleUnit.editable?'none':'disabled'}" 
+											<h:commandLink style="margin-right:2px;" class="btn #{scheduleUnit.icon} btn-xs #{scheduleUnit.editable?'none':'disabled'}"
 						    					action="#{timeTableCBean.reserve(rsrc,scheduleUnit)}"
 				  								value="#{scheduleUnit.output}">
 				  								<f:ajax render="@this reservationsForm:myCart reservationsForm:messages"/>
@@ -113,6 +136,7 @@
 						</ui:repeat>
 					</div>		   
 				</div>
+				
         	</h:form>
       	</ui:define>
       </ui:composition>
