@@ -104,7 +104,7 @@
 					</div>
 					<div class="col-md-offset-1 col-md-5">		
 						<div class="form-group">
-							<label for="panel">Histórico de reservas</label>
+							<label for="panel">#{msgs['editaccount.history']}</label>
 							<div id="panel" class="form-inline">
 								<h:selectOneMenu class="form-control" value="#{editAccountBBean.searchCriteria}" required="true">
 									<f:selectItem id="item1" itemLabel="Últimas 30 reservas" itemValue="1" />
@@ -113,8 +113,8 @@
 								</h:selectOneMenu>
 								<h:commandButton		
 									inmmediate="true"
-									class="btn btn-primary"
-									style="margin-left:10px"
+									class="btn btn-primary margin-top10"
+									style="margin-left:10px;"
 									action="#{editAccountCBean.searchLocalReservations}"
 									value="Buscar">
 									
