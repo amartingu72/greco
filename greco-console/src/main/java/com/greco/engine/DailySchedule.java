@@ -72,11 +72,11 @@ public class DailySchedule implements ITimeUnits {
 		this.description=rsrc.getDescription();
 		this.dateTimeZone=dateTimeZone;
 		//mintime, maxtime
-		setMintime(rsrc.getMinTime(), rsrc.getTimeunit1().getId());
-		setMaxtime(rsrc.getMaxTime(), rsrc.getTimeunit1().getId());
+		setMintime(rsrc.getMinTime(), rsrc.getTimeunit2().getId());
+		setMaxtime(rsrc.getMaxTime(), rsrc.getTimeunit2().getId());
 		setAvailableFrom(rsrc.getAvailableFromTime());
 		setAvailableTo(rsrc.getAvailableToTime());
-		setBeforehand(rsrc.getBeforehand(),rsrc.getTimeunit2().getId());
+		setBeforehand(rsrc.getBeforehand(),rsrc.getTimeunit1().getId());
 		this.type=rsrc.getResourcetype().getName();
 	}
 	

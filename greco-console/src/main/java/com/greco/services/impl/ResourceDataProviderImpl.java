@@ -145,8 +145,8 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 				
 				//Convertimos a DateTime para facilitar la gestión.
 				
-				DateTime fromDate=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(),0,0,comm.getDateTimeZone());
-				DateTime toDate=new DateTime(dt.getYear(),dt.getMonthOfYear(),dt.getDayOfMonth(),23,59,comm.getDateTimeZone());
+				DateTime fromDate=resourceItem.getAvailableFromDate(date, comm.getDateTimeZone());
+				DateTime toDate=resourceItem.getAvailableToDate(date, comm.getDateTimeZone());
 					
 				//Bloqueo el calendario para que no pueda hacer reservas de periodos anteriores a ahora ni en el caso de que 
 				//el recurso haya sido bloqueado por configuración.
@@ -158,10 +158,10 @@ public class ResourceDataProviderImpl implements ResourceDataProvider {
 					dailySchedule.add(new ReservationUnit(userId,fromDate, comm.getLocalTime().minus(resourceItem.getMintimeDuration())), IReservationStatus.BLOCKED);
 				
 				//Consideramos la antelación: ahora + tiempo antelación en adelante se bloquea.
-				DateTime limit=comm.getLocalTime().plus(resourceItem.getBeforehandDuration());
+				DateTime limit=comm.getLocalTime().plus(resourceItem.getBeforehandDuration()).plus(resourceItem.getMintimeDuration());
 				
 				if ( limit.isAfter(fromDate) && limit.isBefore(toDate))  //Bloqueamos la parte del día que corresponda.
-					dailySchedule.add(new ReservationUnit(userId,limit.plus(resourceItem.getMintimeDuration()), toDate), IReservationStatus.BLOCKED);  
+					dailySchedule.add(new ReservationUnit(userId,limit, toDate), IReservationStatus.BLOCKED);  
 				else if ( limit.isBefore(fromDate) ) //Bloqueamos todo el día. 
 					dailySchedule.add(new ReservationUnit(userId,fromDate, toDate), IReservationStatus.BLOCKED); 
 								

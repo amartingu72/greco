@@ -4,7 +4,11 @@ import java.io.Serializable;
 
 
 
+
+import java.util.Date;
+
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 
 
@@ -258,7 +262,40 @@ public class ResourceItem implements Serializable {
 		return ret;
 	}
 	
-	
-	
+	/**
+	 * Obtiene la fecha de hoy y la hora desde que está disponible el recurso en un DateTime
+	 * @param Fecha
+	 * @param dtZone Zona horaria.
+	 * @return DateTime
+	 */
+	public DateTime getAvailableFromDate(Date date, DateTimeZone dtZone){
+		DateTime dt=null;
+		int colonIndex=availableFromTime.indexOf(':');
+		int hours=Integer.parseInt(this.availableFromTime.substring(0, colonIndex));
+		int minutes=Integer.parseInt(this.availableFromTime.substring(colonIndex+1));
+		
+		DateTime dateTime=new DateTime(date, dtZone);
+		dt=new DateTime(dateTime.getYear(),dateTime.getMonthOfYear(),dateTime.getDayOfMonth(),hours,minutes,dtZone);
+		
+		
+		return dt;
+	}
+	/**
+	 * Obtiene la fecha y la hora desde que está disponible el recurso en un DateTime
+	 * @param date Fecha
+	 * @param dtZone Zona horaria.
+	 * @return DateTime
+	 */
+	public DateTime getAvailableToDate(Date date, DateTimeZone dtZone){
+		DateTime dt=null;
+		int colonIndex=availableToTime.indexOf(':');
+		int hours=Integer.parseInt(this.availableToTime.substring(0, colonIndex));
+		int minutes=Integer.parseInt(this.availableToTime.substring(colonIndex+1));
+		
+		DateTime dateTime=new DateTime(date, dtZone);
+		dt=new DateTime(dateTime.getYear(),dateTime.getMonthOfYear(),dateTime.getDayOfMonth(),hours,minutes,dtZone);
+		
+		return dt;
+	}
 			
 }
