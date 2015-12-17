@@ -852,14 +852,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>sections/admin/selectcom.xhtml</display-name>
-		<from-view-id>/sections/admin/selectcom.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>edit</from-outcome>
-			<to-view-id>/sections/admin/editcommunity.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
 		<display-name>sections/admin/editcommunity.xhtml</display-name>
 		<from-view-id>/sections/admin/editcommunity.xhtml</from-view-id>
 		<navigation-case>
@@ -882,14 +874,6 @@
 			<from-outcome>select</from-outcome>
 			<to-view-id>/sections/admin/selectcom.xhtml</to-view-id>
 			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>index.xhtml</display-name>
-		<from-view-id>/sections/login/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>edit</from-outcome>
-			<to-view-id>/sections/admin/editcommunity.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -1021,6 +1005,22 @@
 			<from-outcome>cookies</from-outcome>
 			<to-view-id>/sections/cookies_policy.xhtml</to-view-id>
 			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/selectcom.xhtml</display-name>
+		<from-view-id>/sections/admin/selectcom.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/sections/admin/editmembers.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>index.xhtml</display-name>
+		<from-view-id>/sections/login/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/sections/admin/editmembers.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<validator>
