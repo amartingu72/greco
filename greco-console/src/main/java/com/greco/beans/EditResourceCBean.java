@@ -1,5 +1,10 @@
 package com.greco.beans;
 
+import java.io.IOException;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
 import org.primefaces.context.RequestContext;
 
 import com.greco.services.helpers.ResourceItem;
@@ -14,10 +19,9 @@ public class EditResourceCBean {
 	CommunitiesSBean communitiesSBean;
 	
 	
-	public String cancel() {
-		String ret="back";
-		
-		return ret;
+	public void cancel() throws IOException {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ec.redirect("editcommunity.xhtml#resources");
 	}
 	
 	public void cancelPF() {
@@ -25,7 +29,7 @@ public class EditResourceCBean {
 		
 	}
 	
-	public String save (){
+	public void save () throws IOException{
 		ResourceItem originalResourceItem=resourcesSBean.getSelectedResource();
 		
 		ResourceItem resourceItem=new ResourceItem(originalResourceItem.getId(),
@@ -70,10 +74,10 @@ public class EditResourceCBean {
 		// Grabamos en el log.	
 		logger.log("003000",msg);//INFO|Recurso pre-actualizado:
 		
-		//Controlamos a qué página devolver el control: edición o nueva comunidad.
-		
-		
-		return "back";
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ec.redirect("editcommunity.xhtml#resources");
+
+		//return "back";
 		
 	}
 	

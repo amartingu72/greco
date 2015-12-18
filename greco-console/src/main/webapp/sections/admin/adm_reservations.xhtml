@@ -91,11 +91,22 @@
     						</p:multiSelectListbox>
     					</div>
 						
-						
-						<div class="text-right mar-top10">				 		
-							<h:commandButton class="btn btn-primary" value="#{msgs['admreservations.search']}" action="#{admReservationCBean.search}" >
-								<f:ajax execute="@form" render=":reservationsForm:reservationsTable :reservationsForm:reservationsTable2 :reservationsForm:dateMessages :reservationsForm:resourceSelMessages reservationsForm:noRecords"/>  	
+						<div class="row">
+							<div class="hidden-sm hidden-md hidden-lg col-xs-6">
+								<h:panelGroup id="xsresults" >
+									<h:panelGrid rendered="#{admReservationBBean.searchLaunched}" columns="2">
+										<span style="color:grey;">#{msgs['admreservations.results']}</span>
+										<span class="badge">#{admReservationBBean.reservationsFound}</span>
+										<i class="fa fa-angle-double-down fa-2x"></i>
+									</h:panelGrid>
+								</h:panelGroup>
+		
+							</div>
+							<div class="text-right col-xs-6">				 		
+								<h:commandButton class="btn btn-primary" value="#{msgs['admreservations.search']}" action="#{admReservationCBean.search}" >
+									<f:ajax execute="@form" render=":reservationsForm:xsresults :reservationsForm:reservationsTable :reservationsForm:reservationsTable2 :reservationsForm:dateMessages :reservationsForm:resourceSelMessages reservationsForm:noRecords"/>  	
 								</h:commandButton>
+							</div>
 						</div>
 					
 					</div>
@@ -106,10 +117,10 @@
 							</div>
 						</div>
 						<div class="row">
+							
 							<div class="hidden-xs col-md-12">
 								<h:dataTable class="table table-condensed table-hover mar-top30" id="reservationsTable" var="reservation"
-										value="#{admReservationBBean.reservations}">
-										
+										value="#{admReservationBBean.reservations}">					
 									<h:column>
 										<f:facet name="header">#{msgs['admreservations.date']}</f:facet>
 										#{reservation.date}				

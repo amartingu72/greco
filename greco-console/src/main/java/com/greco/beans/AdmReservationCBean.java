@@ -1,15 +1,14 @@
 package com.greco.beans;
 
-import java.util.List;
 
+
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
-
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
-
 import com.greco.services.MailProvider;
 import com.greco.services.ReservationDataProvider;
 import com.greco.services.UserDataProvider;
@@ -20,6 +19,8 @@ import com.greco.services.helpers.UserItem;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
 
+
+
 public class AdmReservationCBean {
 	
 	private static final MyLogger logger = MyLogger.getLogger(MyReservationsCBean.class.getName());
@@ -28,6 +29,10 @@ public class AdmReservationCBean {
 	private ReservationDataProvider reservationDataProvider; //Inyectado
 	private MailProvider mailProvider; //Inyectado
 	private UserDataProvider userDataProvider; //Inyectado
+	
+	
+	
+	
 
 	public String search(){
 		CommunityItem communityItem=admReservationBBean.getCommunityItem();
@@ -85,11 +90,11 @@ public class AdmReservationCBean {
 	        context.addMessage("reservationsForm:dateMessages",new FacesMessage(FacesMessage.SEVERITY_WARN, Warnings.getString("admreservations.wrong_date_range"),  
 	        				Warnings.getString("admreservations.wrong_date_range_details" ) ) );
 		}
-		
-		
-		
+		//Indicamos que el botón de búsqueda ha sido presionado para que se muestren los resultados (resumen), en el caso de vista en móvil
+		this.admReservationBBean.setSearchLaunched(true);   
 		
 		return null;
+		
 	}
 	
 	

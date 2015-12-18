@@ -27,9 +27,19 @@ public class AdmReservationBBean {
     private ResourceTypesSBean resourceTypesSBean; //Inyectado
     private ResourcesSBean resourcesSBean; //Inyectado
     private CommunityItem communityItem;
+    private boolean searchLaunched; //Indica si se ha pulsado alguna vez el botón buscar.
     
-	
-    
+	/**
+	 * Devuelve el número de reservas recuperadas tras la búsqueda.
+	 * @return
+	 */
+    public int getReservationsFound(){
+    	int ret=0;
+    	if ( reservations != null )
+    		ret=reservations.size();
+    	return ret;
+    }
+        
     private void loadResources(){
     	
     	
@@ -93,6 +103,7 @@ public class AdmReservationBBean {
 		toDate=fromDate;
 		loadResources();
 		reservations=null;
+		searchLaunched=false;
 		
 		
 		
@@ -225,6 +236,14 @@ public class AdmReservationBBean {
 
 	public void setCommunityItem(CommunityItem communityItem) {
 		this.communityItem = communityItem;
+	}
+
+	public boolean isSearchLaunched() {
+		return searchLaunched;
+	}
+
+	public void setSearchLaunched(boolean searchLaunched) {
+		this.searchLaunched = searchLaunched;
 	}
 	
 	
