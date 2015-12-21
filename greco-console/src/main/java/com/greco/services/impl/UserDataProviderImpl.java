@@ -268,7 +268,9 @@ public class UserDataProviderImpl implements UserDataProvider{
 		
 		usersCommunity.setUser(user);
 		usersCommunity.setApplication(application);
-		this.userCommunitiesDAO.add(usersCommunity);	
+		//Evitar que un refresco genere varias suscripciones.
+		if ( userCommunitiesDAO.getSubscription(userId, communityId)==null)	
+			this.userCommunitiesDAO.add(usersCommunity);	
 		
 		
 	}
