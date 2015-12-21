@@ -5,14 +5,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
-
-
-
-//import org.primefaces.model.LazyDataModel;
-
-
-
-
 import org.joda.time.DateTime;
 import org.primefaces.model.SortOrder;
 
@@ -26,6 +18,7 @@ public class EditMembershipBBean {
 	//Para la pestaña de consulta avanzado
 	//private LazyDataModel<MemberItem> members;
 	List<MemberItem> members;
+	
 	
 	//Suscripciones pendientes de aprobación. Para la pestaña de inicio.
 	private List<MemberItem> pendings; 
@@ -95,7 +88,7 @@ public class EditMembershipBBean {
 				orderedByCriterion, SortOrder.ASCENDING);
 		
 		
-	}
+	} 
 	
 	
 	/**

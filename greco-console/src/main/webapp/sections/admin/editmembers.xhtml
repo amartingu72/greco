@@ -263,9 +263,11 @@
 							<div class="col-md-offset-1 col-md-10">
 									
 								<h:dataTable class="table table-condensed table-hover" id="membersTable" var="member"
-									value="#{editMembershipBBean.members}">
+									value="#{editMembershipBBean.members}"
+									>
 									<h:column>
 										<f:facet name="header">#{msgs['editcommunity.member_alias']}</f:facet>
+									
 										<h:outputText value="#{member.nickname}" />				
 									</h:column>
 									<h:column>
@@ -281,7 +283,7 @@
 									<h:column>
 										<f:facet name="header">#{msgs['editcommunity.member_status']}</f:facet>
 										<p:selectBooleanCheckbox value="#{member.pendingMembership}" onchange="if(this.checked){$('#m#{member.memberId}').collapse('show');}else{$('#m#{member.memberId}').collapse('hide');}">
-			            					<p:ajax update=":editMembersForm:counters :editMembersForm:search_msgs" listener="#{editMembershipCBean.changeMembershipStatus(member)}" />
+			            					<p:ajax update=" :editMembersForm:counters :editMembersForm:search_msgs" listener="#{editMembershipCBean.changeMembershipStatus(member)}" />
 			            					
 			        					</p:selectBooleanCheckbox>	
 									</h:column>
@@ -290,24 +292,22 @@
 										<h:outputText value="#{member.application}" />		
 									</h:column>
 									<h:column>
-										<ul class="social-network">
-											<li>
-												<h:commandLink 
+										
+												<h:commandLink id="exit" 
 														title="#{msgs['editcommunity.unsubscribe']}" 
 														onclick="$('#myModal').appendTo('body').modal('show'); $('.modal-body #member').val( '#{member.nickname}' ); $('.modal-body #selected').val(#{member.memberId});  return false;"
 														>
 													
-													
 													<span class="fa-stack fa-1x">
-													<i class="fa fa-circle fa-stack-2x"></i>
-													<i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>
+														<i class="fa fa-circle fa-stack-2x" style="color:red;"></i>
+														<i class="fa fa-sign-out fa-stack-1x fa-inverse"></i>
 													</span>
+													
 													
 												</h:commandLink>
 												
 												
-											</li>
-										</ul>
+										
 									</h:column>
 									
 								</h:dataTable>
