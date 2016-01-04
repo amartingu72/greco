@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Validación de la longitud y formato de una dirección de email.
  * 
- * @author papá
+ * @author Alberto Martín
  *
  */
 public class EMail {
