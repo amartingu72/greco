@@ -8,7 +8,11 @@ import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
 
 import com.greco.beans.UserSBean;
-
+/**
+ * Clase para gestión de logs (1.0.1)
+ * @author xIS16819
+ *
+ */
 public class MyLogger {
 	
 	private static final String BUNDLE_NAME = "com.greco.logs"; //$NON-NLS-1$
