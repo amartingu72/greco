@@ -9,7 +9,7 @@ import javax.faces.context.FacesContext;
 
 import com.greco.beans.UserSBean;
 /**
- * Clase para gestión de logs (1.0.1)
+ * Clase para gestión de logs
  * @author xIS16819
  *
  */
