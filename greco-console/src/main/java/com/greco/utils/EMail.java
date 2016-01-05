@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 /**
  * Validación de la longitud y formato de una dirección de email.
- * Mi cambio en 1.0.1
+ * 
  * 
  * @author Alberto Martín
  *
