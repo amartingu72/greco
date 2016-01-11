@@ -128,6 +128,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userbean.setProfile(uc.getProfile().getProfile());
 			userbean.setPassword(user.getPassword());
 			userbean.setAdds(user.getAdds()!=0);
+			userbean.setActCode(user.getActcode());
 			
 		}
 		
@@ -157,6 +158,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userbean.setCommunityId(UserSBean.UNDEFINED_COMMUNITY);
 			userbean.setPassword(user.getPassword());
 			userbean.setAdds(user.getAdds()!=0);
+			userbean.setActCode(user.getActcode());
 		}
 		return userbean;
 	}
@@ -288,6 +290,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userItem.setPassword(user.getPassword());
 			userItem.setProfile(USER_PROFILE);
 			userItem.setAdds(user.getAdds()!=0);
+			userItem.setActCode(user.getActcode());
 			
 		}
 		return userItem;
@@ -306,9 +309,22 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userItem.setPassword(user.getPassword());
 			userItem.setProfile(USER_PROFILE);
 			userItem.setAdds(user.getAdds()!=0);
-			
+			userItem.setActCode(user.getActcode());
 		}
 		return userItem;
+	}
+
+	@Override
+	@Transactional
+	public boolean activate(UserItem userItem, String code) {
+		boolean ret=false;
+		if ( userItem.getActCode().equals(code) ){
+			//Si el código de activación coincide, activar.
+			this.usersRepository.activate(userItem.getId());
+			ret=true;
+		}
+		
+		return ret;
 	}
 
 	

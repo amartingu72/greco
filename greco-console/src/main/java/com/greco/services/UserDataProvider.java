@@ -84,4 +84,12 @@ public interface UserDataProvider {
 	 */
 	public abstract UserItem getUserItemByNick(String nickname);
 	
+	/**
+	 * Activación de usuario.
+	 * @param userItem Item de usuario a activar.
+	 * @param code Código de activación 
+	 * @return True (usuario activado); false (código de activación no válido)
+	 */
+	public abstract boolean activate(UserItem userItem, String code);
+	
 }

@@ -800,6 +800,38 @@
 			<value>#{userCommunityDataProvider}</value>
 		</managed-property>
 	</managed-bean>
+	<managed-bean>
+		<description>Backing bean para activación de cuenta.</description>
+		<managed-bean-name>activateAccountBBean</managed-bean-name>
+		<managed-bean-class>com.greco.beans.ActivateAccountBBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<description>Bean controlador para la activación de cuenta.</description>
+		<managed-bean-name>activateAccountCBean</managed-bean-name>
+		<managed-bean-class>com.greco.beans.ActivateAccountCBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>userLogged</property-name>
+			<property-class>com.greco.beans.UserSBean</property-class>
+			<value>#{userLogged}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>userDataProvider</property-name>
+			<property-class>com.greco.services.UserDataProvider</property-class>
+			<value>#{userDataProvider}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>activateAccountBBean</property-name>
+			<property-class>com.greco.beans.ActivateAccountBBean</property-class>
+			<value>#{activateAccountBBean}</value>
+		</managed-property>
+		<managed-property>
+			<property-name>communitiesSBean</property-name>
+			<property-class>com.greco.beans.CommunitiesSBean</property-class>
+			<value>#{communitiesSBean}</value>
+		</managed-property>
+	</managed-bean>
 	<navigation-rule>
 		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>
@@ -865,15 +897,6 @@
 		<navigation-case>
 			<from-outcome>back</from-outcome>
 			<to-view-id>/sections/admin/editcommunity.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>index.xhtml</display-name>
-		<from-view-id>/sections/login/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>select</from-outcome>
-			<to-view-id>/sections/admin/selectcom.xhtml</to-view-id>
-			<redirect />
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
@@ -1016,8 +1039,41 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
+		<display-name>sections/admin/activateaccount.xhtml</display-name>
+		<from-view-id>/sections/admin/activateaccount.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>select</from-outcome>
+			<to-view-id>/sections/admin/selectcom.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
 		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/sections/admin/editmembers.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>index.xhtml</display-name>
+		<from-view-id>/sections/login/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>select</from-outcome>
+			<to-view-id>/sections/admin/selectcom.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>index.xhtml</display-name>
+		<from-view-id>/sections/login/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>check</from-outcome>
+			<to-view-id>/sections/admin/activateaccount.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/activateaccount.xhtml</display-name>
+		<from-view-id>/sections/admin/activateaccount.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>edit</from-outcome>
 			<to-view-id>/sections/admin/editmembers.xhtml</to-view-id>

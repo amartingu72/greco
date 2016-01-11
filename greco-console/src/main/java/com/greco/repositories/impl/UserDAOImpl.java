@@ -78,4 +78,13 @@ public class UserDAOImpl implements UserDAO {
 			return loadSelectedUserByMail(newUser.getEmail());
 		}
 
+		@Override
+		public void activate(int userId) {
+			User user=loadSelectedUser(userId);
+			user.setActcode(null);
+			this.saveUser(user);
+		}
+		
+		
+
 }
