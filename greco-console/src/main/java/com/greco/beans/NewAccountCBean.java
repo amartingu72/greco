@@ -25,14 +25,12 @@ public class NewAccountCBean {
 	private UserDataProvider userDataProvider; //Inyectado.
 	private AuthenticationManager authenticationManager; //Inyectado
 	
+	public String navigateStep1(){
+		return "step1";
+	}
 	
 	
-	/**
-	 * Crea un usuario.
-	 * @return
-	 */
-	public String submit() {		
-		
+	public String navigateStep2(){
 		//Creamos el usuario administrador
 		UserItem userItem=new UserItem();
 		userItem.setEmail(newAccountBBean.getEmail().trim());
@@ -40,6 +38,7 @@ public class NewAccountCBean {
 		userItem.setNickname(newAccountBBean.getNickname().trim());
 		userItem.setPassword(newAccountBBean.getPassword());
 		userItem.setAdds(newAccountBBean.isAdds());
+		
 		//Creamos usuario
 		int userId=userDataProvider.addUser(userItem);
 				
@@ -49,36 +48,64 @@ public class NewAccountCBean {
 		//Grabamos log
 		logger.log("009000",msg);//INFO|Nuevo usuario (sin comunidad)
 				
-		//Hacemos login
-		
-		try {
-
-			// authenticate against spring security
-			//Indicamos que intentamos login en aplicación de administración.
-			
-			Authentication request = new UsernamePasswordAuthenticationToken(this.newAccountBBean.getEmail()+ "#" + AuthenticationProvider.ROLE_ADMIN, this.newAccountBBean.getPassword());            
-
-			Authentication result = authenticationManager.authenticate(request);
-			SecurityContextHolder.getContext().setAuthentication(result);
-
-		} catch (AuthenticationException e) {
-
-			FacesMessage fm = new FacesMessage(Warnings.getString("Login.login_failed")); 
-			FacesContext.getCurrentInstance().addMessage("User", fm);
-			logger.log("001005");//INFO|Intento de login fallido. Usuario o contraseña incorrectos.
-
-			return null;
-		}
-		
 		//Obtenemos resto de datos para cargar el bean de sesión UserBean.
 		UserSBean userBean=new UserSBean();
 		userBean=this.userDataProvider.loadAdminCredentials(this.newAccountBBean.getEmail().trim());
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userLogged", userBean);
 		logger.log("001000");//INFO|Intento exitoso de login como administrador.				
-        
+		        
+				
+		return "step2";
+	}
+	
+	
+	/**
+	 * Crea un usuario.
+	 * @return
+	 */
+	public String submit() {		
+		String ret=null;
 		
-		return "success";
+		//Comprobamos código de activación.
+		UserSBean userBean=(UserSBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userLogged");
+		if (userBean.getActCode().equals(this.newAccountBBean.getActCode())) {
+			try {
+	
+				// authenticate against spring security
+				//Indicamos que intentamos login en aplicación de administración.
+				
+				Authentication request = new UsernamePasswordAuthenticationToken(this.newAccountBBean.getEmail()+ "#" + AuthenticationProvider.ROLE_ADMIN, this.newAccountBBean.getPassword());            
+	
+				Authentication result = authenticationManager.authenticate(request);
+				SecurityContextHolder.getContext().setAuthentication(result);
+	
+			} catch (AuthenticationException e) {
+	
+				FacesMessage fm = new FacesMessage(Warnings.getString("Login.login_failed")); 
+				FacesContext.getCurrentInstance().addMessage("User", fm);
+				logger.log("001005");//INFO|Intento de login fallido. Usuario o contraseña incorrectos.
+	
+				return null;
+			}
+			ret="success";
+			logger.log("001000");//INFO|Intento exitoso de login como administrador.				
+		}
+		else {
+			//Código no válido. Mostrar mensaje de error.
+			FacesMessage fm = new FacesMessage(
+					Warnings.getString("login.activation_failed"),
+					Warnings.getString("login.activation_failed_details")); 
+			FacesContext.getCurrentInstance().addMessage("actcode", fm);
+			logger.log("001008");//WARNING|Activación de cuenta fallida.
+			
+		}
+		
+		return ret;
 	}	
+	
+	/**
+	 * Vuelve 
+	 */
 	
 
 	/**

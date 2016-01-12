@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +22,7 @@ import com.greco.repositories.CommunityDAO;
 import com.greco.repositories.ProfileDAO;
 import com.greco.repositories.UserCommunitiesDAO;
 import com.greco.repositories.UserDAO;
+import com.greco.services.MailProvider;
 import com.greco.services.UserDataProvider;
 import com.greco.services.except.user.NoMemberException;
 import com.greco.services.except.user.PendingException;
@@ -29,6 +31,7 @@ import com.greco.services.except.user.UnknownCommunityException;
 import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.StatusItem;
 import com.greco.services.helpers.UserItem;
+
 
 /**
  * 
@@ -50,6 +53,9 @@ public class UserDataProviderImpl implements UserDataProvider{
 	
 	@Resource(name="ProfilesRepository")
 	private ProfileDAO profileDAO;
+	
+	@Resource(name="mailProvider")
+	private MailProvider mailProvider;
 	
 	
 	
@@ -231,6 +237,9 @@ public class UserDataProviderImpl implements UserDataProvider{
 		user.setNickname(userItem.getNickname());
 		user.setAdds((byte) (userItem.isAdds() ? 1 : 0 ));
 		
+		//Generamos código de activación
+		String actCode=RandomStringUtils.randomAlphanumeric(6);
+		user.setActcode(actCode);
 		
 		//Encriptamos
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -240,6 +249,17 @@ public class UserDataProviderImpl implements UserDataProvider{
 		user.setProfile(USER_PROFILE);
 				
 		User newUser=this.usersRepository.newUser(user);
+		
+		//Enviamos correo con código de activación.
+		userItem.setId(newUser.getId());
+		userItem.setActCode(actCode);
+		try {
+			mailProvider.sendActivationMsg(userItem);
+		} catch (MessagingException e) {
+			// No hay nada que hacer si no es posible enviar el correo.
+			
+			e.printStackTrace();
+		}
 		
 		return newUser.getId();
 	}

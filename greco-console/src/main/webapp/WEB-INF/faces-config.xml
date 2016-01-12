@@ -851,15 +851,6 @@
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>/sections/admin/newaccount.xhtml</display-name>
-		<from-view-id>/sections/admin/newaccount.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>success</from-outcome>
-			<to-view-id>/sections/admin/welcome.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
 		<display-name>index.xhtml</display-name>
 		<from-view-id>/sections/login/login.xhtml</from-view-id>
 		<navigation-case>
@@ -1077,6 +1068,31 @@
 		<navigation-case>
 			<from-outcome>edit</from-outcome>
 			<to-view-id>/sections/admin/editmembers.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/newaccount_step2.xhtml</display-name>
+		<from-view-id>/sections/admin/newaccount_step2.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/sections/admin/welcome.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>/sections/admin/newaccount.xhtml</display-name>
+		<from-view-id>/sections/admin/newaccount.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>step2</from-outcome>
+			<to-view-id>/sections/admin/newaccount_step2.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>sections/admin/newaccount_step2.xhtml</display-name>
+		<from-view-id>/sections/admin/newaccount_step2.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>step1</from-outcome>
+			<to-view-id>/sections/admin/newaccount.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<validator>

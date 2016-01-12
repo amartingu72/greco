@@ -19,6 +19,7 @@ public class NewAccountBBean {
 	//El botón de login es una opción de volver al lógin cuando, al registrarse, observamos que el usuario
 	//ya existe.
 	private boolean showLoginBtn;
+	private String actCode; //Código de activación.
 	
 	
 	
@@ -83,6 +84,14 @@ public class NewAccountBBean {
 
 	public void setShowLoginBtn(boolean showLoginBtn) {
 		this.showLoginBtn = showLoginBtn;
+	}
+
+	public String getActCode() {
+		return actCode;
+	}
+
+	public void setActCode(String actCode) {
+		this.actCode = actCode;
 	}
 	
 

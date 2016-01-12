@@ -98,4 +98,19 @@ public interface MailProvider {
 	 */
 	public abstract void sendMessageToAdmin(List<MemberItem> admins, EMail email, CommunityItem communityItem, String message) throws MessagingException;
 	
+	/**
+	 * Envía un correo con el código de activación a la cuenta indicada. Solo para alta o accesos desde consola
+	 * @param userItem Usuario
+	 * @throws MessagingException
+	 */
+	public void sendActivationMsg(UserItem userItem) throws MessagingException;
+	
+	/**
+	 * Envía un correo con el código de activación a la cuenta indicada. Solo para alta o accesos desde sitio de comunidad.
+	 * @param userItem Usuario
+	 * @param communityItem Comunidad
+	 * @throws MessagingException
+	 */
+	public void sendActivationMsg(UserItem userItem, CommunityItem communityItem) throws MessagingException;
+	
 }
