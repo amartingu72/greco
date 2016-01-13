@@ -10,7 +10,9 @@
    <h:body>
       <ui:composition template="../../templates/admin2opt_layout.xhtml">
          <ui:define name="sidebarleft">		
-			<h:commandLink action="#{#{newAccountCBean.navigateStep1}">
+			<h:commandLink action="#{newAccountCBean.navigateStep1}">
+				<f:param name="action" value="back" />
+				<f:param name="pwd" value="#{newAccountBBean.password}" />
 				<span class="fa-stack fa-2x">
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>

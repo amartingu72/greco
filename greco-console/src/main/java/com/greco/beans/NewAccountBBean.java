@@ -1,6 +1,11 @@
 package com.greco.beans;
 
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
 
 
 /**
@@ -9,7 +14,7 @@ import javax.annotation.PostConstruct;
  *
  */
 public class NewAccountBBean {
-	
+	private int id; //Tendrá un valor distintso de -1 solo si procese de un "back" de la página siguiente. 
 	private String nickname;
 	private String password;
 	private String email;
@@ -23,15 +28,39 @@ public class NewAccountBBean {
 	
 	
 	
+	
 	@PostConstruct
 	public void initialize(){
 		
 		this.showLoginBtn=false;
 		this.adds=false;
 		this.agree=false;
+		ExternalContext ec=FacesContext.getCurrentInstance().getExternalContext();
+		//Si se instancia procedente del botón "back" del segundo paso de creación de cuenta, cargamos los datos de UserSBean 
+		Map<String,String> params =  ec.getRequestParameterMap();
+		
+		String action = params.get("action");
+		if ( (action!=null) && (action.equals("back")) ) {
+			UserSBean userSBean=(UserSBean)ec.getSessionMap().get("userLogged");
+			id=userSBean.getId();
+			nickname=userSBean.getNickname();
+			password=params.get("pwd");
+			email=userSBean.getEmail();
+			mydata=userSBean.getMydata();
+			adds=userSBean.isAdds();
+			agree=true;
+		}
+		else id=-1;
+			
+		
 	}
-	
-	
+	/**
+	 * Indica si a la página newaccount llegamos por primera vez o hemos hecho un back desde el step2.
+	 * @return
+	 */
+	public boolean isReedited(){
+		return this.getId()!=-1;
+	}
 	
 	//GETTERs y SETTERs
 	
@@ -92,6 +121,18 @@ public class NewAccountBBean {
 
 	public void setActCode(String actCode) {
 		this.actCode = actCode;
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 

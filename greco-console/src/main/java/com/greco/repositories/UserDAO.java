@@ -40,4 +40,10 @@ public interface UserDAO {
 	 * @param userId
 	 */
 	public void activate(int userId);
+	
+	/**
+	 * Elimina el usuario con el ID indicado.
+	 * @param userId
+	 */
+	public void remove(int userId);
 }

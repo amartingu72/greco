@@ -226,10 +226,10 @@ public class UserDataProviderImpl implements UserDataProvider{
 	public boolean isDuplicated(String nickname){
 		return usersRepository.loadSelectedUser(nickname)!=null;
 	}
-
+	
 	@Override
 	@Transactional
-	public int addUser(UserItem userItem){
+	public int addUser(UserItem userItem, String actCode){
 		//Creamos el usuario.
 		User user=new User();
 		user.setEmail(userItem.getEmail());
@@ -237,9 +237,13 @@ public class UserDataProviderImpl implements UserDataProvider{
 		user.setNickname(userItem.getNickname());
 		user.setAdds((byte) (userItem.isAdds() ? 1 : 0 ));
 		
-		//Generamos código de activación
-		String actCode=RandomStringUtils.randomAlphanumeric(6);
-		user.setActcode(actCode);
+		//Generamos código de activación si actCode==null;
+		String myActCode;
+		if (actCode==null){
+			myActCode=RandomStringUtils.randomAlphanumeric(6);
+			user.setActcode(actCode);
+		}
+		else myActCode=actCode;
 		
 		//Encriptamos
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -249,19 +253,26 @@ public class UserDataProviderImpl implements UserDataProvider{
 		user.setProfile(USER_PROFILE);
 				
 		User newUser=this.usersRepository.newUser(user);
-		
-		//Enviamos correo con código de activación.
+	
 		userItem.setId(newUser.getId());
-		userItem.setActCode(actCode);
-		try {
-			mailProvider.sendActivationMsg(userItem);
-		} catch (MessagingException e) {
-			// No hay nada que hacer si no es posible enviar el correo.
-			
-			e.printStackTrace();
+		userItem.setActCode(myActCode);
+		//Enviamos correo con código de activación si hemos necesitado un nuevo código de activación.
+		if ( actCode == null ) {
+			try {
+				mailProvider.sendActivationMsg(userItem);
+			} catch (MessagingException e) {
+				// No hay nada que hacer si no es posible enviar el correo.
+				
+				e.printStackTrace();
+			}
 		}
-		
 		return newUser.getId();
+		
+	}
+
+	@Override
+	public int addUser(UserItem userItem){		
+		return addUser(userItem, null);
 	}
 	
 
@@ -345,6 +356,13 @@ public class UserDataProviderImpl implements UserDataProvider{
 		}
 		
 		return ret;
+	}
+
+	@Override
+	@Transactional
+	public void remove(UserItem userItem) {
+		usersRepository.remove(userItem.getId());
+		
 	}
 
 	

@@ -26,6 +26,9 @@ public class NewAccountCBean {
 	private AuthenticationManager authenticationManager; //Inyectado
 	
 	public String navigateStep1(){
+		//Borramos el usuario.
+		UserSBean userSBean=(UserSBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userLogged");
+		userDataProvider.remove(userSBean.getItem());
 		return "step1";
 	}
 	
@@ -39,28 +42,37 @@ public class NewAccountCBean {
 		userItem.setPassword(newAccountBBean.getPassword());
 		userItem.setAdds(newAccountBBean.isAdds());
 		
+		int userId;
+		
 		//Creamos usuario
-		int userId=userDataProvider.addUser(userItem);
+		if ( newAccountBBean.isReedited() ){
+			//Creamos el usuario pero mantenemos el código de activación.
+			UserSBean userBean=(UserSBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userLogged");
+			userId=userDataProvider.addUser(userItem, userBean.getActCode()); 
+		} else
+			userId=userDataProvider.addUser(userItem); //Generamos nuevo código de activación.
+		
 				
 		//Creamos mensaje para log
 		//Preparamos el mensaje para el log.
 		String msg="ID(" + userId + "), NICK(" + userItem.getNickname().trim() +"), EMAIL(" + userItem.getEmail().trim() + ") ADDS (" + userItem.isAdds() +")"  ;
 		//Grabamos log
-		logger.log("009000",msg);//INFO|Nuevo usuario (sin comunidad)
+		if ( newAccountBBean.isReedited() ){
+			logger.log("009001",msg);//INFO|Nuevo usuario reeditado(sin comunidad)
+		} 
+		else
+			logger.log("009000",msg);//INFO|Nuevo usuario (sin comunidad)
 				
 		//Obtenemos resto de datos para cargar el bean de sesión UserBean.
 		UserSBean userBean=new UserSBean();
 		userBean=this.userDataProvider.loadAdminCredentials(this.newAccountBBean.getEmail().trim());
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userLogged", userBean);
-		logger.log("001000");//INFO|Intento exitoso de login como administrador.				
-		        
-				
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userLogged", userBean);	
 		return "step2";
 	}
 	
 	
 	/**
-	 * Crea un usuario.
+	 * Comprueva código de activación accede al sistema.
 	 * @return
 	 */
 	public String submit() {		
