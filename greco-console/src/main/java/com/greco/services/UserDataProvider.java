@@ -105,4 +105,10 @@ public interface UserDataProvider {
 	 */
 	public abstract void remove(UserItem userItem);
 	
+	/**
+	 * Envía por correo al usuario indicado el código de activación.
+	 * @param userItem
+	 */
+	public abstract void sendActivactionCode(UserItem userItem);
+	
 }

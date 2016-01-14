@@ -12,7 +12,6 @@
          <ui:define name="sidebarleft">		
 			<h:commandLink action="#{newAccountCBean.navigateStep1}">
 				<f:param name="action" value="back" />
-				<f:param name="pwd" value="#{newAccountBBean.password}" />
 				<span class="fa-stack fa-2x">
 					<i class="fa fa-circle fa-stack-2x"></i>
 					<i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>
@@ -20,7 +19,7 @@
 			</h:commandLink>
 		</ui:define> 
          <ui:define name="content">
-            <h:form>
+            <h:form id="actform">
             	
             	<div class="row">
             		<div class="col-md-offset-1 col-md-9">
@@ -42,7 +41,7 @@
 							aria-describedby="nickHelpBlock"/>							
 						</div>
             		<div class="col-md-4">
-            			<p:message for="actcode" id="actCodeError" />
+            			<p:message for="actcode" id="actCodeError" showDetail="true" showSummary="true"  />
             		</div>
             	</div>
             	
@@ -50,7 +49,7 @@
             		<div class="col-md-offset-1 col-md-9">
 						<div class="brand">		
 							<p>
-								<span>Si no lo ha recibido pasados unos segundos, comprueba su email en el paso anterior o pulse <h:commandButton class="btn btn-theme" value="aquí" action="#{activateAccountCBean.send}" /> para que le sea enviado de nuevo . </span>
+								<span>Si no lo ha recibido pasados unos segundos, comprueba su email en el paso anterior o pulse <h:commandButton class="btn btn-theme" value="aquí" action="#{activateAccountCBean.sendActCode}" /> para que le sea enviado de nuevo . </span>
 							</p>	
 						</div>
 					</div>

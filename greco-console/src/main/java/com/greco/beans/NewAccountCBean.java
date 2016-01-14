@@ -11,9 +11,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.greco.services.AuthenticationProvider;
 import com.greco.services.UserDataProvider;
-
 import com.greco.services.helpers.UserItem;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
@@ -25,6 +25,10 @@ public class NewAccountCBean {
 	private UserDataProvider userDataProvider; //Inyectado.
 	private AuthenticationManager authenticationManager; //Inyectado
 	
+	/**
+	 * Volver a la página de introducción de datos.
+	 * @return
+	 */
 	public String navigateStep1(){
 		//Borramos el usuario.
 		UserSBean userSBean=(UserSBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userLogged");
@@ -32,7 +36,10 @@ public class NewAccountCBean {
 		return "step1";
 	}
 	
-	
+	/**
+	 * Ir a la página de activación de usuario.
+	 * @return
+	 */
 	public String navigateStep2(){
 		//Creamos el usuario administrador
 		UserItem userItem=new UserItem();
@@ -66,6 +73,8 @@ public class NewAccountCBean {
 		//Obtenemos resto de datos para cargar el bean de sesión UserBean.
 		UserSBean userBean=new UserSBean();
 		userBean=this.userDataProvider.loadAdminCredentials(this.newAccountBBean.getEmail().trim());
+		//Ponemos la pwd en claro por si es usuario solicita volver a la pagina anterior y para poder hacer login si va a la siguiente.
+		userBean.setPassword(userItem.getPassword());
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userLogged", userBean);	
 		return "step2";
 	}
@@ -75,18 +84,19 @@ public class NewAccountCBean {
 	 * Comprueva código de activación accede al sistema.
 	 * @return
 	 */
-	public String submit() {		
+	public String navigateWelcome() {		
 		String ret=null;
 		
 		//Comprobamos código de activación.
 		UserSBean userBean=(UserSBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userLogged");
-		if (userBean.getActCode().equals(this.newAccountBBean.getActCode())) {
+		
+		if (userDataProvider.activate(userBean.getItem(),this.newAccountBBean.getActCode())) {
 			try {
 	
 				// authenticate against spring security
 				//Indicamos que intentamos login en aplicación de administración.
 				
-				Authentication request = new UsernamePasswordAuthenticationToken(this.newAccountBBean.getEmail()+ "#" + AuthenticationProvider.ROLE_ADMIN, this.newAccountBBean.getPassword());            
+				Authentication request = new UsernamePasswordAuthenticationToken(userBean.getEmail()+ "#" + AuthenticationProvider.ROLE_ADMIN, userBean.getPassword());            
 	
 				Authentication result = authenticationManager.authenticate(request);
 				SecurityContextHolder.getContext().setAuthentication(result);
@@ -104,10 +114,10 @@ public class NewAccountCBean {
 		}
 		else {
 			//Código no válido. Mostrar mensaje de error.
-			FacesMessage fm = new FacesMessage(
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					Warnings.getString("login.activation_failed"),
 					Warnings.getString("login.activation_failed_details")); 
-			FacesContext.getCurrentInstance().addMessage("actcode", fm);
+			FacesContext.getCurrentInstance().addMessage("actform:actcode", fm);
 			logger.log("001008");//WARNING|Activación de cuenta fallida.
 			
 		}
@@ -116,9 +126,13 @@ public class NewAccountCBean {
 	}	
 	
 	/**
-	 * Vuelve 
+	 * Envía de nuevo el código de activación por correo, al usuario registrado.
 	 */
-	
+	public void sendActCode(){
+		UserSBean userSBean=(UserSBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userLogged");
+		userDataProvider.sendActivactionCode(userSBean.getItem());
+		
+	}
 
 	/**
 	 * Volver a login.

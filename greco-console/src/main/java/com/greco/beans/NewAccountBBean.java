@@ -44,7 +44,7 @@ public class NewAccountBBean {
 			UserSBean userSBean=(UserSBean)ec.getSessionMap().get("userLogged");
 			id=userSBean.getId();
 			nickname=userSBean.getNickname();
-			password=params.get("pwd");
+			password=userSBean.getPassword();
 			email=userSBean.getEmail();
 			mydata=userSBean.getMydata();
 			adds=userSBean.isAdds();
