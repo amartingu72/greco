@@ -35,8 +35,6 @@ public class MailProviderImpl implements MailProvider {
 	private final String JNDI_NAME="java:jboss/mail/Default";  //Para JBOSS
 	//private final String JNDI_NAME="mail/gmailAccount";  //Para Glassfish.
 
-
-	
 	@Resource(name="UsersRepository")
 	private UserDAO usersRepository;
 	
@@ -326,5 +324,24 @@ public class MailProviderImpl implements MailProvider {
 		}
 	}
 	
-
+	@Override
+	public void sendActivationMsg(UserItem userItem) throws MessagingException {
+		String subject=getString("activation.subject");
+		String content=getString("content.greeting") + userItem.getNickname() + ":";
+		content+=getString("activation.text1");
+		content+=getString("activation.text2") + userItem.getActCode();
+		content+=getString("signature.admin");
+		send(userItem.getEmail(),subject, content);
+	}
+	
+	@Override
+	public void sendActivationMsg(UserItem userItem, CommunityItem communityItem) throws MessagingException {
+		String subject=communityItem.getName() + " - " + getString("activation.locale_subject");
+		String content=getString("content.greeting") + userItem.getNickname() + ":";
+		content+=getString("activation.text1");
+		content+=getString("activation.text2") + userItem.getActCode();
+		content+=getString("signature.admin");
+		content+=getString("signature.locale_reference") + communityItem.getId(); //URL de la comunidad.
+		send(userItem.getEmail(),subject, content);
+	}
 }
