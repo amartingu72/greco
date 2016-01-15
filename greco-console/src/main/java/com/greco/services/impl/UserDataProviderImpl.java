@@ -39,7 +39,7 @@ import com.greco.services.helpers.UserItem;
  *
  */
 
-@Service("userDataProvider")
+@Service("userDataProvider") 
 public class UserDataProviderImpl implements UserDataProvider{
 	
 	@Resource(name="UsersRepository")

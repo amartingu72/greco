@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import com.greco.services.MailProvider;
 import com.greco.services.UserDataProvider;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
@@ -18,6 +19,7 @@ public class ActivateAccountCBean implements Serializable{
 	private ActivateAccountBBean activateAccountBBean;
 	private UserDataProvider userDataProvider;
 	private CommunitiesSBean communitiesSBean;
+	private MailProvider mailProvider;
 	
 	/**
 	 * Validar código de activación y continuar.
@@ -26,11 +28,17 @@ public class ActivateAccountCBean implements Serializable{
 	public String submit(){
 		String ret=null;
 		if (userDataProvider.activate(userLogged.getItem(), activateAccountBBean.getActCode()) ) {
-			//Vemos si administra una sola comunidad (salida "edit"), o varias (salida "select")
-			if ( communitiesSBean.getSelectedItem() != null ) //Hay comunidad seleccionada.
-				ret="edit";
-			else
-				ret="select";
+			//Comprobamos al bean se le está llamando desde la consola o desde un site.
+			if ( userLogged.getCommunityId() != -1) { //Llama desde un site.
+				ret="activated";  
+			}
+			else { //Llama desde la consola.
+				//Vemos si administra una sola comunidad (salida "edit"), o varias (salida "select")
+				if ( communitiesSBean.getSelectedItem() != null ) //Hay comunidad seleccionada.
+					ret="edit";
+				else
+					ret="select";
+			}
 		}
 		else {
 			//Código no válido. Mostrar mensaje de error.
@@ -49,11 +57,22 @@ public class ActivateAccountCBean implements Serializable{
 	 * @return
 	 */
 	public String send(){
+		
+		userDataProvider.sendActivactionCode(userLogged.getItem());
+		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				Warnings.getString("newaccount.actcode_sent"),
+				Warnings.getString("newaccount.actcode_sent_detail")); 
+		FacesContext.getCurrentInstance().addMessage(null, fm);
+		
+		
 		return "send";
 	}
 	
+	
+	
+	
 	/**
-	 * Cancelar activación y volver al login.
+	 * Cancelar activación y volver al login de consola o comunidad según corresponda.
 	 * @return
 	 */
 	public String cancel(){
@@ -91,6 +110,12 @@ public class ActivateAccountCBean implements Serializable{
 	}
 	public void setCommunitiesSBean(CommunitiesSBean communitiesSBean) {
 		this.communitiesSBean = communitiesSBean;
+	}
+	public MailProvider getMailProvider() {
+		return mailProvider;
+	}
+	public void setMailProvider(MailProvider mailProvider) {
+		this.mailProvider = mailProvider;
 	}
 	
 	

@@ -18,13 +18,13 @@
 			</h:commandLink>
 		</ui:define> 
          <ui:define name="content">
-            <h:form>
+            <h:form id="actform">
             	<p:growl id="growl" globalOnly="true" showSummary="true" showDetail="true"/>
             	<div class="row">
             		<div class="col-md-offset-1 col-md-9">
 						<div class="brand">		
 							<p>
-								<span>Este es su primer acceso. Por favor, introduzca el código de activación que enviamos a su cuenta de correo.</span>
+								<span>#{msgs['activateaccount.first_attempt']}</span>
 							</p>
 						</div>
 					</div>
@@ -36,7 +36,7 @@
 							required="true"
 							maxlength="6"
 							size="6"
-							requiredMessage="Introduzca, por favor, un código." 
+							requiredMessage="#{msgs['activateaccount.insert_code']}" 
 							aria-describedby="nickHelpBlock"/>							
 						</div>
             		<div class="col-md-4">
@@ -48,7 +48,8 @@
             		<div class="col-md-offset-1 col-md-9">
 						<div class="brand">		
 							<p>
-								<span>Pulse <h:commandButton class="btn btn-theme" value="aquí" action="#{activateAccountCBean.send}" /> para que le sea enviado de nuevo. </span>
+								<span>#{msgs['activateaccount.press']} <h:commandButton id="sendActCode" immediate="true" class="btn btn-theme" value="#{msgs['activateaccount.here_link']}" action="#{activateAccountCBean.send}" /> #{msgs['activateaccount.to_send']} </span>
+								<p:message for="sendActCode" showDetail="true" showSummary="true"  />
 							</p>	
 						</div>
 					</div>

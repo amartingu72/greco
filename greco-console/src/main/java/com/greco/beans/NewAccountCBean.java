@@ -128,9 +128,14 @@ public class NewAccountCBean {
 	/**
 	 * Envía de nuevo el código de activación por correo, al usuario registrado.
 	 */
-	public void sendActCode(){
+	public String sendActCode(){
 		UserSBean userSBean=(UserSBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userLogged");
 		userDataProvider.sendActivactionCode(userSBean.getItem());
+		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				Warnings.getString("newaccount.actcode_sent"),
+				Warnings.getString("newaccount.actcode_sent_detail")); 
+		FacesContext.getCurrentInstance().addMessage("actform:sendActCode", fm);
+		return null;
 		
 	}
 
