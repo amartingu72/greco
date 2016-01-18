@@ -139,6 +139,8 @@ public class LoginCBean implements Serializable{
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userLogged", user);
 				ret="login";
 				log.log("001001"); //INFO|Intento exitoso de login como usuario.
+				//Compruebo si este usuario es la primera vez que hace login (en consola o site), y, si es la primera vez, redirijo a página de activación.
+				if ( !user.isActivated() ) ret="check";
 			}
 			else {
 				FacesMessage fm = new FacesMessage(Warnings.getString("Login.login_failed")); 
@@ -171,8 +173,7 @@ public class LoginCBean implements Serializable{
 			msg="COMMUNITY_ID(" + loginBBean.getCommunityId() + ") ";
 			log.log("001007",msg); //INFO|Intento de login fallido. La suscripción fue cursada pero no aprobada para la comunidad indicada.
 		}
-		//Compruebo si este usuario es la primera vez que hace login (en consola o site), y, si es la primera vez, redirijo a página de activación.
-		if ( !user.isActivated() ) ret="check";
+		
 				
 		return ret;
 	}
