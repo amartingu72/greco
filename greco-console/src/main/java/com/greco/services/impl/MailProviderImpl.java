@@ -33,7 +33,10 @@ import com.greco.utils.EMail;
 public class MailProviderImpl implements MailProvider {
 	
 	private final String JNDI_NAME="java:jboss/mail/Default";  //Para JBOSS
+	
 	//private final String JNDI_NAME="mail/gmailAccount";  //Para Glassfish.
+	
+	private final String SENDER="admin@alnura.es";
 
 	@Resource(name="UsersRepository")
 	private UserDAO usersRepository;
@@ -87,8 +90,12 @@ public class MailProviderImpl implements MailProvider {
 		MimeMessage message = new MimeMessage(mailSession);
 		
 		Address toAddress = new InternetAddress(email);
+		Address fromAddress = new InternetAddress(SENDER);
 		message.setRecipient(RecipientType.TO, toAddress);
 		message.setSubject(subject);
+		message.setFrom(fromAddress);
+		
+		
 		
 		
 		message.setText(content);

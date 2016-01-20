@@ -325,7 +325,7 @@
         <subsystem xmlns="urn:jboss:domain:mail:1.0">
             <mail-session jndi-name="java:jboss/mail/Default">
                 <smtp-server ssl="true" outbound-socket-binding-ref="mail-smtp">
-                    <login name="admin@alnura.es" password="venus@145"/>
+                    <login name="alberto.martin@alnura.es" password="rclac140"/>
                 </smtp-server>
             </mail-session>
         </subsystem>
