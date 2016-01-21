@@ -113,4 +113,11 @@ public interface MailProvider {
 	 */
 	public void sendActivationMsg(UserItem userItem, CommunityItem communityItem) throws MessagingException;
 	
+	/**
+	 * Envía un correo con el código de activación a la cuenta indicada. Solo cuando se produzca un cambio de correo electrónico.
+	 * @param userItem Usuario
+	 * @throws MessagingException
+	 */
+	public void sendActivation2Msg(UserItem userItem) throws MessagingException;
+	
 }

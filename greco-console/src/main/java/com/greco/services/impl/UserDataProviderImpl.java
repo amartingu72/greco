@@ -68,6 +68,21 @@ public class UserDataProviderImpl implements UserDataProvider{
 	public void save(UserItem userItem, boolean pwdUpdated) {
 		User user=usersRepository.loadSelectedUser(userItem.getId());
 		
+		//Si ha cambiado la cuenta de correo, se requerirá código de activación en el próximo login. Enviamos correo con el nuevo código de activación.
+		if ( !user.getEmail().equals(userItem.getEmail()) ){
+			String actCode=RandomStringUtils.randomAlphanumeric(6);
+			user.setActcode(actCode);
+			userItem.setActCode(actCode);
+			//Enviamos correo.
+			try {
+				mailProvider.sendActivation2Msg(userItem); 
+			} catch (MessagingException e) {
+				// No hay nada que hacer si no es posible enviar el correo.
+				
+				e.printStackTrace();
+			}
+		}
+		
 		user.setEmail(userItem.getEmail());
 		user.setMydata(userItem.getMydata());
 		user.setNickname(userItem.getNickname());

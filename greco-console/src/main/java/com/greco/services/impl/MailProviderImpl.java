@@ -342,6 +342,16 @@ public class MailProviderImpl implements MailProvider {
 	}
 	
 	@Override
+	public void sendActivation2Msg(UserItem userItem) throws MessagingException {
+		String subject=getString("activation2.subject");
+		String content=getString("content.greeting") + userItem.getNickname() + ":";
+		content+=getString("activation2.text1");
+		content+=getString("activation2.text2") + userItem.getActCode();
+		content+=getString("signature.admin");
+		send(userItem.getEmail(),subject, content);
+	}
+	
+	@Override
 	public void sendActivationMsg(UserItem userItem, CommunityItem communityItem) throws MessagingException {
 		String subject=communityItem.getName() + " - " + getString("activation.locale_subject");
 		String content=getString("content.greeting") + userItem.getNickname() + ":";

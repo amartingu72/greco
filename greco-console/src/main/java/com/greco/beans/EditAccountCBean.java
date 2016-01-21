@@ -56,11 +56,7 @@ public class EditAccountCBean implements Serializable{
 		
 		userDataProvider.save(userItem, editAccountBBean.isPwdUpdated());
 		
-		//Actualizamos bean de soporte.
-		userSBean.setEmail(editAccountBBean.getEmail());
-		userSBean.setMydata(editAccountBBean.getMydata());
-		userSBean.setNickname(editAccountBBean.getNickname());
-		userSBean.setAdds(editAccountBBean.isAdds());
+		
 				
 		//Preparamos el mensaje para el log.
 		String msg="NICKNAME(" + userSBean.getNickname() + " > " + editAccountBBean.getNickname() + ") ";
@@ -69,8 +65,20 @@ public class EditAccountCBean implements Serializable{
 		//Grabamos log
 		logger.log("005000",msg);//INFO|Cuenta modificada:
 		
+		//Si ha cambiado la cuenta de correo, indicar que le hemos enviado un código de activación que deberá incluir en su próximo login.
+		String details=""; 
+		if ( !this.editAccountBBean.getEmail().equals(userSBean.getEmail()) ){
+			details=Warnings.getString("editaccount.email_updated");
+		}
+		
+		//Actualizamos bean de soporte.
+		userSBean.setEmail(editAccountBBean.getEmail());
+		userSBean.setMydata(editAccountBBean.getMydata());
+		userSBean.setNickname(editAccountBBean.getNickname());
+		userSBean.setAdds(editAccountBBean.isAdds());
+		
 		//Mostramos mensaje informativo.
-		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("editaccount.updated"), null);
+		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO, Warnings.getString("editaccount.updated"), details);
         FacesContext.getCurrentInstance().addMessage(null, fm);
         
 		return null;
