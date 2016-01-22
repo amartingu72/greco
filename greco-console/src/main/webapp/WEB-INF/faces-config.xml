@@ -523,6 +523,11 @@
 			<property-class>com.greco.services.CommunityDataProvider</property-class>
 			<value>#{communityDataProvider}</value>
 		</managed-property>
+		<managed-property>
+			<property-name>mailProvider</property-name>
+			<property-class>com.greco.services.MailProvider</property-class>
+			<value>#{mailProvider}</value>
+		</managed-property>
 	</managed-bean>
 	<managed-bean>
 		<description>Backing bean para confirmación de suscripción enviada.</description>
