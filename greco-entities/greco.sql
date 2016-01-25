@@ -61,7 +61,7 @@ create table resources (
 	community_id int not null,
 	beforehandtu_id int not null DEFAULT 1 comment 'Unidad de tiempo para beforehand.',
 	timeunit_id int not null DEFAULT 1 comment 'Unidad de tiempo para maxtime y mintime.',
-	weekly_availability varchar(7) not null DEFAULT '1111111' comment 'Dias de la semana que está disponible. 1, disponible; 0 no disponible.'
+	weekly_availability varchar(7) not null DEFAULT '1111111' comment 'Dias de la semana que está disponible. 1, disponible; 0 no disponible.',
 	FOREIGN KEY (resourceType_id) REFERENCES resourcetypes(id),
 	FOREIGN KEY (beforehandtu_id) REFERENCES timeunit(id),
 	FOREIGN KEY (timeunit_id) REFERENCES timeunit(id),
