@@ -91,7 +91,7 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/MySQLDS" pool-name="MySQLDS" enabled="true" use-java-context="true" use-ccm="true">
-                    <connection-url>jdbc:mysql://${env.OPENSHIFT_MYSQL_DB_HOST}:${env.OPENSHIFT_MYSQL_DB_PORT}/amg</connection-url>
+                    <connection-url>jdbc:mysql://${env.OPENSHIFT_MYSQL_DB_HOST}:${env.OPENSHIFT_MYSQL_DB_PORT}/greco</connection-url>
                     <driver>mysql</driver>
                     <pool>
                         <flush-strategy>IdleConnections</flush-strategy>
