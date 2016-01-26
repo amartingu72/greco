@@ -6,7 +6,7 @@ create table users (
 	email varchar(64) not null,
 	profile varchar (32) not null DEFAULT 'USER',
 	mydata varchar(256),
-	password varchar(16),
+	password varchar(60),
 	adds TINYINT not null default 0,
 	actcode varchar(6)
 );
@@ -119,6 +119,8 @@ insert into resourcetypes values (DEFAULT, 'sala', 'Sala de reunión');
 insert into resourcetypes values (DEFAULT, 'parking', 'Parking');
 insert into resourcetypes values (DEFAULT, 'citas', 'Concertación cita');
 insert into resourcetypes values (DEFAULT, 'espacio', 'Espacio multiusos');
+
+insert into countries values (DEFAULT, 'ESPAÑA');
 
 create event expirator on schedule every 5 minute do delete from reservations where status=1 and status_date < now() - interval 15 minute;
 SET GLOBAL event_scheduler = ON;
