@@ -91,14 +91,14 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/MySQLDS" pool-name="MySQLDS" enabled="true" use-java-context="true" use-ccm="true">
-                    <connection-url>jdbc:mysql://127.6.205.2:3306/amg</connection-url>
+                    <connection-url>jdbc:mysql://${env.OPENSHIFT_MYSQL_DB_HOST}:${env.OPENSHIFT_MYSQL_DB_PORT}/greco</connection-url>
                     <driver>mysql</driver>
                     <pool>
                         <flush-strategy>IdleConnections</flush-strategy>
                     </pool>
                     <security>
-                        <user-name>adminw3tHEmM</user-name>
-                        <password>BItdVBx9dSqK</password>
+                        <user-name>${env.OPENSHIFT_MYSQL_DB_USERNAME}</user-name>
+                        <password>${env.OPENSHIFT_MYSQL_DB_PASSWORD}</password>
                     </security>
                     <validation>
                         <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
@@ -325,7 +325,7 @@
         <subsystem xmlns="urn:jboss:domain:mail:1.0">
             <mail-session jndi-name="java:jboss/mail/Default">
                 <smtp-server ssl="true" outbound-socket-binding-ref="mail-smtp">
-                    <login name="greco.adm@gmail.com" password="alberto72"/>
+                    <login name="alberto.martin@alnura.es" password="rclac140"/>
                 </smtp-server>
             </mail-session>
         </subsystem>

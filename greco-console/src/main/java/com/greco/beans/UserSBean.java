@@ -20,6 +20,7 @@ public class UserSBean implements Serializable{
 	private String mydata;
 	private String password;
 	private boolean adds; //Indica si el usuario acepta o no el envío de consejos publicitarios.
+	private String actCode; //Código de activación de cuenta.
 	
 	//Perfil en la comunidad que hizo login
 	private String profile;
@@ -35,6 +36,15 @@ public class UserSBean implements Serializable{
 	
 	
 	
+	/**
+	 * Indica si se ha introducido y validado ya el código de activación del usuario. 
+	 * @return True (activado) o false (no activado aún).
+	 */
+	public boolean isActivated(){
+		return (actCode==null || actCode.equals(""));  
+	}
+	
+	
 	public UserItem getItem(){
 		UserItem userItem=new UserItem();
 		userItem.setEmail(email);
@@ -43,6 +53,7 @@ public class UserSBean implements Serializable{
 		userItem.setNickname(nickname);
 		userItem.setProfile(profile);
 		userItem.setAdds(adds);
+		userItem.setActCode(actCode);
 		return userItem;
 	}
 	
@@ -102,6 +113,7 @@ public class UserSBean implements Serializable{
 			this.nickname=obj.getNickname();
 			this.profile=obj.getProfile();
 			this.adds=obj.isAdds();
+			this.actCode=obj.getActCode();
 		} 
 		 
 	}
@@ -145,6 +157,14 @@ public class UserSBean implements Serializable{
 
 	public void setAdds(boolean adds) {
 		this.adds = adds;
+	}
+
+	public String getActCode() {
+		return actCode;
+	}
+
+	public void setActCode(String actCode) {
+		this.actCode = actCode;
 	}
 	
 	

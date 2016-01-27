@@ -33,10 +33,11 @@ import com.greco.utils.EMail;
 public class MailProviderImpl implements MailProvider {
 	
 	private final String JNDI_NAME="java:jboss/mail/Default";  //Para JBOSS
-	//private final String JNDI_NAME="mail/gmailAccount";  //Para Glassfish.
-
-
 	
+	//private final String JNDI_NAME="mail/gmailAccount";  //Para Glassfish.
+	
+	private final String SENDER="admin@alnura.es";
+
 	@Resource(name="UsersRepository")
 	private UserDAO usersRepository;
 	
@@ -89,8 +90,12 @@ public class MailProviderImpl implements MailProvider {
 		MimeMessage message = new MimeMessage(mailSession);
 		
 		Address toAddress = new InternetAddress(email);
+		Address fromAddress = new InternetAddress(SENDER);
 		message.setRecipient(RecipientType.TO, toAddress);
 		message.setSubject(subject);
+		message.setFrom(fromAddress);
+		
+		
 		
 		
 		message.setText(content);
@@ -326,5 +331,34 @@ public class MailProviderImpl implements MailProvider {
 		}
 	}
 	
-
+	@Override
+	public void sendActivationMsg(UserItem userItem) throws MessagingException {
+		String subject=getString("activation.subject");
+		String content=getString("content.greeting") + userItem.getNickname() + ":";
+		content+=getString("activation.text1");
+		content+=getString("activation.text2") + userItem.getActCode();
+		content+=getString("signature.admin");
+		send(userItem.getEmail(),subject, content);
+	}
+	
+	@Override
+	public void sendActivation2Msg(UserItem userItem) throws MessagingException {
+		String subject=getString("activation2.subject");
+		String content=getString("content.greeting") + userItem.getNickname() + ":";
+		content+=getString("activation2.text1");
+		content+=getString("activation2.text2") + userItem.getActCode();
+		content+=getString("signature.admin");
+		send(userItem.getEmail(),subject, content);
+	}
+	
+	@Override
+	public void sendActivationMsg(UserItem userItem, CommunityItem communityItem) throws MessagingException {
+		String subject=communityItem.getName() + " - " + getString("activation.locale_subject");
+		String content=getString("content.greeting") + userItem.getNickname() + ":";
+		content+=getString("activation.text1");
+		content+=getString("activation.text2") + userItem.getActCode();
+		content+=getString("signature.admin");
+		content+=getString("signature.locale_reference") + communityItem.getId(); //URL de la comunidad.
+		send(userItem.getEmail(),subject, content);
+	}
 }

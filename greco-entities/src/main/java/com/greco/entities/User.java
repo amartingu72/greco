@@ -18,6 +18,8 @@ public class User implements Serializable {
 	@Id
 	private int id;
 
+	private String actcode;
+
 	private byte adds;
 
 	private String email;
@@ -60,6 +62,14 @@ public class User implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getActcode() {
+		return this.actcode;
+	}
+
+	public void setActcode(String actcode) {
+		this.actcode = actcode;
 	}
 
 	public byte getAdds() {

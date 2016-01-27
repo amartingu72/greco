@@ -10,8 +10,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 
+
 import org.springframework.stereotype.Repository;
 
+import com.greco.entities.Reservation;
 import com.greco.entities.User;
 import com.greco.repositories.UserDAO;
 
@@ -77,5 +79,22 @@ public class UserDAOImpl implements UserDAO {
 			em.persist(newUser);
 			return loadSelectedUserByMail(newUser.getEmail());
 		}
+
+		@Override
+		public void activate(int userId) {
+			User user=loadSelectedUser(userId);
+			user.setActcode(null);
+			this.saveUser(user);
+		}
+
+		@Override
+		public void remove(int userId) {
+			
+			User user=em.getReference(User.class, userId);
+			User u=em.merge(user);
+			em.remove(u);
+		}
+		
+		
 
 }

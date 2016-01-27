@@ -6,8 +6,9 @@ create table users (
 	email varchar(64) not null,
 	profile varchar (32) not null DEFAULT 'USER',
 	mydata varchar(256),
-	password varchar(16),
-	adds TINYINT not null default 0
+	password varchar(60),
+	adds TINYINT not null default 0,
+	actcode varchar(6)
 );
 
 create table countries (
@@ -60,7 +61,7 @@ create table resources (
 	community_id int not null,
 	beforehandtu_id int not null DEFAULT 1 comment 'Unidad de tiempo para beforehand.',
 	timeunit_id int not null DEFAULT 1 comment 'Unidad de tiempo para maxtime y mintime.',
-	weekly_availability varchar(7) not null DEFAULT '1111111' comment 'Dias de la semana que está disponible. 1, disponible; 0 no disponible.'
+	weekly_availability varchar(7) not null DEFAULT '1111111' comment 'Dias de la semana que está disponible. 1, disponible; 0 no disponible.',
 	FOREIGN KEY (resourceType_id) REFERENCES resourcetypes(id),
 	FOREIGN KEY (beforehandtu_id) REFERENCES timeunit(id),
 	FOREIGN KEY (timeunit_id) REFERENCES timeunit(id),
@@ -118,6 +119,8 @@ insert into resourcetypes values (DEFAULT, 'sala', 'Sala de reunión');
 insert into resourcetypes values (DEFAULT, 'parking', 'Parking');
 insert into resourcetypes values (DEFAULT, 'citas', 'Concertación cita');
 insert into resourcetypes values (DEFAULT, 'espacio', 'Espacio multiusos');
+
+insert into countries values (DEFAULT, 'ESPAÑA');
 
 create event expirator on schedule every 5 minute do delete from reservations where status=1 and status_date < now() - interval 15 minute;
 SET GLOBAL event_scheduler = ON;

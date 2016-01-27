@@ -35,6 +35,15 @@ public interface UserDAO {
 	 * @return
 	 */
 	public User newUser(User newUser);
+	/**
+	 * Activa (actcode=null) el usuario indicado.
+	 * @param userId
+	 */
+	public void activate(int userId);
 	
-	
+	/**
+	 * Elimina el usuario con el ID indicado.
+	 * @param userId
+	 */
+	public void remove(int userId);
 }

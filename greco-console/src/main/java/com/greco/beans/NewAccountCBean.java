@@ -11,9 +11,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.greco.services.AuthenticationProvider;
 import com.greco.services.UserDataProvider;
-
 import com.greco.services.helpers.UserItem;
 import com.greco.utils.MyLogger;
 import com.greco.utils.Warnings;
@@ -25,14 +25,22 @@ public class NewAccountCBean {
 	private UserDataProvider userDataProvider; //Inyectado.
 	private AuthenticationManager authenticationManager; //Inyectado
 	
-	
-	
 	/**
-	 * Crea un usuario.
+	 * Volver a la página de introducción de datos.
 	 * @return
 	 */
-	public String submit() {		
-		
+	public String navigateStep1(){
+		//Borramos el usuario.
+		UserSBean userSBean=(UserSBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userLogged");
+		userDataProvider.remove(userSBean.getItem());
+		return "step1";
+	}
+	
+	/**
+	 * Ir a la página de activación de usuario.
+	 * @return
+	 */
+	public String navigateStep2(){
 		//Creamos el usuario administrador
 		UserItem userItem=new UserItem();
 		userItem.setEmail(newAccountBBean.getEmail().trim());
@@ -40,46 +48,96 @@ public class NewAccountCBean {
 		userItem.setNickname(newAccountBBean.getNickname().trim());
 		userItem.setPassword(newAccountBBean.getPassword());
 		userItem.setAdds(newAccountBBean.isAdds());
+		
+		int userId;
+		
 		//Creamos usuario
-		int userId=userDataProvider.addUser(userItem);
+		if ( newAccountBBean.isReedited() ){
+			//Creamos el usuario pero mantenemos el código de activación.
+			UserSBean userBean=(UserSBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userLogged");
+			userId=userDataProvider.addUser(userItem, userBean.getActCode()); 
+		} else
+			userId=userDataProvider.addUser(userItem); //Generamos nuevo código de activación.
+		
 				
 		//Creamos mensaje para log
 		//Preparamos el mensaje para el log.
 		String msg="ID(" + userId + "), NICK(" + userItem.getNickname().trim() +"), EMAIL(" + userItem.getEmail().trim() + ") ADDS (" + userItem.isAdds() +")"  ;
 		//Grabamos log
-		logger.log("009000",msg);//INFO|Nuevo usuario (sin comunidad)
+		if ( newAccountBBean.isReedited() ){
+			logger.log("009001",msg);//INFO|Nuevo usuario reeditado(sin comunidad)
+		} 
+		else
+			logger.log("009000",msg);//INFO|Nuevo usuario (sin comunidad)
 				
-		//Hacemos login
-		
-		try {
-
-			// authenticate against spring security
-			//Indicamos que intentamos login en aplicación de administración.
-			
-			Authentication request = new UsernamePasswordAuthenticationToken(this.newAccountBBean.getEmail()+ "#" + AuthenticationProvider.ROLE_ADMIN, this.newAccountBBean.getPassword());            
-
-			Authentication result = authenticationManager.authenticate(request);
-			SecurityContextHolder.getContext().setAuthentication(result);
-
-		} catch (AuthenticationException e) {
-
-			FacesMessage fm = new FacesMessage(Warnings.getString("Login.login_failed")); 
-			FacesContext.getCurrentInstance().addMessage("User", fm);
-			logger.log("001005");//INFO|Intento de login fallido. Usuario o contraseña incorrectos.
-
-			return null;
-		}
-		
 		//Obtenemos resto de datos para cargar el bean de sesión UserBean.
 		UserSBean userBean=new UserSBean();
 		userBean=this.userDataProvider.loadAdminCredentials(this.newAccountBBean.getEmail().trim());
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userLogged", userBean);
-		logger.log("001000");//INFO|Intento exitoso de login como administrador.				
-        
+		//Ponemos la pwd en claro por si es usuario solicita volver a la pagina anterior y para poder hacer login si va a la siguiente.
+		userBean.setPassword(userItem.getPassword());
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userLogged", userBean);	
+		return "step2";
+	}
+	
+	
+	/**
+	 * Comprueva código de activación accede al sistema.
+	 * @return
+	 */
+	public String navigateWelcome() {		
+		String ret=null;
 		
-		return "success";
+		//Comprobamos código de activación.
+		UserSBean userBean=(UserSBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userLogged");
+		
+		if (userDataProvider.activate(userBean.getItem(),this.newAccountBBean.getActCode())) {
+			try {
+	
+				// authenticate against spring security
+				//Indicamos que intentamos login en aplicación de administración.
+				
+				Authentication request = new UsernamePasswordAuthenticationToken(userBean.getEmail()+ "#" + AuthenticationProvider.ROLE_ADMIN, userBean.getPassword());            
+	
+				Authentication result = authenticationManager.authenticate(request);
+				SecurityContextHolder.getContext().setAuthentication(result);
+	
+			} catch (AuthenticationException e) {
+	
+				FacesMessage fm = new FacesMessage(Warnings.getString("Login.login_failed")); 
+				FacesContext.getCurrentInstance().addMessage("User", fm);
+				logger.log("001005");//INFO|Intento de login fallido. Usuario o contraseña incorrectos.
+	
+				return null;
+			}
+			ret="success";
+			logger.log("001000");//INFO|Intento exitoso de login como administrador.				
+		}
+		else {
+			//Código no válido. Mostrar mensaje de error.
+			FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					Warnings.getString("login.activation_failed"),
+					Warnings.getString("login.activation_failed_details")); 
+			FacesContext.getCurrentInstance().addMessage("actform:actcode", fm);
+			logger.log("001008");//WARNING|Activación de cuenta fallida.
+			
+		}
+		
+		return ret;
 	}	
 	
+	/**
+	 * Envía de nuevo el código de activación por correo, al usuario registrado.
+	 */
+	public String sendActCode(){
+		UserSBean userSBean=(UserSBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userLogged");
+		userDataProvider.sendActivactionCode(userSBean.getItem());
+		FacesMessage fm = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				Warnings.getString("newaccount.actcode_sent"),
+				Warnings.getString("newaccount.actcode_sent_detail")); 
+		FacesContext.getCurrentInstance().addMessage("actform:sendActCode", fm);
+		return null;
+		
+	}
 
 	/**
 	 * Volver a login.

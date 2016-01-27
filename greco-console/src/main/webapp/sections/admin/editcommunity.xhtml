@@ -104,6 +104,7 @@
 						<h:inputText class="form-control" id="name" value="#{editCommunityBBean.name}"  maxlength="32" required="true" converter="trim" >
 							<f:validator binding="#{duplicatedCommunityValidator}" />
 						</h:inputText>
+						<p:message id="namemsg" for="name" showSummary="true" showDetail="true"/>	
 					</div>
 						
 					 

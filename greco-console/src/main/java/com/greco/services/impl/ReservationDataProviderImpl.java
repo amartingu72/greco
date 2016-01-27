@@ -213,11 +213,10 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 	public List<ReservationItem> getLastMonthReservations(int userId,
 			CommunityItem communityItem) {
 		
-		DateTime now=DateTime.now(communityItem.getDateTimeZone());
-		DateTime dt1=new DateTime(now.getYear(),
-				now.getMonthOfYear()-1,
-				1, 0,0, communityItem.getDateTimeZone());
 		DateTime last_month=(DateTime.now(communityItem.getDateTimeZone())).minusMonths(1);
+		DateTime dt1=new DateTime(last_month.getYear(),
+				last_month.getMonthOfYear(),
+				1, 0,0, communityItem.getDateTimeZone());
 		DateTime dt2=new DateTime(last_month.getYear(),
 				last_month.getMonthOfYear(),
 				last_month.dayOfMonth().getMaximumValue(), 23,59, communityItem.getDateTimeZone());

@@ -32,6 +32,13 @@ public interface UserDataProvider {
 	public abstract int addUser(UserItem userItem);
 	
 	/**
+	 * Crea un nuevo usuario sin generar un nuevo código de activación pero utilizando el actual.
+	 * @param UserIte
+	 * @return ID del usuario creado
+	 */
+	public int addUser(UserItem userItem, String actCode);
+	
+	/**
 	 * Suscribe un usuario a una comunidad..
 	 * @param userItem Item de usuario
 	 * @param communityId Id de comunidad.
@@ -83,5 +90,25 @@ public interface UserDataProvider {
 	 * @return Item de usuario.
 	 */
 	public abstract UserItem getUserItemByNick(String nickname);
+	
+	/**
+	 * Activación de usuario.
+	 * @param userItem Item de usuario a activar.
+	 * @param code Código de activación 
+	 * @return True (usuario activado); false (código de activación no válido)
+	 */
+	public abstract boolean activate(UserItem userItem, String code);
+	
+	/**
+	 * Elimina un usuario.
+	 * @param userItem Usuario
+	 */
+	public abstract void remove(UserItem userItem);
+	
+	/**
+	 * Envía por correo al usuario indicado el código de activación.
+	 * @param userItem
+	 */
+	public abstract void sendActivactionCode(UserItem userItem);
 	
 }

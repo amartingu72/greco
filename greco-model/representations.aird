@@ -416,7 +416,7 @@
           <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_Q7yKhDXEEeWU78UardWkpQ" red="255" green="255" blue="255"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Capture']/@ownedRepresentations[name='Use%20Case%20Diagram']/@defaultLayer/@containerMappings[name='UCD_Subject']"/>
-        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_ZGHHoDXEEeWU78UardWkpQ" name="Reservar" outgoingEdges="_crrgIDXEEeWU78UardWkpQ" width="14" height="14" resizeKind="NSEW">
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_ZGHHoDXEEeWU78UardWkpQ" name="Confirmar cesta" outgoingEdges="_crrgIDXEEeWU78UardWkpQ" width="14" height="14" resizeKind="NSEW">
           <target xmi:type="uml:UseCase" href="model.uml#_ZGGgkDXEEeWU78UardWkpQ"/>
           <semanticElements xmi:type="uml:UseCase" href="model.uml#_ZGGgkDXEEeWU78UardWkpQ"/>
           <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -513,7 +513,7 @@
           <foregroundColor xmi:type="viewpoint:RGBValues" xmi:id="_0QfJBTaaEeWnW8OSAdDaOg" red="255" green="255" blue="255"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Capture']/@ownedRepresentations[name='Use%20Case%20Diagram']/@defaultLayer/@containerMappings[name='UCD_Subject']"/>
-        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_5-0k0DaaEeWnW8OSAdDaOg" name="Eliminar pre-resevas expiradas" outgoingEdges="_BgGk8DabEeWnW8OSAdDaOg" width="14" height="14" resizeKind="NSEW">
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_5-0k0DaaEeWnW8OSAdDaOg" name="Eliminar pre-reservas expiradas" outgoingEdges="_BgGk8DabEeWnW8OSAdDaOg" width="14" height="14" resizeKind="NSEW">
           <target xmi:type="uml:UseCase" href="model.uml#_5-dYcDaaEeWnW8OSAdDaOg"/>
           <semanticElements xmi:type="uml:UseCase" href="model.uml#_5-dYcDaaEeWnW8OSAdDaOg"/>
           <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -7221,6 +7221,9 @@
                   <children xmi:type="notation:Node" xmi:id="_rm0eEDdWEeWh9sDiop90Mg" type="3010" element="_rmsiQDdWEeWh9sDiop90Mg">
                     <layoutConstraint xmi:type="notation:Location" xmi:id="_rm0eETdWEeWh9sDiop90Mg"/>
                   </children>
+                  <children xmi:type="notation:Node" xmi:id="_hY_r4LYNEeW3EqkaQRSwTw" type="3010" element="_hY0FsLYNEeW3EqkaQRSwTw">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_hY_r4bYNEeW3EqkaQRSwTw"/>
+                  </children>
                   <children xmi:type="notation:Node" xmi:id="_cO-m8DXNEeWU78UardWkpQ" type="3010" element="_cO35QDXNEeWU78UardWkpQ">
                     <layoutConstraint xmi:type="notation:Location" xmi:id="_cO-m8TXNEeWU78UardWkpQ"/>
                   </children>
@@ -7584,6 +7587,15 @@
               <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Dashboard']/@ownedRepresentations[name='Dashboard']/@defaultLayer/@containerMappings[name='DA_Dashboard']/@subContainerMappings[name='DA_Navigate']/@subNodeMappings[name='DA_Representation']/@style"/>
               <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_rmsiQzdWEeWh9sDiop90Mg"/>
               <color xmi:type="viewpoint:RGBValues" xmi:id="_rmsiRDdWEeWh9sDiop90Mg"/>
+            </ownedStyle>
+            <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Dashboard']/@ownedRepresentations[name='Dashboard']/@defaultLayer/@containerMappings[name='DA_Dashboard']/@subContainerMappings[name='DA_Navigate']/@subNodeMappings[name='DA_Representation']"/>
+          </ownedElements>
+          <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_hY0FsLYNEeW3EqkaQRSwTw" name="UCD Gestión de reservas de comunidad Component Diagram" tooltipText="Double click to open the current diagram">
+            <ownedStyle xmi:type="diagram:BundledImage" xmi:id="_hY0swLYNEeW3EqkaQRSwTw" labelSize="10" labelAlignment="LEFT">
+              <labelColor xmi:type="viewpoint:RGBValues" xmi:id="_hY0swbYNEeW3EqkaQRSwTw"/>
+              <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Dashboard']/@ownedRepresentations[name='Dashboard']/@defaultLayer/@containerMappings[name='DA_Dashboard']/@subContainerMappings[name='DA_Navigate']/@subNodeMappings[name='DA_Representation']/@style"/>
+              <borderColor xmi:type="viewpoint:RGBValues" xmi:id="_hY0swrYNEeW3EqkaQRSwTw"/>
+              <color xmi:type="viewpoint:RGBValues" xmi:id="_hY0sw7YNEeW3EqkaQRSwTw"/>
             </ownedStyle>
             <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Dashboard']/@ownedRepresentations[name='Dashboard']/@defaultLayer/@containerMappings[name='DA_Dashboard']/@subContainerMappings[name='DA_Navigate']/@subNodeMappings[name='DA_Representation']"/>
           </ownedElements>

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head><title>IGNORED</title></h:head>
+   <h:body>
+      <ui:composition template="../templates/sitesopt_layout.xhtml">
+         <ui:define name="sidebarleft">		
+			<h:commandLink action="#{activateAccountCBean.cancel}">
+				<span class="fa-stack fa-2x">
+					<i class="fa fa-circle fa-stack-2x"></i>
+					<i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>
+				</span>
+			</h:commandLink>
+		</ui:define> 
+         <ui:define name="content">
+            <h:form id="actform">
+            	<p:growl id="growl" globalOnly="true" showSummary="true" showDetail="true"/>
+            	<div class="row">
+            		<div class="col-md-offset-1 col-md-9">
+						<div class="brand">		
+							<p>
+								<span>#{msgs['activateaccount.first_attempt']}</span>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="line-spacer"></div>
+            		<div class="col-md-offset-4 col-md-2">
+						<p:inputText id="actcode" class="form-control" value="#{activateAccountBBean.actCode}"
+							required="true"
+							maxlength="6"
+							size="6"
+							requiredMessage="#{msgs['activateaccount.insert_code']}" 
+							aria-describedby="nickHelpBlock"/>							
+						</div>
+            		<div class="col-md-4">
+            			<p:message for="actcode" id="actCodeError" />
+            		</div>
+            	</div>
+            	
+            	<div class="row">
+            		<div class="col-md-offset-1 col-md-9">
+						<div class="brand">		
+							<p>
+								<span>#{msgs['activateaccount.press']} <h:commandButton id="sendActCode" immediate="true" class="btn btn-theme" value="#{msgs['activateaccount.here_link']}" action="#{activateAccountCBean.send}" /> #{msgs['activateaccount.to_send']} </span>
+								<p:message for="sendActCode" showDetail="true" showSummary="true"  />
+							</p>	
+						</div>
+					</div>
+				</div>
+				<div class="line-spacer"></div>
+				<div class="row">
+					<div class="col-md-offset-1 col-md-3">
+						<div class="form-group">
+							<p:captcha id="myCapthcha" 
+	            				language="es"
+	            				label="#{msgs['newaccount.nobot']}" 
+	            				requiredMessage="#{msgs['newaccount.nobot_retry']}"
+	            				validatorMessage="#{msgs['newaccount.nobot_error']}"
+	            			/>
+	            		</div>
+	            	</div>
+	            	<div class="col-md-offset-1 col-md-5">
+	            		<p:message for="myCapthcha" />
+	            	</div>
+	            	
+            	</div>
+				
+				<div class="line-spacer"></div>
+				<div class="row">
+            		<div class="col-md-offset-9 col-md-2">
+      
+            			<h:commandButton class="btn btn-theme" value="Activar" action="#{activateAccountCBean.submit}" />
+            		</div>
+				</div>
+				<div class="line-spacer"></div>
+            </h:form>	            
+         </ui:define>
+      </ui:composition>
+   </h:body>
+</html>

@@ -93,6 +93,10 @@ public class LoginCBean implements Serializable{
 		else ret="select";
 		//Pongo el bean en la sesión.
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("communitiesSBean", communitiesSBean);
+		
+		//Compruebo si este usuario es la primera vez que hace login (en consola o site), y, si es la primera vez, redirijo a página de activación.
+		if ( !userBean.isActivated() ) ret="check";
+		
         return ret;	
 	}
 	
@@ -135,6 +139,8 @@ public class LoginCBean implements Serializable{
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userLogged", user);
 				ret="login";
 				log.log("001001"); //INFO|Intento exitoso de login como usuario.
+				//Compruebo si este usuario es la primera vez que hace login (en consola o site), y, si es la primera vez, redirijo a página de activación.
+				if ( !user.isActivated() ) ret="check";
 			}
 			else {
 				FacesMessage fm = new FacesMessage(Warnings.getString("Login.login_failed")); 

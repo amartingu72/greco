@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +22,7 @@ import com.greco.repositories.CommunityDAO;
 import com.greco.repositories.ProfileDAO;
 import com.greco.repositories.UserCommunitiesDAO;
 import com.greco.repositories.UserDAO;
+import com.greco.services.MailProvider;
 import com.greco.services.UserDataProvider;
 import com.greco.services.except.user.NoMemberException;
 import com.greco.services.except.user.PendingException;
@@ -30,13 +32,14 @@ import com.greco.services.helpers.CommunityItem;
 import com.greco.services.helpers.StatusItem;
 import com.greco.services.helpers.UserItem;
 
+
 /**
  * 
  * @author Alberto Martín
  *
  */
 
-@Service("userDataProvider")
+@Service("userDataProvider") 
 public class UserDataProviderImpl implements UserDataProvider{
 	
 	@Resource(name="UsersRepository")
@@ -51,6 +54,9 @@ public class UserDataProviderImpl implements UserDataProvider{
 	@Resource(name="ProfilesRepository")
 	private ProfileDAO profileDAO;
 	
+	@Resource(name="mailProvider")
+	private MailProvider mailProvider;
+	
 	
 	
 	@SuppressWarnings("unused")
@@ -61,6 +67,21 @@ public class UserDataProviderImpl implements UserDataProvider{
 	@Transactional
 	public void save(UserItem userItem, boolean pwdUpdated) {
 		User user=usersRepository.loadSelectedUser(userItem.getId());
+		
+		//Si ha cambiado la cuenta de correo, se requerirá código de activación en el próximo login. Enviamos correo con el nuevo código de activación.
+		if ( !user.getEmail().equals(userItem.getEmail()) ){
+			String actCode=RandomStringUtils.randomAlphanumeric(6);
+			user.setActcode(actCode);
+			userItem.setActCode(actCode);
+			//Enviamos correo.
+			try {
+				mailProvider.sendActivation2Msg(userItem); 
+			} catch (MessagingException e) {
+				// No hay nada que hacer si no es posible enviar el correo.
+				
+				e.printStackTrace();
+			}
+		}
 		
 		user.setEmail(userItem.getEmail());
 		user.setMydata(userItem.getMydata());
@@ -128,6 +149,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userbean.setProfile(uc.getProfile().getProfile());
 			userbean.setPassword(user.getPassword());
 			userbean.setAdds(user.getAdds()!=0);
+			userbean.setActCode(user.getActcode());
 			
 		}
 		
@@ -157,6 +179,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userbean.setCommunityId(UserSBean.UNDEFINED_COMMUNITY);
 			userbean.setPassword(user.getPassword());
 			userbean.setAdds(user.getAdds()!=0);
+			userbean.setActCode(user.getActcode());
 		}
 		return userbean;
 	}
@@ -218,10 +241,10 @@ public class UserDataProviderImpl implements UserDataProvider{
 	public boolean isDuplicated(String nickname){
 		return usersRepository.loadSelectedUser(nickname)!=null;
 	}
-
+	
 	@Override
 	@Transactional
-	public int addUser(UserItem userItem){
+	public int addUser(UserItem userItem, String actCode){
 		//Creamos el usuario.
 		User user=new User();
 		user.setEmail(userItem.getEmail());
@@ -229,6 +252,14 @@ public class UserDataProviderImpl implements UserDataProvider{
 		user.setNickname(userItem.getNickname());
 		user.setAdds((byte) (userItem.isAdds() ? 1 : 0 ));
 		
+		//Generamos código de activación si actCode==null;
+		String myActCode;
+		if (actCode==null){
+			myActCode=RandomStringUtils.randomAlphanumeric(6);
+			
+		}
+		else myActCode=actCode;
+		user.setActcode(myActCode);
 		
 		//Encriptamos
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -238,8 +269,27 @@ public class UserDataProviderImpl implements UserDataProvider{
 		user.setProfile(USER_PROFILE);
 				
 		User newUser=this.usersRepository.newUser(user);
+	
+		userItem.setId(newUser.getId());
+		userItem.setActCode(myActCode);
+		//Enviamos correo con código de activación.
+		
+		try {
+			mailProvider.sendActivationMsg(userItem);
+		} catch (MessagingException e) {
+			// No hay nada que hacer si no es posible enviar el correo.
+			
+			e.printStackTrace();
+		}
 		
 		return newUser.getId();
+		
+	}
+
+	@Override
+	@Transactional
+	public int addUser(UserItem userItem){		
+		return addUser(userItem, null);
 	}
 	
 
@@ -288,6 +338,7 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userItem.setPassword(user.getPassword());
 			userItem.setProfile(USER_PROFILE);
 			userItem.setAdds(user.getAdds()!=0);
+			userItem.setActCode(user.getActcode());
 			
 		}
 		return userItem;
@@ -306,9 +357,40 @@ public class UserDataProviderImpl implements UserDataProvider{
 			userItem.setPassword(user.getPassword());
 			userItem.setProfile(USER_PROFILE);
 			userItem.setAdds(user.getAdds()!=0);
-			
+			userItem.setActCode(user.getActcode());
 		}
 		return userItem;
+	}
+
+	@Override
+	@Transactional
+	public boolean activate(UserItem userItem, String code) {
+		boolean ret=false;
+		if ( userItem.getActCode().equals(code) ){
+			//Si el código de activación coincide, activar.
+			this.usersRepository.activate(userItem.getId());
+			ret=true;
+		}
+		
+		return ret;
+	}
+
+	@Override
+	@Transactional
+	public void remove(UserItem userItem) {
+		usersRepository.remove(userItem.getId());
+		
+	}
+
+	@Override
+	public void sendActivactionCode(UserItem userItem) {
+		try {
+			mailProvider.sendActivationMsg(userItem);
+		} catch (MessagingException e) {
+			// No hay nada que hacer si no es posible enviar el correo.
+			
+			e.printStackTrace();
+		}
 	}
 
 	

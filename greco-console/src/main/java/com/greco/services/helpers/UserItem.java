@@ -8,6 +8,7 @@ public class UserItem {
 	private String mydata;
 	private String password;
 	private boolean adds; //Aceptación de publicidad.
+	private String actCode; //Codigo de activación
 	
 	public boolean isAdmin(){
 		
@@ -59,6 +60,14 @@ public class UserItem {
 
 	public void setAdds(boolean adds) {
 		this.adds = adds;
+	}
+
+	public String getActCode() {
+		return actCode;
+	}
+
+	public void setActCode(String actCode) {
+		this.actCode = actCode;
 	}
 	
 	
