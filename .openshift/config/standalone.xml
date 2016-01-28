@@ -480,7 +480,7 @@
 		<socket-binding name="txn-recovery-environment" port="4712" />
 		<socket-binding name="txn-status-manager" port="4713" />
 		<outbound-socket-binding name="mail-smtp">
-			<remote-destination host="localhost" port="25" />
+			 <remote-destination host="smtp.gmail.com" port="465"/>
 		</outbound-socket-binding>
     </socket-binding-group>
 
