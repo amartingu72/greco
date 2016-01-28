@@ -82,14 +82,7 @@
         <subsystem xmlns="urn:jboss:domain:configadmin:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:1.0">
             <datasources>
-                <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="H2DS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:h2:${jboss.server.data.dir}/test;DB_CLOSE_DELAY=-1</connection-url>
-                    <driver>h2</driver>
-                    <security>
-                        <user-name>sa</user-name>
-                        <password>sa</password>
-                    </security>
-                </datasource>
+               
                 <datasource jndi-name="java:jboss/datasources/MySQLDS" pool-name="MySQLDS" enabled="true" use-java-context="true" use-ccm="true">
                     <connection-url>jdbc:mysql://${env.OPENSHIFT_MYSQL_DB_HOST}:${env.OPENSHIFT_MYSQL_DB_PORT}/greco</connection-url>
                     <driver>mysql</driver>
@@ -106,32 +99,13 @@
                         <background-validation-millis>60000</background-validation-millis>
                     </validation>
                 </datasource>
-                <datasource jndi-name="java:jboss/datasources/PostgreSQLDS" pool-name="PostgreSQLDS" use-java-context="true" use-ccm="true">
-                    <connection-url>jdbc:postgresql://${env.OPENSHIFT_POSTGRESQL_DB_HOST}:${env.OPENSHIFT_POSTGRESQL_DB_PORT}/amg</connection-url>
-                    <driver>postgresql</driver>
-                    <pool>
-                        <flush-strategy>IdleConnections</flush-strategy>
-                    </pool>
-                    <security>
-                        <user-name>${env.OPENSHIFT_POSTGRESQL_DB_USERNAME}</user-name>
-                        <password>${env.OPENSHIFT_POSTGRESQL_DB_PASSWORD}</password>
-                    </security>
-                    <validation>
-                        <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
-                        <background-validation>true</background-validation>
-                        <background-validation-millis>60000</background-validation-millis>
-                    </validation>
-                </datasource>
+                
                 <drivers>
-                    <driver name="h2" module="com.h2database.h2">
-                        <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
-                    </driver>
+                    
                     <driver name="mysql" module="com.mysql.jdbc">
                         <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
                     </driver>
-                    <driver name="postgresql" module="org.postgresql.jdbc">
-                        <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
-                    </driver>
+                    
                 </drivers>
             </datasources>
         </subsystem>
@@ -233,8 +207,8 @@
         <subsystem xmlns="urn:jboss:domain:jaxr:1.1">
             <connection-factory jndi-name="java:jboss/jaxr/ConnectionFactory"/>
             <properties>
-                <property name="javax.xml.registry.lifeCycleManagerURL" value="http://127.6.205.1:8080/juddi/publish"/>
-                <property name="javax.xml.registry.queryManagerURL" value="http://127.6.205.1:8080/juddi/query"/>
+                <property name="javax.xml.registry.lifeCycleManagerURL" value="http://${env.OPENSHIFT_JBOSSEAP_IP}:8080/juddi/publish"/>
+                <property name="javax.xml.registry.queryManagerURL" value="http://${env.OPENSHIFT_JBOSSEAP_IP}:8080/juddi/query"/>
             </properties>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:jaxrs:1.0"/>
@@ -261,7 +235,7 @@
             <stack name="tcp">
                 <transport type="TCP" socket-binding="jgroups-tcp">
                     <property name="external_addr">
-                        amg-greco.rhcloud.com
+                        ${env.OPENSHIFT_APP_DNS}
                     </property>
                     <property name="external_port">
                         7600
@@ -270,7 +244,7 @@
                         7600
                     </property>
                     <property name="bind_addr">
-                        127.6.205.1
+                        ${env.OPENSHIFT_JBOSSEAP_IP}
                     </property>
                     <property name="defer_client_bind_addr">
                         true
@@ -281,7 +255,7 @@
                         30000
                     </property>
                     <property name="initial_hosts">
-                        127.6.205.1[7600]
+                        ${env.OPENSHIFT_JBOSSEAP_IP}[7600]
                     </property>
                     <property name="port_range">
                         0
@@ -476,7 +450,7 @@
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:webservices:1.1">
             <modify-wsdl-address>true</modify-wsdl-address>
-            <wsdl-host>amg-greco.rhcloud.com</wsdl-host>
+            <wsdl-host>${env.OPENSHIFT_APP_DNS}</wsdl-host>
             <wsdl-port>80</wsdl-port>
             <endpoint-config name="Standard-Endpoint-Config"/>
             <endpoint-config name="Recording-Endpoint-Config">
