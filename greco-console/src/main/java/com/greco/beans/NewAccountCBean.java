@@ -91,7 +91,7 @@ public class NewAccountCBean {
 		UserSBean userBean=(UserSBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userLogged");
 		
 		if (userDataProvider.activate(userBean.getItem(),this.newAccountBBean.getActCode())) {
-			try {
+			/*try {
 	
 				// authenticate against spring security
 				//Indicamos que intentamos login en aplicación de administración.
@@ -108,7 +108,7 @@ public class NewAccountCBean {
 				logger.log("001005");//INFO|Intento de login fallido. Usuario o contraseña incorrectos.
 	
 				return null;
-			}
+			}*/
 			ret="success";
 			logger.log("001000");//INFO|Intento exitoso de login como administrador.				
 		}

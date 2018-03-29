@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.mail.Address;
+import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -17,6 +18,10 @@ import javax.mail.internet.MimeMessage;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 import com.greco.entities.Community;
@@ -32,9 +37,12 @@ import com.greco.utils.EMail;
 @Service("mailProvider")
 public class MailProviderImpl implements MailProvider {
 	
-	private final String JNDI_NAME="java:jboss/mail/Default";  //Para JBOSS
+	//private final String JNDI_NAME="java:jboss/mail/Default";  //Para JBOSS
 	
 	//private final String JNDI_NAME="mail/gmailAccount";  //Para Glassfish.
+	
+	
+    public JavaMailSender emailSender;
 	
 	private final String SENDER="admin@alnura.es";
 
@@ -42,25 +50,11 @@ public class MailProviderImpl implements MailProvider {
 	private UserDAO usersRepository;
 	
 	
-	private Session mailSession;
-	
 	private final String BUNDLE_NAME = "com.greco.emails"; //$NON-NLS-1$
 
 	private final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
 			.getBundle(BUNDLE_NAME);
 	
-	@PostConstruct
-	public void init(){
-		InitialContext ctx;
-		try {
-			ctx = new InitialContext();
-			 mailSession =(Session) ctx.lookup(JNDI_NAME);
-		} catch (NamingException e) {
-			
-			e.printStackTrace();
-		}
-       
-	}
 	
 	
 	
@@ -77,8 +71,10 @@ public class MailProviderImpl implements MailProvider {
 			return '!' + key + '!';
 		}
 	}
-	
-	
+	@Autowired
+	public MailProviderImpl(JavaMailSender sender) {
+        this.emailSender = sender;
+    }
 	/**
 	 * Envía un correo
 	 * @param email  Dirección de correo.
@@ -86,7 +82,24 @@ public class MailProviderImpl implements MailProvider {
 	 * @param content Contenido
 	 * @throws MessagingException
 	 */
-	private void send(String email, String subject, String content)throws MessagingException{
+	private void send(String emailTo, String subject, String body){
+		 MimeMessagePreparator message = newMessage -> {
+	            newMessage.setRecipient(
+	                    Message.RecipientType.TO,
+	                    new InternetAddress(emailTo)
+	            );
+	            newMessage.setFrom(SENDER);
+	            newMessage.setSubject(subject);
+	            newMessage.setText(body);
+	        };
+
+	        this.emailSender.send(message);
+		
+		/*
+		
+		
+		
+		
 		MimeMessage message = new MimeMessage(mailSession);
 		
 		Address toAddress = new InternetAddress(email);
@@ -104,7 +117,7 @@ public class MailProviderImpl implements MailProvider {
 		String serverPassword = mailSession.getProperty("mail.password");
 		tr.connect(null, serverPassword);
 		tr.sendMessage(message, message.getAllRecipients());
-		tr.close();
+		tr.close();*/
 	
 	}
 

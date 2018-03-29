@@ -77,7 +77,7 @@
     <url-pattern>*.faces</url-pattern>
   </servlet-mapping>
   
-  <!-- Enable Spring Filter, Spring Security works on the concept of Filters -->
+  <!-- Enable Spring Filter, Spring Security works on the concept of Filters 
   <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>
@@ -91,7 +91,7 @@
         <dispatcher>FORWARD</dispatcher>
    		<dispatcher>REQUEST</dispatcher>
    </filter-mapping>
-   
+   -->
    <listener>
     <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
    </listener>

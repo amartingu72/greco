@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jboss-web PUBLIC "http://www.jboss.org/j2ee/dtd" "http://www.jboss.org/j2ee/dtd/jboss-service_5_0.dtd">
-
-<jboss-web>  
-    <resource-ref>
-        <res-ref-name>jdbc/greco</res-ref-name>
-        <jndi-name>java:jboss/datasources/MySQLDS</jndi-name>
-</resource-ref>  
-</jboss-web>  
