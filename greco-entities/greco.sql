@@ -52,12 +52,12 @@ create table resources (
 	id int AUTO_INCREMENT PRIMARY KEY,
 	name varchar(32),
 	description varchar(128),
-	minTime	int not null comment 'Tiempo mínimo reservable en minutos. Conforma las unidades de reserva',
-	maxTime int not null comment 'Tiempo máximo reservable en minutos',
-	availableFromTime varchar(5) comment 'Disponible desde las 00:00',
-	availableToTime	varchar(5) comment 'Disponible hasta  las 23:59',
+	min_time	int not null comment 'Tiempo mínimo reservable en minutos. Conforma las unidades de reserva',
+	max_time int not null comment 'Tiempo máximo reservable en minutos',
+	available_from_time varchar(5) comment 'Disponible desde las 00:00',
+	available_to_time	varchar(5) comment 'Disponible hasta  las 23:59',
 	beforehand int,
-	resourceType_id int not null,
+	resource_type_id int not null,
 	community_id int not null,
 	beforehandtu_id int not null DEFAULT 1 comment 'Unidad de tiempo para beforehand.',
 	timeunit_id int not null DEFAULT 1 comment 'Unidad de tiempo para maxtime y mintime.',
@@ -74,7 +74,7 @@ create table users_communities (
 	community_id int not null,
 	user_id  int not null,
 	profile_id  int not null,
-	registerDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	register_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                   ON UPDATE CURRENT_TIMESTAMP,
 	status int not null default 0,
 	application varchar(256),
@@ -87,8 +87,8 @@ create table users_communities (
 create table exceptions (
 	id int AUTO_INCREMENT PRIMARY KEY,
 	resources_id int not null,
-	fromDate TIMESTAMP not null,
-	toDate TIMESTAMP,
+	fromdate TIMESTAMP not null,
+	todate TIMESTAMP,
 	FOREIGN KEY (resources_id) REFERENCES resources (id)
 );
 
@@ -98,8 +98,8 @@ create table reservations (
 	id int AUTO_INCREMENT PRIMARY KEY,
 	user_id int not null,
 	resource_id int not null,
-	fromDate timestamp not null default 0,
-	toDate timestamp not null null default 0,
+	fromdate timestamp not null default 0,
+	todate timestamp not null null default 0,
 	status int not null default 0,
 	status_date timestamp  not null default current_timestamp,
 	FOREIGN KEY (user_id) REFERENCES users(id),

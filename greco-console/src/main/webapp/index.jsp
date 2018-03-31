@@ -1,1 +1,1 @@
-<jsp:forward page="/faces/sections/login/login.xhtml"/>
+<jsp:forward page="/sections/login/login.xhtml"/>

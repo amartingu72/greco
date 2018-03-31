@@ -17,9 +17,9 @@ public class Exception implements Serializable {
 
 	@Id
 	private int id;
-
+	@Column(name="fromdate")
 	private Timestamp fromDate;
-
+	@Column(name="todate")
 	private Timestamp toDate;
 
 	//bi-directional many-to-one association to Resource

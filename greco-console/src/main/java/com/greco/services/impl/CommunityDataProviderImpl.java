@@ -239,17 +239,20 @@ public class CommunityDataProviderImpl implements CommunityDataProvider {
 
 	@Override
 	public ResourceTypeItem[] getResourceTypes(CommunityItem communityItem) {
+		List<ResourceTypeItem> rsrcTypeList=new ArrayList<>();
 		Community community=this.communityDAO.loadSelectedCommunity(communityItem.getId());
+		
 		List<com.greco.entities.Resource> rsrcList=community.getResources();
-		Iterator<com.greco.entities.Resource> it=rsrcList.iterator();
-		List<ResourceTypeItem> rsrcTypeList=new ArrayList<ResourceTypeItem>();
-		Resourcetype rsrcType;
-		ResourceTypeItem rsrcTypeItem;
-		while ( it.hasNext() ){
-			rsrcType=it.next().getResourcetype();
-			rsrcTypeItem=new ResourceTypeItem(rsrcType.getId(),
-					rsrcType.getName(), rsrcType.getDescription());
-			if ( !rsrcTypeList.contains(rsrcTypeItem) )  rsrcTypeList.add(rsrcTypeItem);
+		if ( (rsrcList!=null) && !rsrcList.isEmpty() ) {
+			Iterator<com.greco.entities.Resource> it=rsrcList.iterator();
+			Resourcetype rsrcType;
+			ResourceTypeItem rsrcTypeItem;
+			while ( it.hasNext() ){
+				rsrcType=it.next().getResourcetype();
+				rsrcTypeItem=new ResourceTypeItem(rsrcType.getId(),
+						rsrcType.getName(), rsrcType.getDescription());
+				if ( !rsrcTypeList.contains(rsrcTypeItem) )  rsrcTypeList.add(rsrcTypeItem);
+			}
 		}
 		return rsrcTypeList.toArray(new ResourceTypeItem[rsrcTypeList.size()]);
 	}

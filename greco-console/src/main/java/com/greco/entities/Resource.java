@@ -44,11 +44,13 @@ public class Resource implements Serializable {
 	private List<Reservation> reservations;
 
 	//bi-directional many-to-one association to Community
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name="community_id")
 	private Community community;
 
 	//bi-directional many-to-one association to Resourcetype
 	@ManyToOne
+	@JoinColumn(name="resource_type_id")
 	private Resourcetype resourcetype;
 
 	//bi-directional many-to-one association to Timeunit

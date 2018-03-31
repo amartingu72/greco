@@ -1,1 +1,1 @@
-<jsp:forward page="/faces/sites/welcome.xhtml"/>
+<jsp:forward page="/sites/welcome.xhtml"/>

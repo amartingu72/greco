@@ -59,8 +59,8 @@ public class EditCommunityBBean implements Serializable{
 		
 		//Monto la URL de site.
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		String[] url = req.getRequestURL().toString().split("faces");
-		this.site=url[0] + "sites/?communityid=" + item.getId();
+		String[] url = req.getRequestURL().toString().split("sections");
+		this.site=url[0] + "sites?communityid=" + item.getId();
 		
 		//Botón 'Guardar' visible.
 		this.saveBtnVisible=true;

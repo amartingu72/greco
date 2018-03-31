@@ -2,7 +2,8 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
   <display-name>Greco</display-name>
 
-<!-- Config. JSF2 -->  
+<!-- Config. JSF2 --> 
+<!--  
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -12,16 +13,20 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
   </servlet-mapping>
+-->
 <!-- Fin config. JSF2 -->  
   
 <!-- Config. Spring -->
+<!-- 
   <listener>
+
      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   <context-param>
      <param-name>contextConfigLocation</param-name>
      <param-value>/WEB-INF/applicationContext.xml, /WEB-INF/spring-security.xml</param-value>
-  </context-param> 
+  </context-param>
+ --> 
 <!-- Fin Config. Spring -->
 
 	<context-param>
@@ -64,6 +69,7 @@
   </listener>
 
 <!-- Listener para inicializar el bean de usuario-->
+<!-- 
   <listener>
     <listener-class>com.greco.listeners.GrecoContextListener</listener-class>
   </listener>
@@ -76,7 +82,7 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.faces</url-pattern>
   </servlet-mapping>
-  
+ -->  
   <!-- Enable Spring Filter, Spring Security works on the concept of Filters 
   <filter>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -103,7 +109,7 @@
   
   <error-page>
     
-    <location>/faces/sections/error_page.xhtml</location>
+    <location>/sections/error_page.xhtml</location>
   </error-page>
   
 </web-app>

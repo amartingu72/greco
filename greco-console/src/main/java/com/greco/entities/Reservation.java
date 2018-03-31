@@ -17,14 +17,15 @@ public class Reservation implements Serializable {
 
 	@Id
 	private int id;
-
+	@Column(name="fromdate")
 	private Timestamp fromDate;
 
 	private int status;
 
 	@Column(name="status_date")
 	private Timestamp statusDate;
-
+	
+	@Column(name="todate")
 	private Timestamp toDate;
 
 	//bi-directional many-to-one association to Resource

@@ -34,7 +34,7 @@ public class Community implements Serializable {
 	private Country country;
 
 	//bi-directional many-to-one association to Resource
-	@OneToMany(mappedBy="community")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="community")
 	private List<Resource> resources;
 
 	//bi-directional many-to-many association to User
