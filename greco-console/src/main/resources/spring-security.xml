@@ -33,7 +33,7 @@
         <security:intercept-url pattern="/sites/reservations.xhtml" access="hasRole('ROLE_USER')" />
         <security:intercept-url pattern="/sites/sidebarleft.xhtml" access="hasRole('ROLE_USER')" />
            
-        <security:form-login login-page="/sections/error_page.xhtml"/>
+        <security:form-login login-page="/sections/login/login.xhtml"/>
         <security:logout
         	invalidate-session="true"
         	logout-url="/sections/login/logout.xhtml"
