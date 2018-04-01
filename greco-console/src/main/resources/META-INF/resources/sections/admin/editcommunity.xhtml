@@ -197,7 +197,7 @@
 						<div class="col-md-12">
 							<p:message id="datatable_msg" for="resourcesTable" showSummary="true" showDetail="true"/>
 							<h:dataTable class="table table-condensed table-hover" id="resourcesTable" value="#{editCommunityBBean.myResources}" 
-								var="rsrc" columnClasses="none,none,none, text-center">                        	
+								var="rsrc" >                        	
 								
 								<h:column id="status" styleClass="rscrColumn4">
 	        						<h:outputText styleClass="ui-icon ui-icon-circle-plus" title="#{msgs['editcommunity.new']}" rendered="#{rsrc.added}"/>

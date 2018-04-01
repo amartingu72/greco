@@ -1,6 +1,8 @@
 package com.greco.config;
 
 
+
+
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -12,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -26,6 +29,7 @@ import javax.servlet.ServletContext;
 @EntityScan("com.greco.entities")
 @EnableJpaRepositories("com.greco.repositories")
 @ImportResource({"classpath:spring-security.xml"})
+@EnableWebSecurity
 public class GrecoConfig implements ServletContextAware{
 	public static void main(String[] args) {
 		SpringApplication.run(GrecoConfig.class, args);
@@ -71,7 +75,7 @@ public class GrecoConfig implements ServletContextAware{
 		servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 		servletContext.setInitParameter("javax.faces.FACELETS_SKIP_COMMENTS", "true");
 	}
-
+	  
 	
 
 

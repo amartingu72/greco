@@ -8,20 +8,20 @@
 	<version>2.0.1</version>
 	<name>greco-console Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	<repositories>
+
+	<parent>
+    	<groupId>org.joinfaces</groupId>
+    	<artifactId>joinfaces-parent</artifactId>
+    	<version>3.0.2</version>
+    	<relativePath/>
+	</parent>
+<repositories>
 		<repository>
 			<id>prime-repo</id>
 			<name>Prime Repo</name>
 			<url>http://repository.primefaces.org</url>
 		</repository>
-	</repositories>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.10.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
-
+  </repositories>
 	<properties>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>ISO-8859-1</project.reporting.outputEncoding>
@@ -29,6 +29,13 @@
 		<skip.tests>false</skip.tests>
 	</properties>
 	<dependencies>
+
+    	<dependency>
+     	 	<groupId>org.joinfaces</groupId>
+      		<artifactId>jsf-spring-boot-starter</artifactId>
+    	</dependency>
+		
+
 
 		<!-- SPRING Web -->
 		<dependency>
@@ -57,7 +64,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 
-		<!-- JSF -->
+		<!-- JSF 
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
@@ -86,7 +93,7 @@
 			<groupId>javax.servlet.jsp</groupId>
 			<artifactId>jsp-api</artifactId>
 			<version>2.1</version>
-		</dependency>
+		</dependency>-->
 
 		<!-- JSR-330 -->
 		<dependency>
@@ -94,7 +101,7 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-		<!-- JSF para Springboot -->
+		<!-- JSF para Springboot 
 		<dependency>
 			<groupId>org.ocpsoft.rewrite</groupId>
 			<artifactId>rewrite-servlet</artifactId>
@@ -114,8 +121,13 @@
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>6.1</version>
-		</dependency>
+		</dependency>-->
 		<!-- Spring security -->
+		
+		<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -149,6 +161,12 @@
 			<artifactId>spring-context</artifactId>
 
 		</dependency>
+<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+<dependency>
+    <groupId>org.primefaces</groupId>
+    <artifactId>primefaces</artifactId>
+   
+</dependency>
 
 		<dependency>
 			<groupId>joda-time</groupId>
@@ -158,7 +176,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.0</version>
+			
 		</dependency>
 
 		<dependency>
@@ -203,7 +221,7 @@
 	<build>
 		
 		<finalName>greco-console</finalName>
-
+		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
 		
 		<plugins>
 			<plugin>
