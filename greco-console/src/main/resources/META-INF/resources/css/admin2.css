@@ -1,0 +1,139 @@
+@import url(http://fonts.googleapis.com/css?family=Lato);
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,300,700,800);
+@charset "UTF-8";
+
+/* #ui-dialog-content
+{
+	font-family: 'Lato', sans-serif;
+	color: #797979;
+	font-size: 12px;	
+} */
+
+#adds
+{
+	padding: 0px;
+	float:right;		
+}
+
+/*Menús desplegables de la página de miembros*/
+.menu .ui-selectonemenu-label { 
+   	font-family: 'Lato', sans-serif;
+	color: #797979;
+	font-size: 12px;
+	width: 100%;
+	
+
+}
+.panel .ui-selectonemenu-list { 
+    font-family: 'Lato', sans-serif;
+	color: #797979;
+	font-size: 12px;
+		
+}
+
+
+/*Calendario*/
+.ui-datepicker{
+	font-size:10px!important;
+	}
+/*Elimina barras de scroll de los diálogos*/
+/* .disable-scroll .ui-dialog-content {
+  overflow: hidden !important;
+}
+ */
+ /* .ui-dialog{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: 150px;
+    margin-left: 200px;
+  } */
+ 
+ 
+/*Tabs*/
+.ui-tabs-top > .ui-tabs-nav {
+   
+    font-family: 'Lato', sans-serif;
+	font-size: 12px; 
+}
+
+.ui-accordion-header {
+   
+    font-family: 'Lato', sans-serif !important;
+	font-size: 12px !important; 
+}
+
+/*Growl*/
+.ui-growl-item {
+    font-family: 'Lato', sans-serif;
+	font-size: 12px; 
+}
+	
+/*InputText*/
+/* .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield{
+    box-shadow: none !important;
+    font-family: 'Lato', sans-serif !important;
+	font-size: 12px !important; 
+} */
+/*Botones
+.ui-button{
+	font-family: 'Lato', sans-serif !important;
+	font-size: 12px !important;
+}*/
+
+/*Etiquetas*/
+.ui-outputlabel{
+	font-family: 'Open Sans', sans-serif !important;
+	font-size: 14px !important;
+	/*color: #797979;*/
+}
+/*Mensajes*/
+.ui-messages-info .ui-messages-error .ui-messages-warn{
+	font-family: 'Lato', sans-serif !important;
+	font-size: 12px !important;
+} 
+/*
+.ui-selectonemenu-items{
+	font-family: 'Lato', sans-serif !important;
+	font-size: 12px !important;
+}
+*/
+/*Tablas*/
+.ui-datatable-data{
+	font-family: 'Open Sans', sans-serif !important;
+	font-size: 14px !important;
+	
+}
+
+.ui-datatable.borderless thead th,
+.ui-datatable.borderless tbody,
+.ui-datatable.borderless tbody tr,
+.ui-datatable.borderless tbody td {
+    border-style: none;
+}
+/*Columnas de la pestaña de miembros*/
+.rsrcColumn1{
+	width:150px;
+	
+}
+.rsrcColumn2{
+	
+	width:100px;
+	text-align:center;
+	
+}
+.rsrcColumn3{
+	width:100px;
+	text-align:center;
+	
+}
+.rsrcColumn4{
+	width:150px;
+	text-align:center;
+	
+	
+}
+.rsrcColumn5{
+	width:80px;
+	text-align:center;	
+}

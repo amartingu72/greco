@@ -25,7 +25,7 @@ import javax.servlet.ServletContext;
 @EnableAutoConfiguration
 @EntityScan("com.greco.entities")
 @EnableJpaRepositories("com.greco.repositories")
-@ImportResource("classpath:spring-security.xml")
+@ImportResource({"classpath:spring-security.xml"})
 public class GrecoConfig implements ServletContextAware{
 	public static void main(String[] args) {
 		SpringApplication.run(GrecoConfig.class, args);
