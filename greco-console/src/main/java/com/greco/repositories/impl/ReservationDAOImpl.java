@@ -137,7 +137,7 @@ public class ReservationDAOImpl implements ReservationDAO {
 	
 	@Override
 	public boolean hasReservations(int resourceId) {
-		Query query=em.createQuery( "select count(r) from Reservation as r where r.resource.id=:resource_id", Reservation.class );
+		Query query=em.createQuery( "select count(r) from Reservation as r where r.resource.id=:resource_id", Long.class );
 		
 		query.setParameter("resource_id", resourceId);		
 		

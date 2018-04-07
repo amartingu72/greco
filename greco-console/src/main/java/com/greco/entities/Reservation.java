@@ -17,6 +17,7 @@ public class Reservation implements Serializable {
 
 	@Id
 	private int id;
+	
 	@Column(name="fromdate")
 	private Timestamp fromDate;
 

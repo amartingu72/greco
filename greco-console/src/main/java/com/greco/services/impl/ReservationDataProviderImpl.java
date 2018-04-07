@@ -1,5 +1,6 @@
 package com.greco.services.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -130,6 +131,7 @@ public class ReservationDataProviderImpl implements ReservationDataProvider {
 		User user = userRepository.loadSelectedUser(userItem.getId());
 		reservation.setUser(user);
 		reservation.setStatus(status);
+		reservation.setStatusDate(new Timestamp(System.currentTimeMillis()));
 		//Buscamos la reserva por si alguien se hubiera adelantado.
 		List<Reservation> reservationsList=reservationRepository.loadReservations(rsrcItem.getId(), 
 				scheduleUnit.getFromDate(), 

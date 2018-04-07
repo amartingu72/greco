@@ -62,7 +62,7 @@ public class MailProviderImpl implements MailProvider {
 	}
 	@Autowired
 	public MailProviderImpl(JavaMailSender sender) {
-        this.emailSender = sender;
+	        this.emailSender = sender;
     }
 	/**
 	 * Envía un correo

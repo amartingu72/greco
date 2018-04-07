@@ -16,7 +16,7 @@ public class ZipcodeValidator implements Validator{
 		//Comprobamos que todos los caracteres son numéricos
 		if ( zipcode.matches("\\d+")) {			
 			//Comprobamos que el código postal introducido no pertenece a Canarias.
-			if ( zipcode!= null && !zipcode.trim().equals("")){
+			if ( zipcode!= null && !zipcode.trim().equals("") && (zipcode.trim().length()>1)){
 				String subcode=zipcode.substring(0, 2);
 				if ( subcode.equals("38") || subcode.equals("35")) { //Códigos postales de Canarias.
 				    FacesMessage message = new FacesMessage();
